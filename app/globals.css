@@ -133,12 +133,23 @@ body {
 
 /* Orbit Animation */
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-  to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+  from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
+}
+
+@keyframes orbit-lg {
+  from { transform: rotate(0deg) translateX(220px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(220px) rotate(-360deg); }
 }
 
 .orbit {
   animation: orbit 20s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .orbit {
+    animation-name: orbit-lg;
+  }
 }
 
 /* Pulse Ring Animation */

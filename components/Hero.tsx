@@ -179,24 +179,33 @@ export default function Hero() {
             </div>
 
             {/* Floating Tech Icons */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              {floatingIcons.map(({ Icon, color, delay }, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1 + delay, duration: 0.5 }}
-                  className="absolute orbit"
-                  style={{
-                    animationDelay: `${delay * 3}s`,
-                    animationDuration: `${20 + index * 2}s`,
-                  }}
-                >
-                  <div className="p-3 rounded-xl glass" style={{ color }}>
-                    <Icon size={24} />
-                  </div>
-                </motion.div>
-              ))}
+            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+              {floatingIcons.map(({ Icon, color, delay }, index) => {
+                const startAngle = (index * 60) // Distribute 6 icons evenly (360/6 = 60 degrees apart)
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1 + delay * 0.2, duration: 0.5 }}
+                    className="absolute"
+                    style={{
+                      transform: `rotate(${startAngle}deg)`,
+                    }}
+                  >
+                    <motion.div
+                      className="orbit"
+                      style={{
+                        animationDuration: `${25 + index * 3}s`,
+                      }}
+                    >
+                      <div className="p-3 rounded-xl glass shadow-lg" style={{ color }}>
+                        <Icon size={24} />
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )
+              })}
             </div>
 
             {/* Profile Image */}
