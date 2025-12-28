@@ -7,7 +7,7 @@ import {
   SiTypescript, SiPython, SiReact, SiNextdotjs, SiNodedotjs,
   SiFlutter, SiDocker, SiFastapi, SiOpenai
 } from 'react-icons/si'
-import { FaRobot, FaMicrophone, FaCode, FaMobile } from 'react-icons/fa'
+import { FaRobot, FaMicrophone, FaCode, FaMobile, FaProjectDiagram, FaUsers, FaChartLine } from 'react-icons/fa'
 
 const skills = [
   { name: 'TypeScript', icon: SiTypescript, color: '#3178c6' },
@@ -41,10 +41,22 @@ const expertise = [
     gradient: 'from-orange-500 to-yellow-400',
   },
   {
-    icon: FaMobile,
-    title: 'Mobile Apps',
-    description: 'Cross-platform mobile development with Flutter',
-    gradient: 'from-green-500 to-emerald-400',
+    icon: FaChartLine,
+    title: 'Digital Transformation',
+    description: 'Leading enterprise digital transformation initiatives and business optimization',
+    gradient: 'from-indigo-500 to-violet-400',
+  },
+  {
+    icon: FaUsers,
+    title: 'Agile Leadership',
+    description: 'Scrum Master & Product Owner expertise driving team collaboration',
+    gradient: 'from-teal-500 to-green-400',
+  },
+  {
+    icon: FaProjectDiagram,
+    title: 'System Architecture',
+    description: 'Designing scalable enterprise solutions and technical roadmaps',
+    gradient: 'from-rose-500 to-pink-400',
   },
 ]
 
@@ -81,7 +93,7 @@ export default function About() {
         </motion.div>
 
         {/* Expertise Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {expertise.map((item, index) => (
             <motion.div
               key={item.title}

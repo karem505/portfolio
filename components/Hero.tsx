@@ -10,7 +10,10 @@ const titles = [
   'AI Automation Expert',
   'Voice Agent Builder',
   'Full-Stack Developer',
-  'Business Optimizer',
+  'System Architect',
+  'Scrum Master',
+  'Product Owner',
+  'Business Analyst',
 ]
 
 const floatingIcons = [
