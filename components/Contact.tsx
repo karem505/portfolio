@@ -20,12 +20,19 @@ export default function Contact() {
 
     try {
       const form = e.currentTarget
-      const formData = new FormData(form)
+      const data = new FormData(form)
 
-      const response = await fetch('/', {
+      // Encode form data for Netlify
+      const encodedData = new URLSearchParams()
+      encodedData.append('form-name', 'contact')
+      encodedData.append('name', data.get('name') as string)
+      encodedData.append('email', data.get('email') as string)
+      encodedData.append('message', data.get('message') as string)
+
+      const response = await fetch('/__forms.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
+        body: encodedData.toString(),
       })
 
       if (response.ok) {
