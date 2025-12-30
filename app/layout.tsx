@@ -126,6 +126,10 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
 
   category: 'technology',
+
+  verification: {
+    google: 'GaInkdmpzw7MEq3aHdmiRCSHfVzHxZweUCxFQwGhLtU',
+  },
 }
 
 export const viewport: Viewport = {
