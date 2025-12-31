@@ -8,6 +8,7 @@ import {
   ProfessionalServiceJsonLd,
   BreadcrumbJsonLd,
 } from '@/components/JsonLd'
+import ClickEffect from '@/components/ClickEffect'
 
 const siteUrl = 'https://abo-elmakarem.netlify.app'
 
@@ -157,6 +158,7 @@ export default function RootLayout({
         <BreadcrumbJsonLd />
       </head>
       <body className="bg-[#0a0a0a] text-white antialiased noise">
+        <ClickEffect />
         {children}
       </body>
     </html>
