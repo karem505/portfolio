@@ -23,7 +23,7 @@
 
 html {
   scroll-behavior: smooth;
-  cursor: url('/cursor.png') 32 32, auto;
+  cursor: url('/cursor.png') 4 4, auto;
 }
 
 body {
@@ -31,13 +31,13 @@ body {
   background: var(--background);
   color: #ffffff;
   overflow-x: hidden;
-  cursor: url('/cursor.png') 32 32, auto;
+  cursor: url('/cursor.png') 4 4, auto;
 }
 
 /* Custom cursor for interactive elements */
 a, button, [role="button"], input[type="submit"], input[type="button"],
 .cursor-pointer, [onclick] {
-  cursor: url('/cursor.png') 32 32, pointer;
+  cursor: url('/cursor.png') 4 4, pointer;
 }
 
 /* Click effect - radiating lines */
