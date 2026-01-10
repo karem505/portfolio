@@ -8,7 +8,7 @@ import { useLanguage, translations } from '@/lib/LanguageContext'
 import { getCategories, getRecentPosts, formatDate } from '@/lib/blog'
 import type { Category, Post } from '@/lib/types'
 
-const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+const categoryIcons: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   news: HiNewspaper,
   'how-to': HiLightBulb,
   tutorial: HiCodeBracket,
