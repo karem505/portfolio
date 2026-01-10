@@ -1,6 +1,9 @@
 import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 
+// Revalidate sitemap every hour (3600 seconds)
+export const revalidate = 3600
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://abo-elmakarem.netlify.app'
   const lastModified = new Date()
