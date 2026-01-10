@@ -20,9 +20,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
   const isArabic = language === 'ar'
   const title = isArabic ? post.title_ar : post.title_en
-  const description = (isArabic
+  const description: string | undefined = (isArabic
     ? post.meta_description_ar || post.excerpt_ar
-    : post.meta_description_en || post.excerpt_en) ?? undefined
+    : post.meta_description_en || post.excerpt_en) || undefined
   const baseUrl = 'https://abo-elmakarem.netlify.app'
 
   return {
