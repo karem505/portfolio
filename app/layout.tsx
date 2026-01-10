@@ -9,6 +9,7 @@ import {
   BreadcrumbJsonLd,
 } from '@/components/JsonLd'
 import ClickEffect from '@/components/ClickEffect'
+import { GoogleAnalytics } from '@/components/Analytics'
 
 const siteUrl = 'https://abo-elmakarem.netlify.app'
 
@@ -92,6 +93,9 @@ export const metadata: Metadata = {
 
   alternates: {
     canonical: siteUrl,
+    types: {
+      'application/rss+xml': `${siteUrl}/feed.xml`,
+    },
   },
 
   openGraph: {
@@ -158,6 +162,7 @@ export default function RootLayout({
         <BreadcrumbJsonLd />
       </head>
       <body className="bg-[#0a0a0a] text-white antialiased noise">
+        <GoogleAnalytics />
         <ClickEffect />
         {children}
       </body>

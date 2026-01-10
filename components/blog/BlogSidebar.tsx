@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { HiTag, HiClock, HiNewspaper, HiLightBulb, HiCodeBracket, HiChartBar } from 'react-icons/hi2'
+import { HiTag, HiClock, HiNewspaper, HiLightBulb, HiCodeBracket, HiChartBar, HiEnvelope } from 'react-icons/hi2'
+import { Newsletter } from '@/components/Newsletter'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { getCategories, getRecentPosts, formatDate } from '@/lib/blog'
 import type { Category, Post } from '@/lib/types'
@@ -107,28 +108,13 @@ export default function BlogSidebar() {
         </div>
       </motion.div>
 
-      {/* Newsletter CTA (Optional) */}
+      {/* Newsletter Subscription */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="p-6 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20"
       >
-        <h3 className="font-display font-bold text-lg mb-2">
-          {t('Stay Updated', 'ابق على اطلاع')}
-        </h3>
-        <p className="text-sm text-muted mb-4">
-          {t(
-            'Get the latest AI & automation insights delivered to your inbox.',
-            'احصل على أحدث رؤى الذكاء الاصطناعي والأتمتة مباشرة إلى بريدك.'
-          )}
-        </p>
-        <Link
-          href="/#contact"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-medium text-sm hover:bg-primary/90 transition-colors"
-        >
-          {t('Get in Touch', 'تواصل معي')}
-        </Link>
+        <Newsletter language={language} />
       </motion.div>
     </aside>
   )
