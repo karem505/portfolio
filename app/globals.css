@@ -241,3 +241,200 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
     padding-right: 1rem;
   }
 }
+
+/* ========================================
+   RTL Support for Arabic
+   ======================================== */
+
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .font-body,
+[dir="rtl"] body {
+  font-family: var(--font-body-ar), var(--font-body), sans-serif;
+}
+
+[dir="rtl"] .font-display,
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 {
+  font-family: var(--font-display-ar), var(--font-display), sans-serif;
+}
+
+/* RTL-specific spacing adjustments */
+[dir="rtl"] .ml-auto { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .mr-auto { margin-right: 0; margin-left: auto; }
+
+/* ========================================
+   Blog-specific Styles
+   ======================================== */
+
+/* Blog Content Typography */
+.blog-content {
+  line-height: 1.8;
+  font-size: 1.0625rem;
+}
+
+.blog-content h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent), #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.blog-content h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.375rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.blog-content h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.blog-content p {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.blog-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.blog-content a:hover {
+  color: var(--accent);
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+[dir="rtl"] .blog-content ul,
+[dir="rtl"] .blog-content ol {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+}
+
+.blog-content blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--muted);
+  background: rgba(17, 17, 17, 0.5);
+  padding: 1rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+
+[dir="rtl"] .blog-content blockquote {
+  border-left: none;
+  border-right: 4px solid var(--primary);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+
+.blog-content pre {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+}
+
+.blog-content code {
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--surface);
+  color: var(--primary);
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+
+.blog-content pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.blog-content img {
+  border-radius: 0.75rem;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+.blog-content hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.blog-content th {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  text-align: left;
+  font-weight: 600;
+}
+
+[dir="rtl"] .blog-content th {
+  text-align: right;
+}
+
+.blog-content td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem;
+  color: var(--muted);
+}
+
+/* RTL Blog Content */
+[dir="rtl"] .blog-content h2,
+[dir="rtl"] .blog-content h3,
+[dir="rtl"] .blog-content h4 {
+  font-family: var(--font-display-ar), var(--font-display), sans-serif;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

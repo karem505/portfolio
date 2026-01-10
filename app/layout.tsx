@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { spaceGrotesk, syne } from './fonts'
+import { spaceGrotesk, syne, cairo, ibmPlexArabic } from './fonts'
 import {
   PersonJsonLd,
   WebsiteJsonLd,
@@ -149,7 +149,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${spaceGrotesk.variable} ${syne.variable}`}>
+    <html lang="en" className={`scroll-smooth ${spaceGrotesk.variable} ${syne.variable} ${cairo.variable} ${ibmPlexArabic.variable}`}>
       <head>
         <PersonJsonLd />
         <WebsiteJsonLd />
