@@ -1,7 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['github.com', 'avatars.githubusercontent.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'github.com' },
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+      // News source image domains for blog
+      { protocol: 'https', hostname: 'platform.theverge.com' },
+      { protocol: 'https', hostname: 'media2.dev.to' },
+      { protocol: 'https', hostname: 'wp.technologyreview.com' },
+      { protocol: 'https', hostname: 's.w.org' },
+      // Wildcard patterns for flexibility
+      { protocol: 'https', hostname: '**.theverge.com' },
+      { protocol: 'https', hostname: '**.dev.to' },
+      { protocol: 'https', hostname: '**.technologyreview.com' },
+      { protocol: 'https', hostname: '**.wp.com' },
+      { protocol: 'https', hostname: '**.cloudinary.com' },
+      { protocol: 'https', hostname: '**.amazonaws.com' },
+    ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
