@@ -35,11 +35,14 @@ export function trackEvent(
   label?: string,
   value?: number
 ) {
-  if (typeof window !== 'undefined' && (window as Window & { gtag?: (...args: unknown[]) => void }).gtag) {
-    (window as Window & { gtag: (...args: unknown[]) => void }).gtag('event', action, {
-      event_category: category,
-      event_label: label,
-      value: value,
-    })
+  if (typeof window !== 'undefined') {
+    const win = window as unknown as { gtag?: (...args: unknown[]) => void }
+    if (win.gtag) {
+      win.gtag('event', action, {
+        event_category: category,
+        event_label: label,
+        value: value,
+      })
+    }
   }
 }
