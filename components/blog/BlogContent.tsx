@@ -2,6 +2,7 @@
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import { useLanguage } from '@/lib/LanguageContext'
 
 interface BlogContentProps {
@@ -15,6 +16,7 @@ export default function BlogContent({ content }: BlogContentProps) {
     <div className="blog-content prose prose-invert max-w-none" dir={dir}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
         components={{
           h2: ({ children }) => (
             <h2 className="font-display font-bold text-2xl mt-12 mb-4 gradient-text">
@@ -89,6 +91,17 @@ export default function BlogContent({ content }: BlogContentProps) {
             </span>
           ),
           hr: () => <hr className="my-8 border-white/10" />,
+          iframe: ({ src, ...props }) => (
+            <div className="my-6 aspect-video rounded-xl overflow-hidden border border-white/10">
+              <iframe
+                src={src}
+                className="w-full h-full"
+                allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                {...props}
+              />
+            </div>
+          ),
           table: ({ children }) => (
             <div className="overflow-x-auto my-6">
               <table className="w-full border-collapse">
