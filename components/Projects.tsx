@@ -4,9 +4,18 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
-import { SiPython, SiTypescript, SiDocker, SiNextdotjs } from 'react-icons/si'
+import { SiPython, SiTypescript, SiDocker, SiNextdotjs, SiJavascript } from 'react-icons/si'
 
 const projects = [
+  {
+    title: 'OpenClaw Agent Dashboard',
+    description: 'Glassmorphic agent management dashboard for OpenClaw with task kanban, document editor, real-time agent monitoring, and 11 API integrations.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'OpenClaw'],
+    icon: SiJavascript,
+    color: '#7c5cfc',
+    github: 'https://github.com/karem505/openclaw-agent-dashboard',
+    gradient: 'from-violet-600 to-purple-500',
+  },
   {
     title: 'PE Live AI Agent',
     description: 'Voice AI agent built with LiveKit Agents framework, featuring OpenAI Realtime API, MCP for database integration, and Tavus video avatar. Production-ready with 8 database tools.',
