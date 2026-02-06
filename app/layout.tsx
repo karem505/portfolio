@@ -7,6 +7,7 @@ import {
   OrganizationJsonLd,
   ProfessionalServiceJsonLd,
   BreadcrumbJsonLd,
+  FAQPageJsonLd,
 } from '@/components/JsonLd'
 import ClickEffect from '@/components/ClickEffect'
 import { GoogleAnalytics } from '@/components/Analytics'
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: 'Abo-Elmakarem Shohoud | AI Automation Expert & Voice Agent Developer',
+    default: 'Abo-Elmakarem | AI Automation Expert & Voice Agents',
     template: '%s | Abo-Elmakarem Shohoud',
   },
 
@@ -103,7 +104,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Abo-Elmakarem Shohoud Portfolio',
-    title: 'Abo-Elmakarem Shohoud | AI Automation Expert & Voice Agent Developer',
+    title: 'Abo-Elmakarem | AI Automation Expert & Voice Agents',
     description:
       'CEO @ Ailigent | Helping businesses cut costs by 70% using AI & Automation. Expert in Voice Agents, LiveKit, OpenAI Realtime API.',
   },
@@ -160,6 +161,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <ProfessionalServiceJsonLd />
         <BreadcrumbJsonLd />
+        <FAQPageJsonLd />
       </head>
       <body className="bg-[#0a0a0a] text-white antialiased noise">
         <GoogleAnalytics />

@@ -84,8 +84,8 @@ export default function Contact() {
             Let's <span className="gradient-text">Work Together</span>
           </h2>
           <p className="text-muted max-w-2xl mx-auto text-lg">
-            Have a project in mind? Let's discuss how I can help transform your business
-            with AI automation and cutting-edge solutions.
+            Have a project in mind? Tell me what you need. I'll show you how AI automation
+            can save you time and money.
           </p>
         </motion.div>
 
@@ -279,11 +279,11 @@ export default function Contact() {
               className="p-8 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30"
             >
               <h3 className="font-display font-bold text-2xl mb-4 text-white">
-                Ready to Transform Your Business?
+                Ready to Cut Costs by 70%?
               </h3>
               <p className="text-muted mb-6">
-                Let's discuss how AI automation can help you cut costs by up to 70%
-                and boost your operational efficiency.
+                Let's discuss how AI automation can help you save up to 70% on operational costs
+                and boost your business efficiency.
               </p>
               <motion.a
                 href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"

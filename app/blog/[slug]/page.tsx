@@ -47,7 +47,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: isArabic ? 'ar_EG' : 'en_US',
       images: [
         {
-          url: post.featured_image || `${baseUrl}/og-blog.png`,
+          url: `${baseUrl}/api/og?slug=${post.slug}&lang=${language}`,
           width: 1200,
           height: 630,
           alt: title,
@@ -58,7 +58,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       card: 'summary_large_image',
       title,
       description,
-      images: [post.featured_image || `${baseUrl}/og-blog.png`],
+      images: [`${baseUrl}/api/og?slug=${post.slug}&lang=${language}`],
       creator: '@karem_shohud',
     },
   }

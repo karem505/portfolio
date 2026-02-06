@@ -110,8 +110,8 @@ export default function Hero() {
               transition={{ delay: 0.5 }}
               className="text-muted text-lg max-w-lg mb-8 leading-relaxed"
             >
-              Helping businesses <span className="text-white font-semibold">cut costs by up to 70%</span> using
-              AI & Automation. Building voice agents, intelligent systems, and business solutions.
+              I help businesses <span className="text-white font-semibold">cut costs by up to 70%</span> with
+              AI automation. I build voice agents, intelligent workflows, and scalable business solutions that deliver real results.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -127,7 +127,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
               >
-                View Projects
+                See How I Cut Costs 70%
               </motion.a>
               <motion.a
                 href="#contact"
@@ -135,7 +135,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 rounded-full border border-white/20 font-semibold hover:bg-white/10 transition-all duration-300"
               >
-                Get in Touch
+                Get a Free AI Audit
               </motion.a>
             </motion.div>
 

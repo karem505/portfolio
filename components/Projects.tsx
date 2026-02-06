@@ -15,6 +15,7 @@ const projects = [
     color: '#7c5cfc',
     github: 'https://github.com/karem505/openclaw-agent-dashboard',
     gradient: 'from-violet-600 to-purple-500',
+    result: '11 API integrations, real-time monitoring',
   },
   {
     title: 'PE Live AI Agent',
@@ -24,6 +25,7 @@ const projects = [
     color: '#3776ab',
     github: 'https://github.com/karem505/PE-live-ai-agent',
     gradient: 'from-blue-600 to-cyan-500',
+    result: 'Production-ready, 8 database tools',
   },
   {
     title: 'Technical Support Agent',
@@ -33,6 +35,7 @@ const projects = [
     color: '#3776ab',
     github: 'https://github.com/karem505/technical-support-agent',
     gradient: 'from-purple-600 to-pink-500',
+    result: 'Natural voice + screen sharing',
   },
   {
     title: 'Odoo Railway Deployment',
@@ -42,6 +45,7 @@ const projects = [
     color: '#2496ed',
     github: 'https://github.com/karem505/odoo-railway-deployment',
     gradient: 'from-orange-500 to-red-500',
+    result: 'One-click deployment template',
   },
   {
     title: 'Ailigent Spark',
@@ -51,6 +55,7 @@ const projects = [
     color: '#ffffff',
     github: 'https://github.com/karem505/ailigent-spark',
     gradient: 'from-indigo-600 to-violet-500',
+    result: '70% cost reduction for clients',
   },
 ]
 
@@ -134,9 +139,19 @@ export default function Projects() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-muted mb-6 leading-relaxed">
+                  <p className="text-muted mb-4 leading-relaxed">
                     {project.description}
                   </p>
+
+                  {/* Result Badge */}
+                  {project.result && (
+                    <div className="mb-6">
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${project.gradient} bg-opacity-20 text-white border border-white/10`}>
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                        {project.result}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2">

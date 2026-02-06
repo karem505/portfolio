@@ -25,37 +25,37 @@ const expertise = [
   {
     icon: FaRobot,
     title: 'AI Automation',
-    description: 'Building intelligent systems that automate complex business processes',
+    description: 'I build AI automation systems that cut manual work and save up to 70% in costs.',
     gradient: 'from-blue-500 to-cyan-400',
   },
   {
     icon: FaMicrophone,
     title: 'Voice Agents',
-    description: 'Creating conversational AI with LiveKit & OpenAI Realtime API',
+    description: 'Custom voice agents built with LiveKit and OpenAI Realtime API for sales and support.',
     gradient: 'from-purple-500 to-pink-400',
   },
   {
     icon: FaCode,
     title: 'Full-Stack Dev',
-    description: 'End-to-end development with modern frameworks and best practices',
+    description: 'Full-stack apps with React, Next.js, Python, and FastAPI. Clean code, fast delivery.',
     gradient: 'from-orange-500 to-yellow-400',
   },
   {
     icon: FaChartLine,
     title: 'Digital Transformation',
-    description: 'Leading enterprise digital transformation initiatives and business optimization',
+    description: 'I lead digital transformation projects. From legacy systems to modern AI-powered operations.',
     gradient: 'from-indigo-500 to-violet-400',
   },
   {
     icon: FaUsers,
     title: 'Agile Leadership',
-    description: 'Scrum Master & Product Owner expertise driving team collaboration',
+    description: 'Certified Scrum Master and Product Owner. I keep teams aligned and shipping fast.',
     gradient: 'from-teal-500 to-green-400',
   },
   {
     icon: FaProjectDiagram,
     title: 'System Architecture',
-    description: 'Designing scalable enterprise solutions and technical roadmaps',
+    description: 'Scalable system design for startups and enterprises. Cloud-native, API-first approach.',
     gradient: 'from-rose-500 to-pink-400',
   },
 ]
@@ -87,8 +87,8 @@ export default function About() {
             <span className="gradient-text"> Digital Reality</span>
           </h2>
           <p className="text-muted max-w-2xl mx-auto text-lg">
-            I'm an AI automation expert passionate about building solutions that make businesses
-            more efficient. Based in Cairo, Egypt, I specialize in voice agents and intelligent systems.
+            I'm an AI automation expert in Cairo, Egypt. I build voice agents and intelligent systems
+            that help businesses work smarter and save money.
           </p>
         </motion.div>
 

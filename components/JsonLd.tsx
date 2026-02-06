@@ -297,6 +297,70 @@ export function ProfessionalServiceJsonLd() {
   )
 }
 
+export function FAQPageJsonLd() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is AI automation and how can it help my business?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'AI automation uses artificial intelligence to handle repetitive tasks, make decisions, and streamline workflows. It can help your business reduce manual work, cut operational costs by up to 70%, and free your team to focus on high-value activities.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do voice agents work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Voice agents use technologies like LiveKit and OpenAI Realtime API to have natural conversations with your customers. They can handle sales calls, customer support, appointment scheduling, and more — 24/7, without human intervention.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much can AI automation save my business?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most businesses see cost reductions of 40-70% in automated processes. The exact savings depend on your current workflows, team size, and the complexity of tasks being automated. I provide a free audit to estimate your potential savings.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What technologies do you use?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'I work with Python, TypeScript, React, Next.js, FastAPI, LiveKit, OpenAI Realtime API, Docker, and more. For automation, I use n8n, custom APIs, and AI models. Every project gets the right stack for the job.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you work with international clients?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. I work with clients worldwide. I am based in Cairo, Egypt, and I have experience working with businesses across the Middle East, Europe, and North America. Communication is in English or Arabic.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I get started with AI automation?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Start by reaching out through the contact form or LinkedIn. I will schedule a free consultation to understand your business needs, identify automation opportunities, and propose a solution with clear timelines and expected ROI.',
+        },
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
+  )
+}
+
 export function BreadcrumbJsonLd() {
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
