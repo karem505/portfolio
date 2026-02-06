@@ -32,6 +32,14 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# Prevent caching for dynamic OG images
+[[headers]]
+  for = "/api/og"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    CDN-Cache-Control = "no-cache"
+    Netlify-CDN-Cache-Control = "no-cache"
+
 # Cache static assets
 [[headers]]
   for = "/_next/static/*"
