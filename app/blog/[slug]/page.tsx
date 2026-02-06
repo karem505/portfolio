@@ -69,9 +69,8 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-export default async function BlogPostPage({ params, searchParams }: Props) {
+export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const { lang } = await searchParams
   const post = await getPostBySlug(slug)
 
   if (!post) {
@@ -79,7 +78,6 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
   }
 
   const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
-  const language = lang || 'en'
 
-  return <BlogPostClient post={post} relatedPosts={relatedPosts} initialLanguage={language} />
+  return <BlogPostClient post={post} relatedPosts={relatedPosts} />
 }

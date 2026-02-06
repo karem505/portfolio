@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -16,28 +15,19 @@ import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa'
 import { BlogCard, BlogContent, ArticleJsonLd } from '@/components/blog'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { localizePost, formatDate } from '@/lib/blog'
-import type { Post, Language } from '@/lib/types'
+import type { Post } from '@/lib/types'
 
 interface BlogPostClientProps {
   post: Post
   relatedPosts: Post[]
-  initialLanguage: Language
 }
 
 export default function BlogPostClient({
   post,
   relatedPosts,
-  initialLanguage,
 }: BlogPostClientProps) {
-  const { language, setLanguage, t, dir } = useLanguage()
+  const { language, t, dir } = useLanguage()
   const localized = localizePost(post, language)
-
-  // Set initial language from URL
-  useEffect(() => {
-    if (initialLanguage !== language) {
-      setLanguage(initialLanguage)
-    }
-  }, [initialLanguage, language, setLanguage])
 
   const postTypeLabels = {
     news: translations.news,
