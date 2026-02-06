@@ -1,11 +1,7 @@
 import { ImageResponse } from 'next/og'
-import { createClient } from '@supabase/supabase-js'
 import { NextRequest } from 'next/server'
 
 export const runtime = 'edge'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 async function loadArabicFont(): Promise<ArrayBuffer> {
   const res = await fetch(
@@ -16,35 +12,18 @@ async function loadArabicFont(): Promise<ArrayBuffer> {
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
-  const slug = searchParams.get('slug')
   const lang = searchParams.get('lang') || 'en'
   const isArabic = lang === 'ar'
 
-  let title = 'Blog Post'
-  let category = ''
-  let date = ''
-
-  if (slug) {
-    const supabase = createClient(supabaseUrl, supabaseAnonKey)
-    const { data: post } = await supabase
-      .from('posts')
-      .select('title_en, title_ar, published_at, category:categories(name_en, name_ar)')
-      .eq('slug', slug)
-      .eq('status', 'published')
-      .single()
-
-    if (post) {
-      title = isArabic ? post.title_ar : post.title_en
-      const cats = post.category as { name_en: string; name_ar: string }[] | null
-      if (cats && cats.length > 0) {
-        category = isArabic ? cats[0].name_ar : cats[0].name_en
-      }
-      date = new Date(post.published_at).toLocaleDateString(
+  let title = searchParams.get('title') || 'Blog Post'
+  const category = searchParams.get('category') || ''
+  const rawDate = searchParams.get('date')
+  const date = rawDate
+    ? new Date(rawDate).toLocaleDateString(
         isArabic ? 'ar-EG' : 'en-US',
         { year: 'numeric', month: 'long', day: 'numeric' }
       )
-    }
-  }
+    : ''
 
   // Truncate title if too long
   if (title.length > 80) {

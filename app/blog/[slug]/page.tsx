@@ -25,6 +25,18 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     : post.meta_description_en || post.excerpt_en) || undefined
   const baseUrl = 'https://aboelmakarem.pro'
 
+  const categoryName = post.category
+    ? (isArabic ? post.category.name_ar : post.category.name_en)
+    : ''
+
+  const ogParams = new URLSearchParams({
+    title,
+    lang: language,
+    ...(categoryName && { category: categoryName }),
+    ...(post.published_at && { date: post.published_at }),
+  })
+  const ogUrl = `${baseUrl}/api/og?${ogParams.toString()}`
+
   return {
     title,
     description,
@@ -47,7 +59,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: isArabic ? 'ar_EG' : 'en_US',
       images: [
         {
-          url: `${baseUrl}/api/og?slug=${post.slug}&lang=${language}`,
+          url: ogUrl,
           width: 1200,
           height: 630,
           alt: title,
@@ -58,7 +70,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       card: 'summary_large_image',
       title,
       description,
-      images: [`${baseUrl}/api/og?slug=${post.slug}&lang=${language}`],
+      images: [ogUrl],
       creator: '@karem_shohud',
     },
   }
