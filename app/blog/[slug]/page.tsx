@@ -29,13 +29,15 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     ? (isArabic ? post.category.name_ar : post.category.name_en)
     : ''
 
-  const ogParams = new URLSearchParams({
-    title,
-    lang: language,
-    ...(categoryName && { category: categoryName }),
-    ...(post.published_at && { date: post.published_at }),
-  })
-  const ogUrl = `${baseUrl}/api/og?${ogParams.toString()}`
+  const ogImage = post.featured_image || (() => {
+    const ogParams = new URLSearchParams({
+      title,
+      lang: language,
+      ...(categoryName && { category: categoryName }),
+      ...(post.published_at && { date: post.published_at }),
+    })
+    return `${baseUrl}/api/og?${ogParams.toString()}`
+  })()
 
   return {
     title,
@@ -59,9 +61,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: isArabic ? 'ar_EG' : 'en_US',
       images: [
         {
-          url: ogUrl,
-          width: 1200,
-          height: 630,
+          url: ogImage,
           alt: title,
         },
       ],
@@ -70,7 +70,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       card: 'summary_large_image',
       title,
       description,
-      images: [ogUrl],
+      images: [ogImage],
       creator: '@karem_shohud',
     },
   }
