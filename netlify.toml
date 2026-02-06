@@ -8,10 +8,17 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Redirect old netlify domain to new custom domain
+[[redirects]]
+  from = "https://abo-elmakarem.netlify.app/*"
+  to = "https://aboelmakarem.pro/:splat"
+  status = 301
+  force = true
+
 # Redirect www to non-www (canonical)
 [[redirects]]
-  from = "https://www.abo-elmakarem.netlify.app/*"
-  to = "https://abo-elmakarem.netlify.app/:splat"
+  from = "https://www.aboelmakarem.pro/*"
+  to = "https://aboelmakarem.pro/:splat"
   status = 301
   force = true
 
