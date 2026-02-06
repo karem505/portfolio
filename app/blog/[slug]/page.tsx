@@ -39,26 +39,32 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     return `${baseUrl}/api/og?${ogParams.toString()}`
   })()
 
+  const postUrl = isArabic
+    ? `${baseUrl}/blog/${post.slug}?lang=ar`
+    : `${baseUrl}/blog/${post.slug}`
+
   return {
     title,
     description,
     authors: [{ name: 'Abo-Elmakarem Shohoud' }],
     keywords: [post.post_type],
     alternates: {
-      canonical: `${baseUrl}/blog/${post.slug}`,
+      canonical: postUrl,
       languages: {
-        en: `/blog/${post.slug}?lang=en`,
-        ar: `/blog/${post.slug}?lang=ar`,
+        en: `${baseUrl}/blog/${post.slug}?lang=en`,
+        ar: `${baseUrl}/blog/${post.slug}?lang=ar`,
       },
     },
     openGraph: {
       title,
       description,
+      url: postUrl,
       type: 'article',
       publishedTime: post.published_at,
       modifiedTime: post.updated_at,
       authors: ['Abo-Elmakarem Shohoud'],
       locale: isArabic ? 'ar_EG' : 'en_US',
+      alternateLocale: isArabic ? 'en_US' : 'ar_EG',
       images: [
         {
           url: ogImage,
