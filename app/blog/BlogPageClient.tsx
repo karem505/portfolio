@@ -64,7 +64,7 @@ function BlogContent() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-12"
+        className="mb-8 sm:mb-12"
       >
         <h1 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4">
           {category && categoryLabels[category]

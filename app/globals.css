@@ -271,7 +271,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 /* Blog Content Typography */
 .blog-content {
   line-height: 1.8;
-  font-size: 1rem;
+  font-size: 0.9375rem;
 }
 
 @media (min-width: 640px) {
@@ -330,6 +330,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
   .blog-content h4 {
     font-size: 1.125rem;
     margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -367,30 +368,43 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 }
 
 .blog-content blockquote {
-  border-left: 4px solid var(--primary);
+  border-left: 3px solid var(--primary);
   padding-left: 0.75rem;
   margin: 1rem 0;
   font-style: italic;
   color: var(--muted);
   background: rgba(17, 17, 17, 0.5);
   padding: 0.75rem;
-  border-radius: 0 0.75rem 0.75rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 0.9375rem;
 }
 
 @media (min-width: 640px) {
   .blog-content blockquote {
+    border-left-width: 4px;
     padding: 1rem;
     padding-left: 1rem;
     margin: 1.5rem 0;
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-size: inherit;
   }
 }
 
 [dir="rtl"] .blog-content blockquote {
   border-left: none;
-  border-right: 4px solid var(--primary);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  border-radius: 0.75rem 0 0 0.75rem;
+  border-right: 3px solid var(--primary);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+@media (min-width: 640px) {
+  [dir="rtl"] .blog-content blockquote {
+    border-right-width: 4px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 0.75rem 0 0 0.75rem;
+  }
 }
 
 .blog-content pre {
@@ -399,9 +413,9 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
   background: var(--surface);
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin: 1rem 0;
   font-size: 0.8125rem;
-  -webkit-overflow-scrolling: touch;
 }
 
 @media (min-width: 640px) {
@@ -439,6 +453,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 .blog-content img {
   border-radius: 0.5rem;
   width: 100%;
+  height: auto;
   margin: 1rem 0;
 }
 
@@ -458,12 +473,22 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 .blog-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 640px) {
+  .blog-content table {
+    display: table;
+    margin: 1.5rem 0;
+  }
 }
 
 .blog-content th {
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 0.625rem;
+  padding: 0.5rem 0.75rem;
   background: var(--surface);
   text-align: left;
   font-weight: 600;
@@ -485,7 +510,7 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 
 .blog-content td {
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 0.625rem;
+  padding: 0.5rem 0.75rem;
   color: var(--muted);
   font-size: 0.8125rem;
 }

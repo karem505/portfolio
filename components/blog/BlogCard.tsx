@@ -38,7 +38,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
       dir={dir}
     >
       <Link href={`/blog/${post.slug}?lang=${language}`}>
-        <div className="relative overflow-hidden rounded-2xl bg-surface border border-white/5 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-surface border border-white/5 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
           {/* Cover Image */}
           <div className="relative aspect-video overflow-hidden">
             {localized.featuredImage ? (
