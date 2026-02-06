@@ -53,7 +53,7 @@ export default function BlogContent({ content }: BlogContentProps) {
           ),
           li: ({ children }) => <li className="text-muted">{children}</li>,
           blockquote: ({ children }) => (
-            <blockquote className="border-l-4 rtl:border-l-0 rtl:border-r-4 border-primary pl-4 rtl:pl-0 rtl:pr-4 italic my-6 text-muted bg-surface/50 py-4 rounded-r-lg rtl:rounded-r-none rtl:rounded-l-lg">
+            <blockquote className="border-l-4 rtl:border-l-0 rtl:border-r-4 border-primary pl-3 sm:pl-4 rtl:pl-0 rtl:pr-3 sm:rtl:pr-4 italic my-4 sm:my-6 text-muted bg-surface/50 py-3 sm:py-4 rounded-r-lg rtl:rounded-r-none rtl:rounded-l-lg text-sm sm:text-base">
               {children}
             </blockquote>
           ),
@@ -71,17 +71,17 @@ export default function BlogContent({ content }: BlogContentProps) {
             )
           },
           pre: ({ children }) => (
-            <pre className="p-4 rounded-xl bg-surface border border-white/10 overflow-x-auto my-6 text-sm">
+            <pre className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-surface border border-white/10 overflow-x-auto my-4 sm:my-6 text-xs sm:text-sm">
               {children}
             </pre>
           ),
           img: ({ src, alt }) => (
-            <span className="block my-6">
+            <span className="block my-4 sm:my-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
                 alt={alt || ''}
-                className="rounded-xl w-full"
+                className="rounded-lg sm:rounded-xl w-full"
               />
               {alt && (
                 <span className="block text-center text-sm text-muted mt-2">
@@ -92,7 +92,7 @@ export default function BlogContent({ content }: BlogContentProps) {
           ),
           hr: () => <hr className="my-8 border-white/10" />,
           iframe: ({ src, ...props }) => (
-            <div className="my-6 aspect-video rounded-xl overflow-hidden border border-white/10">
+            <div className="my-4 sm:my-6 aspect-video rounded-lg sm:rounded-xl overflow-hidden border border-white/10">
               <iframe
                 src={src}
                 className="w-full h-full"
@@ -103,19 +103,19 @@ export default function BlogContent({ content }: BlogContentProps) {
             </div>
           ),
           table: ({ children }) => (
-            <div className="overflow-x-auto my-6">
-              <table className="w-full border-collapse">
+            <div className="overflow-x-auto my-4 sm:my-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+              <table className="w-full border-collapse min-w-[400px] sm:min-w-0">
                 {children}
               </table>
             </div>
           ),
           th: ({ children }) => (
-            <th className="border border-white/10 px-4 py-2 bg-surface text-left rtl:text-right font-semibold">
+            <th className="border border-white/10 px-2 py-1.5 sm:px-4 sm:py-2 bg-surface text-left rtl:text-right font-semibold text-xs sm:text-sm">
               {children}
             </th>
           ),
           td: ({ children }) => (
-            <td className="border border-white/10 px-4 py-2 text-muted">
+            <td className="border border-white/10 px-2 py-1.5 sm:px-4 sm:py-2 text-muted text-xs sm:text-sm">
               {children}
             </td>
           ),

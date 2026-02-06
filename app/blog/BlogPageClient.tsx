@@ -66,12 +66,12 @@ function BlogContent() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
       >
-        <h1 className="font-display font-bold text-4xl md:text-5xl mb-4">
+        <h1 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4">
           {category && categoryLabels[category]
             ? t(categoryLabels[category].en, categoryLabels[category].ar)
             : t(translations.blog.en, translations.blog.ar)}
         </h1>
-        <p className="text-muted text-lg max-w-2xl">
+        <p className="text-muted text-base sm:text-lg max-w-2xl">
           {t(
             'Latest insights on AI, automation, and software development.',
             'أحدث الرؤى حول الذكاء الاصطناعي والأتمتة وتطوير البرمجيات.'
@@ -108,14 +108,14 @@ function BlogContent() {
 
       {/* Posts Grid */}
       {loading ? (
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="rounded-2xl bg-surface border border-white/5 animate-pulse"
+              className="rounded-xl sm:rounded-2xl bg-surface border border-white/5 animate-pulse"
             >
               <div className="aspect-video bg-white/5" />
-              <div className="p-6 space-y-3">
+              <div className="p-4 sm:p-6 space-y-3">
                 <div className="h-4 bg-white/5 rounded w-1/4" />
                 <div className="h-6 bg-white/5 rounded w-3/4" />
                 <div className="h-4 bg-white/5 rounded w-full" />
@@ -134,7 +134,7 @@ function BlogContent() {
           </p>
         </motion.div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {posts.map((post, index) => (
             <BlogCard key={post.id} post={post} index={index} />
           ))}
@@ -166,7 +166,7 @@ function BlogContent() {
       )}
 
       {/* Mobile Sidebar Toggle */}
-      <div className="lg:hidden mt-12 pt-8 border-t border-white/10">
+      <div className="lg:hidden mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10">
         <h3 className="font-display font-bold text-lg mb-4">
           {t(translations.categories.en, translations.categories.ar)}
         </h3>
@@ -215,14 +215,14 @@ function BlogLoadingFallback() {
       </div>
 
       {/* Posts Grid Skeleton */}
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="rounded-2xl bg-surface border border-white/5 animate-pulse"
+            className="rounded-xl sm:rounded-2xl bg-surface border border-white/5 animate-pulse"
           >
             <div className="aspect-video bg-white/5" />
-            <div className="p-6 space-y-3">
+            <div className="p-4 sm:p-6 space-y-3">
               <div className="h-4 bg-white/5 rounded w-1/4" />
               <div className="h-6 bg-white/5 rounded w-3/4" />
               <div className="h-4 bg-white/5 rounded w-full" />

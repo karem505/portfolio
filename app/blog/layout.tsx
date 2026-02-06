@@ -30,8 +30,8 @@ export default function BlogLayout({
     <LanguageProvider>
       <div className="min-h-screen bg-background">
         <BlogHeader />
-        <main className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid lg:grid-cols-[1fr_300px] gap-12">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-12">
             <div>{children}</div>
             <div className="hidden lg:block">
               <BlogSidebar />
