@@ -81,12 +81,12 @@ export default function BlogPostClient({
           </span>
 
           {/* Title */}
-          <h1 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight">
+          <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 leading-tight">
             {localized.title}
           </h1>
 
           {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-4 text-muted">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm sm:text-base text-muted">
             <span className="flex items-center gap-2">
               <HiUser className="w-5 h-5" />
               Abo-Elmakarem Shohoud
@@ -108,7 +108,7 @@ export default function BlogPostClient({
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="relative aspect-video rounded-2xl overflow-hidden mb-10"
+            className="relative aspect-video rounded-xl sm:rounded-2xl overflow-hidden mb-6 sm:mb-10"
           >
             <Image
               src={localized.featuredImage}
@@ -126,7 +126,7 @@ export default function BlogPostClient({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="flex items-center gap-2 text-sm text-muted mb-8 p-4 rounded-lg bg-surface border border-white/5"
+            className="flex items-center gap-2 text-xs sm:text-sm text-muted mb-6 sm:mb-8 p-3 sm:p-4 rounded-lg bg-surface border border-white/5"
           >
             <HiLink className="w-4 h-4" />
             <span>{t('Source:', 'المصدر:')}</span>
@@ -219,12 +219,12 @@ export default function BlogPostClient({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="mt-16 pt-12 border-t border-white/10"
+            className="mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-white/10"
           >
-            <h2 className="font-display font-bold text-2xl mb-8">
+            <h2 className="font-display font-bold text-xl sm:text-2xl mb-6 sm:mb-8">
               {t(translations.relatedPosts.en, translations.relatedPosts.ar)}
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {relatedPosts.map((relatedPost, index) => (
                 <BlogCard key={relatedPost.id} post={relatedPost} index={index} />
               ))}

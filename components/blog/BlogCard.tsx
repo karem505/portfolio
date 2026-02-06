@@ -63,30 +63,30 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
           </div>
 
           {/* Content */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {/* Meta */}
-            <div className="flex items-center gap-4 text-sm text-muted mb-3">
+            <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted mb-2 sm:mb-3">
               <span className="flex items-center gap-1.5">
-                <HiClock className="w-4 h-4" />
+                <HiClock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 {localized.readingTime} {t(translations.minRead.en, translations.minRead.ar)}
               </span>
               <span>{formatDate(localized.publishedAt, language)}</span>
             </div>
 
             {/* Title */}
-            <h2 className="font-display font-bold text-xl mb-3 text-white group-hover:text-primary transition-colors line-clamp-2">
+            <h2 className="font-display font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-white group-hover:text-primary transition-colors line-clamp-2">
               {localized.title}
             </h2>
 
             {/* Excerpt */}
-            <p className="text-muted text-sm line-clamp-2 mb-4">
+            <p className="text-muted text-xs sm:text-sm line-clamp-2 mb-3 sm:mb-4">
               {localized.excerpt}
             </p>
 
             {/* Category Badge */}
             {post.category && (
-              <div className="mb-4">
-                <span className="px-2.5 py-1 text-xs rounded-md bg-white/5 text-muted">
+              <div className="mb-3 sm:mb-4">
+                <span className="px-2 sm:px-2.5 py-1 text-xs rounded-md bg-white/5 text-muted">
                   {language === 'ar' ? post.category.name_ar : post.category.name_en}
                 </span>
               </div>
