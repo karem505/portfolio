@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Abo-Elmakarem Shohoud (كارم شهود) - CEO @ Ailigent. AI Automation Expert, RPA Developer, DevOps Engineer & Full-Stack Developer in Egypt. Specializing in Voice Agents, LiveKit, OpenAI, Frontend, Backend development. Helping businesses cut costs by 70%.',
+    'Abo-Elmakarem Shohoud (كارم شهود) - CEO @ Ailigent. AI Automation Expert & Full-Stack Developer in Egypt. Voice Agents, LiveKit, OpenAI. Helping businesses cut costs by 70%.',
 
   keywords: [
     // Name variations (English & Arabic)
