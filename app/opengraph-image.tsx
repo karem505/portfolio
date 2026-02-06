@@ -171,7 +171,7 @@ export default async function Image() {
             }}
           />
           <div style={{ fontSize: '16px', color: '#6366f1', fontWeight: '500' }}>
-            abo-elmakarem.netlify.app
+            aboelmakarem.pro
           </div>
         </div>
       </div>

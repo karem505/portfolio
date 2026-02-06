@@ -11,7 +11,7 @@ import {
 import ClickEffect from '@/components/ClickEffect'
 import { GoogleAnalytics } from '@/components/Analytics'
 
-const siteUrl = 'https://abo-elmakarem.netlify.app'
+const siteUrl = 'https://aboelmakarem.pro'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

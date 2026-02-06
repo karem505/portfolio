@@ -5,7 +5,7 @@ import { getAllPosts } from '@/lib/blog'
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://abo-elmakarem.netlify.app'
+  const baseUrl = 'https://aboelmakarem.pro'
   const lastModified = new Date()
 
   // Static pages - Only include actual page URLs, not hash/anchor links

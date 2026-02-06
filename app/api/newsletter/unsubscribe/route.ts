@@ -104,7 +104,7 @@ function renderUnsubscribePage(status: 'success' | 'error', message: string): st
     <div class="icon">${isSuccess ? '✓' : '✕'}</div>
     <h1>${isSuccess ? 'Unsubscribed' : 'Error'}</h1>
     <p>${message}</p>
-    <a href="https://abo-elmakarem.netlify.app">Return to Website</a>
+    <a href="https://aboelmakarem.pro">Return to Website</a>
   </div>
 </body>
 </html>

@@ -7,7 +7,7 @@ interface ArticleJsonLdProps {
 
 export default function ArticleJsonLd({ post, language }: ArticleJsonLdProps) {
   const isArabic = language === 'ar'
-  const baseUrl = 'https://abo-elmakarem.netlify.app'
+  const baseUrl = 'https://aboelmakarem.pro'
 
   const categoryName = post.category
     ? (isArabic ? post.category.name_ar : post.category.name_en)

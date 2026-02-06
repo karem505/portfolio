@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase'
 // Revalidate RSS feed every hour
 export const revalidate = 3600
 
-const SITE_URL = 'https://abo-elmakarem.netlify.app'
+const SITE_URL = 'https://aboelmakarem.pro'
 const SITE_TITLE = 'Abo-Elmakarem Shohoud Blog'
 const SITE_DESCRIPTION = 'Latest insights on AI, automation, and software development by Abo-Elmakarem Shohoud'
 

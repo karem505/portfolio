@@ -44,7 +44,7 @@ export default function BlogPostClient({
     'how-to': translations['how-to'],
   }
 
-  const shareUrl = `https://abo-elmakarem.netlify.app/blog/${post.slug}?lang=${language}`
+  const shareUrl = `https://aboelmakarem.pro/blog/${post.slug}?lang=${language}`
   const shareText = localized.title
 
   return (

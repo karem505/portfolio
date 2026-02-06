@@ -10,8 +10,8 @@ export function PersonJsonLd() {
       'كارم شهود',
       'ابوالمكارم شهود',
     ],
-    url: 'https://abo-elmakarem.netlify.app',
-    image: 'https://abo-elmakarem.netlify.app/profile.jpg',
+    url: 'https://aboelmakarem.pro',
+    image: 'https://aboelmakarem.pro/profile.jpg',
     jobTitle: [
       'CEO',
       'AI Automation Expert',
@@ -150,7 +150,7 @@ export function WebsiteJsonLd() {
       'كارم شهود',
       'ابوالمكارم شهود',
     ],
-    url: 'https://abo-elmakarem.netlify.app',
+    url: 'https://aboelmakarem.pro',
     description:
       'Portfolio of Abo-Elmakarem Shohoud (كارم شهود) - AI Automation Expert, RPA Developer, DevOps Engineer & Full-Stack Developer',
     author: {
@@ -306,31 +306,31 @@ export function BreadcrumbJsonLd() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://abo-elmakarem.netlify.app',
+        item: 'https://aboelmakarem.pro',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'About',
-        item: 'https://abo-elmakarem.netlify.app/#about',
+        item: 'https://aboelmakarem.pro/#about',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Experience',
-        item: 'https://abo-elmakarem.netlify.app/#experience',
+        item: 'https://aboelmakarem.pro/#experience',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: 'Projects',
-        item: 'https://abo-elmakarem.netlify.app/#projects',
+        item: 'https://aboelmakarem.pro/#projects',
       },
       {
         '@type': 'ListItem',
         position: 5,
         name: 'Contact',
-        item: 'https://abo-elmakarem.netlify.app/#contact',
+        item: 'https://aboelmakarem.pro/#contact',
       },
     ],
   }

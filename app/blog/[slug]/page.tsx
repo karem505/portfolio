@@ -23,7 +23,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const description: string | undefined = (isArabic
     ? post.meta_description_ar || post.excerpt_ar
     : post.meta_description_en || post.excerpt_en) || undefined
-  const baseUrl = 'https://abo-elmakarem.netlify.app'
+  const baseUrl = 'https://aboelmakarem.pro'
 
   return {
     title,
