@@ -79,6 +79,9 @@ export const translations = {
   news: { en: 'News', ar: 'أخبار' },
   'how-to': { en: 'How-To', ar: 'دليل عملي' },
   tutorial: { en: 'Tutorial', ar: 'درس تعليمي' },
+  analysis: { en: 'Analysis', ar: 'تحليل' },
+  'tool-review': { en: 'Tool Review', ar: 'مراجعة أداة' },
   insights: { en: 'Insights', ar: 'رؤى' },
+  trending: { en: 'Trending', ar: 'رائج' },
   all: { en: 'All', ar: 'الكل' },
 }

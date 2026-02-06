@@ -17,9 +17,14 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
   const { language, t, dir } = useLanguage()
   const localized = localizePost(post, language)
 
-  const postTypeLabels = {
+  const postTypeLabels: Record<string, { en: string; ar: string }> = {
     news: translations.news,
     'how-to': translations['how-to'],
+    tutorial: translations.tutorial,
+    analysis: translations.analysis,
+    'tool-review': translations['tool-review'],
+    insights: translations.insights,
+    trending: translations.trending,
   }
 
   const PostTypeIcon = post.post_type === 'news' ? HiNewspaper : HiLightBulb

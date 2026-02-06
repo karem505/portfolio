@@ -20,7 +20,7 @@ export interface Post {
 
   // Categorization
   category_id: string | null
-  post_type: 'news' | 'how-to'
+  post_type: 'news' | 'how-to' | 'tutorial' | 'analysis' | 'tool-review' | 'insights' | 'trending'
 
   // Media
   featured_image: string | null
@@ -68,7 +68,7 @@ export interface LocalizedPost {
   content: string
   excerpt: string | null
   metaDescription: string | null
-  postType: 'news' | 'how-to'
+  postType: Post['post_type']
   featuredImage: string | null
   readingTime: number
   views: number

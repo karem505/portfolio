@@ -29,9 +29,14 @@ export default function BlogPostClient({
   const { language, t, dir } = useLanguage()
   const localized = localizePost(post, language)
 
-  const postTypeLabels = {
+  const postTypeLabels: Record<string, { en: string; ar: string }> = {
     news: translations.news,
     'how-to': translations['how-to'],
+    tutorial: translations.tutorial,
+    analysis: translations.analysis,
+    'tool-review': translations['tool-review'],
+    insights: translations.insights,
+    trending: translations.trending,
   }
 
   const shareUrl = `https://aboelmakarem.pro/blog/${post.slug}?lang=${language}`
@@ -70,10 +75,9 @@ export default function BlogPostClient({
         >
           {/* Post Type Badge */}
           <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary/20 text-primary mb-4">
-            {t(
-              postTypeLabels[post.post_type].en,
-              postTypeLabels[post.post_type].ar
-            )}
+            {postTypeLabels[post.post_type]
+              ? t(postTypeLabels[post.post_type].en, postTypeLabels[post.post_type].ar)
+              : post.post_type}
           </span>
 
           {/* Title */}
