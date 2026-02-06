@@ -52,7 +52,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
             <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">
               <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/90 text-white backdrop-blur-sm flex items-center gap-1.5">
                 <PostTypeIcon className="w-3.5 h-3.5" />
-                {t(postTypeLabels[post.post_type].en, postTypeLabels[post.post_type].ar)}
+                {postTypeLabels[post.post_type] ? t(postTypeLabels[post.post_type].en, postTypeLabels[post.post_type].ar) : post.post_type}
               </span>
             </div>
           </div>
