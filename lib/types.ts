@@ -30,6 +30,10 @@ export interface Post {
   views: number
   status: 'draft' | 'published' | 'archived'
 
+  // SEO
+  seo_keywords: string[] | null
+  trending_keywords: string[] | null
+
   // Source tracking (for news articles)
   source_url: string | null
   source_title: string | null
