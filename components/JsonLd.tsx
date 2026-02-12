@@ -2,6 +2,7 @@ export function PersonJsonLd() {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': 'https://aboelmakarem.pro/#person',
     name: 'Abo-Elmakarem Shohoud',
     alternateName: [
       'Abo Elmakarem',
@@ -13,15 +14,9 @@ export function PersonJsonLd() {
     url: 'https://aboelmakarem.pro',
     image: 'https://aboelmakarem.pro/profile.jpg',
     jobTitle: [
-      'CEO',
+      'CEO & Co-founder at Ailigent',
       'AI Automation Expert',
-      'Voice Agent Developer',
       'Full-Stack Developer',
-      'RPA Developer',
-      'DevOps Engineer',
-      'Frontend Developer',
-      'Backend Developer',
-      'AI Developer',
     ],
     worksFor: {
       '@type': 'Organization',
@@ -143,6 +138,7 @@ export function WebsiteJsonLd() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': 'https://aboelmakarem.pro/#website',
     name: 'Abo-Elmakarem Shohoud Portfolio',
     alternateName: [
       'Abo-Elmakarem Portfolio',
@@ -153,9 +149,8 @@ export function WebsiteJsonLd() {
     url: 'https://aboelmakarem.pro',
     description:
       'Portfolio of Abo-Elmakarem Shohoud (كارم شهود) - AI Automation Expert, RPA Developer, DevOps Engineer & Full-Stack Developer',
-    author: {
-      '@type': 'Person',
-      name: 'Abo-Elmakarem Shohoud',
+    publisher: {
+      '@id': 'https://aboelmakarem.pro/#person',
     },
     inLanguage: ['en-US', 'ar'],
   }
@@ -172,12 +167,17 @@ export function OrganizationJsonLd() {
   const orgSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': 'https://aboelmakarem.pro/#organization',
     name: 'Ailigent',
+    url: 'https://aboelmakarem.pro',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://aboelmakarem.pro/logo.png',
+    },
     description:
       'AI Automation Solutions - Helping businesses cut costs by up to 70% through AI, RPA, and process automation',
     founder: {
-      '@type': 'Person',
-      name: 'Abo-Elmakarem Shohoud',
+      '@id': 'https://aboelmakarem.pro/#person',
     },
     address: {
       '@type': 'PostalAddress',
@@ -214,10 +214,7 @@ export function ProfessionalServiceJsonLd() {
       '@type': 'Person',
       name: 'Abo-Elmakarem Shohoud',
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Worldwide',
-    },
+    areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Development & Automation Services',
@@ -375,26 +372,8 @@ export function BreadcrumbJsonLd() {
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'About',
-        item: 'https://aboelmakarem.pro/#about',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'Experience',
-        item: 'https://aboelmakarem.pro/#experience',
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: 'Projects',
-        item: 'https://aboelmakarem.pro/#projects',
-      },
-      {
-        '@type': 'ListItem',
-        position: 5,
-        name: 'Contact',
-        item: 'https://aboelmakarem.pro/#contact',
+        name: 'Blog',
+        item: 'https://aboelmakarem.pro/blog',
       },
     ],
   }

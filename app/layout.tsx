@@ -5,9 +5,6 @@ import {
   PersonJsonLd,
   WebsiteJsonLd,
   OrganizationJsonLd,
-  ProfessionalServiceJsonLd,
-  BreadcrumbJsonLd,
-  FAQPageJsonLd,
 } from '@/components/JsonLd'
 import ClickEffect from '@/components/ClickEffect'
 import { GoogleAnalytics } from '@/components/Analytics'
@@ -156,12 +153,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${spaceGrotesk.variable} ${syne.variable} ${cairo.variable} ${ibmPlexArabic.variable}`}>
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://zklvvwugirvwimxdvybw.supabase.co" />
         <PersonJsonLd />
         <WebsiteJsonLd />
         <OrganizationJsonLd />
-        <ProfessionalServiceJsonLd />
-        <BreadcrumbJsonLd />
-        <FAQPageJsonLd />
       </head>
       <body className="bg-[#0a0a0a] text-white antialiased noise">
         <GoogleAnalytics />

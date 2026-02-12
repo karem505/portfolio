@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPosts, getRelatedPosts } from '@/lib/blog'
 import BlogPostClient from './BlogPostClient'
+import ArticleJsonLd from '@/components/blog/ArticleJsonLd'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -47,7 +48,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     title,
     description,
     authors: [{ name: 'Abo-Elmakarem Shohoud' }],
-    keywords: [post.post_type],
+    keywords: post.seo_keywords?.length ? post.seo_keywords : [post.post_type],
     alternates: {
       canonical: postUrl,
       languages: {
@@ -97,5 +98,10 @@ export default async function BlogPostPage({ params }: Props) {
 
   const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
 
-  return <BlogPostClient post={post} relatedPosts={relatedPosts} />
+  return (
+    <>
+      <ArticleJsonLd post={post} language="en" />
+      <BlogPostClient post={post} relatedPosts={relatedPosts} />
+    </>
+  )
 }

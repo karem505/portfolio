@@ -1,5 +1,4 @@
-'use client'
-
+import { Suspense } from 'react'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
@@ -10,10 +9,18 @@ import RecentPosts from '@/components/RecentPosts'
 import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import {
+  ProfessionalServiceJsonLd,
+  BreadcrumbJsonLd,
+  FAQPageJsonLd,
+} from '@/components/JsonLd'
 
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden">
+      <ProfessionalServiceJsonLd />
+      <BreadcrumbJsonLd />
+      <FAQPageJsonLd />
       {/* Background Effects */}
       <div className="fixed inset-0 animated-gradient opacity-50" />
 
@@ -30,7 +37,9 @@ export default function Home() {
         <Experience />
         <Projects />
         <Testimonials />
-        <RecentPosts />
+        <Suspense fallback={<div className="py-32" />}>
+          <RecentPosts />
+        </Suspense>
         <FAQ />
         <Contact />
         <Footer />

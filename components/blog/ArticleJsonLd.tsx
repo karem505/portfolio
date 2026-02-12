@@ -45,7 +45,7 @@ export default function ArticleJsonLd({ post, language }: ArticleJsonLdProps) {
     },
     inLanguage: isArabic ? 'ar' : 'en',
     articleSection: categoryName,
-    keywords: post.post_type,
+    keywords: post.seo_keywords?.length ? post.seo_keywords.join(', ') : post.post_type,
     wordCount: (isArabic ? post.content_ar : post.content_en).split(/\s+/).length,
   }
 
