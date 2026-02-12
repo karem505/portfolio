@@ -6,11 +6,18 @@ export const metadata: Metadata = {
   description: 'Explore AI automation tutorials, voice agent guides, and tech insights by Abo-Elmakarem Shohoud. Practical tips for cutting business costs with AI.',
   alternates: {
     canonical: 'https://aboelmakarem.pro/blog',
+    languages: {
+      en: 'https://aboelmakarem.pro/blog',
+      ar: 'https://aboelmakarem.pro/blog?lang=ar',
+      'x-default': 'https://aboelmakarem.pro/blog',
+    },
   },
   openGraph: {
     title: 'Blog',
     description: 'Explore AI automation tutorials, voice agent guides, and tech insights by Abo-Elmakarem Shohoud. Practical tips for cutting business costs with AI.',
     type: 'website',
+    locale: 'en_US',
+    alternateLocale: 'ar_EG',
     url: 'https://aboelmakarem.pro/blog',
     images: [{ url: 'https://aboelmakarem.pro/opengraph-image', alt: 'Abo-Elmakarem Blog', width: 1200, height: 630 }],
   },
