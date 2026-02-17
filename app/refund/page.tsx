@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
-  description: 'Refund Policy for Ailigent AI automation consulting services by Abo-Elmakarem Shohoud.',
+  description: 'Refund Policy for Aboelmakarem AI automation consulting services by Abo-Elmakarem Shohoud.',
   alternates: {
     canonical: 'https://aboelmakarem.pro/refund',
   },
@@ -21,12 +21,12 @@ export default function RefundPage() {
 
           <p>
             This Refund Policy applies to consulting and AI automation services provided by
-            Abo-Elmakarem Shohoud through <strong>Ailigent — AI Automation Solutions</strong>.
+            Abo-Elmakarem Shohoud through <strong>Aboelmakarem — AI Automation Solutions</strong>.
           </p>
 
           <h2>1. Services Overview</h2>
           <p>
-            Ailigent provides AI automation consulting, voice agent development, workflow automation,
+            Aboelmakarem provides AI automation consulting, voice agent development, workflow automation,
             and digital transformation services. Services are typically delivered on a project basis
             with milestones agreed upon before work begins.
           </p>

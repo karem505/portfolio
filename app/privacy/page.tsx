@@ -21,7 +21,7 @@ export default function PrivacyPage() {
 
           <p>
             This Privacy Policy explains how Abo-Elmakarem Shohoud (&quot;I&quot;, &quot;me&quot;, &quot;my&quot;),
-            operating through <strong>Ailigent — AI Automation Solutions</strong>, collects, uses, and
+            operating through <strong>Aboelmakarem — AI Automation Solutions</strong>, collects, uses, and
             protects your information when you visit{' '}
             <a href="https://aboelmakarem.pro">aboelmakarem.pro</a>.
           </p>
