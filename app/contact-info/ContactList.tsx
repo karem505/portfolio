@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa'
+import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa'
 import { SiUpwork } from 'react-icons/si'
 
 const contacts = [
@@ -10,6 +10,12 @@ const contacts = [
     label: 'Email',
     value: 'karm92000@gmail.com',
     href: 'mailto:karm92000@gmail.com',
+  },
+  {
+    icon: FaPhone,
+    label: 'Phone',
+    value: '+20 106 142 2876',
+    href: 'tel:+201061422876',
   },
   {
     icon: FaLinkedin,
@@ -65,8 +71,8 @@ export default function ContactList() {
             <a
               key={contact.label}
               href={contact.href}
-              target={contact.href.startsWith('mailto:') ? undefined : '_blank'}
-              rel={contact.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+              target={contact.href.startsWith('mailto:') || contact.href.startsWith('tel:') ? undefined : '_blank'}
+              rel={contact.href.startsWith('mailto:') || contact.href.startsWith('tel:') ? undefined : 'noopener noreferrer'}
             >
               {Card}
             </a>
