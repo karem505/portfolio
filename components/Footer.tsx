@@ -85,6 +85,17 @@ export default function Footer() {
             CEO & Co-founder @ <span className="text-primary">Ailigent</span> • AI Automation Expert • Cairo, Egypt
           </p>
         </motion.div>
+
+        {/* Policy Links */}
+        <div className="mt-4 text-center">
+          <div className="flex items-center justify-center gap-2 text-xs text-muted/60">
+            <a href="/privacy" className="hover:text-muted transition-colors">Privacy Policy</a>
+            <span>·</span>
+            <a href="/refund" className="hover:text-muted transition-colors">Refund Policy</a>
+            <span>·</span>
+            <a href="/contact-info" className="hover:text-muted transition-colors">Contact</a>
+          </div>
+        </div>
       </div>
     </footer>
   )
