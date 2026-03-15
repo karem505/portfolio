@@ -48,11 +48,11 @@ export async function getPosts(
   }
 }
 
-// Get all posts for sitemap (no pagination)
+// Get all posts for sitemap and SSR link rendering (no pagination)
 export async function getAllPosts(): Promise<Post[]> {
   const { data, error } = await supabase
     .from('posts')
-    .select('slug, updated_at, published_at')
+    .select('slug, title_en, title_ar, updated_at, published_at')
     .eq('status', 'published')
     .order('published_at', { ascending: false })
 

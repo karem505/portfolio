@@ -42,6 +42,12 @@ export default function Footer() {
                 {link}
               </a>
             ))}
+            <a
+              href="/blog"
+              className="text-muted hover:text-white text-sm transition-colors"
+            >
+              Blog
+            </a>
           </motion.nav>
 
           {/* Social Links */}

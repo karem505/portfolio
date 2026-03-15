@@ -1,4 +1,6 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
+import { getAllPosts } from '@/lib/blog'
 import BlogPageClient from './BlogPageClient'
 
 export const metadata: Metadata = {
@@ -29,6 +31,30 @@ export const metadata: Metadata = {
   },
 }
 
-export default function BlogPage() {
-  return <BlogPageClient />
+export default async function BlogPage() {
+  // Fetch all posts server-side so Googlebot can discover all blog post links
+  // without needing to execute JavaScript
+  const allPosts = await getAllPosts()
+
+  return (
+    <>
+      <BlogPageClient />
+      {/* Server-rendered post links for SEO crawlability */}
+      {/* This hidden nav ensures Googlebot discovers all blog post URLs */}
+      <nav aria-label="All blog posts" className="sr-only">
+        <ul>
+          {allPosts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/blog/${post.slug}`}>
+                {post.title_en || post.slug}
+              </Link>
+              <Link href={`/blog/${post.slug}?lang=ar`}>
+                {post.title_ar || post.slug}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
+  )
 }
