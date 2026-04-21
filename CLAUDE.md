@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal portfolio and blog for **Abo-Elmakarem Shohoud** (Karem / كارم شهود), CEO & Co-founder at Ailigent. AI Automation Expert, Voice Agent Builder, Full-Stack Developer — Cairo, Egypt.
+Personal portfolio and blog for **Abo-Elmakarem Shohoud** (Karem / كارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master & Business Analyst at Ailigent. Ships AI-powered SaaS (Tornix.ai · Oravex.app · Costra.ailigent.ai) for clients across Egypt, UAE, and KSA. Cairo, Egypt.
 
 - **Live**: https://aboelmakarem.pro
 - **Netlify**: abo-elmakarem (`ccc54db2-f196-4526-8d58-849ab31b60f0`)

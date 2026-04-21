@@ -4,67 +4,81 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import {
-  SiTypescript, SiPython, SiReact, SiNextdotjs, SiNodedotjs,
-  SiFlutter, SiDocker, SiFastapi, SiOpenai
-} from 'react-icons/si'
-import { FaRobot, FaMicrophone, FaCode, FaMobile, FaProjectDiagram, FaUsers, FaChartLine } from 'react-icons/fa'
+  FaCode, FaServer, FaUsers, FaMicrophone, FaChartLine, FaClipboardList
+} from 'react-icons/fa'
 
-const skills = [
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178c6' },
-  { name: 'Python', icon: SiPython, color: '#3776ab' },
-  { name: 'React', icon: SiReact, color: '#61dafb' },
-  { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
-  { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-  { name: 'Flutter', icon: SiFlutter, color: '#02569b' },
-  { name: 'FastAPI', icon: SiFastapi, color: '#009688' },
-  { name: 'Docker', icon: SiDocker, color: '#2496ed' },
-  { name: 'OpenAI', icon: SiOpenai, color: '#10a37f' },
+const skillCategories = [
+  {
+    title: 'Languages & Frameworks',
+    items: ['TypeScript', 'Python', 'JavaScript', 'React', 'Next.js', 'Node.js', 'Flutter', 'FastAPI'],
+    accent: 'from-blue-500 to-cyan-400',
+  },
+  {
+    title: 'DevOps & Infrastructure',
+    items: ['Docker', 'GitHub Actions', 'AWS EC2', 'Railway', 'CI/CD Pipelines', 'Linux', 'Nginx'],
+    accent: 'from-orange-500 to-yellow-400',
+  },
+  {
+    title: 'AI & Automation',
+    items: ['OpenAI Realtime API', 'LiveKit Agents', 'MCP (Model Context Protocol)', 'Tavus'],
+    accent: 'from-purple-500 to-pink-400',
+  },
+  {
+    title: 'ERP & Business Systems',
+    items: ['Odoo 18', 'Process Automation', 'Business Analysis', 'Digital Transformation'],
+    accent: 'from-indigo-500 to-violet-400',
+  },
+  {
+    title: 'Agile & Leadership',
+    items: ['Scrum Master', 'Product Ownership', 'Sprint Planning', 'Backlog Management'],
+    accent: 'from-teal-500 to-green-400',
+  },
 ]
 
 const expertise = [
   {
-    icon: FaRobot,
-    title: 'AI Automation',
-    description: 'I build AI automation systems that cut manual work and save up to 70% in costs.',
+    icon: FaCode,
+    title: 'Full-Stack Development',
+    description: 'TypeScript, React, Next.js, Python, FastAPI, and Node.js across production SaaS apps.',
     gradient: 'from-blue-500 to-cyan-400',
   },
   {
+    icon: FaServer,
+    title: 'DevOps & Cloud',
+    description: 'Docker, GitHub Actions, AWS EC2, and Railway pipelines running three live products.',
+    gradient: 'from-orange-500 to-yellow-400',
+  },
+  {
     icon: FaMicrophone,
-    title: 'Voice Agents',
-    description: 'Custom voice agents built with LiveKit and OpenAI Realtime API for sales and support.',
+    title: 'AI Voice Agents',
+    description: 'Voice AI built with LiveKit Agents and OpenAI Realtime API for sales and support.',
     gradient: 'from-purple-500 to-pink-400',
   },
   {
-    icon: FaCode,
-    title: 'Full-Stack Dev',
-    description: 'Full-stack apps with React, Next.js, Python, and FastAPI. Clean code, fast delivery.',
-    gradient: 'from-orange-500 to-yellow-400',
+    icon: FaUsers,
+    title: 'Scrum & Agile Delivery',
+    description: 'Facilitating ceremonies, managing backlogs, and coordinating sprints across three SaaS teams.',
+    gradient: 'from-teal-500 to-green-400',
+  },
+  {
+    icon: FaClipboardList,
+    title: 'Business Analysis',
+    description: 'Requirements workshops and ROI modeling for digital transformation across Egypt, UAE, and KSA.',
+    gradient: 'from-rose-500 to-pink-400',
   },
   {
     icon: FaChartLine,
     title: 'Digital Transformation',
-    description: 'I lead digital transformation projects. From legacy systems to modern AI-powered operations.',
+    description: 'From legacy systems to AI-powered operations — consistently 50–70% cost reduction.',
     gradient: 'from-indigo-500 to-violet-400',
-  },
-  {
-    icon: FaUsers,
-    title: 'Agile Leadership',
-    description: 'Certified Scrum Master and Product Owner. I keep teams aligned and shipping fast.',
-    gradient: 'from-teal-500 to-green-400',
-  },
-  {
-    icon: FaProjectDiagram,
-    title: 'System Architecture',
-    description: 'Scalable system design for startups and enterprises. Cloud-native, API-first approach.',
-    gradient: 'from-rose-500 to-pink-400',
   },
 ]
 
 const stats = [
-  { value: '15+', label: 'Projects Completed' },
+  { value: '3', label: 'Live SaaS Products' },
   { value: '70%', label: 'Cost Reduction' },
   { value: '2+', label: 'Years Experience' },
-  { value: '10+', label: 'Happy Clients' },
+  { value: '3', label: 'Regions Served' },
 ]
 
 export default function About() {
@@ -86,9 +100,14 @@ export default function About() {
             Transforming Ideas into
             <span className="gradient-text"> Digital Reality</span>
           </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
-            I'm an AI automation expert in Cairo, Egypt. I build voice agents and intelligent systems
-            that help businesses work smarter and save money.
+          <p className="text-muted max-w-3xl mx-auto text-lg">
+            Full-Stack Developer and AI automation expert based in Cairo, Egypt with 2+ years of experience.
+            At <span className="text-white font-semibold">Ailigent</span> I serve concurrently as Scrum Master,
+            DevOps Engineer, and Full-Stack Developer across three live SaaS products —
+            <span className="text-white font-semibold"> Tornix.ai</span>,
+            <span className="text-white font-semibold"> Oravex.app</span>, and
+            <span className="text-white font-semibold"> Costra.ailigent.ai</span> — delivering digital
+            transformation engagements across Egypt, UAE, and KSA.
           </p>
         </motion.div>
 
@@ -120,26 +139,37 @@ export default function About() {
           ))}
         </div>
 
-        {/* Skills Grid */}
+        {/* Skills by Category */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-20"
         >
-          <h3 className="font-display font-bold text-2xl text-center mb-8">Tech Stack</h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {skills.map((skill, index) => (
+          <h3 className="font-display font-bold text-2xl text-center mb-10">Technical Skills</h3>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {skillCategories.map((category, catIndex) => (
               <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.4, delay: 0.5 + index * 0.05 }}
-                whileHover={{ y: -4, scale: 1.05 }}
-                className="tech-badge px-5 py-3 rounded-xl flex items-center gap-3 cursor-default"
+                key={category.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.5 + catIndex * 0.1 }}
+                className="p-6 rounded-2xl glass border border-white/5 hover:border-primary/20 transition-colors duration-300"
               >
-                <skill.icon size={24} style={{ color: skill.color }} />
-                <span className="font-medium text-white">{skill.name}</span>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className={`w-10 h-1 rounded-full bg-gradient-to-r ${category.accent}`} />
+                  <h4 className="font-display font-semibold text-lg text-white">{category.title}</h4>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {category.items.map((item) => (
+                    <span
+                      key={item}
+                      className="tech-badge px-3 py-1.5 rounded-lg text-sm font-medium text-white/90"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>

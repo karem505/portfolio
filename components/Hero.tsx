@@ -7,12 +7,11 @@ import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
 
 const titles = [
+  'Full-Stack Developer',
+  'DevOps Engineer',
+  'Scrum Master',
   'AI Automation Expert',
   'Voice Agent Builder',
-  'Full-Stack Developer',
-  'System Architect',
-  'Scrum Master',
-  'Product Owner',
   'Business Analyst',
 ]
 
@@ -93,7 +92,7 @@ export default function Hero() {
               className="mb-6"
             >
               <h2 className="font-display text-2xl md:text-3xl text-muted">
-                CEO @ <span className="text-primary">Ailigent</span>
+                Full-Stack Developer @ <span className="text-primary">Ailigent</span>
               </h2>
               <div className="h-12 mt-2">
                 <span className="font-display text-xl md:text-2xl text-white">
@@ -110,8 +109,9 @@ export default function Hero() {
               transition={{ delay: 0.5 }}
               className="text-muted text-lg max-w-lg mb-8 leading-relaxed"
             >
-              I help businesses <span className="text-white font-semibold">cut costs by up to 70%</span> with
-              AI automation. I build voice agents, intelligent workflows, and scalable business solutions that deliver real results.
+              Full-Stack Developer, DevOps Engineer, and Scrum Master at <span className="text-white font-semibold">Ailigent</span>.
+              I architect and ship AI-powered SaaS products across Egypt, UAE, and KSA — cutting operational costs by up to
+              <span className="text-white font-semibold"> 70%</span>.
             </motion.p>
 
             {/* CTA Buttons */}

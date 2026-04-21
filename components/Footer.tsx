@@ -88,7 +88,7 @@ export default function Footer() {
           className="mt-8 pt-8 border-t border-white/5 text-center"
         >
           <p className="text-muted text-xs">
-            CEO & Co-founder @ <span className="text-primary">Ailigent</span> • AI Automation Expert • Cairo, Egypt
+            Full-Stack Developer @ <span className="text-primary">Ailigent</span> • DevOps · Scrum Master · AI Automation • Cairo, Egypt
           </p>
         </motion.div>
 

@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export const alt = 'Abo-Elmakarem Shohoud - AI Automation Expert'
+export const alt = 'Abo-Elmakarem Shohoud — Full-Stack Developer & AI Automation Expert'
 export const size = {
   width: 1200,
   height: 630,
@@ -106,7 +106,7 @@ export default async function Image() {
               marginBottom: '20px',
             }}
           >
-            AI Automation Expert
+            Full-Stack Developer · DevOps · Scrum Master
           </div>
 
           {/* Subtitle */}
@@ -117,7 +117,7 @@ export default async function Image() {
               marginBottom: '30px',
             }}
           >
-            CEO @ Ailigent | Voice Agents | Full-Stack Developer
+            AI Automation @ Ailigent · Tornix.ai · Oravex.app · Costra.ailigent.ai
           </div>
 
           {/* Tagline */}
@@ -133,7 +133,7 @@ export default async function Image() {
             }}
           >
             <div style={{ fontSize: '20px', color: '#6366f1' }}>
-              Helping businesses cut costs by 70% using AI
+              Cutting client costs up to 70% across Egypt · UAE · KSA
             </div>
           </div>
         </div>

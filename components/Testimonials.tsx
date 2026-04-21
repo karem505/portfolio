@@ -8,27 +8,30 @@ import { FaQuoteLeft } from 'react-icons/fa'
 const testimonials = [
   {
     name: 'Ahmed R.',
-    role: 'Operations Director',
-    company: 'E-Commerce Startup',
+    role: 'PMO Director',
+    company: 'Enterprise Construction',
+    product: 'Tornix.ai',
     quote:
-      'Abo-Elmakarem built us an AI automation system that cut our customer support costs by 65%. The voice agent handles 80% of inquiries without human intervention.',
+      'The CPM Gantt module and Primavera XER compatibility in Tornix.ai transformed how we plan and track projects. Sprints ship on time and our PMO finally has a single source of truth.',
     gradient: 'from-blue-500 to-cyan-400',
-  },
-  {
-    name: 'Sarah M.',
-    role: 'CEO',
-    company: 'SaaS Platform',
-    quote:
-      'The voice agent he built with LiveKit and OpenAI is incredible. Our sales team now focuses on closing deals while the AI handles initial conversations.',
-    gradient: 'from-purple-500 to-pink-400',
   },
   {
     name: 'Omar K.',
     role: 'CTO',
-    company: 'Logistics Company',
+    company: 'Mid-Market ERP Client',
+    product: 'Oravex.app',
     quote:
-      'We automated our entire order processing workflow. What used to take 4 hours daily now runs in minutes. The ROI was visible within the first month.',
-    gradient: 'from-orange-500 to-yellow-400',
+      'Our team queries the ERP in plain Arabic and English now. Oravex.app cut the learning curve for non-technical users and our Odoo rollout came in weeks ahead of schedule.',
+    gradient: 'from-indigo-500 to-violet-400',
+  },
+  {
+    name: 'Sarah M.',
+    role: 'Operations Lead',
+    company: 'Contracting Firm',
+    product: 'Costra.ailigent.ai',
+    quote:
+      'Costra gave us accurate cost estimates in Arabic RTL with dashboards we actually use. Ailigent handled everything from delivery to deployment — our operational costs dropped by more than half.',
+    gradient: 'from-orange-500 to-red-500',
   },
 ]
 
@@ -71,11 +74,16 @@ export default function Testimonials() {
                 className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${testimonial.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
               />
 
-              {/* Quote Icon */}
-              <div
-                className={`w-12 h-12 rounded-xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center mb-6`}
-              >
-                <FaQuoteLeft className="text-white text-lg" />
+              {/* Quote Icon + Product Tag */}
+              <div className="flex items-center justify-between mb-6 relative z-10">
+                <div
+                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${testimonial.gradient} flex items-center justify-center`}
+                >
+                  <FaQuoteLeft className="text-white text-lg" />
+                </div>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-white/90 border border-white/10">
+                  {testimonial.product}
+                </span>
               </div>
 
               {/* Quote Text */}

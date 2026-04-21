@@ -14,9 +14,11 @@ export function PersonJsonLd() {
     url: 'https://aboelmakarem.pro',
     image: 'https://aboelmakarem.pro/profile.jpg',
     jobTitle: [
-      'CEO & Co-founder at Ailigent',
+      'Full-Stack Developer at Ailigent',
+      'DevOps Engineer at Ailigent',
+      'Scrum Master at Ailigent',
+      'Business Analyst at Ailigent',
       'AI Automation Expert',
-      'Full-Stack Developer',
     ],
     worksFor: {
       '@type': 'Organization',
@@ -24,7 +26,7 @@ export function PersonJsonLd() {
       description: 'AI Automation Solutions',
     },
     description:
-      'AI Automation Expert, RPA Developer, DevOps Engineer & Full-Stack Developer helping businesses cut costs by up to 70% using AI & Automation. Specializing in Voice Agents, LiveKit, OpenAI, Frontend and Backend development.',
+      'Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst at Ailigent with 2+ years of experience shipping production-grade SaaS. Builds AI-powered products (Tornix.ai, Oravex.app, Costra.ailigent.ai) and voice AI agents (LiveKit, OpenAI Realtime, MCP, Tavus) for clients across Egypt, UAE, and KSA.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Cairo',
@@ -39,26 +41,24 @@ export function PersonJsonLd() {
     knowsAbout: [
       // AI & Automation
       'Artificial Intelligence',
-      'Machine Learning',
       'Voice Agents',
-      'LiveKit',
-      'OpenAI',
+      'LiveKit Agents',
       'OpenAI Realtime API',
+      'MCP',
+      'Model Context Protocol',
+      'Tavus',
       'Business Automation',
-      'Digital Transformation',
-      // RPA
-      'RPA',
-      'Robotic Process Automation',
-      'UiPath',
       'Process Automation',
+      'Digital Transformation',
       // DevOps
       'DevOps',
-      'CI/CD',
+      'CI/CD Pipelines',
       'Docker',
-      'Kubernetes',
-      'Cloud Computing',
-      'AWS',
+      'GitHub Actions',
+      'AWS EC2',
       'Railway',
+      'Linux',
+      'Nginx',
       // Programming Languages
       'Python',
       'TypeScript',
@@ -69,41 +69,40 @@ export function PersonJsonLd() {
       'React',
       'Next.js',
       'Tailwind CSS',
-      'HTML',
-      'CSS',
       // Backend
       'Backend Development',
       'Node.js',
-      'Express',
       'FastAPI',
       'REST API',
-      'GraphQL',
       // Mobile
       'Flutter',
       'Mobile Development',
-      // Tools
-      'n8n',
-      'Odoo',
+      // ERP & Domain
+      'Odoo 18',
+      'Enterprise Resource Planning',
+      'Critical Path Method',
+      'Primavera P6',
+      'XER',
+      // Agile & Business
+      'Scrum',
+      'Scrum Master',
+      'Product Ownership',
+      'Sprint Planning',
+      'Backlog Management',
+      'Business Analysis',
+      'Requirements Engineering',
+      'ROI Modelling',
       'Git',
     ],
     hasOccupation: [
       {
         '@type': 'Occupation',
-        name: 'AI Automation Expert',
+        name: 'Full-Stack Developer',
         occupationLocation: {
           '@type': 'Country',
           name: 'Egypt',
         },
-        skills: 'AI, Voice Agents, Python, TypeScript, LiveKit, OpenAI',
-      },
-      {
-        '@type': 'Occupation',
-        name: 'RPA Developer',
-        occupationLocation: {
-          '@type': 'Country',
-          name: 'Egypt',
-        },
-        skills: 'RPA, UiPath, Process Automation, Business Automation',
+        skills: 'React, Next.js, Node.js, FastAPI, Python, TypeScript, Flutter',
       },
       {
         '@type': 'Occupation',
@@ -112,16 +111,34 @@ export function PersonJsonLd() {
           '@type': 'Country',
           name: 'Egypt',
         },
-        skills: 'Docker, Kubernetes, CI/CD, Cloud Computing',
+        skills: 'Docker, GitHub Actions, AWS EC2, Railway, CI/CD Pipelines, Linux, Nginx',
       },
       {
         '@type': 'Occupation',
-        name: 'Full-Stack Developer',
+        name: 'Scrum Master',
         occupationLocation: {
           '@type': 'Country',
           name: 'Egypt',
         },
-        skills: 'React, Next.js, Node.js, FastAPI, Python, TypeScript',
+        skills: 'Scrum, Sprint Planning, Backlog Management, Product Ownership, Team Facilitation',
+      },
+      {
+        '@type': 'Occupation',
+        name: 'Business Analyst',
+        occupationLocation: {
+          '@type': 'Country',
+          name: 'Egypt',
+        },
+        skills: 'Requirements Engineering, Process Mapping, User Stories, ROI Modelling, Digital Transformation',
+      },
+      {
+        '@type': 'Occupation',
+        name: 'AI Automation Expert',
+        occupationLocation: {
+          '@type': 'Country',
+          name: 'Egypt',
+        },
+        skills: 'Voice Agents, LiveKit Agents, OpenAI Realtime API, MCP, Tavus, Odoo 18',
       },
     ],
   }
@@ -148,7 +165,7 @@ export function WebsiteJsonLd() {
     ],
     url: 'https://aboelmakarem.pro',
     description:
-      'Portfolio of Abo-Elmakarem Shohoud (كارم شهود) - AI Automation Expert, RPA Developer, DevOps Engineer & Full-Stack Developer',
+      'Portfolio of Abo-Elmakarem Shohoud (كارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master & AI Automation Expert at Ailigent.',
     publisher: {
       '@id': 'https://aboelmakarem.pro/#person',
     },
@@ -175,8 +192,8 @@ export function OrganizationJsonLd() {
       url: 'https://aboelmakarem.pro/logo.png',
     },
     description:
-      'AI Automation Solutions - Helping businesses cut costs by up to 70% through AI, RPA, and process automation',
-    founder: {
+      'AI Automation Solutions — helping businesses cut operational costs by up to 70% through AI-powered SaaS products and process automation.',
+    employee: {
       '@id': 'https://aboelmakarem.pro/#person',
     },
     address: {
@@ -184,14 +201,20 @@ export function OrganizationJsonLd() {
       addressLocality: 'Cairo',
       addressCountry: 'Egypt',
     },
-    areaServed: 'Worldwide',
+    areaServed: [
+      { '@type': 'Country', name: 'Egypt' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+      { '@type': 'Country', name: 'Saudi Arabia' },
+    ],
     knowsAbout: [
       'AI Automation',
       'Voice Agents',
       'Business Process Automation',
-      'RPA',
+      'Digital Transformation',
       'DevOps',
       'Full-Stack Development',
+      'ERP Systems',
+      'Odoo 18',
     ],
   }
 
@@ -207,14 +230,18 @@ export function ProfessionalServiceJsonLd() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Abo-Elmakarem Shohoud - AI & Development Services',
+    name: 'Abo-Elmakarem Shohoud — Full-Stack, DevOps & AI Automation',
     description:
-      'AI Automation Expert offering Voice Agent Development, RPA, DevOps, Frontend, Backend, and Full-Stack Development services.',
+      'Full-Stack Developer, DevOps Engineer, Scrum Master and AI Automation expert delivering SaaS products, voice AI agents, and Odoo ERP engagements across Egypt, UAE, and KSA.',
     provider: {
       '@type': 'Person',
       name: 'Abo-Elmakarem Shohoud',
     },
-    areaServed: 'Worldwide',
+    areaServed: [
+      { '@type': 'Country', name: 'Egypt' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+      { '@type': 'Country', name: 'Saudi Arabia' },
+    ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Development & Automation Services',
@@ -223,63 +250,54 @@ export function ProfessionalServiceJsonLd() {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Voice Agent Development',
+            name: 'Full-Stack SaaS Development',
             description:
-              'Custom AI voice agents using LiveKit and OpenAI Realtime API for customer support, sales, and automation',
+              'Production-grade web applications with TypeScript, React, Next.js, Node.js, Python, and FastAPI.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'RPA Development',
+            name: 'Voice AI Agent Development',
             description:
-              'Robotic Process Automation solutions using UiPath and custom bots to automate repetitive business tasks',
+              'Custom voice AI agents using LiveKit Agents, OpenAI Realtime API, MCP, and Tavus for sales and customer support.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'DevOps Services',
+            name: 'DevOps & Cloud Infrastructure',
             description:
-              'CI/CD pipeline setup, Docker containerization, Kubernetes orchestration, and cloud infrastructure management',
+              'Docker containerization, GitHub Actions CI/CD, AWS EC2 and Railway deployments, Nginx reverse proxies on Linux.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Frontend Development',
+            name: 'Odoo 18 & ERP Engineering',
             description:
-              'Modern web applications using React, Next.js, TypeScript, and Tailwind CSS',
+              'Custom Odoo 18 modules, NLP-powered ERP interfaces, and migrations for mid-market and enterprise clients.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Backend Development',
+            name: 'Scrum Mastery & Agile Delivery',
             description:
-              'Scalable APIs and server-side applications using Node.js, FastAPI, Python, and Express',
+              'Sprint planning, backlog grooming, team facilitation, and velocity tracking across cross-functional SaaS teams.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'AI & Machine Learning',
+            name: 'Business Analysis & Digital Transformation',
             description:
-              'Custom AI solutions, model integration, and intelligent automation systems',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Business Process Automation',
-            description:
-              'End-to-end workflow automation using n8n, Odoo, and custom solutions to reduce costs by up to 70%',
+              'Requirements workshops, process mapping, user-story authoring, and ROI modelling — consistently demonstrating 50–70% cost reduction.',
           },
         },
       ],
@@ -328,7 +346,7 @@ export function FAQPageJsonLd() {
         name: 'What technologies do you use?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'I work with Python, TypeScript, React, Next.js, FastAPI, LiveKit, OpenAI Realtime API, Docker, and more. For automation, I use n8n, custom APIs, and AI models. Every project gets the right stack for the job.',
+          text: 'My core stack: TypeScript, Python, React, Next.js, Node.js, FastAPI, and Flutter. For AI, LiveKit Agents, OpenAI Realtime API, MCP, and Tavus. For DevOps, Docker, GitHub Actions, AWS EC2, Railway, Linux, and Nginx. For ERP, Odoo 18. Every project gets the right stack for the job.',
         },
       },
       {
@@ -336,7 +354,7 @@ export function FAQPageJsonLd() {
         name: 'Do you work with international clients?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. I work with clients worldwide. I am based in Cairo, Egypt, and I have experience working with businesses across the Middle East, Europe, and North America. Communication is in English or Arabic.',
+          text: 'Yes. I am based in Cairo, Egypt and I deliver engagements across Egypt, the UAE, and KSA — the three regions my Ailigent work primarily serves. Communication is in English or Arabic.',
         },
       },
       {

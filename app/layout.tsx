@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: 'Abo-Elmakarem | AI Automation Expert & Voice Agents',
+    default: 'Abo-Elmakarem | Full-Stack Developer & AI Automation Expert',
     template: '%s | Abo-Elmakarem Shohoud',
   },
 
   description:
-    'Abo-Elmakarem Shohoud (كارم شهود) - CEO @ Ailigent. AI Automation Expert & Full-Stack Developer in Egypt. Voice Agents, LiveKit, OpenAI. Helping businesses cut costs by 70%.',
+    'Abo-Elmakarem Shohoud (كارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Building AI-powered SaaS products (Tornix.ai, Oravex.app, Costra.ailigent.ai) for clients across Egypt, UAE, and KSA. Cutting operational costs up to 70%.',
 
   keywords: [
     // Name variations (English & Arabic)
@@ -31,6 +31,14 @@ export const metadata: Metadata = {
     'karem shohoud',
     'كارم شهود',
     'ابوالمكارم شهود',
+    // Ailigent products
+    'Ailigent',
+    'Tornix',
+    'Tornix.ai',
+    'Oravex',
+    'Oravex.app',
+    'Costra',
+    'Costra.ailigent.ai',
     // AI & Automation
     'AI Automation Expert',
     'AI Automation Expert Egypt',
@@ -38,32 +46,34 @@ export const metadata: Metadata = {
     'AI Developer Egypt',
     'Voice Agent Developer',
     'Voice Agents',
-    'LiveKit Developer',
+    'LiveKit Agents',
     'OpenAI Realtime API',
-    'Machine Learning Developer',
-    'Ailigent',
+    'MCP Model Context Protocol',
+    'Tavus',
     'Business Automation',
     'AI Solutions Egypt',
-    // RPA
-    'RPA Developer',
-    'RPA Developer Egypt',
-    'RPA Automation',
-    'Robotic Process Automation',
-    'UiPath Developer',
+    // Scrum & Business Analyst
+    'Scrum Master',
+    'Scrum Master Egypt',
+    'Business Analyst',
+    'Business Analyst Egypt',
+    'Product Ownership',
+    'Digital Transformation',
     // DevOps
     'DevOps Engineer',
     'DevOps Engineer Egypt',
     'DevOps Egypt',
     'CI/CD',
     'Docker',
-    'Kubernetes',
+    'GitHub Actions',
+    'AWS EC2',
+    'Railway',
+    'Nginx',
     // Full-Stack & Web
     'Full-Stack Developer',
     'Full-Stack Developer Egypt',
     'Frontend Developer',
-    'Frontend Developer Egypt',
     'Backend Developer',
-    'Backend Developer Egypt',
     'Cairo Developer',
     'Python Developer',
     'TypeScript Developer',
@@ -71,6 +81,14 @@ export const metadata: Metadata = {
     'React Developer',
     'Node.js Developer',
     'FastAPI Developer',
+    'Flutter Developer',
+    // Domain
+    'CPM Gantt',
+    'Critical Path Method',
+    'Primavera P6',
+    'XER',
+    'Odoo 18 Developer',
+    'ERP Developer',
   ],
 
   authors: [{ name: 'Abo-Elmakarem Shohoud', url: siteUrl }],
@@ -101,18 +119,18 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Abo-Elmakarem Shohoud Portfolio',
-    title: 'Abo-Elmakarem | AI Automation Expert & Voice Agents',
+    title: 'Abo-Elmakarem | Full-Stack Developer & AI Automation Expert',
     description:
-      'CEO @ Ailigent | Helping businesses cut costs by 70% using AI & Automation. Expert in Voice Agents, LiveKit, OpenAI Realtime API.',
+      'Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.ailigent.ai) across Egypt, UAE, and KSA.',
   },
 
   twitter: {
     card: 'summary_large_image',
     site: '@karem_shohud',
     creator: '@karem_shohud',
-    title: 'Abo-Elmakarem Shohoud | AI Automation Expert',
+    title: 'Abo-Elmakarem Shohoud | Full-Stack Developer & AI Automation Expert',
     description:
-      'CEO @ Ailigent | AI Automation Expert helping businesses cut costs by 70%',
+      'Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. AI-powered SaaS for clients across Egypt, UAE, and KSA.',
   },
 
   icons: {

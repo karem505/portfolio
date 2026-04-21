@@ -24,12 +24,12 @@ const faqs = [
   {
     question: 'What technologies do you use?',
     answer:
-      'I work with Python, TypeScript, React, Next.js, FastAPI, LiveKit, OpenAI Realtime API, Docker, and more. For automation, I use n8n, custom APIs, and AI models. Every project gets the right stack for the job.',
+      'My core stack: TypeScript, Python, React, Next.js, Node.js, FastAPI, and Flutter. For AI, LiveKit Agents, OpenAI Realtime API, MCP, and Tavus. For DevOps, Docker, GitHub Actions, AWS EC2, Railway, Linux, and Nginx. For ERP, Odoo 18. Every project gets the right stack for the job.',
   },
   {
     question: 'Do you work with international clients?',
     answer:
-      'Yes. I work with clients worldwide. I am based in Cairo, Egypt, and I have experience working with businesses across the Middle East, Europe, and North America. Communication is in English or Arabic.',
+      'Yes. I am based in Cairo, Egypt and I deliver engagements across Egypt, the UAE, and KSA — the three regions my Ailigent work primarily serves. Communication is in English or Arabic.',
   },
   {
     question: 'How do I get started with AI automation?',

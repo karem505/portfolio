@@ -3,38 +3,37 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { FaCrown, FaProjectDiagram, FaUsers, FaClipboardList, FaChartLine, FaBuilding } from 'react-icons/fa'
+import { FaCode, FaClipboardList, FaBuilding, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa'
 
 const roles = [
   {
-    icon: FaCrown,
-    title: 'CEO & Co-founder',
-    description: 'Leading Ailigent\'s vision and strategy, driving AI automation solutions for businesses worldwide',
-    focus: 'Leadership & Strategy',
-  },
-  {
-    icon: FaProjectDiagram,
-    title: 'System Architect',
-    description: 'Designing scalable AI-powered systems and enterprise architectures for digital transformation',
-    focus: 'Technical Architecture',
-  },
-  {
-    icon: FaUsers,
-    title: 'Scrum Master',
-    description: 'Facilitating agile workflows, removing blockers, and fostering team collaboration',
-    focus: 'Agile & Team Leadership',
+    icon: FaCode,
+    title: 'Full-Stack Developer / DevOps / Scrum Master',
+    focus: 'Engineering & Delivery',
+    period: '2023 – Present',
+    location: 'Cairo, Egypt',
+    bullets: [
+      'Serve concurrently as Full-Stack Developer, DevOps Engineer, and Scrum Master across three live SaaS platforms.',
+      'Architect and build full-stack applications using TypeScript, React, Next.js, Python, FastAPI, and Node.js.',
+      'Manage cloud infrastructure, containerization, and CI/CD pipelines on Railway and AWS EC2 using Docker and GitHub Actions.',
+      'Facilitate Agile ceremonies, maintain product backlogs, and coordinate sprint planning across cross-functional teams.',
+      'Design and deploy voice AI agents using LiveKit Agents framework and OpenAI Realtime API for sales and customer support automation.',
+      'Built OpenClaw Agent Dashboard — a glassmorphic agent management UI with 11 API integrations and real-time monitoring.',
+      'Developed PE Live AI Agent: production-ready voice AI with MCP database integration, 8 database tools, and Tavus video avatar support.',
+      'Deliver client engagements end-to-end from requirements analysis and system architecture to deployment and post-launch optimization.',
+    ],
   },
   {
     icon: FaClipboardList,
-    title: 'Product Owner',
-    description: 'Managing product roadmap, prioritizing features, and aligning stakeholder requirements',
-    focus: 'Product Strategy',
-  },
-  {
-    icon: FaChartLine,
     title: 'Business Analyst',
-    description: 'Conducting requirements analysis and process optimization for digital transformation projects',
-    focus: 'Business Analysis',
+    focus: 'Requirements & ROI',
+    period: '2023 – Present',
+    location: 'Cairo, Egypt',
+    bullets: [
+      'Conduct requirements workshops and process mapping for digital transformation engagements across Egypt, KSA, and UAE.',
+      'Translate stakeholder needs into technical specifications, user stories, and sprint-ready backlogs.',
+      'Lead cost-benefit analysis and ROI modelling for AI automation projects, consistently demonstrating 50–70% cost reduction potential.',
+    ],
   },
 ]
 
@@ -57,7 +56,7 @@ export default function Experience() {
             Roles at <span className="gradient-text">Ailigent</span>
           </h2>
           <p className="text-muted max-w-2xl mx-auto text-lg">
-            Wearing multiple hats to drive digital transformation and deliver AI-powered solutions
+            Two concurrent roles driving AI automation and digital transformation for clients across Egypt, UAE, and KSA.
           </p>
         </motion.div>
 
@@ -76,40 +75,56 @@ export default function Experience() {
           </div>
         </motion.div>
 
-        {/* Roles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Roles */}
+        <div className="grid lg:grid-cols-2 gap-6">
           {roles.map((role, index) => (
             <motion.div
               key={role.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative p-6 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+              className="group relative p-8 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
             >
               {/* Gradient overlay on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               <div className="relative z-10">
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                  <role.icon className="text-white text-xl" />
+                {/* Icon + Focus */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                    <role.icon className="text-white text-xl" />
+                  </div>
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                    {role.focus}
+                  </span>
                 </div>
 
-                {/* Focus Tag */}
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary mb-3">
-                  {role.focus}
-                </span>
-
                 {/* Title */}
-                <h3 className="font-display font-bold text-xl mb-3 text-white group-hover:text-primary transition-colors">
+                <h3 className="font-display font-bold text-xl md:text-2xl mb-3 text-white group-hover:text-primary transition-colors">
                   {role.title}
                 </h3>
 
-                {/* Description */}
-                <p className="text-muted text-sm leading-relaxed">
-                  {role.description}
-                </p>
+                {/* Meta */}
+                <div className="flex flex-wrap items-center gap-4 mb-5 text-sm text-muted">
+                  <span className="flex items-center gap-1.5">
+                    <FaCalendarAlt className="text-primary/70" />
+                    {role.period}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <FaMapMarkerAlt className="text-primary/70" />
+                    {role.location}
+                  </span>
+                </div>
+
+                {/* Bullets */}
+                <ul className="space-y-2.5">
+                  {role.bullets.map((bullet, i) => (
+                    <li key={i} className="flex gap-3 text-muted text-sm leading-relaxed">
+                      <span className="text-primary flex-shrink-0 mt-1.5">•</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}
@@ -126,7 +141,7 @@ export default function Experience() {
             Focused on Digital Transformation
           </h3>
           <p className="text-muted max-w-2xl mx-auto">
-            Combining technical expertise with business acumen to help organizations modernize their operations,
+            Combining technical delivery with business analysis to help organizations modernize their operations,
             implement AI solutions, and achieve up to 70% cost reduction through intelligent automation.
           </p>
         </motion.div>
