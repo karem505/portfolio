@@ -79,11 +79,11 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-primary font-medium mb-4 block">Get in Touch</span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Let's <span className="gradient-text">Work Together</span>
+          <span className="tab-eyebrow mb-6">007 · contact</span>
+          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+            Let's work together<span className="text-signal">.</span>
           </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
+          <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
             Have a project in mind? Tell me what you need. I'll show you how AI automation
             can save you time and money.
           </p>
@@ -98,25 +98,24 @@ export default function Contact() {
           >
             {isSubmitted ? (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="h-full flex flex-col items-center justify-center p-12 rounded-3xl glass border border-green-500/30 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="h-full flex flex-col items-center justify-center p-12 bg-graphite border border-moss text-center font-mono"
               >
-                <FaCheckCircle className="text-green-500 text-6xl mb-6" />
-                <h3 className="font-display font-bold text-2xl mb-4 text-white">
-                  Message Sent!
+                <FaCheckCircle className="text-moss text-5xl mb-6" />
+                <h3 className="font-extrabold tracking-[-0.03em] text-2xl mb-3 text-paper">
+                  Message sent<span className="text-signal">.</span>
                 </h3>
-                <p className="text-muted mb-6">
+                <p className="text-ash mb-6 max-w-sm">
                   Thank you for reaching out. I'll get back to you as soon as possible.
                 </p>
-                <motion.button
+                <button
                   onClick={() => setIsSubmitted(false)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 rounded-full border border-white/20 font-medium hover:bg-white/10 transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-3 border border-wire text-paper text-sm hover:border-signal hover:text-signal transition-colors"
                 >
-                  Send Another Message
-                </motion.button>
+                  <span>Send another message</span>
+                  <span>→</span>
+                </button>
               </motion.div>
             ) : (
               <form
@@ -137,86 +136,78 @@ export default function Contact() {
 
                 {/* Name Input */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-muted mb-2">
-                    Your Name
+                  <label htmlFor="name" className="block text-[0.7rem] tracking-[0.18em] uppercase font-mono text-ash mb-2">
+                    Your name
                   </label>
-                  <motion.input
-                    whileFocus={{ scale: 1.01 }}
+                  <input
                     type="text"
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="w-full px-5 py-4 rounded-xl glass border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 text-white placeholder-muted transition-all duration-300 bg-transparent"
+                    className="w-full px-4 py-3 bg-graphite border border-wire focus:border-signal focus:outline-none text-paper placeholder-ash/50 font-mono text-sm transition-colors"
                     placeholder="John Doe"
                   />
                 </div>
 
                 {/* Email Input */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-muted mb-2">
-                    Email Address
+                  <label htmlFor="email" className="block text-[0.7rem] tracking-[0.18em] uppercase font-mono text-ash mb-2">
+                    Email address
                   </label>
-                  <motion.input
-                    whileFocus={{ scale: 1.01 }}
+                  <input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="w-full px-5 py-4 rounded-xl glass border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 text-white placeholder-muted transition-all duration-300 bg-transparent"
+                    className="w-full px-4 py-3 bg-graphite border border-wire focus:border-signal focus:outline-none text-paper placeholder-ash/50 font-mono text-sm transition-colors"
                     placeholder="john@example.com"
                   />
                 </div>
 
                 {/* Message Input */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-muted mb-2">
-                    Your Message
+                  <label htmlFor="message" className="block text-[0.7rem] tracking-[0.18em] uppercase font-mono text-ash mb-2">
+                    Your message
                   </label>
-                  <motion.textarea
-                    whileFocus={{ scale: 1.01 }}
+                  <textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
                     rows={5}
-                    className="w-full px-5 py-4 rounded-xl glass border border-white/10 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 text-white placeholder-muted transition-all duration-300 resize-none bg-transparent"
+                    className="w-full px-4 py-3 bg-graphite border border-wire focus:border-signal focus:outline-none text-paper placeholder-ash/50 font-mono text-sm transition-colors resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>
 
                 {/* Error Message */}
                 {error && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400 text-sm"
-                  >
+                  <p className="text-signal text-sm font-mono">
                     {error}
-                  </motion.p>
+                  </p>
                 )}
 
                 {/* Submit Button */}
-                <motion.button
+                <button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-accent font-semibold flex items-center justify-center gap-3 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 disabled:opacity-50"
+                  className="w-full py-3.5 px-5 bg-paper text-ink font-mono text-sm font-medium tracking-wide flex items-center justify-center gap-3 hover:bg-signal hover:text-paper transition-colors duration-150 disabled:opacity-50 border border-paper hover:border-signal"
                 >
                   {isSubmitting ? (
-                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-4 h-4 border border-ink/30 border-t-ink rounded-full animate-spin" />
                   ) : (
                     <>
-                      <FaPaperPlane />
-                      Send Message
+                      <FaPaperPlane size={12} />
+                      <span>Send message</span>
+                      <span>→</span>
                     </>
                   )}
-                </motion.button>
+                </button>
               </form>
             )}
           </motion.div>
@@ -228,42 +219,42 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-8"
           >
-            {/* Info Cards */}
-            <div className="space-y-4">
+            {/* Info Cards — flat spec rows, not glass cards */}
+            <div className="border-t border-wire">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.label}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                  whileHover={info.href ? { x: 8, scale: 1.02 } : {}}
-                  className="group"
+                  transition={{ duration: 0.35, delay: 0.4 + index * 0.06 }}
+                  className="border-b border-wire group"
                 >
                   {info.href ? (
                     <a
                       href={info.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-5 p-5 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
+                      className="flex items-center gap-5 py-5 group-hover:px-2 transition-[padding] duration-200"
                     >
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                        <info.icon className="text-white text-xl" />
+                      <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors">
+                        <info.icon className="text-base" />
                       </div>
-                      <div>
-                        <div className="text-muted text-sm">{info.label}</div>
-                        <div className="text-white font-medium group-hover:text-primary transition-colors">
+                      <div className="flex-1">
+                        <div className="text-ash text-[0.7rem] tracking-[0.18em] uppercase font-mono">{info.label}</div>
+                        <div className="text-paper font-mono mt-1 group-hover:text-signal transition-colors">
                           {info.value}
                         </div>
                       </div>
+                      <span className="text-ash group-hover:text-signal font-mono text-sm transition-colors">↗</span>
                     </a>
                   ) : (
-                    <div className="flex items-center gap-5 p-5 rounded-2xl glass border border-white/5">
-                      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                        <info.icon className="text-white text-xl" />
+                    <div className="flex items-center gap-5 py-5">
+                      <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper">
+                        <info.icon className="text-base" />
                       </div>
                       <div>
-                        <div className="text-muted text-sm">{info.label}</div>
-                        <div className="text-white font-medium">{info.value}</div>
+                        <div className="text-ash text-[0.7rem] tracking-[0.18em] uppercase font-mono">{info.label}</div>
+                        <div className="text-paper font-mono mt-1">{info.value}</div>
                       </div>
                     </div>
                   )}
@@ -271,31 +262,33 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* CTA Card */}
+            {/* CTA Card — drenched signal block, the lane's "one drenched
+                section per page" move. Recruiter copy, not 70%-claim copy. */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.7 }}
-              className="p-8 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30"
+              className="p-8 bg-signal text-ink"
             >
-              <h3 className="font-display font-bold text-2xl mb-4 text-white">
-                Ready to Cut Costs by 70%?
+              <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase block mb-4 opacity-80">
+                ▍ recruiters · clients
+              </span>
+              <h3 className="font-mono font-extrabold tracking-[-0.04em] text-2xl md:text-3xl mb-4 leading-tight">
+                Need someone who can ship?
               </h3>
-              <p className="text-muted mb-6">
-                Let's discuss how AI automation can help you save up to 70% on operational costs
-                and boost your business efficiency.
+              <p className="font-mono text-sm md:text-base mb-6 leading-relaxed opacity-90 max-w-md">
+                I serve concurrently as Full-Stack Developer, DevOps Engineer, and Scrum Master across three live SaaS products. Send a role, send a brief — I respond within 24 hours.
               </p>
-              <motion.a
+              <a
                 href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-background font-semibold hover:shadow-lg transition-all duration-300"
+                className="inline-flex items-center gap-3 px-5 py-3 bg-ink text-paper font-mono text-sm font-medium hover:bg-paper hover:text-ink transition-colors"
               >
                 <FaLinkedin />
-                Schedule a Call
-              </motion.a>
+                <span>Connect on LinkedIn</span>
+                <span>→</span>
+              </a>
             </motion.div>
           </motion.div>
         </div>

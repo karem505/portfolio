@@ -6,22 +6,25 @@ import Image from 'next/image'
 import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
 
+// Recruiter-first, not marketing-pitch. The CTAs go to actions a hiring
+// manager actually takes in the first 30 seconds: read CV, send email.
+// Marketing claims ("70% cost reduction", "Free AI Audit") moved out of the
+// hero — they live in About/Projects where the proof is anyway.
+
 const titles = [
   'Full-Stack Developer',
   'DevOps Engineer',
   'Scrum Master',
-  'AI Automation Expert',
-  'Voice Agent Builder',
   'Business Analyst',
 ]
 
-const floatingIcons = [
-  { Icon: SiTypescript, color: '#3178c6', delay: 0 },
-  { Icon: SiPython, color: '#3776ab', delay: 0.5 },
-  { Icon: SiReact, color: '#61dafb', delay: 1 },
-  { Icon: SiNextdotjs, color: '#ffffff', delay: 1.5 },
-  { Icon: SiOpenai, color: '#10a37f', delay: 2 },
-  { Icon: SiDocker, color: '#2496ed', delay: 2.5 },
+const orbitIcons = [
+  { Icon: SiTypescript, label: 'TypeScript' },
+  { Icon: SiPython, label: 'Python' },
+  { Icon: SiReact, label: 'React' },
+  { Icon: SiNextdotjs, label: 'Next.js' },
+  { Icon: SiOpenai, label: 'OpenAI' },
+  { Icon: SiDocker, label: 'Docker' },
 ]
 
 export default function Hero() {
@@ -52,213 +55,210 @@ export default function Hero() {
   }, [displayText, isDeleting, currentTitle])
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
+    >
       <div className="max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+        {/* Top spec band — engineer-spec-sheet header instead of "Hi, I'm X" greeting */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 pb-8 mb-12 border-b border-wire text-[0.7rem] tracking-[0.18em] uppercase text-ash font-mono"
+        >
+          <div>
+            <span className="text-ash/60">file</span>{' '}
+            <span className="text-paper">/karem.profile</span>
+          </div>
+          <div>
+            <span className="text-ash/60">role</span>{' '}
+            <span className="text-paper">full-stack · devops</span>
+          </div>
+          <div>
+            <span className="text-ash/60">based</span>{' '}
+            <span className="text-paper">cairo · eg</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="status-dot" aria-hidden="true" />
+            <span className="text-paper">open · for · work</span>
+          </div>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-14 lg:gap-20 items-center">
+          {/* Left — name set as engineer's nameplate, not a marketing hero */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="order-2 lg:order-1"
           >
-            {/* Greeting */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="flex items-center gap-3 mb-6"
-            >
-              <span className="w-12 h-[2px] bg-gradient-to-r from-primary to-accent" />
-              <span className="text-muted font-medium">Welcome to my portfolio</span>
-            </motion.div>
+            <span className="tab-eyebrow mb-8">
+              001 · engineer.profile
+            </span>
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="font-display font-bold text-5xl md:text-6xl lg:text-7xl mb-4"
-            >
-              <span className="text-white">I'm </span>
-              <span className="gradient-text glow-text">Abo-Elmakarem</span>
-            </motion.h1>
+            {/* Name. NO gradient text. Mono ExtraBold, extreme size, paper-on-ink.
+                The signal-red glyph is the period — a single load-bearing accent. */}
+            <h1 className="font-mono font-extrabold tracking-[-0.05em] leading-[0.92] text-paper mt-6 mb-8">
+              <span className="block text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]">
+                Abo-Elmakarem
+              </span>
+              <span className="block text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]">
+                Shohoud
+                <span className="text-signal" aria-hidden="true">.</span>
+              </span>
+            </h1>
 
-            {/* Title with Typewriter */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="mb-6"
-            >
-              <h2 className="font-display text-2xl md:text-3xl text-muted">
-                Full-Stack Developer @ <span className="text-primary">Ailigent</span>
-              </h2>
-              <div className="h-12 mt-2">
-                <span className="font-display text-xl md:text-2xl text-white">
-                  {displayText}
-                  <span className="cursor-blink text-primary">|</span>
-                </span>
+            {/* Role + typewriter — flat, no gradient, no white-glow */}
+            <div className="font-mono text-base md:text-lg text-ash mb-10 leading-relaxed max-w-xl">
+              <div className="text-paper mb-1">
+                <span className="text-ash">$</span>{' '}
+                <span>{displayText}</span>
+                <span className="cursor-blink">_</span>
               </div>
-            </motion.div>
+              <p>
+                Full-Stack Developer, DevOps Engineer and Scrum Master at{' '}
+                <span className="text-paper underline decoration-signal decoration-1 underline-offset-4">
+                  Ailigent
+                </span>
+                . Shipping three production AI SaaS — Tornix.ai, Oravex.app, Costra — across EG · UAE · KSA.
+              </p>
+            </div>
 
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-muted text-lg max-w-lg mb-8 leading-relaxed"
-            >
-              Full-Stack Developer, DevOps Engineer, and Scrum Master at <span className="text-white font-semibold">Ailigent</span>.
-              I architect and ship AI-powered SaaS products across Egypt, UAE, and KSA — cutting operational costs by up to
-              <span className="text-white font-semibold"> 70%</span>.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-wrap gap-4 mb-8"
-            >
-              <motion.a
+            {/* Recruiter-first CTAs. Square buttons, no pills, no gradient fill,
+                no scale-on-hover. Border + signal text on hover — the lane's
+                rule. */}
+            <div className="flex flex-wrap gap-3 mb-10">
+              <a
+                href="/Abo-Elmakarem_CV-1.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 px-5 py-3 border border-paper bg-paper text-ink font-mono text-sm font-medium tracking-wide hover:bg-signal hover:text-paper hover:border-signal transition-colors duration-150"
+              >
+                <span>Download CV</span>
+                <span className="text-ink group-hover:text-paper">→</span>
+              </a>
+              <a
+                href="mailto:karm92000@gmail.com"
+                className="group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper font-mono text-sm font-medium tracking-wide hover:border-signal hover:text-signal transition-colors duration-150"
+              >
+                <span>karm92000@gmail.com</span>
+                <span className="text-ash group-hover:text-signal">↗</span>
+              </a>
+              <a
                 href="#projects"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                className="group inline-flex items-center gap-3 px-5 py-3 border border-wire text-ash font-mono text-sm tracking-wide hover:border-signal hover:text-signal transition-colors duration-150"
               >
-                See How I Cut Costs 70%
-              </motion.a>
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full border border-white/20 font-semibold hover:bg-white/10 transition-all duration-300"
-              >
-                Get a Free AI Audit
-              </motion.a>
-            </motion.div>
+                <span>View shipped work</span>
+              </a>
+            </div>
 
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex items-center gap-4"
-            >
-              <span className="text-muted text-sm">Find me on</span>
-              <motion.a
+            {/* Social — flat tab buttons, no glassmorphism */}
+            <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-[0.18em] text-ash">
+              <span>find ↦</span>
+              <a
                 href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, y: -3 }}
-                className="p-3 rounded-full glass text-muted hover:text-primary transition-colors"
+                className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150"
+                aria-label="LinkedIn"
               >
-                <FaLinkedin size={20} />
-              </motion.a>
-              <motion.a
+                <FaLinkedin size={16} />
+                <span>linkedin</span>
+              </a>
+              <span aria-hidden="true" className="text-wire">/</span>
+              <a
                 href="https://github.com/karem505"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, y: -3 }}
-                className="p-3 rounded-full glass text-muted hover:text-white transition-colors"
+                className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150"
+                aria-label="GitHub"
               >
-                <FaGithub size={20} />
-              </motion.a>
-            </motion.div>
+                <FaGithub size={16} />
+                <span>github</span>
+              </a>
+            </div>
           </motion.div>
 
-          {/* Right Content - Profile Image */}
+          {/* Right — portrait. Square frame, hairline border, no glow halo,
+              no rounded-full ring. Orbital icons KEPT but flattened: hairline
+              square chips, mono labels, no glass, no gradient color glow. */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="order-1 lg:order-2 relative flex justify-center"
           >
-            {/* Decorative Rings */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-[350px] h-[350px] md:w-[450px] md:h-[450px] rounded-full border border-primary/20 pulse-ring" />
-              <div className="absolute w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full border border-accent/10 pulse-ring" style={{ animationDelay: '1s' }} />
-            </div>
+            <div className="relative w-[280px] h-[360px] md:w-[320px] md:h-[420px]">
+              {/* Spec corner brackets — print-spec aesthetic */}
+              <span aria-hidden="true" className="absolute -top-2 -left-2 w-3 h-3 border-t border-l border-signal" />
+              <span aria-hidden="true" className="absolute -top-2 -right-2 w-3 h-3 border-t border-r border-signal" />
+              <span aria-hidden="true" className="absolute -bottom-2 -left-2 w-3 h-3 border-b border-l border-signal" />
+              <span aria-hidden="true" className="absolute -bottom-2 -right-2 w-3 h-3 border-b border-r border-signal" />
 
-            {/* Floating Tech Icons */}
-            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-              {floatingIcons.map(({ Icon, color, delay }, index) => {
-                const startAngle = (index * 60) // Distribute 6 icons evenly (360/6 = 60 degrees apart)
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1 + delay * 0.2, duration: 0.5 }}
-                    className="absolute"
-                    style={{
-                      transform: `rotate(${startAngle}deg)`,
-                    }}
-                  >
-                    <motion.div
-                      className="orbit"
-                      style={{
-                        animationDuration: `${25 + index * 3}s`,
-                      }}
-                    >
-                      <div className="p-3 rounded-xl glass shadow-lg" style={{ color }}>
-                        <Icon size={24} />
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                )
-              })}
-            </div>
-
-            {/* Profile Image */}
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="relative z-10"
-            >
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden glow">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
+              {/* Portrait frame */}
+              <div className="relative w-full h-full overflow-hidden border border-wire bg-graphite">
                 <Image
                   src="/profile.jpg"
                   alt="Abo-Elmakarem Shohoud"
                   fill
-                  className="object-cover"
+                  className="object-cover grayscale contrast-110 hover:grayscale-0 transition-[filter] duration-700"
                   priority
+                  sizes="(max-width: 768px) 280px, 320px"
                 />
+                {/* Frame number — bottom-left, like a contact-sheet print */}
+                <div className="absolute bottom-2 left-2 font-mono text-[0.65rem] tracking-[0.18em] uppercase text-paper/80 mix-blend-difference">
+                  frame 01 · 2026
+                </div>
               </div>
 
-              {/* Status Badge */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 1, type: 'spring' }}
-                className="absolute -bottom-2 -right-2 px-4 py-2 rounded-full glass border border-green-500/30"
+              {/* Tech-stack column — square chips, NOT orbiting glass pills.
+                  Sits to the right of the portrait, mono row of icons. */}
+              <div
+                className="hidden lg:grid absolute -right-14 top-0 bottom-0 grid-rows-6 gap-2"
+                aria-label="Tech stack"
               >
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-sm font-medium text-green-400">Available for work</span>
-                </div>
-              </motion.div>
-            </motion.div>
+                {orbitIcons.map(({ Icon, label }, i) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + i * 0.06 }}
+                    className="w-10 h-10 border border-wire flex items-center justify-center text-ash hover:border-signal hover:text-signal transition-colors duration-150"
+                    title={label}
+                  >
+                    <Icon size={16} />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Mobile/tablet inline tech row */}
+              <div className="lg:hidden absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
+                {orbitIcons.map(({ Icon, label }) => (
+                  <div
+                    key={label}
+                    className="w-9 h-9 border border-wire flex items-center justify-center text-ash"
+                    title={label}
+                  >
+                    <Icon size={14} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Footer scroll indicator — mono, flat */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="mt-24 lg:mt-20 flex items-center gap-3 text-[0.7rem] tracking-[0.18em] uppercase text-ash font-mono"
         >
-          <span className="text-muted text-sm">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <FaArrowDown className="text-primary" />
-          </motion.div>
+          <span>scroll</span>
+          <FaArrowDown className="text-signal" size={10} />
+          <span className="h-px flex-1 max-w-[200px] bg-wire" />
+          <span className="text-ash/60">002 / about</span>
         </motion.div>
       </div>
     </section>

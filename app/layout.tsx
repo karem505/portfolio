@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import { spaceGrotesk, syne, cairo, ibmPlexArabic } from './fonts'
+import { jetBrainsMono, rubik } from './fonts'
 import {
   PersonJsonLd,
   WebsiteJsonLd,
@@ -155,8 +155,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#6366f1' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#ff3b1f' },
+    { media: '(prefers-color-scheme: dark)', color: '#0c0a09' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -169,7 +169,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${spaceGrotesk.variable} ${syne.variable} ${cairo.variable} ${ibmPlexArabic.variable}`}>
+    <html lang="en" className={`scroll-smooth ${jetBrainsMono.variable} ${rubik.variable}`}>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://zklvvwugirvwimxdvybw.supabase.co" />
@@ -177,7 +177,7 @@ export default function RootLayout({
         <WebsiteJsonLd />
         <OrganizationJsonLd />
       </head>
-      <body className="bg-[#0a0a0a] text-white antialiased noise">
+      <body className="bg-ink text-paper antialiased">
         <GoogleAnalytics />
         <ClickEffect />
         {children}
