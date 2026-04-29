@@ -52,7 +52,7 @@ export default function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-ash hover:text-signal transition-colors"
+                className="text-ash hover:text-signal transition-colors py-3 -my-3"
               >
                 {link.label}
               </a>
@@ -65,7 +65,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
+              className="w-11 h-11 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
               aria-label="LinkedIn"
             >
               <FaLinkedin size={14} />
@@ -74,7 +74,7 @@ export default function Footer() {
               href="https://github.com/karem505"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
+              className="w-11 h-11 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
               aria-label="GitHub"
             >
               <FaGithub size={14} />
@@ -89,11 +89,11 @@ export default function Footer() {
             <span className="text-paper">Ailigent</span> · DevOps · Scrum Master · Business Analyst
           </p>
           <div className="flex items-center gap-3">
-            <a href="/privacy" className="hover:text-signal transition-colors">privacy</a>
-            <span className="text-wire">/</span>
-            <a href="/refund" className="hover:text-signal transition-colors">refund</a>
-            <span className="text-wire">/</span>
-            <a href="/contact-info" className="hover:text-signal transition-colors">contact</a>
+            <a href="/privacy" className="hover:text-signal transition-colors py-3 -my-3">privacy</a>
+            <span className="text-wire" aria-hidden="true">/</span>
+            <a href="/refund" className="hover:text-signal transition-colors py-3 -my-3">refund</a>
+            <span className="text-wire" aria-hidden="true">/</span>
+            <a href="/contact-info" className="hover:text-signal transition-colors py-3 -my-3">contact</a>
           </div>
         </div>
       </div>

@@ -116,7 +116,7 @@ export default function Hero() {
                 href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150"
+                className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150 min-h-[44px]"
                 aria-label="LinkedIn (opens in new tab)"
               >
                 <FaLinkedin size={16} aria-hidden="true" />
@@ -127,7 +127,7 @@ export default function Hero() {
                 href="https://github.com/karem505"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150"
+                className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150 min-h-[44px]"
                 aria-label="GitHub (opens in new tab)"
               >
                 <FaGithub size={16} aria-hidden="true" />

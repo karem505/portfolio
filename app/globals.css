@@ -729,3 +729,25 @@ select:focus-visible,
     cursor: auto !important;
   }
 }
+
+/* ========================================
+   Touch / pointer adaptation
+   ======================================== */
+
+/* Hover-only ornaments (e.g., the hover-arrow on project cards) hide on
+   touch devices where they are dead UI. Anything functional duplicates a
+   visible-at-rest control elsewhere. */
+@media (hover: none), (pointer: coarse) {
+  .hover-only { display: none !important; }
+}
+
+/* Expand tap area to 44px without changing visible layout — pair
+   `tap-44` with `-my-2` (or similar negative margin) on adjacent text
+   links to grow the hit zone but keep the row height constant. */
+.tap-44 {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -135,7 +135,7 @@ function ProjectCard({
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
+                  className="w-11 h-11 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
                   aria-label={`${project.title} on GitHub`}
                 >
                   <FaGithub size={14} />
@@ -146,7 +146,7 @@ function ProjectCard({
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
+                  className="w-11 h-11 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
                   aria-label={`Visit ${project.title}`}
                 >
                   <FaExternalLinkAlt size={12} />
@@ -214,7 +214,8 @@ function ProjectCard({
           </div>
         </div>
 
-        {/* Hover Arrow */}
+        {/* Hover Arrow — touch devices already have the visible external-link
+            icon at the top of the card; this is dead UI on touch. */}
         <motion.a
           href={primaryLink}
           target="_blank"
@@ -223,8 +224,9 @@ function ProjectCard({
           animate={{
             opacity: hoveredKey === cardKey ? 1 : 0,
           }}
-          className="absolute bottom-5 right-5 text-signal"
-          aria-label={`Open ${project.title}`}
+          className="hover-only absolute bottom-5 right-5 text-signal"
+          aria-hidden="true"
+          tabIndex={-1}
         >
           <FaExternalLinkAlt size={14} />
         </motion.a>
