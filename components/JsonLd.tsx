@@ -165,7 +165,7 @@ export function WebsiteJsonLd() {
     ],
     url: 'https://aboelmakarem.pro',
     description:
-      'Portfolio of Abo-Elmakarem Shohoud (كارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master & AI Automation Expert at Ailigent.',
+      'Portfolio of Abo-Elmakarem Shohoud (كارم شهود): Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent.',
     publisher: {
       '@id': 'https://aboelmakarem.pro/#person',
     },
@@ -192,7 +192,7 @@ export function OrganizationJsonLd() {
       url: 'https://aboelmakarem.pro/logo.png',
     },
     description:
-      'AI Automation Solutions — helping businesses cut operational costs by up to 70% through AI-powered SaaS products and process automation.',
+      'AI Automation Solutions: full-stack engineering, DevOps, and AI-powered SaaS delivery for clients across Egypt, UAE, and KSA.',
     employee: {
       '@id': 'https://aboelmakarem.pro/#person',
     },
@@ -230,9 +230,9 @@ export function ProfessionalServiceJsonLd() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Abo-Elmakarem Shohoud — Full-Stack, DevOps & AI Automation',
+    name: 'Abo-Elmakarem Shohoud: Full-Stack, DevOps, and AI Automation',
     description:
-      'Full-Stack Developer, DevOps Engineer, Scrum Master and AI Automation expert delivering SaaS products, voice AI agents, and Odoo ERP engagements across Egypt, UAE, and KSA.',
+      'Full-Stack Developer at Ailigent shipping production SaaS (Tornix.ai, Oravex.app, Costra) on TypeScript, React, Next.js, Python, and FastAPI. Concurrent DevOps Engineer and Scrum Master across all three products, with bilingual EN/AR delivery across Egypt, UAE, and KSA.',
     provider: {
       '@type': 'Person',
       name: 'Abo-Elmakarem Shohoud',
@@ -252,7 +252,7 @@ export function ProfessionalServiceJsonLd() {
             '@type': 'Service',
             name: 'Full-Stack SaaS Development',
             description:
-              'Production-grade web applications with TypeScript, React, Next.js, Node.js, Python, and FastAPI.',
+              'Production web applications built on TypeScript, React, Next.js, Node.js, Python, and FastAPI, with Postgres, REST APIs, and Arabic RTL support.',
           },
         },
         {
@@ -261,7 +261,7 @@ export function ProfessionalServiceJsonLd() {
             '@type': 'Service',
             name: 'Voice AI Agent Development',
             description:
-              'Custom voice AI agents using LiveKit Agents, OpenAI Realtime API, MCP, and Tavus for sales and customer support.',
+              'Voice agents engineered on LiveKit Agents, OpenAI Realtime API, MCP, and Tavus, integrated into existing product flows.',
           },
         },
         {
@@ -270,7 +270,7 @@ export function ProfessionalServiceJsonLd() {
             '@type': 'Service',
             name: 'DevOps & Cloud Infrastructure',
             description:
-              'Docker containerization, GitHub Actions CI/CD, AWS EC2 and Railway deployments, Nginx reverse proxies on Linux.',
+              'Docker containerization, GitHub Actions CI/CD, AWS EC2 and Railway deployments, and Nginx reverse proxies on Linux.',
           },
         },
         {
@@ -295,9 +295,9 @@ export function ProfessionalServiceJsonLd() {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Business Analysis & Digital Transformation',
+            name: 'Business Analysis & Requirements Engineering',
             description:
-              'Requirements workshops, process mapping, user-story authoring, and ROI modelling — consistently demonstrating 50–70% cost reduction.',
+              'Requirements workshops, process mapping, user-story authoring, and translating stakeholder needs into sprint-ready technical specifications.',
           },
         },
       ],
@@ -319,50 +319,50 @@ export function FAQPageJsonLd() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What is AI automation and how can it help my business?',
+        name: "What's your primary stack?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'AI automation uses artificial intelligence to handle repetitive tasks, make decisions, and streamline workflows. It can help your business reduce manual work, cut operational costs by up to 70%, and free your team to focus on high-value activities.',
+          text: 'TypeScript, React, and Next.js on the frontend; Python (FastAPI) and Node.js on the backend; Postgres and Odoo 18 where ERP fits. Voice AI work runs on LiveKit Agents, OpenAI Realtime, MCP, and Tavus.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How do voice agents work?',
+        name: 'How do you ship and run three SaaS products concurrently?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Voice agents use technologies like LiveKit and OpenAI Realtime API to have natural conversations with your customers. They can handle sales calls, customer support, appointment scheduling, and more — 24/7, without human intervention.',
+          text: 'Each product (Tornix.ai, Oravex.app, Costra) has its own repo, CI pipeline, and Docker image; I run sprint cadence as Scrum Master and own deployments end to end. Shared infra patterns and reusable modules keep the operating cost of three products closer to one.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How much can AI automation save my business?',
+        name: 'Do you work in Arabic? Bilingual delivery?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Most businesses see cost reductions of 40-70% in automated processes. The exact savings depend on your current workflows, team size, and the complexity of tasks being automated. I provide a free audit to estimate your potential savings.',
+          text: 'Yes. Arabic is a first-class surface in every product I build, with proper RTL, native typography, and Arabic-fluent stakeholder communication. I also write technical content in both English and Arabic.',
         },
       },
       {
         '@type': 'Question',
-        name: 'What technologies do you use?',
+        name: "What's your DevOps setup?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'My core stack: TypeScript, Python, React, Next.js, Node.js, FastAPI, and Flutter. For AI, LiveKit Agents, OpenAI Realtime API, MCP, and Tavus. For DevOps, Docker, GitHub Actions, AWS EC2, Railway, Linux, and Nginx. For ERP, Odoo 18. Every project gets the right stack for the job.',
+          text: 'Docker for everything, GitHub Actions for CI/CD, AWS EC2 and Railway for hosting, Nginx as the reverse proxy, and Linux on the metal. Observability via uptime checks, log shipping, and alerting on the boring-but-critical signals.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Do you work with international clients?',
+        name: 'Open to full-time roles, contracts, or both?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. I am based in Cairo, Egypt and I deliver engagements across Egypt, the UAE, and KSA — the three regions my Ailigent work primarily serves. Communication is in English or Arabic.',
+          text: 'Both. I take full-time roles, contract engagements, and fixed-scope projects, with a preference for work where I can own engineering and delivery end to end. Remote-friendly across CET/GMT-adjacent timezones.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How do I get started with AI automation?',
+        name: 'How can recruiters or hiring managers reach you fastest?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Start by reaching out through the contact form or LinkedIn. I will schedule a free consultation to understand your business needs, identify automation opportunities, and propose a solution with clear timelines and expected ROI.',
+          text: 'LinkedIn DM or the contact form on this site. I respond within 24 hours and read every message; paste a role brief or scope and I will reply with a fit assessment, not a templated thank-you.',
         },
       },
     ],

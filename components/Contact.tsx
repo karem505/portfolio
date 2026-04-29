@@ -84,8 +84,7 @@ export default function Contact() {
             Let's work together<span className="text-signal">.</span>
           </h2>
           <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
-            Have a project in mind? Tell me what you need. I'll show you how AI automation
-            can save you time and money.
+            Send a role, send a brief. I read every message and reply within 24 hours.
           </p>
         </motion.div>
 
@@ -277,7 +276,7 @@ export default function Contact() {
                 Need someone who can ship?
               </h3>
               <p className="font-mono text-sm md:text-base mb-6 leading-relaxed opacity-90 max-w-md">
-                I serve concurrently as Full-Stack Developer, DevOps Engineer, and Scrum Master across three live SaaS products. Send a role, send a brief — I respond within 24 hours.
+                Full-Stack, DevOps, and Scrum Master across three live SaaS products. Send a role brief or a project scope; I respond within 24 hours.
               </p>
               <a
                 href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
