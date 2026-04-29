@@ -7,34 +7,34 @@ import { FaChevronDown } from 'react-icons/fa'
 
 const faqs = [
   {
-    question: 'What is AI automation and how can it help my business?',
+    question: "What's your primary stack?",
     answer:
-      'AI automation uses artificial intelligence to handle repetitive tasks, make decisions, and streamline workflows. It can help your business reduce manual work, cut operational costs by up to 70%, and free your team to focus on high-value activities.',
+      'TypeScript, React, and Next.js on the frontend; Python (FastAPI) and Node.js on the backend; Postgres and Odoo 18 where ERP fits. Voice AI work runs on LiveKit Agents, OpenAI Realtime, MCP, and Tavus.',
   },
   {
-    question: 'How do voice agents work?',
+    question: 'How do you ship and run three SaaS products concurrently?',
     answer:
-      'Voice agents use technologies like LiveKit and OpenAI Realtime API to have natural conversations with your customers. They can handle sales calls, customer support, appointment scheduling, and more — 24/7, without human intervention.',
+      'Each product (Tornix.ai, Oravex.app, Costra) has its own repo, CI pipeline, and Docker image; I run sprint cadence as Scrum Master and own deployments end to end. Shared infra patterns and reusable modules keep the operating cost of three products closer to one.',
   },
   {
-    question: 'How much can AI automation save my business?',
+    question: 'Do you work in Arabic? Bilingual delivery?',
     answer:
-      'Most businesses see cost reductions of 40-70% in automated processes. The exact savings depend on your current workflows, team size, and the complexity of tasks being automated. I provide a free audit to estimate your potential savings.',
+      'Yes. Arabic is a first-class surface in every product I build, with proper RTL, native typography, and Arabic-fluent stakeholder communication. I also write technical content in both English and Arabic.',
   },
   {
-    question: 'What technologies do you use?',
+    question: "What's your DevOps setup?",
     answer:
-      'My core stack: TypeScript, Python, React, Next.js, Node.js, FastAPI, and Flutter. For AI, LiveKit Agents, OpenAI Realtime API, MCP, and Tavus. For DevOps, Docker, GitHub Actions, AWS EC2, Railway, Linux, and Nginx. For ERP, Odoo 18. Every project gets the right stack for the job.',
+      'Docker for everything, GitHub Actions for CI/CD, AWS EC2 and Railway for hosting, Nginx as the reverse proxy, and Linux on the metal. Observability via uptime checks, log shipping, and alerting on the boring-but-critical signals.',
   },
   {
-    question: 'Do you work with international clients?',
+    question: 'Open to full-time roles, contracts, or both?',
     answer:
-      'Yes. I am based in Cairo, Egypt and I deliver engagements across Egypt, the UAE, and KSA — the three regions my Ailigent work primarily serves. Communication is in English or Arabic.',
+      'Both. I take full-time roles, contract engagements, and fixed-scope projects, with a preference for work where I can own engineering and delivery end to end. Remote-friendly across CET/GMT-adjacent timezones.',
   },
   {
-    question: 'How do I get started with AI automation?',
+    question: 'How can recruiters or hiring managers reach you fastest?',
     answer:
-      'Start by reaching out through the contact form or LinkedIn. I will schedule a free consultation to understand your business needs, identify automation opportunities, and propose a solution with clear timelines and expected ROI.',
+      'LinkedIn DM or the contact form on this site. I respond within 24 hours and read every message; paste a role brief or scope and I will reply with a fit assessment, not a templated thank-you.',
   },
 ]
 
@@ -58,7 +58,7 @@ export default function FAQ() {
             Frequently asked<span className="text-signal">.</span>
           </h2>
           <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
-            Common questions about AI automation, voice agents, and how I can help your business.
+            Stack, shipping cadence, languages, and how to reach me. Engineer-spoken, no consulting pitch.
           </p>
         </motion.div>
 

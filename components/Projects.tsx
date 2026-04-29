@@ -37,7 +37,7 @@ const flagships: Project[] = [
     title: 'Oravex.app',
     tagline: 'NLP-Powered Odoo ERP Platform',
     description:
-      'Full ERP platform built on Odoo 18 combining Natural Language Processing with core ERP modules — users interact with the ERP using natural language queries. Custom NLP modules on a React/Next.js + Odoo stack.',
+      'Full ERP platform built on Odoo 18 combining Natural Language Processing with core ERP modules: users interact with the ERP using natural language queries. Custom NLP modules on a React/Next.js + Odoo stack.',
     tech: ['React', 'Next.js', 'Odoo 18', 'Python', 'PostgreSQL'],
     roles: ['Scrum Master', 'DevOps Engineer', 'Full-Stack Developer'],
     icon: FaLanguage,
@@ -193,7 +193,7 @@ function ProjectCard({
           {project.result && (
             <div className="mb-5 pl-3 border-l border-signal">
               <span className="block font-mono text-[0.65rem] tracking-[0.18em] uppercase text-signal mb-1">
-                — outcome
+                / outcome
               </span>
               <span className="font-mono text-sm text-paper font-medium">
                 {project.result}

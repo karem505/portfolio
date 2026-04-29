@@ -18,7 +18,7 @@ const roles = [
       'Manage cloud infrastructure, containerization, and CI/CD pipelines on Railway and AWS EC2 using Docker and GitHub Actions.',
       'Facilitate Agile ceremonies, maintain product backlogs, and coordinate sprint planning across cross-functional teams.',
       'Design and deploy voice AI agents using LiveKit Agents framework and OpenAI Realtime API for sales and customer support automation.',
-      'Built OpenClaw Agent Dashboard — a glassmorphic agent management UI with 11 API integrations and real-time monitoring.',
+      'Built OpenClaw Agent Dashboard, a glassmorphic agent management UI with 11 API integrations and real-time monitoring.',
       'Developed PE Live AI Agent: production-ready voice AI with MCP database integration, 8 database tools, and Tavus video avatar support.',
       'Deliver client engagements end-to-end from requirements analysis and system architecture to deployment and post-launch optimization.',
     ],
@@ -32,7 +32,7 @@ const roles = [
     bullets: [
       'Conduct requirements workshops and process mapping for digital transformation engagements across Egypt, KSA, and UAE.',
       'Translate stakeholder needs into technical specifications, user stories, and sprint-ready backlogs.',
-      'Lead cost-benefit analysis and ROI modelling for AI automation projects, consistently demonstrating 50–70% cost reduction potential.',
+      'Author functional and non-functional requirements, success criteria, and acceptance tests that engineering can ship against.',
     ],
   },
 ]
@@ -56,7 +56,7 @@ export default function Experience() {
             Roles at Ailigent<span className="text-signal">.</span>
           </h2>
           <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
-            Two concurrent roles driving AI automation and digital transformation for clients across Egypt, UAE, and KSA.
+            Two concurrent roles: full-stack engineering and delivery, plus business analysis on digital transformation engagements.
           </p>
         </motion.div>
 
@@ -139,13 +139,12 @@ export default function Experience() {
         >
           <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 mb-4">
             <h3 className="font-mono font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper">
-              Focused on digital transformation<span className="text-signal">.</span>
+              Concurrent delivery, end to end<span className="text-signal">.</span>
             </h3>
-            <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-signal">— note ·</span>
+            <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-signal">/ note</span>
           </div>
           <p className="text-ash max-w-3xl font-mono leading-relaxed">
-            Combining technical delivery with business analysis to help organizations modernize their operations,
-            implement AI solutions, and achieve up to <span className="text-paper font-bold">70%</span> cost reduction through intelligent automation.
+            Concurrent delivery across three SaaS products, plus business analysis on digital transformation engagements across Egypt, UAE, and KSA.
           </p>
         </motion.div>
       </div>
