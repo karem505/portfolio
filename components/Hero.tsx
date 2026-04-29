@@ -1,22 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
-
-// Recruiter-first, not marketing-pitch. The CTAs go to actions a hiring
-// manager actually takes in the first 30 seconds: read CV, send email.
-// Marketing claims ("70% cost reduction", "Free AI Audit") moved out of the
-// hero — they live in About/Projects where the proof is anyway.
-
-const titles = [
-  'Full-Stack Developer',
-  'DevOps Engineer',
-  'Scrum Master',
-  'Business Analyst',
-]
 
 const orbitIcons = [
   { Icon: SiTypescript, label: 'TypeScript' },
@@ -28,32 +15,6 @@ const orbitIcons = [
 ]
 
 export default function Hero() {
-  const [currentTitle, setCurrentTitle] = useState(0)
-  const [displayText, setDisplayText] = useState('')
-  const [isDeleting, setIsDeleting] = useState(false)
-
-  useEffect(() => {
-    const title = titles[currentTitle]
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayText.length < title.length) {
-          setDisplayText(title.slice(0, displayText.length + 1))
-        } else {
-          setTimeout(() => setIsDeleting(true), 2000)
-        }
-      } else {
-        if (displayText.length > 0) {
-          setDisplayText(title.slice(0, displayText.length - 1))
-        } else {
-          setIsDeleting(false)
-          setCurrentTitle((prev) => (prev + 1) % titles.length)
-        }
-      }
-    }, isDeleting ? 50 : 100)
-
-    return () => clearTimeout(timeout)
-  }, [displayText, isDeleting, currentTitle])
-
   return (
     <section
       id="home"
@@ -109,19 +70,14 @@ export default function Hero() {
               </span>
             </h1>
 
-            {/* Role + typewriter — flat, no gradient, no white-glow */}
+            {/* Role line — static, factual, no cycling typewriter. */}
             <div className="font-mono text-base md:text-lg text-ash mb-10 leading-relaxed max-w-xl">
-              <div className="text-paper mb-1">
-                <span className="text-ash">$</span>{' '}
-                <span>{displayText}</span>
-                <span className="cursor-blink">_</span>
-              </div>
               <p>
                 Full-Stack Developer, DevOps Engineer and Scrum Master at{' '}
                 <span className="text-paper underline decoration-signal decoration-1 underline-offset-4">
                   Ailigent
                 </span>
-                . Shipping three production AI SaaS — Tornix.ai, Oravex.app, Costra — across EG · UAE · KSA.
+                . Shipping three production AI SaaS (Tornix.ai, Oravex.app, Costra) across EG · UAE · KSA.
               </p>
             </div>
 

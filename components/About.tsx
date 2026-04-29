@@ -69,16 +69,9 @@ const expertise = [
   {
     icon: FaChartLine,
     title: 'Digital Transformation',
-    description: 'From legacy systems to AI-powered operations — consistently 50–70% cost reduction.',
+    description: 'Modernizing legacy systems with engineering rigor and AI-powered automation.',
     gradient: 'from-indigo-500 to-violet-400',
   },
-]
-
-const stats = [
-  { value: '3', label: 'Live SaaS Products' },
-  { value: '70%', label: 'Cost Reduction' },
-  { value: '2+', label: 'Years Experience' },
-  { value: '3', label: 'Regions Served' },
 ]
 
 export default function About() {
@@ -180,32 +173,6 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.6 + index * 0.06 }}
-              className="p-6 border border-wire bg-graphite hover:border-signal transition-colors"
-            >
-              <div className="flex items-baseline justify-between mb-3">
-                <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash">{String(index + 1).padStart(2, '0')}</span>
-                <span className="h-px flex-1 ml-3 bg-wire" />
-              </div>
-              <div className="font-mono font-extrabold tracking-[-0.04em] text-5xl md:text-6xl text-paper mb-2 leading-none">
-                {stat.value}
-              </div>
-              <div className="text-ash text-xs font-mono uppercase tracking-[0.18em]">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Section Divider */}
