@@ -34,11 +34,11 @@ export default function RecentPostsClient({ posts }: RecentPostsClientProps) {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-primary font-medium mb-4 block">Blog</span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Recent <span className="gradient-text">Posts</span>
+          <span className="tab-eyebrow mb-6">008 · journal</span>
+          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+            Recent posts<span className="text-signal">.</span>
           </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
+          <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
             Insights on AI automation, voice agents, and building smarter business systems.
           </p>
         </motion.div>
@@ -52,44 +52,47 @@ export default function RecentPostsClient({ posts }: RecentPostsClientProps) {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative rounded-3xl glass border border-white/5 hover:border-primary/30 transition-all duration-300 overflow-hidden"
+              className="group relative bg-graphite border border-wire hover:border-signal transition-colors duration-200 overflow-hidden font-mono"
             >
               {/* Featured Image */}
               {post.featured_image && (
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-44 overflow-hidden border-b border-wire">
                   <Image
                     src={post.featured_image}
                     alt={post.title_en}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover grayscale contrast-110 group-hover:grayscale-0 transition-[filter] duration-700"
                     loading="lazy"
                   />
+                  <span className="absolute top-2 left-2 font-mono text-[0.65rem] tracking-[0.18em] uppercase text-paper bg-ink/80 px-2 py-1">
+                    post · {String(index + 1).padStart(2, '0')}
+                  </span>
                 </div>
               )}
 
-              <div className="p-6">
+              <div className="p-5">
                 {/* Meta */}
-                <div className="flex items-center gap-4 text-muted text-xs mb-3">
-                  <span className="flex items-center gap-1">
-                    <FaCalendarAlt />
+                <div className="flex items-center gap-3 text-ash text-[0.7rem] tracking-[0.04em] mb-3 uppercase">
+                  <span className="flex items-center gap-1.5">
+                    <FaCalendarAlt size={9} className="text-signal" />
                     {formatDate(post.published_at)}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <FaClock />
-                    {post.reading_time_minutes} min read
+                  <span className="text-wire">·</span>
+                  <span className="flex items-center gap-1.5">
+                    <FaClock size={9} className="text-signal" />
+                    {post.reading_time_minutes} min
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display font-bold text-lg mb-2 text-white group-hover:text-primary transition-colors line-clamp-2">
+                <h3 className="font-mono font-bold text-base md:text-lg mb-2 text-paper group-hover:text-signal transition-colors line-clamp-2 leading-snug tracking-[-0.02em]">
                   {post.title_en}
                 </h3>
 
                 {/* Excerpt */}
                 {post.excerpt_en && (
-                  <p className="text-muted text-sm leading-relaxed line-clamp-2">
+                  <p className="text-ash text-sm leading-relaxed line-clamp-2">
                     {post.excerpt_en}
                   </p>
                 )}
@@ -105,15 +108,13 @@ export default function RecentPostsClient({ posts }: RecentPostsClientProps) {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-12"
         >
-          <motion.a
+          <a
             href="/blog"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 font-semibold hover:bg-white/10 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper font-mono text-sm hover:border-signal hover:text-signal transition-colors"
           >
-            View All Posts
-            <FaArrowRight />
-          </motion.a>
+            <span>View all posts</span>
+            <FaArrowRight size={12} />
+          </a>
         </motion.div>
       </div>
 

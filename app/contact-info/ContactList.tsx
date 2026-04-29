@@ -50,19 +50,19 @@ export default function ContactList() {
         const Card = (
           <motion.div
             key={contact.label}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            whileHover={contact.href ? { y: -4, scale: 1.02 } : {}}
-            className="flex items-center gap-5 p-6 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
+            transition={{ duration: 0.35, delay: index * 0.05 }}
+            className="group flex items-center gap-5 p-5 bg-graphite border border-wire hover:border-signal transition-colors duration-200 font-mono"
           >
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0">
-              <contact.icon className="text-white text-xl" />
+            <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors shrink-0">
+              <contact.icon className="text-base" />
             </div>
-            <div>
-              <div className="text-muted text-sm">{contact.label}</div>
-              <div className="text-white font-medium">{contact.value}</div>
+            <div className="flex-1">
+              <div className="text-ash text-[0.7rem] tracking-[0.18em] uppercase">{contact.label}</div>
+              <div className="text-paper font-medium mt-1 group-hover:text-signal transition-colors">{contact.value}</div>
             </div>
+            {contact.href && <span className="text-ash group-hover:text-signal transition-colors">↗</span>}
           </motion.div>
         )
 

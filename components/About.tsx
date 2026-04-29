@@ -95,18 +95,18 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-primary font-medium mb-4 block">About Me</span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Transforming Ideas into
-            <span className="gradient-text"> Digital Reality</span>
+          <span className="tab-eyebrow mb-6">002 · about</span>
+          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+            Engineer with three<br />
+            shipped products<span className="text-signal">.</span>
           </h2>
-          <p className="text-muted max-w-3xl mx-auto text-lg">
+          <p className="text-ash max-w-3xl mx-auto text-base md:text-lg leading-relaxed font-mono">
             Full-Stack Developer and AI automation expert based in Cairo, Egypt with 2+ years of experience.
-            At <span className="text-white font-semibold">Ailigent</span> I serve concurrently as Scrum Master,
+            At <span className="text-paper font-semibold">Ailigent</span> I serve concurrently as Scrum Master,
             DevOps Engineer, and Full-Stack Developer across three live SaaS products —
-            <span className="text-white font-semibold"> Tornix.ai</span>,
-            <span className="text-white font-semibold"> Oravex.app</span>, and
-            <span className="text-white font-semibold"> Costra.ailigent.ai</span> — delivering digital
+            <span className="text-paper font-semibold"> Tornix.ai</span>,
+            <span className="text-paper font-semibold"> Oravex.app</span>, and
+            <span className="text-paper font-semibold"> Costra.ailigent.ai</span> — delivering digital
             transformation engagements across Egypt, UAE, and KSA.
           </p>
         </motion.div>
@@ -119,20 +119,21 @@ export default function About() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative p-6 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
+              className="group relative p-6 bg-graphite border border-wire hover:border-signal transition-colors duration-200"
             >
-              {/* Gradient Background on Hover */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4`}>
-                <item.icon className="text-white text-2xl" />
+              <div className="flex items-start justify-between mb-5">
+                <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors duration-200">
+                  <item.icon className="text-lg" />
+                </div>
+                <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
               </div>
 
-              <h3 className="font-display font-bold text-xl mb-2 text-white group-hover:text-primary transition-colors">
+              <h3 className="font-mono font-bold text-lg mb-2 text-paper group-hover:text-signal transition-colors">
                 {item.title}
               </h3>
-              <p className="text-muted text-sm leading-relaxed">
+              <p className="text-ash text-sm leading-relaxed font-mono">
                 {item.description}
               </p>
             </motion.div>
@@ -146,25 +147,29 @@ export default function About() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-20"
         >
-          <h3 className="font-display font-bold text-2xl text-center mb-10">Technical Skills</h3>
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <div className="mb-8 flex items-baseline gap-4">
+            <h3 className="font-mono font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper">technical · stack</h3>
+            <span className="h-px flex-1 bg-wire" />
+            <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-ash">{skillCategories.length} categories</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-px bg-wire border border-wire max-w-5xl mx-auto">
             {skillCategories.map((category, catIndex) => (
               <motion.div
                 key={category.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + catIndex * 0.1 }}
-                className="p-6 rounded-2xl glass border border-white/5 hover:border-primary/20 transition-colors duration-300"
+                transition={{ duration: 0.4, delay: 0.4 + catIndex * 0.06 }}
+                className="p-6 bg-ink hover:bg-graphite transition-colors duration-200"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className={`w-10 h-1 rounded-full bg-gradient-to-r ${category.accent}`} />
-                  <h4 className="font-display font-semibold text-lg text-white">{category.title}</h4>
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-wire">
+                  <h4 className="font-mono font-bold text-sm tracking-[0.04em] uppercase text-paper">{category.title}</h4>
+                  <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash">{category.items.length}</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {category.items.map((item) => (
                     <span
                       key={item}
-                      className="tech-badge px-3 py-1.5 rounded-lg text-sm font-medium text-white/90"
+                      className="tag-chip"
                     >
                       {item}
                     </span>
@@ -185,15 +190,19 @@ export default function About() {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-              className="text-center p-6 rounded-2xl glass border border-white/5"
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.6 + index * 0.06 }}
+              className="p-6 border border-wire bg-graphite hover:border-signal transition-colors"
             >
-              <div className="font-display font-bold text-4xl md:text-5xl gradient-text mb-2">
+              <div className="flex items-baseline justify-between mb-3">
+                <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash">{String(index + 1).padStart(2, '0')}</span>
+                <span className="h-px flex-1 ml-3 bg-wire" />
+              </div>
+              <div className="font-mono font-extrabold tracking-[-0.04em] text-5xl md:text-6xl text-paper mb-2 leading-none">
                 {stat.value}
               </div>
-              <div className="text-muted text-sm">{stat.label}</div>
+              <div className="text-ash text-xs font-mono uppercase tracking-[0.18em]">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

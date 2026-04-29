@@ -1,105 +1,99 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { FaLinkedin, FaGithub, FaHeart } from 'react-icons/fa'
+import { FaLinkedin, FaGithub } from 'react-icons/fa'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative py-12 px-6 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo & Copyright */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-center md:items-start gap-2"
-          >
-            <span className="font-display font-bold text-2xl gradient-text">
-              AE
-            </span>
-            <p className="text-muted text-sm flex items-center gap-1">
-              © {currentYear} Made with <FaHeart className="text-red-500 text-xs" /> by Abo-Elmakarem
-            </p>
-          </motion.div>
+    <footer className="relative px-6 lg:px-10 pt-16 pb-10 border-t border-wire bg-ink">
+      <div className="max-w-7xl mx-auto font-mono">
+        {/* Top spec band */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3 pb-10 mb-10 border-b border-wire text-[0.7rem] tracking-[0.18em] uppercase text-ash">
+          <div>
+            <span className="text-ash/60">role</span>
+            <div className="text-paper mt-1 normal-case tracking-normal">Full-Stack Developer</div>
+          </div>
+          <div>
+            <span className="text-ash/60">company</span>
+            <div className="text-paper mt-1 normal-case tracking-normal">Ailigent</div>
+          </div>
+          <div>
+            <span className="text-ash/60">based</span>
+            <div className="text-paper mt-1 normal-case tracking-normal">Cairo, Egypt</div>
+          </div>
+          <div>
+            <span className="text-ash/60">version</span>
+            <div className="text-paper mt-1 normal-case tracking-normal">v.{currentYear}.04</div>
+          </div>
+        </div>
 
-          {/* Navigation Links */}
-          <motion.nav
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="flex items-center gap-8"
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          {/* Wordmark */}
+          <a
+            href="#home"
+            className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors"
+            aria-label="Abo-Elmakarem — home"
           >
-            {['Home', 'About', 'Projects', 'Contact'].map((link) => (
+            <span className="font-extrabold tracking-[-0.04em] text-2xl">karem</span>
+            <span className="text-signal font-extrabold text-2xl">.</span>
+            <span className="text-ash text-sm tracking-[0.04em]">pro</span>
+          </a>
+
+          {/* Navigation */}
+          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            {[
+              { label: 'home', href: '#home' },
+              { label: 'about', href: '#about' },
+              { label: 'projects', href: '#projects' },
+              { label: 'contact', href: '#contact' },
+              { label: 'blog', href: '/blog' },
+            ].map((link) => (
               <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                className="text-muted hover:text-white text-sm transition-colors"
+                key={link.label}
+                href={link.href}
+                className="text-ash hover:text-signal transition-colors"
               >
-                {link}
+                {link.label}
               </a>
             ))}
-            <a
-              href="/blog"
-              className="text-muted hover:text-white text-sm transition-colors"
-            >
-              Blog
-            </a>
-          </motion.nav>
+          </nav>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-4"
-          >
-            <motion.a
+          {/* Social */}
+          <div className="flex items-center gap-2">
+            <a
               href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.2, y: -3 }}
-              className="p-3 rounded-full glass text-muted hover:text-primary transition-colors"
+              className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
+              aria-label="LinkedIn"
             >
-              <FaLinkedin size={18} />
-            </motion.a>
-            <motion.a
+              <FaLinkedin size={14} />
+            </a>
+            <a
               href="https://github.com/karem505"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.2, y: -3 }}
-              className="p-3 rounded-full glass text-muted hover:text-white transition-colors"
+              className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
+              aria-label="GitHub"
             >
-              <FaGithub size={18} />
-            </motion.a>
-          </motion.div>
+              <FaGithub size={14} />
+            </a>
+          </div>
         </div>
 
-        {/* Bottom Text */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-8 pt-8 border-t border-white/5 text-center"
-        >
-          <p className="text-muted text-xs">
-            Full-Stack Developer @ <span className="text-primary">Ailigent</span> • DevOps · Scrum Master · AI Automation • Cairo, Egypt
+        {/* Bottom strip */}
+        <div className="mt-10 pt-8 border-t border-wire flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-ash">
+          <p>
+            © {currentYear} Abo-Elmakarem Shohoud · Full-Stack Developer at{' '}
+            <span className="text-paper">Ailigent</span> · DevOps · Scrum Master · Business Analyst
           </p>
-        </motion.div>
-
-        {/* Policy Links */}
-        <div className="mt-4 text-center">
-          <div className="flex items-center justify-center gap-2 text-xs text-muted/60">
-            <a href="/privacy" className="hover:text-muted transition-colors">Privacy Policy</a>
-            <span>·</span>
-            <a href="/refund" className="hover:text-muted transition-colors">Refund Policy</a>
-            <span>·</span>
-            <a href="/contact-info" className="hover:text-muted transition-colors">Contact</a>
+          <div className="flex items-center gap-3">
+            <a href="/privacy" className="hover:text-signal transition-colors">privacy</a>
+            <span className="text-wire">/</span>
+            <a href="/refund" className="hover:text-signal transition-colors">refund</a>
+            <span className="text-wire">/</span>
+            <a href="/contact-info" className="hover:text-signal transition-colors">contact</a>
           </div>
         </div>
       </div>

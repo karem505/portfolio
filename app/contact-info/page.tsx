@@ -17,10 +17,11 @@ export default function ContactInfoPage() {
       <SimplePageHeader title="Contact" />
       <main className="min-h-screen py-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="font-display font-bold text-4xl md:text-5xl mb-4 text-center">
-            Get in <span className="gradient-text">Touch</span>
+          <span className="tab-eyebrow mb-6 mx-auto block w-fit">contact</span>
+          <h1 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] text-center">
+            Get in touch<span className="text-signal">.</span>
           </h1>
-          <p className="text-muted text-center text-lg mb-12 max-w-xl mx-auto">
+          <p className="text-ash text-center text-base md:text-lg font-mono leading-relaxed mb-12 max-w-xl mx-auto">
             Have a project in mind or want to discuss how AI automation can help your business?
             Reach out through any of the channels below.
           </p>

@@ -51,27 +51,27 @@ export default function Experience() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium mb-4 block">Professional Experience</span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Roles at <span className="gradient-text">Ailigent</span>
+          <span className="tab-eyebrow mb-6">003 · experience</span>
+          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+            Roles at Ailigent<span className="text-signal">.</span>
           </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
+          <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
             Two concurrent roles driving AI automation and digital transformation for clients across Egypt, UAE, and KSA.
           </p>
         </motion.div>
 
-        {/* Company Badge */}
+        {/* Company line — flat spec strip, no glass pill */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex justify-center mb-12"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="flex justify-center mb-14"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full glass border border-primary/30">
-            <FaBuilding className="text-primary text-xl" />
-            <span className="font-display font-semibold text-white">Ailigent</span>
-            <span className="text-muted">|</span>
-            <span className="text-muted text-sm">AI Automation Solutions</span>
+          <div className="inline-flex items-center gap-4 px-5 py-3 border border-wire bg-graphite font-mono text-sm">
+            <FaBuilding className="text-signal" />
+            <span className="font-bold text-paper tracking-[-0.02em]">Ailigent</span>
+            <span className="text-wire">·</span>
+            <span className="text-ash text-xs tracking-[0.04em] uppercase">AI Automation Solutions</span>
           </div>
         </motion.div>
 
@@ -83,44 +83,44 @@ export default function Experience() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
-              className="group relative p-8 rounded-2xl glass border border-white/5 hover:border-primary/30 transition-all duration-300"
+              className="group relative p-7 md:p-8 bg-graphite border border-wire hover:border-signal transition-colors duration-200"
             >
-              {/* Gradient overlay on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
               <div className="relative z-10">
                 {/* Icon + Focus */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
-                    <role.icon className="text-white text-xl" />
+                <div className="flex items-center gap-3 mb-5 pb-5 border-b border-wire">
+                  <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors">
+                    <role.icon className="text-base" />
                   </div>
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                  <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-signal border border-signal px-2 py-1">
                     {role.focus}
+                  </span>
+                  <span className="ml-auto font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+                    role · {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display font-bold text-xl md:text-2xl mb-3 text-white group-hover:text-primary transition-colors">
+                <h3 className="font-mono font-extrabold tracking-[-0.03em] text-xl md:text-2xl mb-4 text-paper leading-tight">
                   {role.title}
                 </h3>
 
-                {/* Meta */}
-                <div className="flex flex-wrap items-center gap-4 mb-5 text-sm text-muted">
+                {/* Meta — spec line */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mb-6 text-xs font-mono text-ash">
                   <span className="flex items-center gap-1.5">
-                    <FaCalendarAlt className="text-primary/70" />
+                    <FaCalendarAlt className="text-signal text-[0.7rem]" />
                     {role.period}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <FaMapMarkerAlt className="text-primary/70" />
+                    <FaMapMarkerAlt className="text-signal text-[0.7rem]" />
                     {role.location}
                   </span>
                 </div>
 
                 {/* Bullets */}
-                <ul className="space-y-2.5">
+                <ul className="space-y-2">
                   {role.bullets.map((bullet, i) => (
-                    <li key={i} className="flex gap-3 text-muted text-sm leading-relaxed">
-                      <span className="text-primary flex-shrink-0 mt-1.5">•</span>
+                    <li key={i} className="flex gap-3 text-ash text-sm leading-relaxed font-mono">
+                      <span className="text-signal flex-shrink-0 font-bold mt-0.5">›</span>
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -135,14 +135,17 @@ export default function Experience() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 text-center"
+          className="mt-14 p-8 md:p-10 border border-signal bg-graphite"
         >
-          <h3 className="font-display font-bold text-2xl mb-4 text-white">
-            Focused on Digital Transformation
-          </h3>
-          <p className="text-muted max-w-2xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 mb-4">
+            <h3 className="font-mono font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper">
+              Focused on digital transformation<span className="text-signal">.</span>
+            </h3>
+            <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-signal">— note ·</span>
+          </div>
+          <p className="text-ash max-w-3xl font-mono leading-relaxed">
             Combining technical delivery with business analysis to help organizations modernize their operations,
-            implement AI solutions, and achieve up to 70% cost reduction through intelligent automation.
+            implement AI solutions, and achieve up to <span className="text-paper font-bold">70%</span> cost reduction through intelligent automation.
           </p>
         </motion.div>
       </div>

@@ -53,38 +53,43 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-primary font-medium mb-4 block">FAQ</span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Frequently Asked <span className="gradient-text">Questions</span>
+          <span className="tab-eyebrow mb-6">006 · faq</span>
+          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+            Frequently asked<span className="text-signal">.</span>
           </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
+          <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
             Common questions about AI automation, voice agents, and how I can help your business.
           </p>
         </motion.div>
 
         {/* FAQ Items */}
-        <div className="space-y-4">
+        <div className="border-t border-wire">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="rounded-2xl glass border border-white/5 hover:border-primary/20 transition-all duration-300 overflow-hidden"
+              transition={{ duration: 0.35, delay: index * 0.06 }}
+              className="border-b border-wire transition-colors duration-200"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-left"
+                className="w-full flex items-baseline justify-between py-5 text-left group"
               >
-                <span className="font-display font-semibold text-white pr-4">
-                  {faq.question}
+                <span className="flex items-baseline gap-4">
+                  <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-ash/55 tabular-nums">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="font-mono font-bold text-paper text-base md:text-lg group-hover:text-signal transition-colors">
+                    {faq.question}
+                  </span>
                 </span>
                 <motion.span
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-primary flex-shrink-0"
+                  transition={{ duration: 0.2 }}
+                  className="text-signal flex-shrink-0 ml-4"
                 >
-                  <FaChevronDown />
+                  <FaChevronDown size={12} />
                 </motion.span>
               </button>
 
@@ -94,9 +99,9 @@ export default function FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
                   >
-                    <div className="px-6 pb-6 text-muted leading-relaxed">
+                    <div className="pb-6 pl-12 pr-4 text-ash leading-relaxed font-mono text-sm md:text-base">
                       {faq.answer}
                     </div>
                   </motion.div>

@@ -118,72 +118,65 @@ function ProjectCard({
       className="group relative"
     >
       <div
-        className={`relative h-full ${isFlagship ? 'p-8' : 'p-6'} rounded-3xl glass border border-white/5 hover:border-primary/30 transition-all duration-500 overflow-hidden`}
+        className={`relative h-full ${isFlagship ? 'p-7 md:p-8' : 'p-6'} bg-graphite border border-wire hover:border-signal transition-colors duration-200 overflow-hidden`}
       >
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-        />
-
-        <motion.div
-          initial={false}
-          animate={{ opacity: hoveredKey === cardKey ? 1 : 0 }}
-          className="absolute -inset-px rounded-3xl bg-gradient-to-r from-primary via-accent to-primary opacity-20 blur-xl"
-        />
-
-        <div className="relative z-10">
+        <div className="relative z-10 h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-start justify-between mb-5">
+          <div className="flex items-start justify-between mb-5 pb-5 border-b border-wire">
             <div
-              className={`${isFlagship ? 'w-14 h-14' : 'w-12 h-12'} rounded-2xl bg-gradient-to-br ${project.gradient} flex items-center justify-center`}
+              className={`${isFlagship ? 'w-12 h-12' : 'w-11 h-11'} border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors`}
             >
-              <project.icon className={`text-white ${isFlagship ? 'text-2xl' : 'text-xl'}`} />
+              <project.icon className={isFlagship ? 'text-xl' : 'text-lg'} />
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               {project.github && (
-                <motion.a
+                <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-3 rounded-xl glass text-muted hover:text-white transition-colors"
+                  className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
                   aria-label={`${project.title} on GitHub`}
                 >
-                  <FaGithub size={18} />
-                </motion.a>
+                  <FaGithub size={14} />
+                </a>
               )}
               {project.link && (
-                <motion.a
+                <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-3 rounded-xl glass text-muted hover:text-primary transition-colors"
+                  className="w-9 h-9 border border-wire flex items-center justify-center text-ash hover:text-signal hover:border-signal transition-colors"
                   aria-label={`Visit ${project.title}`}
                 >
-                  <FaExternalLinkAlt size={16} />
-                </motion.a>
+                  <FaExternalLinkAlt size={12} />
+                </a>
               )}
             </div>
           </div>
 
           {/* Title + Tagline */}
-          <h3
-            className={`font-display font-bold ${isFlagship ? 'text-2xl md:text-3xl' : 'text-xl'} mb-1 text-white group-hover:text-primary transition-colors`}
-          >
-            {project.title}
-          </h3>
-          <p className="text-primary/80 text-sm font-medium mb-4">{project.tagline}</p>
+          <div className="mb-4">
+            <div className="flex items-baseline gap-2 mb-1">
+              <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+                {String(index + 1).padStart(2, '0')} ·
+              </span>
+              <h3
+                className={`font-mono font-extrabold tracking-[-0.04em] ${isFlagship ? 'text-2xl md:text-[1.75rem]' : 'text-xl'} text-paper group-hover:text-signal transition-colors leading-none`}
+              >
+                {project.title}
+              </h3>
+            </div>
+            <p className="text-ash text-xs md:text-sm font-mono">{project.tagline}</p>
+          </div>
 
           {/* Roles (flagship only) */}
           {project.roles.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-1.5 mb-4">
               {project.roles.map((role) => (
                 <span
                   key={role}
-                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-primary/15 text-primary/90 border border-primary/20"
+                  className="px-2 py-1 text-[0.65rem] font-mono uppercase tracking-[0.04em] border border-wire text-ash"
                 >
                   {role}
                 </span>
@@ -192,34 +185,28 @@ function ProjectCard({
           )}
 
           {/* Description */}
-          <p className={`text-muted leading-relaxed mb-4 ${isFlagship ? 'text-base' : 'text-sm'}`}>
+          <p className={`text-ash leading-relaxed mb-5 font-mono ${isFlagship ? 'text-sm' : 'text-xs md:text-sm'}`}>
             {project.description}
           </p>
 
-          {/* Result Badge */}
+          {/* Result line */}
           {project.result && (
-            <div className="mb-5">
-              <span
-                className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${project.gradient} bg-opacity-20 text-white border border-white/10`}
-              >
-                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+            <div className="mb-5 pl-3 border-l border-signal">
+              <span className="block font-mono text-[0.65rem] tracking-[0.18em] uppercase text-signal mb-1">
+                — outcome
+              </span>
+              <span className="font-mono text-sm text-paper font-medium">
                 {project.result}
               </span>
             </div>
           )}
 
-          {/* Tech Stack */}
-          <div className="flex flex-wrap gap-2">
+          {/* Tech Stack — last */}
+          <div className="mt-auto flex flex-wrap gap-1.5">
             {project.tech.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-muted border border-white/10"
+                className="tag-chip"
               >
                 {tech}
               </span>
@@ -232,15 +219,14 @@ function ProjectCard({
           href={primaryLink}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, x: -10 }}
+          initial={false}
           animate={{
             opacity: hoveredKey === cardKey ? 1 : 0,
-            x: hoveredKey === cardKey ? 0 : -10,
           }}
-          className="absolute bottom-6 right-6 text-primary"
+          className="absolute bottom-5 right-5 text-signal"
           aria-label={`Open ${project.title}`}
         >
-          <FaExternalLinkAlt size={18} />
+          <FaExternalLinkAlt size={14} />
         </motion.a>
       </div>
     </motion.div>
@@ -262,12 +248,12 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium mb-4 block">My Work</span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Flagship <span className="gradient-text">SaaS Products</span>
+          <span className="tab-eyebrow mb-6">004 · shipped · work</span>
+          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+            Three production SaaS<span className="text-signal">.</span>
           </h2>
-          <p className="text-muted max-w-2xl mx-auto text-lg">
-            Three live SaaS products I architect, ship, and run as Full-Stack Developer, DevOps Engineer, and Scrum Master at Ailigent.
+          <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
+            Live products I architect, ship, and run as Full-Stack Developer, DevOps Engineer, and Scrum Master at Ailigent.
           </p>
         </motion.div>
 
@@ -294,9 +280,9 @@ export default function Projects() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex items-center gap-4 mb-8"
         >
-          <FaRocket className="text-primary" />
-          <h3 className="font-display font-bold text-2xl text-white">Notable Builds</h3>
-          <span className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent" />
+          <FaRocket className="text-signal" />
+          <h3 className="font-mono font-extrabold tracking-[-0.03em] text-2xl text-paper">notable · builds</h3>
+          <span className="flex-1 h-px bg-wire" />
         </motion.div>
 
         {/* Notable Builds Grid */}
@@ -322,17 +308,16 @@ export default function Projects() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12"
         >
-          <motion.a
+          <a
             href="https://github.com/karem505"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 font-semibold hover:bg-white/10 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper font-mono text-sm tracking-wide hover:border-signal hover:text-signal transition-colors"
           >
-            <FaGithub size={20} />
-            More on GitHub
-          </motion.a>
+            <FaGithub size={16} />
+            <span>More on GitHub</span>
+            <span className="text-ash group-hover:text-signal">↗</span>
+          </a>
         </motion.div>
       </div>
 
