@@ -75,6 +75,9 @@ export default function FAQ() {
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full flex items-baseline justify-between py-5 text-left group"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-panel-${index}`}
+                id={`faq-button-${index}`}
               >
                 <span className="flex items-baseline gap-4">
                   <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-ash/55 tabular-nums">
@@ -88,6 +91,7 @@ export default function FAQ() {
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                   className="text-signal flex-shrink-0 ml-4"
+                  aria-hidden="true"
                 >
                   <FaChevronDown size={12} />
                 </motion.span>
@@ -96,6 +100,9 @@ export default function FAQ() {
               <AnimatePresence>
                 {openIndex === index && (
                   <motion.div
+                    id={`faq-panel-${index}`}
+                    role="region"
+                    aria-labelledby={`faq-button-${index}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

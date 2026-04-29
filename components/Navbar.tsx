@@ -77,10 +77,12 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-paper hover:text-signal transition-colors"
-            aria-label="Toggle menu"
+            className="md:hidden p-2 text-paper hover:text-signal transition-colors min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav-menu"
           >
-            {isMobileMenuOpen ? <HiX size={22} /> : <HiMenuAlt4 size={22} />}
+            {isMobileMenuOpen ? <HiX size={22} aria-hidden="true" /> : <HiMenuAlt4 size={22} aria-hidden="true" />}
           </button>
         </div>
       </motion.nav>
@@ -89,6 +91,10 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-nav-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

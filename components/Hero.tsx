@@ -117,9 +117,9 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150"
-                aria-label="LinkedIn"
+                aria-label="LinkedIn (opens in new tab)"
               >
-                <FaLinkedin size={16} />
+                <FaLinkedin size={16} aria-hidden="true" />
                 <span>linkedin</span>
               </a>
               <span aria-hidden="true" className="text-wire">/</span>
@@ -128,9 +128,9 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-ash hover:text-signal transition-colors duration-150"
-                aria-label="GitHub"
+                aria-label="GitHub (opens in new tab)"
               >
-                <FaGithub size={16} />
+                <FaGithub size={16} aria-hidden="true" />
                 <span>github</span>
               </a>
             </div>
@@ -204,8 +204,10 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Footer scroll indicator — mono, flat */}
+        {/* Footer scroll indicator — mono, flat. Decorative; the section
+            anchors are already in the nav. */}
         <motion.div
+          aria-hidden="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
