@@ -8,6 +8,7 @@ import {
 } from '@/components/JsonLd'
 import ClickEffect from '@/components/ClickEffect'
 import { GoogleAnalytics } from '@/components/Analytics'
+import { LanguageProvider } from '@/lib/LanguageContext'
 
 const siteUrl = 'https://aboelmakarem.pro'
 
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: 'Abo-Elmakarem | Full-Stack Developer & AI Automation Expert',
+    default: 'Abo-Elmakarem Shohoud · ابوالمكارم شهود | Full-Stack Developer & AI Automation Expert',
     template: '%s | Abo-Elmakarem Shohoud',
   },
 
   description:
-    'Abo-Elmakarem Shohoud (كارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Building AI-powered SaaS products (Tornix.ai, Oravex.app, Costra.ailigent.ai) for clients across Egypt, UAE, and KSA. Cutting operational costs up to 70%.',
+    'Abo-Elmakarem Shohoud (ابوالمكارم شهود · كارم شهود) — مطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent. Full-Stack Developer, DevOps Engineer & Scrum Master shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.ailigent.ai) for clients across Egypt, UAE, and KSA.',
 
   keywords: [
     // Name variations (English & Arabic)
@@ -117,11 +118,12 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
+    alternateLocale: ['ar_EG'],
     url: siteUrl,
     siteName: 'Abo-Elmakarem Shohoud Portfolio',
-    title: 'Abo-Elmakarem | Full-Stack Developer & AI Automation Expert',
+    title: 'Abo-Elmakarem Shohoud | ابوالمكارم شهود — Full-Stack Developer & AI Automation Expert',
     description:
-      'Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.ailigent.ai) across Egypt, UAE, and KSA.',
+      'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.ailigent.ai) across Egypt, UAE, and KSA.',
   },
 
   twitter: {
@@ -173,6 +175,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://zklvvwugirvwimxdvybw.supabase.co" />
+        {/* hreflang — injected raw so the ?lang=ar query survives Next's
+            metadata URL normalization */}
+        <link rel="alternate" hrefLang="en" href={siteUrl} />
+        <link rel="alternate" hrefLang="en-US" href={siteUrl} />
+        <link rel="alternate" hrefLang="ar" href={`${siteUrl}/?lang=ar`} />
+        <link rel="alternate" hrefLang="ar-EG" href={`${siteUrl}/?lang=ar`} />
+        <link rel="alternate" hrefLang="x-default" href={siteUrl} />
         <PersonJsonLd />
         <WebsiteJsonLd />
         <OrganizationJsonLd />
@@ -180,7 +189,7 @@ export default function RootLayout({
       <body className="bg-ink text-paper antialiased">
         <GoogleAnalytics />
         <ClickEffect />
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   )

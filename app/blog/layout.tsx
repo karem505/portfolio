@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { LanguageProvider } from '@/lib/LanguageContext'
 import { BlogHeader, BlogSidebar } from '@/components/blog'
 
 export const metadata: Metadata = {
@@ -27,18 +26,16 @@ export default function BlogLayout({
   children: React.ReactNode
 }) {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-background">
-        <BlogHeader />
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-12">
-            <div>{children}</div>
-            <div className="hidden lg:block">
-              <BlogSidebar />
-            </div>
+    <div className="min-h-screen bg-background">
+      <BlogHeader />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-12">
+          <div>{children}</div>
+          <div className="hidden lg:block">
+            <BlogSidebar />
           </div>
-        </main>
-      </div>
-    </LanguageProvider>
+        </div>
+      </main>
+    </div>
   )
 }

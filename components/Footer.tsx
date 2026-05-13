@@ -1,38 +1,51 @@
 'use client'
 
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
+import { useLanguage } from '@/lib/LanguageContext'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const { t, language } = useLanguage()
+  const ar = language === 'ar'
+
+  const links = [
+    { label: t('home', 'الرئيسية'), href: '#home' },
+    { label: t('about', 'نبذة'), href: '#about' },
+    { label: t('projects', 'المشاريع'), href: '#projects' },
+    { label: t('contact', 'تواصل'), href: '#contact' },
+    { label: t('blog', 'المدونة'), href: '/blog' },
+  ]
 
   return (
     <footer className="relative px-6 lg:px-10 pt-16 pb-10 border-t border-wire bg-ink">
-      <div className="max-w-7xl mx-auto font-mono">
-        {/* Top spec band */}
+      <div className={`max-w-7xl mx-auto ${ar ? 'font-rubik' : 'font-mono'}`}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3 pb-10 mb-10 border-b border-wire text-[0.7rem] tracking-[0.18em] uppercase text-ash">
           <div>
-            <span className="text-ash/60">role</span>
-            <div className="text-paper mt-1 normal-case tracking-normal">Full-Stack Developer</div>
+            <span className="text-ash/60">{t('role', 'الدور')}</span>
+            <div className="text-paper mt-1 normal-case tracking-normal">
+              {t('Full-Stack Developer', 'مطور Full-Stack')}
+            </div>
           </div>
           <div>
-            <span className="text-ash/60">company</span>
+            <span className="text-ash/60">{t('company', 'الشركة')}</span>
             <div className="text-paper mt-1 normal-case tracking-normal">Ailigent</div>
           </div>
           <div>
-            <span className="text-ash/60">based</span>
-            <div className="text-paper mt-1 normal-case tracking-normal">Cairo, Egypt</div>
+            <span className="text-ash/60">{t('based', 'المقر')}</span>
+            <div className="text-paper mt-1 normal-case tracking-normal">
+              {t('Cairo, Egypt', 'القاهرة، مصر')}
+            </div>
           </div>
           <div>
-            <span className="text-ash/60">version</span>
-            <div className="text-paper mt-1 normal-case tracking-normal">v.{currentYear}.04</div>
+            <span className="text-ash/60">{t('version', 'الإصدار')}</span>
+            <div className="text-paper mt-1 normal-case tracking-normal font-mono">v.{currentYear}.04</div>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          {/* Wordmark */}
           <a
             href="#home"
-            className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors"
+            className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors font-mono"
             aria-label="Abo-Elmakarem — home"
           >
             <span className="font-extrabold tracking-[-0.04em] text-2xl">karem</span>
@@ -40,26 +53,18 @@ export default function Footer() {
             <span className="text-ash text-sm tracking-[0.04em]">pro</span>
           </a>
 
-          {/* Navigation */}
           <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-            {[
-              { label: 'home', href: '#home' },
-              { label: 'about', href: '#about' },
-              { label: 'projects', href: '#projects' },
-              { label: 'contact', href: '#contact' },
-              { label: 'blog', href: '/blog' },
-            ].map((link) => (
+            {links.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 className="text-ash hover:text-signal transition-colors py-3 -my-3"
               >
-                {link.label}
+                {language === 'ar' ? link.label : link.label.toLowerCase()}
               </a>
             ))}
           </nav>
 
-          {/* Social */}
           <div className="flex items-center gap-2">
             <a
               href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
@@ -82,18 +87,25 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom strip */}
         <div className="mt-10 pt-8 border-t border-wire flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-ash">
           <p>
-            © {currentYear} Abo-Elmakarem Shohoud · Full-Stack Developer at{' '}
-            <span className="text-paper">Ailigent</span> · DevOps · Scrum Master · Business Analyst
+            © {currentYear}{' '}
+            {ar ? 'ابوالمكارم شهود · مطور Full-Stack في' : 'Abo-Elmakarem Shohoud · Full-Stack Developer at'}{' '}
+            <span className="text-paper">Ailigent</span>
+            {ar ? ' · DevOps · Scrum Master · محلل أعمال' : ' · DevOps · Scrum Master · Business Analyst'}
           </p>
           <div className="flex items-center gap-3">
-            <a href="/privacy" className="hover:text-signal transition-colors py-3 -my-3">privacy</a>
+            <a href="/privacy" className="hover:text-signal transition-colors py-3 -my-3">
+              {t('privacy', 'الخصوصية')}
+            </a>
             <span className="text-wire" aria-hidden="true">/</span>
-            <a href="/refund" className="hover:text-signal transition-colors py-3 -my-3">refund</a>
+            <a href="/refund" className="hover:text-signal transition-colors py-3 -my-3">
+              {t('refund', 'الاسترداد')}
+            </a>
             <span className="text-wire" aria-hidden="true">/</span>
-            <a href="/contact-info" className="hover:text-signal transition-colors py-3 -my-3">contact</a>
+            <a href="/contact-info" className="hover:text-signal transition-colors py-3 -my-3">
+              {t('contact', 'تواصل')}
+            </a>
           </div>
         </div>
       </div>

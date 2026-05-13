@@ -12,6 +12,12 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+function applyHtmlAttrs(lang: Language) {
+  if (typeof document === 'undefined') return
+  document.documentElement.lang = lang
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
 
@@ -20,21 +26,23 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const urlParams = new URLSearchParams(window.location.search)
     const urlLang = urlParams.get('lang') as Language
 
+    let initial: Language = 'en'
     if (urlLang && ['en', 'ar'].includes(urlLang)) {
-      setLanguageState(urlLang)
-      return
+      initial = urlLang
+    } else {
+      const storedLang = localStorage.getItem('blog-language') as Language
+      if (storedLang && ['en', 'ar'].includes(storedLang)) {
+        initial = storedLang
+      }
     }
-
-    // Then check localStorage
-    const storedLang = localStorage.getItem('blog-language') as Language
-    if (storedLang && ['en', 'ar'].includes(storedLang)) {
-      setLanguageState(storedLang)
-    }
+    setLanguageState(initial)
+    applyHtmlAttrs(initial)
   }, [])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem('blog-language', lang)
+    applyHtmlAttrs(lang)
 
     // Update URL without reload
     const url = new URL(window.location.href)

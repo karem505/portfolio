@@ -3,19 +3,22 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenuAlt4, HiX } from 'react-icons/hi'
-
-const navLinks = [
-  { name: 'Home', href: '#home', n: '01' },
-  { name: 'About', href: '#about', n: '02' },
-  { name: 'Experience', href: '#experience', n: '03' },
-  { name: 'Projects', href: '#projects', n: '04' },
-  { name: 'Blog', href: '/blog', n: '05' },
-  { name: 'Contact', href: '#contact', n: '06' },
-]
+import { useLanguage } from '@/lib/LanguageContext'
+import LanguageToggle from './LanguageToggle'
 
 export default function Navbar() {
+  const { t, language } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const navLinks = [
+    { name: t('Home', 'الرئيسية'), href: '#home', n: '01' },
+    { name: t('About', 'نبذة'), href: '#about', n: '02' },
+    { name: t('Experience', 'الخبرات'), href: '#experience', n: '03' },
+    { name: t('Projects', 'المشاريع'), href: '#projects', n: '04' },
+    { name: t('Blog', 'المدونة'), href: '/blog', n: '05' },
+    { name: t('Contact', 'تواصل'), href: '#contact', n: '06' },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,8 +39,6 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between font-mono text-sm">
-          {/* Logo — flat mono wordmark, NO gradient. Slash-bracketed "engineer
-              file path" feel, single signal-red period as the brand mark. */}
           <a
             href="#home"
             className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors duration-150"
@@ -52,38 +53,45 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 className="nav-link group inline-flex items-baseline gap-1.5"
               >
                 <span className="text-ash/55 text-[0.7rem] tabular-nums">{link.n}</span>
-                <span>{link.name.toLowerCase()}</span>
+                <span className={language === 'ar' ? 'font-rubik' : ''}>
+                  {language === 'ar' ? link.name : link.name.toLowerCase()}
+                </span>
               </a>
             ))}
           </div>
 
-          {/* Right cluster — language hint + CTA. Square button, no pill, no
-              gradient. */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Right cluster — language toggle + CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <LanguageToggle />
             <a
               href="#contact"
               className="inline-flex items-center gap-2 px-3.5 py-2 border border-paper bg-paper text-ink hover:bg-signal hover:border-signal hover:text-paper transition-colors duration-150 text-xs tracking-[0.04em] font-medium"
             >
-              <span>get · in · touch</span>
-              <span aria-hidden="true">→</span>
+              <span className={language === 'ar' ? 'font-rubik' : ''}>
+                {t('get · in · touch', 'تواصل · معي')}
+              </span>
+              <span aria-hidden="true">{language === 'ar' ? '←' : '→'}</span>
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-paper hover:text-signal transition-colors min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-nav-menu"
-          >
-            {isMobileMenuOpen ? <HiX size={22} aria-hidden="true" /> : <HiMenuAlt4 size={22} aria-hidden="true" />}
-          </button>
+          {/* Mobile cluster — toggle + menu button */}
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageToggle compact />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-paper hover:text-signal transition-colors min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-nav-menu"
+            >
+              {isMobileMenuOpen ? <HiX size={22} aria-hidden="true" /> : <HiMenuAlt4 size={22} aria-hidden="true" />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -102,15 +110,14 @@ export default function Navbar() {
             className="fixed inset-0 z-40 md:hidden bg-ink"
           >
             <div className="relative h-full flex flex-col justify-center px-8 font-mono">
-              {/* spec heading */}
               <div className="mb-10 pb-4 border-b border-wire text-[0.7rem] tracking-[0.18em] uppercase text-ash">
                 <span className="text-signal">▍</span>{' '}
-                <span>navigation</span>
+                <span>{t('navigation', 'القائمة')}</span>
               </div>
               <ul className="flex flex-col gap-5">
                 {navLinks.map((link, index) => (
                   <motion.li
-                    key={link.name}
+                    key={link.href}
                     initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.04 }}
@@ -118,11 +125,15 @@ export default function Navbar() {
                     <a
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="group flex items-baseline gap-4 text-paper text-3xl font-extrabold tracking-[-0.04em] hover:text-signal transition-colors"
+                      className={`group flex items-baseline gap-4 text-paper text-3xl font-extrabold tracking-[-0.04em] hover:text-signal transition-colors ${
+                        language === 'ar' ? 'font-rubik' : ''
+                      }`}
                     >
                       <span className="text-ash/55 text-sm tabular-nums">{link.n}</span>
-                      <span>{link.name.toLowerCase()}</span>
-                      <span className="ml-auto opacity-0 group-hover:opacity-100 text-signal transition-opacity">→</span>
+                      <span>{language === 'ar' ? link.name : link.name.toLowerCase()}</span>
+                      <span className="ml-auto opacity-0 group-hover:opacity-100 text-signal transition-opacity">
+                        {language === 'ar' ? '←' : '→'}
+                      </span>
                     </a>
                   </motion.li>
                 ))}
@@ -130,10 +141,12 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-12 inline-flex items-center justify-between px-5 py-4 border border-paper bg-paper text-ink hover:bg-signal hover:border-signal hover:text-paper transition-colors duration-150 text-sm font-medium"
+                className={`mt-12 inline-flex items-center justify-between px-5 py-4 border border-paper bg-paper text-ink hover:bg-signal hover:border-signal hover:text-paper transition-colors duration-150 text-sm font-medium ${
+                  language === 'ar' ? 'font-rubik' : ''
+                }`}
               >
-                <span>get in touch</span>
-                <span>→</span>
+                <span>{t('get in touch', 'تواصل معي')}</span>
+                <span>{language === 'ar' ? '←' : '→'}</span>
               </a>
             </div>
           </motion.div>

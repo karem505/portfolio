@@ -433,6 +433,23 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 [dir="rtl"] .mr-auto { margin-right: 0; margin-left: auto; }
 [dir="rtl"] .tab-eyebrow::before { margin-left: 0.6rem; margin-right: 0; }
 
+/* Hidden-but-indexable Arabic SEO block.
+   Visually removed but kept in the DOM and accessible to crawlers.
+   Different from .sr-only because we don't want screen readers reading it
+   either — it's purely a Googlebot-facing duplicate of the visible English
+   content for Arabic search query coverage. */
+.sr-only-seo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* =========================================================================
    Blog content typography — re-tuned to mono + signal
    ========================================================================= */

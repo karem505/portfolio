@@ -8,6 +8,7 @@ import RecentPosts from '@/components/RecentPosts'
 import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import ArabicSeoContent from '@/components/ArabicSeoContent'
 import {
   ProfessionalServiceJsonLd,
   BreadcrumbJsonLd,
@@ -24,6 +25,10 @@ export default function Home() {
       {/* No background orbs, no animated gradient. The lane is "engineer's
           terminal at 2am" — flat ink with a hairline column rule, not a
           purple-orb wallpaper. */}
+
+      {/* Always-rendered Arabic SEO block — keeps Arabic queries indexable
+          regardless of the EN/AR toggle state on first render. */}
+      <ArabicSeoContent />
 
       {/* Content */}
       <div className="relative z-10">
