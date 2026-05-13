@@ -107,12 +107,11 @@ export default function Hero() {
 
             <div className="flex flex-wrap gap-3 mb-10">
               <a
-                href="/Abo-Elmakarem_CV-1.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/Aboelmakarem_Portfolio.pdf"
+                download="Aboelmakarem_Portfolio.pdf"
                 className={`group inline-flex items-center gap-3 px-5 py-3 border border-paper bg-paper text-ink text-sm font-medium tracking-wide hover:bg-signal hover:text-paper hover:border-signal transition-colors duration-150 ${ar ? 'font-rubik' : 'font-mono'}`}
               >
-                <span>{t('Download CV', 'تحميل السيرة الذاتية')}</span>
+                <span>{t('Download my portfolio', 'تحميل البورتفوليو')}</span>
                 <span className="text-ink group-hover:text-paper">{ar ? '←' : '→'}</span>
               </a>
               <a
