@@ -1,0 +1,46 @@
+# Abo-Elmakarem Shohoud
+
+> Personal portfolio of Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. Bilingual EN/AR site covering shipped AI-powered SaaS products, technical writing, and contact information.
+
+## About
+
+Abo-Elmakarem Shohoud (ابوالمكارم شهود · also Karem Shohoud · كارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. He ships AI-powered SaaS products including Tornix.ai, Oravex.app, and Costra.ailigent.ai, serving clients across Egypt, the UAE, and Saudi Arabia. The site is bilingual (English default, Arabic via `?lang=ar`) and covers his work, writing, and contact details.
+
+## Key pages
+
+- [Homepage](https://aboelmakarem.pro/): Bilingual landing page with Hero, About, Experience, Projects, Testimonials, FAQ, and Contact sections.
+- [Homepage (Arabic)](https://aboelmakarem.pro/?lang=ar): Arabic (RTL) variant of the homepage.
+- [Blog](https://aboelmakarem.pro/blog): Technical blog with bilingual EN/AR posts on full-stack, DevOps, AI, and voice agents.
+- [Contact](https://aboelmakarem.pro/contact-info): Contact details and inquiry form.
+- [Privacy policy](https://aboelmakarem.pro/privacy): Privacy practices for the site.
+- [Refund policy](https://aboelmakarem.pro/refund): Refund terms for services.
+
+## Projects
+
+- [Tornix.ai](https://tornix.ai): AI-powered project management platform with a CPM engine and Primavera P6/XER import/export.
+- [Oravex.app](https://oravex.app): Arabic-fluent ERP built on Odoo 18 with natural-language interaction.
+- [Costra.ailigent.ai](https://costra.ailigent.ai): AI construction cost-estimation tool with Arabic RTL support.
+
+## Skills & focus areas
+
+- Full-stack web development with TypeScript, React, and Next.js 14
+- Backend engineering with Node.js, Python, and FastAPI
+- Mobile development with Flutter
+- DevOps: Docker, GitHub Actions, AWS EC2, Railway, Nginx, Linux
+- Databases and ERP: PostgreSQL, Odoo 18
+- AI and voice agents: LiveKit Agents, OpenAI Realtime API, MCP (Model Context Protocol), Tavus
+- Arabic-first product design and RTL UX
+- Scrum facilitation and business analysis
+- Service areas: Egypt, UAE, Saudi Arabia
+
+## Contact
+
+- Website: https://aboelmakarem.pro
+- LinkedIn: https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244
+- GitHub: https://github.com/karem505
+- Twitter/X: https://twitter.com/karem_shohud
+
+## Optional
+
+- [RSS](https://aboelmakarem.pro/feed.xml): Blog feed in RSS 2.0 format.
+- [Sitemap](https://aboelmakarem.pro/sitemap.xml): XML sitemap including English and Arabic variants.

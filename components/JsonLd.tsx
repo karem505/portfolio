@@ -13,6 +13,10 @@ export function PersonJsonLd() {
     ],
     url: 'https://aboelmakarem.pro',
     image: 'https://aboelmakarem.pro/profile.jpg',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': 'https://aboelmakarem.pro/#webpage',
+    },
     jobTitle: [
       'Full-Stack Developer at Ailigent',
       'DevOps Engineer at Ailigent',
@@ -27,6 +31,14 @@ export function PersonJsonLd() {
     },
     description:
       'Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst at Ailigent with 2+ years of experience shipping production-grade SaaS. Builds AI-powered products (Tornix.ai, Oravex.app, Costra.ailigent.ai) and voice AI agents (LiveKit, OpenAI Realtime, MCP, Tavus) for clients across Egypt, UAE, and KSA.',
+    // TODO: After creating the Wikidata Q-item (see proposals/wikidata-q-item.md),
+    // uncomment and replace QXXXXXXXX with the assigned Q-number.
+    // This is the strongest single signal for AI entity resolution.
+    // identifier: {
+    //   '@type': 'PropertyValue',
+    //   propertyID: 'wikidata',
+    //   value: 'QXXXXXXXX',
+    // },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Cairo',
@@ -37,6 +49,12 @@ export function PersonJsonLd() {
       'https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244',
       'https://www.upwork.com/freelancers/~01ecbec4eb4f418011',
       'https://twitter.com/karem_shohud',
+      // 'https://www.wikidata.org/wiki/QXXXXXXXX', // TODO: paste after creating Wikidata Q-item
+      // 'https://dev.to/<handle>', // TODO: add after creating dev.to profile
+      // 'https://stackoverflow.com/users/<id>/<name>', // TODO: add after creating Stack Overflow user page
+      // 'https://www.youtube.com/@<handle>', // TODO: add after creating YouTube channel
+      // 'https://medium.com/@<handle>', // TODO: add after creating Medium profile
+      // 'https://hashnode.com/@<handle>', // TODO: add after creating Hashnode profile
     ],
     knowsAbout: [
       // AI & Automation
