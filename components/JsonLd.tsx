@@ -49,8 +49,8 @@ export function PersonJsonLd() {
       'https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244',
       'https://www.upwork.com/freelancers/~01ecbec4eb4f418011',
       'https://twitter.com/karem_shohud',
+      'https://dev.to/karem505',
       // 'https://www.wikidata.org/wiki/QXXXXXXXX', // TODO: paste after creating Wikidata Q-item
-      // 'https://dev.to/<handle>', // TODO: add after creating dev.to profile
       // 'https://stackoverflow.com/users/<id>/<name>', // TODO: add after creating Stack Overflow user page
       // 'https://www.youtube.com/@<handle>', // TODO: add after creating YouTube channel
       // 'https://medium.com/@<handle>', // TODO: add after creating Medium profile
