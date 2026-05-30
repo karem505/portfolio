@@ -204,7 +204,7 @@ export default function Projects() {
       link: 'https://oravex.app',
     },
     {
-      title: 'Costra.ailigent.ai',
+      title: 'Costra.net',
       tagline: t('AI Cost Estimation & Construction Analytics', 'تقدير التكلفة وتحليلات الإنشاءات بالذكاء الاصطناعي'),
       description: t(
         'AI-driven cost estimation and construction analytics platform with Arabic RTL support. Built interactive cost calculators and financial dashboards; managed deployment with SSL hardening and uptime monitoring.',
@@ -214,7 +214,7 @@ export default function Projects() {
       roles: roleLabels,
       icon: FaCalculator,
       result: t('Arabic RTL · secured & monitored', 'دعم عربي RTL · مؤمَّن ومُراقَب'),
-      link: 'https://costra.ailigent.ai',
+      link: 'https://costra.net',
     },
   ]
 

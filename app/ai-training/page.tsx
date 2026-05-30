@@ -156,8 +156,8 @@ function getContent(ar: boolean): ServicePageContent {
           'لماذا التدريب مع كارم — ممارس يبني منتجات ذكاء اصطناعي حقيقية'
         ),
         body: t(
-          'Abo-Elmakarem Shohoud is an independent corporate AI trainer and a working full-stack developer who ships AI-powered SaaS — Tornix.ai, Oravex.app and Costra.ailigent.ai. He teaches what genuinely works in production, not what reads well in a slide deck. With a background as a Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst, and as a native Arabic speaker based in Cairo, he trains teams across Egypt and the Gulf in fluent Arabic or English.',
-          'ابوالمكارم شهود مدرّب ذكاء اصطناعي مستقل للشركات، وفي الوقت نفسه مطوّر full-stack يبني ويُطلق منتجات SaaS مدعومة بالذكاء الاصطناعي — Tornix.ai وOravex.app وCostra.ailigent.ai. يُدرّب ما ينجح فعلاً في بيئة الإنتاج، لا ما يبدو جميلاً في شريحة عرض. بخلفيته كمطوّر full-stack ومهندس DevOps وScrum Master ومحلل أعمال، وكونه ناطقاً أصلياً بالعربية ومقيماً في القاهرة، يدرّب الفرق في مصر والخليج بالعربية الفصيحة أو الإنجليزية.'
+          'Abo-Elmakarem Shohoud is an independent corporate AI trainer and a working full-stack developer who ships AI-powered SaaS — Tornix.ai, Oravex.app and Costra.net. He teaches what genuinely works in production, not what reads well in a slide deck. With a background as a Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst, and as a native Arabic speaker based in Cairo, he trains teams across Egypt and the Gulf in fluent Arabic or English.',
+          'ابوالمكارم شهود مدرّب ذكاء اصطناعي مستقل للشركات، وفي الوقت نفسه مطوّر full-stack يبني ويُطلق منتجات SaaS مدعومة بالذكاء الاصطناعي — Tornix.ai وOravex.app وCostra.net. يُدرّب ما ينجح فعلاً في بيئة الإنتاج، لا ما يبدو جميلاً في شريحة عرض. بخلفيته كمطوّر full-stack ومهندس DevOps وScrum Master ومحلل أعمال، وكونه ناطقاً أصلياً بالعربية ومقيماً في القاهرة، يدرّب الفرق في مصر والخليج بالعربية الفصيحة أو الإنجليزية.'
         ),
         bullets: [
           t('A practitioner who builds production AI, not just a course author.', 'ممارس يبني ذكاءً اصطناعياً في بيئة الإنتاج، لا مجرّد مؤلّف دورة.'),

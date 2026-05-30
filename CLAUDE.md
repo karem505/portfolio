@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-Personal portfolio and blog for **Abo-Elmakarem Shohoud** (Karem / كارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master & Business Analyst at Ailigent. Ships AI-powered SaaS (Tornix.ai · Oravex.app · Costra.ailigent.ai) for clients across Egypt, UAE, and KSA. Cairo, Egypt.
+Personal portfolio and blog for **Abo-Elmakarem Shohoud** (Karem / كارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master & Business Analyst at Ailigent. Ships AI-powered SaaS (Tornix.ai · Oravex.app · Costra.net) for clients across Egypt, UAE, and KSA. Cairo, Egypt.
 
 - **Live**: https://aboelmakarem.pro
 - **Netlify**: abo-elmakarem (`ccc54db2-f196-4526-8d58-849ab31b60f0`) — auto-deploys on push to `master`
 - **GitHub**: karem505/portfolio
 - **Supabase**: `zklvvwugirvwimxdvybw.supabase.co`
-- **Identity source of truth**: `Abo-Elmakarem_CV-1.pdf` (project root, gitignored). Hero title, About bio, Experience roles/bullets, Projects (Tornix.ai · Oravex.app · Costra.ailigent.ai), layout metadata, JsonLd.tsx, Footer byline, and opengraph-image.tsx must stay aligned with this CV. Never reintroduce "CEO" / "Co-founder" framing — the CV positions Karem as Full-Stack Developer / DevOps / Scrum Master / Business Analyst at Ailigent. The `/ai-training` and `/digital-transformation` service pages frame these offerings as Karem's **personal, independent** services (independent consultant & corporate AI trainer) — never as an "agency" and never "via Ailigent"; this is an extension of his expertise, not a job-title change.
+- **Identity source of truth**: `Abo-Elmakarem_CV-1.pdf` (project root, gitignored). Hero title, About bio, Experience roles/bullets, Projects (Tornix.ai · Oravex.app · Costra.net), layout metadata, JsonLd.tsx, Footer byline, and opengraph-image.tsx must stay aligned with this CV. Never reintroduce "CEO" / "Co-founder" framing — the CV positions Karem as Full-Stack Developer / DevOps / Scrum Master / Business Analyst at Ailigent. The `/ai-training` and `/digital-transformation` service pages frame these offerings as Karem's **personal, independent** services (independent consultant & corporate AI trainer) — never as an "agency" and never "via Ailigent"; this is an extension of his expertise, not a job-title change.
 
 ## Tech Stack
 

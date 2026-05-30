@@ -38,8 +38,8 @@ export default function Services() {
       href: '/contact-info',
       title: t('Custom AI & Software', 'برمجيات وذكاء اصطناعي مخصّص'),
       blurb: t(
-        'Need something built, not just advised? I ship full-stack apps, AI features, and internal tools end to end — the same way I build Tornix.ai, Oravex.app, and Costra.ailigent.ai. Tell me the problem.',
-        'تحتاج بناءً فعلياً لا استشارة فقط؟ أُطوّر تطبيقات متكاملة وميزات ذكاء اصطناعي وأدوات داخلية من البداية للنهاية — كما أبني Tornix.ai وOravex.app وCostra.ailigent.ai. أخبرني بالمشكلة.'
+        'Need something built, not just advised? I ship full-stack apps, AI features, and internal tools end to end — the same way I build Tornix.ai, Oravex.app, and Costra.net. Tell me the problem.',
+        'تحتاج بناءً فعلياً لا استشارة فقط؟ أُطوّر تطبيقات متكاملة وميزات ذكاء اصطناعي وأدوات داخلية من البداية للنهاية — كما أبني Tornix.ai وOravex.app وCostra.net. أخبرني بالمشكلة.'
       ),
       cta: t('Start a conversation', 'ابدأ المحادثة'),
     },

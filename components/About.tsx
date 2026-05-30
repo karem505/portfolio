@@ -119,7 +119,7 @@ export default function About() {
                 DevOps ومطور Full-Stack على ثلاث منصات SaaS حيّة —
                 <span className="text-paper font-semibold"> Tornix.ai</span>،
                 <span className="text-paper font-semibold"> Oravex.app</span>،
-                و<span className="text-paper font-semibold"> Costra.ailigent.ai</span> —
+                و<span className="text-paper font-semibold"> Costra.net</span> —
                 أُسلّم مشاريع تحول رقمي في مصر والإمارات والسعودية.
               </>
             ) : (
@@ -129,7 +129,7 @@ export default function About() {
                 DevOps Engineer, and Full-Stack Developer across three live SaaS products —
                 <span className="text-paper font-semibold"> Tornix.ai</span>,
                 <span className="text-paper font-semibold"> Oravex.app</span>, and
-                <span className="text-paper font-semibold"> Costra.ailigent.ai</span> — delivering digital
+                <span className="text-paper font-semibold"> Costra.net</span> — delivering digital
                 transformation engagements across Egypt, UAE, and KSA.
               </>
             )}

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Abo-Elmakarem Shohoud (ابوالمكارم شهود · كارم شهود) — مطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent. Full-Stack Developer, DevOps Engineer & Scrum Master shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.ailigent.ai) for clients across Egypt, UAE, and KSA.',
+    'Abo-Elmakarem Shohoud (ابوالمكارم شهود · كارم شهود) — مطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent. Full-Stack Developer, DevOps Engineer & Scrum Master shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.net) for clients across Egypt, UAE, and KSA.',
 
   keywords: [
     // Name variations (English & Arabic)
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     'Oravex',
     'Oravex.app',
     'Costra',
-    'Costra.ailigent.ai',
+    'Costra.net',
     // AI & Automation
     'AI Automation Expert',
     'AI Automation Expert Egypt',
@@ -151,7 +151,7 @@ export const metadata: Metadata = {
     siteName: 'Abo-Elmakarem Shohoud Portfolio',
     title: 'Abo-Elmakarem Shohoud | ابوالمكارم شهود — Full-Stack Developer & AI Automation Expert',
     description:
-      'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.ailigent.ai) across Egypt, UAE, and KSA.',
+      'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.net) across Egypt, UAE, and KSA.',
   },
 
   twitter: {

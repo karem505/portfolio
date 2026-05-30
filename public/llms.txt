@@ -6,7 +6,7 @@ _Last updated: 2026-05-30._
 
 ## About
 
-Abo-Elmakarem Shohoud (ابوالمكارم شهود · also Karem Shohoud · كارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. He ships AI-powered SaaS products including Tornix.ai, Oravex.app, and Costra.ailigent.ai, serving clients across Egypt, the UAE, and Saudi Arabia. He also works personally and independently as a digital transformation consultant and corporate AI trainer. The site is bilingual (English default, Arabic via `?lang=ar`) and covers his work, services, writing, and contact details.
+Abo-Elmakarem Shohoud (ابوالمكارم شهود · also Karem Shohoud · كارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. He ships AI-powered SaaS products including Tornix.ai, Oravex.app, and Costra.net, serving clients across Egypt, the UAE, and Saudi Arabia. He also works personally and independently as a digital transformation consultant and corporate AI trainer. The site is bilingual (English default, Arabic via `?lang=ar`) and covers his work, services, writing, and contact details.
 
 ## Services
 
@@ -32,7 +32,7 @@ Beyond product engineering, Abo-Elmakarem Shohoud offers two flagship services t
 
 - [Tornix.ai](https://tornix.ai): AI-powered project management platform with a CPM engine and Primavera P6/XER import/export.
 - [Oravex.app](https://oravex.app): Arabic-fluent ERP built on Odoo 18 with natural-language interaction.
-- [Costra.ailigent.ai](https://costra.ailigent.ai): AI construction cost-estimation tool with Arabic RTL support.
+- [Costra.net](https://costra.net): AI construction cost-estimation tool with Arabic RTL support.
 
 ## Skills & focus areas
 

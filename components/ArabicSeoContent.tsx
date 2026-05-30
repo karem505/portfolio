@@ -17,7 +17,7 @@ export default function ArabicSeoContent() {
       <p>
         ابوالمكارم شهود (كارم شهود) مطور Full-Stack ومهندس DevOps و Scrum Master ومحلل أعمال
         في شركة Ailigent مقيم في القاهرة، مصر. يبني ويُشغّل ثلاث منصات SaaS مدعومة بالذكاء
-        الاصطناعي: Tornix.ai و Oravex.app و Costra.ailigent.ai، ويخدم عملاء في مصر والإمارات
+        الاصطناعي: Tornix.ai و Oravex.app و Costra.net، ويخدم عملاء في مصر والإمارات
         العربية المتحدة والمملكة العربية السعودية.
       </p>
       <h2>الخدمات والتخصصات</h2>
@@ -38,7 +38,7 @@ export default function ArabicSeoContent() {
         تتيح استعلامات ERP باللغة العربية والإنجليزية.
       </p>
       <p>
-        <strong>Costra.ailigent.ai</strong> — منصة تقدير تكلفة وتحليلات إنشاءات مدعومة
+        <strong>Costra.net</strong> — منصة تقدير تكلفة وتحليلات إنشاءات مدعومة
         بالذكاء الاصطناعي مع دعم كامل للعربية و RTL.
       </p>
       <h2>التواصل</h2>

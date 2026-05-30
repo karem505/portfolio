@@ -147,8 +147,8 @@ function getContent(ar: boolean): ServicePageContent {
           'لماذا تعمل مع كارم — ممارس يبني أنظمة ذكاء اصطناعي حقيقية'
         ),
         body: t(
-          'Abo-Elmakarem Shohoud (ابوالمكارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst based in Cairo, Egypt. He has shipped production, AI-powered SaaS — Tornix.ai, Oravex.app, and Costra.ailigent.ai — for clients across Egypt, the UAE, and Saudi Arabia. That means your transformation is led by someone who has actually built the kind of connected, AI-driven systems he recommends, in both Arabic and English, rather than someone who only writes strategy.',
-          'ابوالمكارم شهود مطوّر برمجيات متكامل ومهندس DevOps وScrum Master ومحلل أعمال، مقرّه القاهرة في مصر. أطلق منتجات SaaS مدعومة بالذكاء الاصطناعي وصلت إلى مرحلة الإنتاج — Tornix.ai وOravex.app وCostra.ailigent.ai — لعملاء في مصر والإمارات والسعودية. هذا يعني أن تحوّلك الرقمي يقوده شخص بنى فعلاً الأنظمة المتصلة المدعومة بالذكاء الاصطناعي التي يوصي بها، بالعربية والإنجليزية، لا مجرد شخص يكتب الاستراتيجيات.'
+          'Abo-Elmakarem Shohoud (ابوالمكارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst based in Cairo, Egypt. He has shipped production, AI-powered SaaS — Tornix.ai, Oravex.app, and Costra.net — for clients across Egypt, the UAE, and Saudi Arabia. That means your transformation is led by someone who has actually built the kind of connected, AI-driven systems he recommends, in both Arabic and English, rather than someone who only writes strategy.',
+          'ابوالمكارم شهود مطوّر برمجيات متكامل ومهندس DevOps وScrum Master ومحلل أعمال، مقرّه القاهرة في مصر. أطلق منتجات SaaS مدعومة بالذكاء الاصطناعي وصلت إلى مرحلة الإنتاج — Tornix.ai وOravex.app وCostra.net — لعملاء في مصر والإمارات والسعودية. هذا يعني أن تحوّلك الرقمي يقوده شخص بنى فعلاً الأنظمة المتصلة المدعومة بالذكاء الاصطناعي التي يوصي بها، بالعربية والإنجليزية، لا مجرد شخص يكتب الاستراتيجيات.'
         ),
         bullets: [
           t('Builds the software himself — full-stack engineer, not just an advisor.', 'يبني البرمجيات بنفسه — مهندس متكامل، لا مجرد مستشار.'),

@@ -30,7 +30,7 @@ export function PersonJsonLd() {
       description: 'AI Automation Solutions',
     },
     description:
-      'Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst at Ailigent with 2+ years of experience shipping production-grade SaaS. Builds AI-powered products (Tornix.ai, Oravex.app, Costra.ailigent.ai) and voice AI agents (LiveKit, OpenAI Realtime, MCP, Tavus) for clients across Egypt, UAE, and KSA.',
+      'Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst at Ailigent with 2+ years of experience shipping production-grade SaaS. Builds AI-powered products (Tornix.ai, Oravex.app, Costra.net) and voice AI agents (LiveKit, OpenAI Realtime, MCP, Tavus) for clients across Egypt, UAE, and KSA.',
     identifier: {
       '@type': 'PropertyValue',
       propertyID: 'wikidata',
