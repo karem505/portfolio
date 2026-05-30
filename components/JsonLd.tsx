@@ -79,6 +79,7 @@ export function PersonJsonLd() {
       'TypeScript',
       'JavaScript',
       'Dart',
+      'Rust',
       // Frontend
       'Frontend Development',
       'React',
@@ -89,9 +90,11 @@ export function PersonJsonLd() {
       'Node.js',
       'FastAPI',
       'REST API',
-      // Mobile
+      // Mobile & Desktop
       'Flutter',
       'Mobile Development',
+      'Tauri',
+      'Cross-Platform Desktop Apps',
       // ERP & Domain
       'Odoo 18',
       'Enterprise Resource Planning',

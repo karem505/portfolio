@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator } from 'react-icons/fa'
-import { SiPython, SiJavascript } from 'react-icons/si'
+import { SiPython, SiJavascript, SiRust } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/LanguageContext'
 
@@ -220,6 +220,19 @@ export default function Projects() {
 
   const notableBuilds: Project[] = [
     {
+      title: 'whatRust',
+      tagline: t('Lightweight WhatsApp Web Desktop Client', 'عميل سطح مكتب خفيف لـ WhatsApp Web'),
+      description: t(
+        'Open-source WhatsApp Web desktop client built with Rust and Tauri v2 — a lean, native alternative to the Electron-based official app. Renders WhatsApp Web in the OS-native webview (WebKitGTK / WebView2 / WKWebView) with a system tray, native notifications, persistent login, and voice/video calls across Linux, Windows, and macOS.',
+        'عميل سطح مكتب مفتوح المصدر لـ WhatsApp Web مبني بـ Rust و Tauri v2 — بديل أصلي خفيف عن التطبيق الرسمي المعتمد على Electron. يعرض WhatsApp Web عبر webview النظام الأصلي (WebKitGTK / WebView2 / WKWebView) مع شريط نظام وإشعارات أصلية وتسجيل دخول دائم ومكالمات صوت وفيديو على لينكس وويندوز وماك.'
+      ),
+      tech: ['Rust', 'Tauri v2', 'WebView', 'Cross-platform'],
+      roles: [],
+      icon: SiRust,
+      result: t('~90 MB native shell · open source (MIT)', 'واجهة أصلية ~90 ميجابايت · مفتوح المصدر (MIT)'),
+      github: 'https://github.com/karem505/whatRust',
+    },
+    {
       title: 'OpenClaw Agent Dashboard',
       tagline: t('Agent Management UI', 'واجهة إدارة الوكلاء'),
       description: t(
@@ -301,7 +314,7 @@ export default function Projects() {
           <span className="flex-1 h-px bg-wire" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {notableBuilds.map((project, index) => (
             <ProjectCard
               key={project.title}
