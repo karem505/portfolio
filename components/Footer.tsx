@@ -8,11 +8,15 @@ export default function Footer() {
   const { t, language } = useLanguage()
   const ar = language === 'ar'
 
+  // Homepage section anchors are written as absolute "/#id" so they also work
+  // when the Footer is rendered on subpages (e.g. the service landing pages).
   const links = [
-    { label: t('home', 'الرئيسية'), href: '#home' },
-    { label: t('about', 'نبذة'), href: '#about' },
-    { label: t('projects', 'المشاريع'), href: '#projects' },
-    { label: t('contact', 'تواصل'), href: '#contact' },
+    { label: t('home', 'الرئيسية'), href: '/' },
+    { label: t('about', 'نبذة'), href: '/#about' },
+    { label: t('Digital Transformation', 'التحول الرقمي'), href: '/digital-transformation' },
+    { label: t('AI Training', 'تدريب الذكاء الاصطناعي'), href: '/ai-training' },
+    { label: t('projects', 'المشاريع'), href: '/#projects' },
+    { label: t('contact', 'تواصل'), href: '/#contact' },
     { label: t('blog', 'المدونة'), href: '/blog' },
   ]
 
@@ -44,7 +48,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <a
-            href="#home"
+            href="/"
             className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors font-mono"
             aria-label="Abo-Elmakarem — home"
           >

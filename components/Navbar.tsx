@@ -16,8 +16,9 @@ export default function Navbar() {
     { name: t('About', 'نبذة'), href: '#about', n: '02' },
     { name: t('Experience', 'الخبرات'), href: '#experience', n: '03' },
     { name: t('Projects', 'المشاريع'), href: '#projects', n: '04' },
-    { name: t('Blog', 'المدونة'), href: '/blog', n: '05' },
-    { name: t('Contact', 'تواصل'), href: '#contact', n: '06' },
+    { name: t('Services', 'الخدمات'), href: '#services', n: '05' },
+    { name: t('Blog', 'المدونة'), href: '/blog', n: '06' },
+    { name: t('Contact', 'تواصل'), href: '#contact', n: '07' },
   ]
 
   useEffect(() => {

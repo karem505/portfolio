@@ -1,15 +1,28 @@
 # Abo-Elmakarem Shohoud
 
-> Personal portfolio of Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. Bilingual EN/AR site covering shipped AI-powered SaaS products, technical writing, and contact information.
+> Personal portfolio of Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. Independent digital transformation consultant and corporate AI trainer. Bilingual EN/AR site covering shipped AI-powered SaaS products, services, technical writing, and contact information.
+
+_Last updated: 2026-05-30._
 
 ## About
 
-Abo-Elmakarem Shohoud (ابوالمكارم شهود · also Karem Shohoud · كارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. He ships AI-powered SaaS products including Tornix.ai, Oravex.app, and Costra.ailigent.ai, serving clients across Egypt, the UAE, and Saudi Arabia. The site is bilingual (English default, Arabic via `?lang=ar`) and covers his work, writing, and contact details.
+Abo-Elmakarem Shohoud (ابوالمكارم شهود · also Karem Shohoud · كارم شهود) is a Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. He ships AI-powered SaaS products including Tornix.ai, Oravex.app, and Costra.ailigent.ai, serving clients across Egypt, the UAE, and Saudi Arabia. He also works personally and independently as a digital transformation consultant and corporate AI trainer. The site is bilingual (English default, Arabic via `?lang=ar`) and covers his work, services, writing, and contact details.
+
+## Services
+
+Beyond product engineering, Abo-Elmakarem Shohoud offers two flagship services to companies, personally and independently, across Egypt, the UAE, and Saudi Arabia, in Arabic or English:
+
+- **Digital Transformation consulting** ([/digital-transformation](https://aboelmakarem.pro/digital-transformation)): redesigning and automating how a company operates — business process automation, AI-powered workflow redesign, ERP and legacy-system modernization, and replacing spreadsheets with connected software. As a full-stack developer and business analyst, he both designs and builds the systems, scoped in phases (a fixed-cost diagnostic and roadmap first) rather than a big-bang rewrite. Serves SMEs and mid-market firms in Egypt (Cairo), the UAE (Dubai, Abu Dhabi) and Saudi Arabia (Riyadh, Jeddah).
+- **Professional AI Training for employees and executives** ([/ai-training](https://aboelmakarem.pro/ai-training)): hands-on, instructor-led corporate AI training on ChatGPT, Claude, prompt engineering, and agentic automation, with separate tracks for daily workflows (employees) and AI strategy and governance (executives). Delivered on-site (Dubai, Abu Dhabi, Riyadh, Jeddah, Cairo) or live online, in Arabic or English, as a half-day (3–4 hour) workshop or a multi-week program, with no coding required.
 
 ## Key pages
 
 - [Homepage](https://aboelmakarem.pro/): Bilingual landing page with Hero, About, Experience, Projects, Testimonials, FAQ, and Contact sections.
 - [Homepage (Arabic)](https://aboelmakarem.pro/?lang=ar): Arabic (RTL) variant of the homepage.
+- [AI Training](https://aboelmakarem.pro/ai-training): Professional corporate AI training for employees and executives — ChatGPT, Claude, prompt engineering, agentic automation; on-site or online across Egypt, UAE, and KSA, in Arabic or English.
+- [AI Training (Arabic)](https://aboelmakarem.pro/ai-training?lang=ar): Arabic (RTL) variant of the AI training service page.
+- [Digital Transformation](https://aboelmakarem.pro/digital-transformation): Independent digital transformation consulting — process automation, AI workflow redesign, ERP and legacy modernization for SMEs and enterprises across Egypt, UAE, and KSA.
+- [Digital Transformation (Arabic)](https://aboelmakarem.pro/digital-transformation?lang=ar): Arabic (RTL) variant of the digital transformation service page.
 - [Blog](https://aboelmakarem.pro/blog): Technical blog with bilingual EN/AR posts on full-stack, DevOps, AI, and voice agents.
 - [Contact](https://aboelmakarem.pro/contact-info): Contact details and inquiry form.
 - [Privacy policy](https://aboelmakarem.pro/privacy): Privacy practices for the site.

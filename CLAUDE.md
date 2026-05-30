@@ -5,9 +5,10 @@
 Personal portfolio and blog for **Abo-Elmakarem Shohoud** (Karem / كارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master & Business Analyst at Ailigent. Ships AI-powered SaaS (Tornix.ai · Oravex.app · Costra.ailigent.ai) for clients across Egypt, UAE, and KSA. Cairo, Egypt.
 
 - **Live**: https://aboelmakarem.pro
-- **Netlify**: abo-elmakarem (`ccc54db2-f196-4526-8d58-849ab31b60f0`)
+- **Netlify**: abo-elmakarem (`ccc54db2-f196-4526-8d58-849ab31b60f0`) — auto-deploys on push to `master`
 - **GitHub**: karem505/portfolio
 - **Supabase**: `zklvvwugirvwimxdvybw.supabase.co`
+- **Identity source of truth**: `Abo-Elmakarem_CV-1.pdf` (project root, gitignored). Hero title, About bio, Experience roles/bullets, Projects (Tornix.ai · Oravex.app · Costra.ailigent.ai), layout metadata, JsonLd.tsx, Footer byline, and opengraph-image.tsx must stay aligned with this CV. Never reintroduce "CEO" / "Co-founder" framing — the CV positions Karem as Full-Stack Developer / DevOps / Scrum Master / Business Analyst at Ailigent. The `/ai-training` and `/digital-transformation` service pages frame these offerings as Karem's **personal, independent** services (independent consultant & corporate AI trainer) — never as an "agency" and never "via Ailigent"; this is an extension of his expertise, not a job-title change.
 
 ## Tech Stack
 
@@ -40,7 +41,7 @@ app/
   feed.xml/route.ts, privacy/, refund/, contact-info/
   blog/ — layout.tsx, page.tsx (SSR links + BlogPageClient), BlogPageClient.tsx, [slug]/page.tsx + BlogPostClient.tsx
   api/ — og/route.tsx, revalidate/route.ts, newsletter/{subscribe,unsubscribe}/route.ts
-components/ — Navbar, Hero, About, Experience, Projects, Testimonials, RecentPosts, FAQ, Contact, Footer, Newsletter, ClickEffect, Analytics, JsonLd, SimplePageHeader
+components/ — Navbar, Hero, About, Experience, Projects, Services, ServicePage, Testimonials, RecentPosts, FAQ, Contact, Footer, Newsletter, ClickEffect, Analytics, JsonLd, SimplePageHeader, LanguageToggle, ArabicSeoContent
   blog/ — BlogCard, BlogContent, BlogHeader, BlogSidebar, LanguageToggle, ArticleJsonLd
 lib/ — supabase.ts, blog.ts, types.ts, LanguageContext.tsx
 supabase/ — schema.sql
@@ -59,7 +60,17 @@ Path alias: `@/*` → project root.
 
 ## Bilingual (EN/AR)
 
-`LanguageContext` provides `language`, `setLanguage`, `t()`, `dir`. Stored in `?lang=ar` param + localStorage. RTL CSS in globals.css. Fonts: Cairo + IBM Plex Sans Arabic (AR), Syne + Space Grotesk (EN).
+`LanguageContext` provides `language`, `setLanguage`, `t()`, `dir`. Stored in `?lang=ar` param + localStorage. Sync `html lang/dir` on every switch. RTL CSS in globals.css.
+
+**Scope**: `LanguageProvider` wraps the whole site at `app/layout.tsx` (not blog-only). `LanguageToggle` (EN/ع) lives in `Navbar.tsx` desktop + mobile.
+
+**Fonts** (`app/fonts.ts`):
+- EN — JetBrains Mono variable (weights 200–800). Display = ExtraBold mono, body = mono Regular/Light. Single-family system.
+- AR — Rubik (latin + arabic subsets, weights 300–900). All Arabic strings use `font-rubik`; mono is reserved for Latin in AR mode.
+
+**Hidden Arabic SEO block** (`components/ArabicSeoContent.tsx` + `.sr-only-seo` in globals.css): always-SSR'd Arabic copy on the homepage with the Arabic name (ابوالمكارم شهود), services, projects, contact. Visually hidden, fully indexable — fixes the case where client-rendered toggling made the AR surface invisible to Googlebot.
+
+**hreflang**: set **per-page** via metadata `alternates.languages` (homepage in `app/page.tsx`; the service pages in their own `generateMetadata`), so each route emits exactly one hreflang set instead of the homepage's hreflang leaking onto every subpage. Next 14.2 preserves the `?lang=ar` query for non-root paths (e.g. `/ai-training?lang=ar`) but normalizes the **root** `?lang=ar` to `/` — so the homepage legitimately self-groups en/ar/x-default at `/` (it's one server-URL with a client toggle + always-rendered `.sr-only` Arabic block). The distinct `/?lang=ar` is still listed in the sitemap for discovery. **Do not re-add raw `<link rel="alternate">` injection in `app/layout.tsx`** — it applied the homepage's hreflang to every subpage.
 
 ## Design System
 
@@ -69,7 +80,7 @@ Path alias: `@/*` → project root.
 
 ## SEO
 
-JSON-LD (Person, Website, Organization, ProfessionalService, FAQPage, BreadcrumbList, Article) · Dynamic OG images (Edge, Arabic support) · GSC verified · IndexNow · Dynamic sitemap (EN + AR) · RSS `/feed.xml` · Canonical + hreflang · robots.txt disallows `/api/`, `/_next/` · Twitter `@karem_shohud`
+JSON-LD (Person, Website, Organization, ProfessionalService, Service, Course, FAQPage, BreadcrumbList, Article) · Dynamic OG images (Edge, Arabic support) · GSC verified · IndexNow · Dynamic sitemap (EN + AR including homepage `/?lang=ar` and the service pages) · RSS `/feed.xml` · Canonical + per-page metadata hreflang (en/en-US/ar/ar-EG/x-default) · Hidden `ArabicSeoContent` block on homepage for AR query indexing · `<title>` carries both `Abo-Elmakarem Shohoud · ابوالمكارم شهود` · robots.txt disallows `/api/`, `/_next/` · Twitter `@karem_shohud`
 
 ## Google Search Console (gwcli)
 
@@ -84,6 +95,12 @@ gwcli sc inspect "<url>" --site "https://aboelmakarem.pro/"       # Check indexi
 gwcli sc request-indexing "<url>"                                  # Request Google indexing
 gwcli sc sitemaps "https://aboelmakarem.pro/"                     # Check sitemaps
 gwcli sc submit-sitemap "https://aboelmakarem.pro/" "https://aboelmakarem.pro/sitemap.xml"
+```
+
+**Token refresh (on `invalid_grant`):** gwcli has no `auth login` command. Re-auth = remove + re-add the profile (browser OAuth). User must run interactively:
+```bash
+gwcli profiles remove karem
+gwcli profiles add karem --client ~/google-workspace-cli/client_secret_299760082180-sje9aado1gtu3anq9u9k2h1o9m8lq45d.apps.googleusercontent.com.json
 ```
 
 ### IndexNow (Bing/Yandex)
@@ -123,6 +140,7 @@ Installed at `~/.claude/skills/seo/`. **Auto-invoke when task involves SEO:**
 ## Key Patterns
 
 - **Server vs Client**: Server components for metadata; `'use client'` wrappers for interactivity
+- **SSR Arabic SEO block**: homepage always renders `<ArabicSeoContent>` (sr-only-seo) with the Arabic name and copy, so AR queries index even though the visible UI is client-toggled
 - **SSR blog links**: `/blog` renders hidden `<nav class="sr-only">` with all post links (EN + AR) for Googlebot
 - **Framer Motion**: `useInView` with `once: true` for scroll animations
 - **Contact form**: Netlify Forms + honeypot → fetch to `/__forms.html`
@@ -135,7 +153,9 @@ Installed at `~/.claude/skills/seo/`. **Auto-invoke when task involves SEO:**
 
 | Route | Description |
 |---|---|
-| `/` | Homepage (sections: Navbar, Hero, About, Experience, Projects, Testimonials, RecentPosts, FAQ, Contact, Footer) |
+| `/` | Homepage — bilingual EN/AR via Navbar toggle, `?lang=ar` for direct AR access. Sections: Navbar, Hero, About, Experience, Projects, Services, RecentPosts, FAQ, Contact, Footer + hidden ArabicSeoContent |
+| `/ai-training` | Service landing page — **Professional AI Training for Employees & Executives**. Server-rendered, bilingual via `?lang=ar` (distinct EN/AR server HTML). Schema: Service + Course + FAQPage + BreadcrumbList. Targets corporate/executive AI-training queries (Egypt/UAE/KSA). |
+| `/digital-transformation` | Service landing page — **Digital Transformation consulting**. Server-rendered, bilingual via `?lang=ar`. Schema: Service + FAQPage + BreadcrumbList. Targets digital-transformation / process-automation queries (Egypt/UAE/KSA). |
 | `/blog` | Blog listing (search, categories, pagination) |
 | `/blog/[slug]` | Blog post (SSG + ISR) |
 | `/privacy` | Privacy policy |

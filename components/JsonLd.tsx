@@ -39,7 +39,7 @@ export function PersonJsonLd() {
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Cairo',
-      addressCountry: 'Egypt',
+      addressCountry: 'EG',
     },
     sameAs: [
       'https://github.com/karem505',
@@ -214,7 +214,7 @@ export function OrganizationJsonLd() {
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Cairo',
-      addressCountry: 'Egypt',
+      addressCountry: 'EG',
     },
     areaServed: [
       { '@type': 'Country', name: 'Egypt' },
@@ -261,6 +261,26 @@ export function ProfessionalServiceJsonLd() {
       '@type': 'OfferCatalog',
       name: 'Development & Automation Services',
       itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Digital Transformation Consulting',
+            url: 'https://aboelmakarem.pro/digital-transformation',
+            description:
+              'Independent digital transformation consulting that ships working software: process automation, AI-powered workflow redesign, ERP and legacy modernization, and replacing spreadsheets with connected systems — designed and built by the same person, across Egypt, UAE, and KSA.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Professional AI Training',
+            url: 'https://aboelmakarem.pro/ai-training',
+            description:
+              'Hands-on corporate AI training for employees and executives on ChatGPT, Claude, prompt engineering, and agentic automation — delivered on-site or live online, in Arabic or English, across Egypt, UAE, and KSA.',
+          },
+        },
         {
           '@type': 'Offer',
           itemOffered: {
@@ -415,6 +435,492 @@ export function BreadcrumbJsonLd() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+    />
+  )
+}
+
+// ── /ai-training ─────────────────────────────────────────────────────────────
+
+export function AiTrainingServiceJsonLd({ ar = false }: { ar?: boolean }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://aboelmakarem.pro/ai-training#service',
+    name: ar
+      ? 'تدريب احترافي على الذكاء الاصطناعي للموظفين والمدراء التنفيذيين'
+      : 'Professional AI Training for Employees & Executives',
+    serviceType: 'Corporate AI Training',
+    url: 'https://aboelmakarem.pro/ai-training',
+    description: ar
+      ? 'تدريب عملي على الذكاء الاصطناعي للموظفين والمدراء التنفيذيين في مصر والإمارات والسعودية — ChatGPT وClaude وهندسة الأوامر والأتمتة الذكية، مطبَّق على العمل اليومي. حضورياً أو أونلاين، بالعربية أو الإنجليزية، بلا برمجة.'
+      : 'Hands-on corporate AI training for employees and executives across Egypt, the UAE, and Saudi Arabia. Practical, instructor-led upskilling on real tools — ChatGPT, Claude, prompt engineering, and agentic automation — applied to daily work. Delivered on-site or live online, in Arabic or English. No coding.',
+    provider: {
+      '@id': 'https://aboelmakarem.pro/#person',
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'Egypt' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+      { '@type': 'Country', name: 'Saudi Arabia' },
+    ],
+    availableLanguage: [
+      { '@type': 'Language', name: 'Arabic', alternateName: 'ar' },
+      { '@type': 'Language', name: 'English', alternateName: 'en' },
+    ],
+    audience: {
+      '@type': 'BusinessAudience',
+      name: 'Companies and teams (SMEs to enterprises) in Egypt and the Gulf',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'AI Training Tracks',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'AI Training for Employees',
+            description:
+              'Workflow-first training: prompt engineering, drafting and editing, summarizing documents, data analysis, faster customer replies, and automating repetitive tasks with ChatGPT and Claude.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'AI Training for Executives & Leaders',
+            description:
+              'Leadership track: spotting high-value AI use cases, setting policy and governance, evaluating risk, and a working prompt set for research, communication, and decision support.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Prompt Engineering Workshop',
+            description:
+              'Writing clear instructions that get accurate, reliable results from ChatGPT and Claude, with a tested prompt library each participant keeps.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Generative AI & Agentic Automation Training',
+            description:
+              'Generative AI for writing, summarizing, and analysis, plus agentic AI and workflow automation for repetitive tasks — with responsible, safe use of AI on company data.',
+          },
+        },
+      ],
+    },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export function AiTrainingCourseJsonLd({ ar = false }: { ar?: boolean }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    '@id': 'https://aboelmakarem.pro/ai-training#course',
+    name: ar
+      ? 'تدريب احترافي على الذكاء الاصطناعي للموظفين والمدراء التنفيذيين'
+      : 'Professional AI Training for Employees & Executives',
+    description: ar
+      ? 'تدريب عملي بقيادة مدرّب يُعلّم الموظفين والمدراء استخدام أدوات الذكاء الاصطناعي الحقيقية — ChatGPT وClaude وهندسة الأوامر والأتمتة الذكية — في مهامهم اليومية. سير عمل تطبيقي لا نظريات ولا برمجة. يُقدَّم بالعربية أو الإنجليزية في مصر والإمارات والسعودية.'
+      : 'Hands-on, instructor-led corporate AI training that teaches employees and executives to use real AI tools — ChatGPT, Claude, prompt engineering, and agentic automation — on their actual daily tasks. Practical workflows, not theory or coding. Delivered in Arabic or English across Egypt, the UAE, and Saudi Arabia.',
+    url: 'https://aboelmakarem.pro/ai-training',
+    provider: {
+      '@type': 'Person',
+      '@id': 'https://aboelmakarem.pro/#person',
+      name: 'Abo-Elmakarem Shohoud',
+      url: 'https://aboelmakarem.pro',
+    },
+    about: [
+      'Prompt Engineering',
+      'Generative AI',
+      'ChatGPT',
+      'Claude',
+      'Agentic Automation',
+      'AI for Business',
+    ],
+    teaches: ar
+      ? [
+          'هندسة الأوامر مع ChatGPT وClaude',
+          'الذكاء الاصطناعي التوليدي للصياغة والتحرير والتلخيص والتحليل',
+          'الذكاء الاصطناعي الوكيلي وأتمتة سير العمل للمهام المتكررة',
+          'الاستخدام المسؤول والآمن للذكاء الاصطناعي مع بيانات الشركة',
+        ]
+      : [
+          'Prompt engineering with ChatGPT and Claude',
+          'Generative AI for drafting, editing, summarizing, and analysis',
+          'Agentic AI and workflow automation for repetitive tasks',
+          'Responsible, safe use of AI with company data',
+        ],
+    inLanguage: ar ? ['ar', 'en'] : ['en', 'ar'],
+    audience: {
+      '@type': 'EducationalAudience',
+      educationalRole: 'Corporate employees and executives',
+    },
+    hasCourseInstance: [
+      {
+        '@type': 'CourseInstance',
+        name: 'On-Site Corporate AI Workshop',
+        description:
+          'On-site AI training at your offices across Egypt, the UAE, and Saudi Arabia.',
+        courseMode: 'Onsite',
+        courseWorkload: 'PT4H',
+        inLanguage: ['en', 'ar'],
+        location: {
+          '@type': 'Place',
+          name: 'Client offices across Egypt, the UAE, and Saudi Arabia',
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: ['EG', 'AE', 'SA'],
+          },
+        },
+        instructor: {
+          '@type': 'Person',
+          '@id': 'https://aboelmakarem.pro/#person',
+          name: 'Abo-Elmakarem Shohoud',
+        },
+      },
+      {
+        '@type': 'CourseInstance',
+        name: 'Live Online Corporate AI Workshop',
+        description: 'Live online AI training for distributed and remote teams.',
+        courseMode: 'Online',
+        courseWorkload: 'PT4H',
+        inLanguage: ['en', 'ar'],
+        instructor: {
+          '@type': 'Person',
+          '@id': 'https://aboelmakarem.pro/#person',
+          name: 'Abo-Elmakarem Shohoud',
+        },
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export function AiTrainingFaqJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://aboelmakarem.pro/ai-training#faq',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is corporate AI training and who is it for?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Corporate AI training is hands-on, instructor-led upskilling that teaches your staff to use real AI tools — ChatGPT, Claude, generative AI, and agentic automation — on their actual daily tasks. It is for both rank-and-file employees who want to work faster and executives who set AI strategy. Sessions focus on practical prompt engineering and live workflows, not abstract theory or coding.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Do you offer separate AI training for employees and for executives?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Employee tracks are workflow-first: writing, analysis, reporting, customer replies, and automating repetitive tasks with ChatGPT and Claude. Executive and leadership tracks focus on AI strategy, evaluating use cases, governance, and decision-making, plus a working set of prompts for research and communication. Both run as one coordinated program so the whole organization adopts AI consistently.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is the training available on-site in the UAE, Saudi Arabia, and Egypt?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Karem delivers AI training on-site at your offices across the UAE (Dubai, Abu Dhabi), Saudi Arabia (Riyadh, Jeddah), and Egypt (Cairo), as well as live online for distributed teams. Sessions can be delivered in English or Arabic, with examples tailored to your industry and your team’s real, day-to-day work.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does an AI training workshop take?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Formats range from a focused half-day workshop of three to four hours to multi-session programs spread over several weeks. A half-day session builds immediate momentum on two or three high-value tasks, while a multi-week program drives deeper, lasting adoption. The right length depends on team size, current AI skill level, and your goals, scoped with you before booking.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Will the training work for non-technical staff?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The training is built for non-technical teams — marketing, sales, HR, finance, operations, and admin. There is no coding. The core skill is prompt engineering: writing clear instructions that get accurate, useful results from AI. Everyone practises on their own real tasks during the session and leaves with a tested prompt library they can use immediately.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can the training be delivered in Arabic?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Karem is a native Arabic speaker based in Cairo and delivers AI training fully in Arabic or English for teams across Egypt and the Gulf. Arabic delivery removes the language barrier that slows AI adoption, lets staff practise prompts in Arabic and English, and aligns naturally with regional digital-transformation goals such as Saudi Vision 2030 and the UAE’s national AI agenda.',
+        },
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export function AiTrainingBreadcrumbJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aboelmakarem.pro' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'AI Training',
+        item: 'https://aboelmakarem.pro/ai-training',
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+// ── /digital-transformation ──────────────────────────────────────────────────
+
+export function DigitalTransformationServiceJsonLd({ ar = false }: { ar?: boolean }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://aboelmakarem.pro/digital-transformation#service',
+    name: ar ? 'استشارات التحول الرقمي للشركات' : 'Digital Transformation Consulting',
+    serviceType: 'Digital Transformation Consulting',
+    url: 'https://aboelmakarem.pro/digital-transformation',
+    description: ar
+      ? 'استشارات تحول رقمي مستقلة تُسلّم أنظمة تعمل فعلاً لا عروضاً تقديمية. يعيد ابوالمكارم شهود تصميم العمليات وأتمتتها — أتمتة العمليات، إعادة تصميم سير العمل بالذكاء الاصطناعي، تحديث أنظمة ERP والأنظمة القديمة، واستبدال ملفات الإكسل بأنظمة متصلة — ثم يبنيها. خدمة في مصر والإمارات والسعودية، بالعربية والإنجليزية.'
+      : 'Independent digital transformation consulting that ships working software, not slide decks. Abo-Elmakarem Shohoud redesigns and automates operations — process automation, AI-powered workflow redesign, ERP and legacy modernization, and replacing spreadsheets with connected systems — then builds them. Serving companies across Egypt, the UAE, and Saudi Arabia, in Arabic and English.',
+    provider: {
+      '@id': 'https://aboelmakarem.pro/#person',
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'Egypt' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+      { '@type': 'Country', name: 'Saudi Arabia' },
+    ],
+    availableLanguage: [
+      { '@type': 'Language', name: 'Arabic', alternateName: 'ar' },
+      { '@type': 'Language', name: 'English', alternateName: 'en' },
+    ],
+    audience: {
+      '@type': 'BusinessAudience',
+      name: 'SMEs and mid-market companies in Egypt and the Gulf',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Digital Transformation Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Business Process Automation',
+            description:
+              'Automate data entry, approvals, hand-offs, and reporting — replacing repetitive, error-prone manual steps with connected software.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'AI-Powered Process Redesign',
+            description:
+              'Embed AI where it genuinely adds value: document handling, drafting, classification, and decision support inside the workflows your team already uses.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Spreadsheet-to-Software Modernization',
+            description:
+              'Replace fragile Excel and disconnected tools with one connected system that gives real-time visibility and a single source of truth.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'ERP & Legacy System Modernization',
+            description:
+              'Upgrade or replace aging or off-the-shelf ERP and legacy systems in phases, without halting day-to-day operations.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Custom Internal Tools',
+            description:
+              'Dashboards and apps built around how your team actually works, delivered as working software by the same person who scopes them.',
+          },
+        },
+      ],
+    },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export function DigitalTransformationFaqJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://aboelmakarem.pro/digital-transformation#faq',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is digital transformation, and how is it different from digitizing?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Digital transformation redesigns how a business operates — its processes, data, and decisions — using software and AI, not just converting paper to digital files. Digitization turns one manual step digital; transformation rethinks the entire workflow so work moves faster, errors fall, and you gain real-time visibility. It usually replaces spreadsheets and siloed tools with one connected system.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does digital transformation consulting cost for an SME?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Cost depends entirely on scope. A focused diagnostic and roadmap is a small, fixed engagement; automating one department or replacing a spreadsheet process is a contained project; a full operations overhaul costs more and runs in phases. Abo-Elmakarem Shohoud scopes work in stages so you fund one measurable outcome at a time rather than a large upfront budget. No single price fits every company.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Should I hire an independent consultant or a large agency?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'An independent consultant gives you senior, hands-on attention, lower overhead, and direct accountability — the same person who plans the work also builds and ships it. Agencies add account managers, layers, and cost. For SMEs and mid-market firms wanting practical results fast, an experienced independent consultant who can both advise and engineer is usually faster and more cost-effective than an agency that only advises.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do you automate manual or spreadsheet-based processes?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Abo-Elmakarem Shohoud starts by mapping how the work really happens, then identifies the repetitive, error-prone steps. He replaces scattered spreadsheets with one connected system, automates the hand-offs, and adds AI where it genuinely helps — data entry, document handling, approvals, and reporting. The result is fewer manual steps, faster cycles, and real-time visibility, rolled out in phases so the team adapts smoothly.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How does AI fit into digital transformation?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'AI turns digital transformation from simple digitization into systems that can read, draft, classify, and support decisions. In practice it automates data entry, document processing, approvals, reporting, and customer responses — cutting manual effort and errors while speeding work up. Abo-Elmakarem Shohoud adds AI only where it creates real value for your business, not technology for its own sake, and builds it into the workflow your team already uses.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Where do you provide digital transformation services?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Abo-Elmakarem Shohoud provides digital transformation consulting for companies across Egypt (Cairo), the UAE (Dubai, Abu Dhabi), and Saudi Arabia (Riyadh, Jeddah), delivered on-site or remotely. He works in both Arabic and English and aligns engagements with regional digital-economy goals such as Saudi Vision 2030, making him a practical fit for SMEs and mid-market firms across the Gulf and Egypt.',
+        },
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export function DigitalTransformationBreadcrumbJsonLd() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aboelmakarem.pro' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Digital Transformation',
+        item: 'https://aboelmakarem.pro/digital-transformation',
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+// ── Language-aware service FAQ + breadcrumb ──────────────────────────────────
+// Fed the already-localized strings from each page's getContent(ar), so the
+// structured data matches the visible Arabic/English copy. These supersede the
+// hardcoded AiTrainingFaqJsonLd / DigitalTransformationFaqJsonLd / *Breadcrumb*
+// components above (which are kept only for reference and are no longer rendered).
+
+export function ServiceFaqJsonLd({ id, faq }: { id: string; faq: { q: string; a: string }[] }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': id,
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+export function ServiceBreadcrumbJsonLd({ items }: { items: { name: string; url: string }[] }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((it, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: it.name,
+      item: it.url,
+    })),
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   )
 }

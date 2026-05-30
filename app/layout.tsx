@@ -90,6 +90,34 @@ export const metadata: Metadata = {
     'XER',
     'Odoo 18 Developer',
     'ERP Developer',
+    // Digital Transformation services (EN + AR)
+    'Digital Transformation Consultant',
+    'Digital Transformation Consulting',
+    'Digital Transformation Egypt',
+    'Digital Transformation UAE',
+    'Digital Transformation Saudi Arabia',
+    'Business Process Automation',
+    'Workflow Automation Consultant',
+    'استشارات التحول الرقمي',
+    'خدمات التحول الرقمي للشركات',
+    'التحول الرقمي للشركات',
+    'أتمتة العمليات',
+    // Corporate AI Training (EN + AR)
+    'AI Training',
+    'Corporate AI Training',
+    'AI Training for Employees',
+    'AI Training for Executives',
+    'Executive AI Training',
+    'AI Upskilling',
+    'Generative AI Training',
+    'Prompt Engineering Training',
+    'ChatGPT Training for Business',
+    'AI Workshop',
+    'تدريب الذكاء الاصطناعي للشركات',
+    'تدريب الموظفين على الذكاء الاصطناعي',
+    'دورة الذكاء الاصطناعي للمدراء التنفيذيين',
+    'ورش عمل الذكاء الاصطناعي',
+    'تدريب الذكاء الاصطناعي التوليدي',
   ],
 
   authors: [{ name: 'Abo-Elmakarem Shohoud', url: siteUrl }],
@@ -175,13 +203,11 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://zklvvwugirvwimxdvybw.supabase.co" />
-        {/* hreflang — injected raw so the ?lang=ar query survives Next's
-            metadata URL normalization */}
-        <link rel="alternate" hrefLang="en" href={siteUrl} />
-        <link rel="alternate" hrefLang="en-US" href={siteUrl} />
-        <link rel="alternate" hrefLang="ar" href={`${siteUrl}/?lang=ar`} />
-        <link rel="alternate" hrefLang="ar-EG" href={`${siteUrl}/?lang=ar`} />
-        <link rel="alternate" hrefLang="x-default" href={siteUrl} />
+        {/* hreflang is now set per-page via metadata `alternates.languages`
+            (the homepage in app/page.tsx, service pages in their own
+            generateMetadata). Next 14.2 preserves the ?lang=ar query, so the
+            old raw-injection workaround is no longer needed — and injecting it
+            here would wrongly apply the homepage's hreflang to every subpage. */}
         <PersonJsonLd />
         <WebsiteJsonLd />
         <OrganizationJsonLd />
