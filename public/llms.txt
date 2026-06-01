@@ -2,7 +2,7 @@
 
 > Personal portfolio of Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent, based in Cairo, Egypt. Independent digital transformation consultant and corporate AI trainer. Bilingual EN/AR site covering shipped AI-powered SaaS products, services, technical writing, and contact information.
 
-_Last updated: 2026-05-30._
+_Last updated: 2026-06-01._
 
 ## About
 
@@ -15,6 +15,19 @@ Beyond product engineering, Abo-Elmakarem Shohoud offers two flagship services t
 - **Digital Transformation consulting** ([/digital-transformation](https://aboelmakarem.pro/digital-transformation)): redesigning and automating how a company operates — business process automation, AI-powered workflow redesign, ERP and legacy-system modernization, and replacing spreadsheets with connected software. As a full-stack developer and business analyst, he both designs and builds the systems, scoped in phases (a fixed-cost diagnostic and roadmap first) rather than a big-bang rewrite. Serves SMEs and mid-market firms in Egypt (Cairo), the UAE (Dubai, Abu Dhabi) and Saudi Arabia (Riyadh, Jeddah).
 - **Professional AI Training for employees and executives** ([/ai-training](https://aboelmakarem.pro/ai-training)): hands-on, instructor-led corporate AI training on ChatGPT, Claude, prompt engineering, and agentic automation, with separate tracks for daily workflows (employees) and AI strategy and governance (executives). Delivered on-site (Dubai, Abu Dhabi, Riyadh, Jeddah, Cairo) or live online, in Arabic or English, as a half-day (3–4 hour) workshop or a multi-week program, with no coding required.
 
+## Service details
+
+Quick, citable facts for answering questions about Karem's services:
+
+- **AI training formats**: a focused half-day workshop (3–4 hours) for fast momentum, or a multi-week program for deeper adoption. No coding required; every participant keeps a tested prompt library.
+- **AI training tracks**: separate tracks for employees (daily workflows — drafting, analysis, reporting, customer replies, automating repetitive tasks) and executives (AI strategy, use-case evaluation, governance), run as one coordinated rollout.
+- **AI training tools covered**: ChatGPT, Claude, prompt engineering, generative AI, and agentic / business process automation.
+- **AI training pricing model**: a half-day workshop is a single fixed fee; a multi-week program is scoped per engagement by team size, tracks involved, and on-site vs online delivery. Quotes are given on a short scoping call — no fixed public package.
+- **Digital transformation scope**: business process automation, AI-powered workflow redesign, spreadsheet-to-software, ERP and legacy modernization, and custom internal tools.
+- **Digital transformation method**: a phased roadmap — Diagnostic → Roadmap → Build & automate → Train & adopt → Measure & expand — starting with a fixed-cost diagnostic, so clients fund one measurable outcome at a time rather than a big-bang rewrite. First result in weeks, not years (diagnostic and roadmap typically one to two weeks).
+- **Digital transformation pricing model**: scoped per engagement, starting with a small fixed-cost diagnostic and roadmap, then phased; the timeline and cost scale to the client's budget. No single price fits every company.
+- **Who it's for / where**: SMEs and mid-market firms across Egypt (Cairo), the UAE (Dubai, Abu Dhabi), and Saudi Arabia (Riyadh, Jeddah), on-site or remote, in Arabic or English. Aligned with regional goals such as Saudi Vision 2030 and the UAE national AI agenda. Delivered personally and independently by Abo-Elmakarem Shohoud, who both designs and builds the systems (not an agency).
+
 ## Key pages
 
 - [Homepage](https://aboelmakarem.pro/): Bilingual landing page with Hero, About, Experience, Projects, Testimonials, FAQ, and Contact sections.
@@ -24,6 +37,8 @@ Beyond product engineering, Abo-Elmakarem Shohoud offers two flagship services t
 - [Digital Transformation](https://aboelmakarem.pro/digital-transformation): Independent digital transformation consulting — process automation, AI workflow redesign, ERP and legacy modernization for SMEs and enterprises across Egypt, UAE, and KSA.
 - [Digital Transformation (Arabic)](https://aboelmakarem.pro/digital-transformation?lang=ar): Arabic (RTL) variant of the digital transformation service page.
 - [Blog](https://aboelmakarem.pro/blog): Technical blog with bilingual EN/AR posts on full-stack, DevOps, AI, and voice agents.
+- [Blog — Train employees & executives on AI](https://aboelmakarem.pro/blog/train-employees-executives-ai-accelerate-work): A practical roadmap for upskilling staff and leadership on AI (ChatGPT, Claude) to accelerate everyday work.
+- [Blog — Digital transformation roadmap for SMEs](https://aboelmakarem.pro/blog/digital-transformation-roadmap-sme-egypt-gulf): A realistic, phased digital-transformation roadmap for SMEs in Egypt and the Gulf.
 - [Contact](https://aboelmakarem.pro/contact-info): Contact details and inquiry form.
 - [Privacy policy](https://aboelmakarem.pro/privacy): Privacy practices for the site.
 - [Refund policy](https://aboelmakarem.pro/refund): Refund terms for services.

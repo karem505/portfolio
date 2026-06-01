@@ -27,6 +27,11 @@ export interface ServicePageContent {
   closingBody: string
   closingButton: string
   closingHref: string
+  // E-E-A-T: visible author byline + freshness (optional)
+  authorName?: string
+  authorRole?: string
+  updatedLabel?: string
+  updatedDate?: string
 }
 
 interface ServicePageProps {
@@ -90,9 +95,24 @@ export default function ServicePage({
               {content.h1}
               <span className="text-signal">.</span>
             </h1>
-            <p className={`text-ash text-base md:text-lg leading-relaxed mb-8 ${font}`}>
+            <p className={`text-ash text-base md:text-lg leading-relaxed mb-6 ${font}`}>
               {content.subtitle}
             </p>
+            {content.authorName && (
+              <div className={`mb-8 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-wire ${font}`}>
+                <span>{ar ? 'بقلم' : 'By'}</span>
+                <Link href="/" className="text-ash hover:text-paper transition-colors">
+                  {content.authorName}
+                </Link>
+                {content.authorRole && <span>— {content.authorRole}</span>}
+                {content.updatedDate && <span aria-hidden="true">·</span>}
+                {content.updatedDate && (
+                  <span>
+                    {content.updatedLabel} {content.updatedDate}
+                  </span>
+                )}
+              </div>
+            )}
             <Link
               href={content.ctaHref}
               className={`inline-flex items-center gap-2 px-5 py-3 border border-paper bg-paper text-ink hover:bg-signal hover:border-signal hover:text-paper transition-colors duration-150 text-sm font-medium ${font}`}

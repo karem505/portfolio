@@ -119,15 +119,15 @@ function getContent(ar: boolean): ServicePageContent {
           'كيف تسير رحلة التحول الرقمي معي — خارطة طريق على مراحل'
         ),
         body: t(
-          'Every engagement runs in phases so you fund one measurable outcome at a time, never a large multi-year commitment up front. Abo-Elmakarem Shohoud starts with a short diagnostic of your current operations, then delivers a prioritized roadmap that picks the first process worth automating for a fast, visible win. Each phase ships a working improvement, with the team trained and change managed, so day-to-day work is never disrupted.',
-          'يسير كل مشروع على مراحل بحيث تموّل نتيجة واحدة قابلة للقياس في كل مرة، دون التزام كبير ممتد لسنوات منذ البداية. يبدأ ابوالمكارم شهود بدراسة تشخيصية قصيرة لعملياتك الحالية، ثم يقدّم خارطة طريق مرتّبة بالأولويات تختار أول عملية تستحق الأتمتة لتحقيق مكسب سريع وملموس. كل مرحلة تُسلّم تحسيناً يعمل فعلاً، مع تدريب الفريق وإدارة التغيير، حتى لا يتعطّل العمل اليومي.'
+          'Every engagement runs in phases so you fund one measurable outcome at a time, never a large multi-year commitment up front. Abo-Elmakarem Shohoud starts with a short diagnostic of your current operations, then delivers a prioritized roadmap that picks the first process worth automating for a fast, visible win. Each phase ships a working improvement, with your employees trained on the new system and the change managed, so day-to-day work is never disrupted.',
+          'يسير كل مشروع على مراحل بحيث تموّل نتيجة واحدة قابلة للقياس في كل مرة، دون التزام كبير ممتد لسنوات منذ البداية. يبدأ ابوالمكارم شهود بدراسة تشخيصية قصيرة لعملياتك الحالية، ثم يقدّم خارطة طريق مرتّبة بالأولويات تختار أول عملية تستحق الأتمتة لتحقيق مكسب سريع وملموس. كل مرحلة تُسلّم تحسيناً يعمل فعلاً، مع تدريب موظفيك على النظام الجديد وإدارة التغيير، حتى لا يتعطّل العمل اليومي.'
         ),
         ordered: true,
         bullets: [
           t('Diagnostic — map current workflows, data, and pain points.', 'التشخيص — رسم خريطة سير العمل والبيانات ونقاط الألم الحالية.'),
           t('Roadmap — prioritize what to automate first, with clear outcomes.', 'خارطة الطريق — ترتيب ما يجب أتمتته أولاً، بنتائج واضحة.'),
           t('Build & automate — ship the system or automation in a contained phase.', 'البناء والأتمتة — تسليم النظام أو الأتمتة في مرحلة محدّدة النطاق.'),
-          t('Train & adopt — onboard the team and manage the change.', 'التدريب والتبنّي — تأهيل الفريق وإدارة التغيير.'),
+          t('Train & adopt — train your employees on the new system and manage the change.', 'التدريب والتبنّي — تدريب موظفيك على النظام الجديد وإدارة التغيير.'),
           t('Measure & expand — track results, then move to the next priority.', 'القياس والتوسّع — متابعة النتائج ثم الانتقال للأولوية التالية.'),
         ],
       },
@@ -210,6 +210,20 @@ function getContent(ar: boolean): ServicePageContent {
           'يقدّم ابوالمكارم شهود استشارات التحول الرقمي للشركات في مصر (القاهرة) والإمارات (دبي وأبوظبي) والسعودية (الرياض وجدة)، حضورياً أو عن بُعد. يعمل بالعربية والإنجليزية، ويربط مشاريعه بأهداف الاقتصاد الرقمي في المنطقة مثل رؤية السعودية 2030، ما يجعله خياراً عملياً للشركات الصغيرة والمتوسطة في الخليج ومصر.'
         ),
       },
+      {
+        q: t('How long does a digital transformation project take?', 'كم يستغرق مشروع التحول الرقمي؟'),
+        a: t(
+          'Because the work runs in phases, you see a first result in weeks, not years. A diagnostic and roadmap typically takes one to two weeks; the first automation or system improvement ships in a contained phase after that, and each further phase tackles the next priority. You decide how fast to go based on real results rather than committing to a multi-year program up front, so the timeline scales to your budget and appetite.',
+          'لأن العمل يسير على مراحل، ترى أول نتيجة خلال أسابيع لا سنوات. تستغرق الدراسة التشخيصية وخارطة الطريق عادةً أسبوعاً إلى أسبوعين، ثم تُسلَّم أول أتمتة أو تحسين للنظام في مرحلة محدّدة النطاق، وتعالج كل مرحلة تالية الأولوية التي تليها. أنت من يقرّر سرعة التقدّم بناءً على نتائج فعلية بدلاً من الالتزام ببرنامج يمتد سنوات منذ البداية، فيتكيّف الجدول الزمني مع ميزانيتك ورغبتك.'
+        ),
+      },
+      {
+        q: t('Will digital transformation disrupt my team’s daily work?', 'هل سيعطّل التحول الرقمي عمل فريقي اليومي؟'),
+        a: t(
+          'No — that is the point of the phased approach. Each phase ships one contained improvement while the rest of your operations keep running, and your employees are trained on the new system and supported through the change before the next phase begins. Work is rolled out gradually so the team adapts smoothly, instead of facing a disruptive big-bang switch-over that stalls the business.',
+          'لا — وهذا هو جوهر النهج المرحلي. تُسلّم كل مرحلة تحسيناً واحداً محدّد النطاق بينما يستمر باقي عملياتك في العمل، ويُدرَّب موظفوك على النظام الجديد ويُدعَمون خلال التغيير قبل بدء المرحلة التالية. يُطبَّق العمل تدريجياً ليتأقلم الفريق بسلاسة، بدلاً من تحوّل مفاجئ شامل يعطّل النشاط.'
+        ),
+      },
     ],
     closingHeading: t('Ready to Modernize How Your Company Works?', 'جاهز لتحديث طريقة عمل شركتك؟'),
     closingBody: t(
@@ -218,6 +232,13 @@ function getContent(ar: boolean): ServicePageContent {
     ),
     closingButton: t('Book a Free Scoping Call', 'احجز جلسة مجانية'),
     closingHref: '/contact-info',
+    authorName: t('Abo-Elmakarem Shohoud', 'ابوالمكارم شهود'),
+    authorRole: t(
+      'Independent Digital Transformation Consultant & Full-Stack Developer',
+      'استشاري تحول رقمي مستقل ومطوّر Full-Stack'
+    ),
+    updatedLabel: t('Updated', 'آخر تحديث'),
+    updatedDate: t('June 2026', 'يونيو 2026'),
   }
 }
 

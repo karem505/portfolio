@@ -111,14 +111,14 @@ function getContent(ar: boolean): ServicePageContent {
           'ما الذي يغطّيه التدريب — الذكاء الاصطناعي التوليدي وهندسة الأوامر والأتمتة'
         ),
         body: t(
-          'The training covers the AI skills that speed up real work: prompt engineering with ChatGPT and Claude, generative AI for writing and analysis, agentic automation for repetitive workflows, and safe, sensible use of AI at work. There is no coding. Every participant practises on their own real tasks during the session and leaves with a tested prompt library they can use the same day. Examples are tailored to your industry and your team’s day-to-day work.',
-          'يغطّي التدريب مهارات الذكاء الاصطناعي التي تسرّع العمل الحقيقي: هندسة الأوامر (البرومبت) باستخدام ChatGPT وClaude، والذكاء الاصطناعي التوليدي للكتابة والتحليل، والأتمتة الذكية للمهام المتكررة، والاستخدام الآمن والمسؤول للذكاء الاصطناعي في العمل. لا برمجة على الإطلاق. يتدرّب كل مشارك على مهامه الحقيقية أثناء الجلسة، ويخرج بمكتبة أوامر مُجرَّبة يمكنه استخدامها في اليوم نفسه. والأمثلة مصمَّمة حسب قطاع شركتك وعمل فريقك اليومي.'
+          'The training covers the AI skills that speed up real work: prompt engineering with ChatGPT and Claude, generative AI for writing and analysis, agentic automation and business process automation for repetitive workflows, and safe, sensible use of AI at work. There is no coding. Every participant practises on their own real tasks during the session and leaves with a tested prompt library they can use the same day. Examples are tailored to your industry and your team’s day-to-day work.',
+          'يغطّي التدريب مهارات الذكاء الاصطناعي التي تسرّع العمل الحقيقي: هندسة الأوامر (البرومبت) باستخدام ChatGPT وClaude، والذكاء الاصطناعي التوليدي للكتابة والتحليل، والأتمتة الذكية وأتمتة العمليات للمهام المتكررة، والاستخدام الآمن والمسؤول للذكاء الاصطناعي في العمل. لا برمجة على الإطلاق. يتدرّب كل مشارك على مهامه الحقيقية أثناء الجلسة، ويخرج بمكتبة أوامر مُجرَّبة يمكنه استخدامها في اليوم نفسه. والأمثلة مصمَّمة حسب قطاع شركتك وعمل فريقك اليومي.'
         ),
         bullets: [
           t('Prompt engineering: writing clear instructions that get accurate, reliable results.', 'هندسة الأوامر: صياغة تعليمات واضحة تعطي نتائج دقيقة وموثوقة.'),
           t('Generative AI for drafting, editing, summarizing and analysis.', 'الذكاء الاصطناعي التوليدي للكتابة والتحرير والتلخيص والتحليل.'),
           t('ChatGPT and Claude side by side — when to use which.', 'ChatGPT وClaude جنباً إلى جنب — ومتى تستخدم كلاً منهما.'),
-          t('Agentic AI and workflow automation for repetitive tasks.', 'الذكاء الاصطناعي الوكيلي (Agentic) وأتمتة سير العمل للمهام المتكررة.'),
+          t('Agentic AI and business process automation for repetitive, multi-step tasks.', 'الذكاء الاصطناعي الوكيلي (Agentic) وأتمتة العمليات للمهام المتكررة متعددة الخطوات.'),
           t('A practical, tested prompt library each participant keeps.', 'مكتبة أوامر عملية ومُجرَّبة يحتفظ بها كل مشارك.'),
           t('Responsible, safe use of AI with company data.', 'الاستخدام المسؤول والآمن للذكاء الاصطناعي مع بيانات الشركة.'),
         ],
@@ -229,6 +229,20 @@ function getContent(ar: boolean): ServicePageContent {
           'نعم. كارم ناطق أصلي بالعربية ومقيم في القاهرة، ويقدّم تدريب الذكاء الاصطناعي بالكامل بالعربية أو الإنجليزية للفرق في مصر والخليج. يزيل التقديم بالعربية حاجز اللغة الذي يبطئ تبنّي الذكاء الاصطناعي، ويتيح للموظفين التدرّب على الأوامر بالعربية والإنجليزية، وينسجم طبيعياً مع أهداف التحول الرقمي في المنطقة مثل رؤية السعودية 2030 والأجندة الوطنية للذكاء الاصطناعي في الإمارات.'
         ),
       },
+      {
+        q: t('How much does AI training cost, and how is it priced?', 'كم تكلفة تدريب الذكاء الاصطناعي وكيف يُحتسب السعر؟'),
+        a: t(
+          'Pricing depends on the format and the size of your team. A focused half-day workshop of three to four hours is a single fixed fee; a multi-week program is scoped per engagement based on the number of participants, the tracks involved (employees, executives, or both), and on-site versus online delivery. Tell Karem your team size and goals on a short scoping call and you will get a clear quote before booking — there is no fixed package forced on you.',
+          'تعتمد التكلفة على الصيغة وحجم فريقك. ورشة نصف اليوم المركّزة من ثلاث إلى أربع ساعات لها رسم ثابت واحد، أما البرنامج الممتد على أسابيع فيُحدَّد نطاقه لكل حالة حسب عدد المشاركين والمسارات المطلوبة (الموظفون أو المدراء التنفيذيون أو كلاهما) وطريقة التقديم حضورياً أو أونلاين. أخبر كارم بحجم فريقك وأهدافك في جلسة قصيرة لتحديد النطاق، وستحصل على عرض سعر واضح قبل الحجز — دون فرض باقة ثابتة عليك.'
+        ),
+      },
+      {
+        q: t('What results can we expect from AI training?', 'ما النتائج التي يمكن توقّعها من التدريب؟'),
+        a: t(
+          'Participants leave able to use ChatGPT and Claude on their real tasks — drafting, summarizing, reporting, analysis, and customer replies — faster and with less effort, plus a tested prompt library they keep and reuse the same day. Executives leave able to spot high-value AI use cases and set policy. The training targets measurable time saved on everyday work; the exact gain depends on your team and the tasks you choose to focus on, which is why each program is scoped around your real workflows.',
+          'يخرج المشاركون قادرين على استخدام ChatGPT وClaude في مهامهم الحقيقية — الصياغة والتلخيص والتقارير والتحليل والردود على العملاء — بشكل أسرع وبجهد أقل، إضافةً إلى مكتبة أوامر مُجرَّبة يحتفظون بها ويعيدون استخدامها في اليوم نفسه. ويخرج المدراء قادرين على اكتشاف حالات الاستخدام عالية القيمة ووضع السياسات. يستهدف التدريب توفير وقت قابل للقياس في العمل اليومي؛ ويعتمد مقدار التوفير الفعلي على فريقك والمهام التي تختار التركيز عليها، ولذلك يُصمَّم كل برنامج حول سير عملك الحقيقي.'
+        ),
+      },
     ],
     closingHeading: t('Book an AI Training Session for Your Team', 'احجز جلسة تدريب على الذكاء الاصطناعي لفريقك'),
     closingBody: t(
@@ -237,6 +251,13 @@ function getContent(ar: boolean): ServicePageContent {
     ),
     closingButton: t('Get in Touch', 'تواصل الآن'),
     closingHref: '/contact-info',
+    authorName: t('Abo-Elmakarem Shohoud', 'ابوالمكارم شهود'),
+    authorRole: t(
+      'Full-Stack Developer & Corporate AI Trainer',
+      'مطوّر Full-Stack ومدرّب ذكاء اصطناعي للشركات'
+    ),
+    updatedLabel: t('Updated', 'آخر تحديث'),
+    updatedDate: t('June 2026', 'يونيو 2026'),
   }
 }
 
