@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator } from 'react-icons/fa'
+import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard } from 'react-icons/fa'
 import { SiPython, SiJavascript, SiRust } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -219,6 +219,22 @@ export default function Projects() {
   ]
 
   const notableBuilds: Project[] = [
+    {
+      title: 'Tamara Payments Skill',
+      tagline: t(
+        'Open-Source AI Skill for Tamara (BNPL) Integration',
+        'أداة مفتوحة المصدر لتكامل مدفوعات تمارا (BNPL) بالذكاء الاصطناعي'
+      ),
+      description: t(
+        "Open-source Claude skill that gives any AI agent Tamara's real documentation — a complete offline mirror of docs.tamara.co (139 pages + full OpenAPI for all 25 endpoints) plus a quick-reference for the checkout → authorise → capture → refund flow, webhooks, plugins (WooCommerce, Shopify, Salla, Magento, Zid) and in-store/POS across the GCC.",
+        'أداة مفتوحة المصدر (Claude skill) تمنح أي وكيل ذكاء اصطناعي وثائق تمارا الحقيقية — نسخة كاملة بدون إنترنت من docs.tamara.co (139 صفحة + الـ OpenAPI الكامل لكل الـ 25 endpoint) مع مرجع سريع لمسار checkout ← authorise ← capture ← refund والـ webhooks والإضافات (WooCommerce، Shopify، سلة، Magento، زد) ونقاط البيع عبر الخليج.'
+      ),
+      tech: ['Claude Skill', 'Tamara API', 'BNPL', 'OpenAPI', 'Markdown'],
+      roles: [],
+      icon: FaCreditCard,
+      result: t('139 docs mirrored · open source', '139 صفحة موثّقة · مفتوح المصدر'),
+      github: 'https://github.com/karem505/tamara-payments-skill',
+    },
     {
       title: 'whatRust',
       tagline: t('Lightweight WhatsApp Web Desktop Client', 'عميل سطح مكتب خفيف لـ WhatsApp Web'),

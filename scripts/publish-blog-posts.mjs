@@ -25,7 +25,16 @@ const SUPABASE_URL =
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || ''
 const DRY = process.argv.includes('--dry-run')
 
-const md = readFileSync(join(__dirname, '..', 'proposals', 'seo-service-blog-posts.md'), 'utf8')
+// Source markdown: optional positional `.md` arg (relative to cwd or absolute);
+// defaults to the original service-posts draft for backward compatibility.
+const srcArg = process.argv.find((a) => a.endsWith('.md'))
+const SRC = srcArg
+  ? srcArg.startsWith('/')
+    ? srcArg
+    : join(process.cwd(), srcArg)
+  : join(__dirname, '..', 'proposals', 'seo-service-blog-posts.md')
+console.log(`Source: ${SRC}`)
+const md = readFileSync(SRC, 'utf8')
 
 function field(block, label) {
   const re = new RegExp(`\\*\\*${label}:\\*\\*\\s*(.+)`)
