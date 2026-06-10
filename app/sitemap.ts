@@ -80,22 +80,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const posts = await getAllPosts()
 
-    blogPages = posts.flatMap((post) => [
-      // English version
-      {
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.updated_at || post.published_at),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-      },
-      // Arabic version
-      {
-        url: `${baseUrl}/blog/${post.slug}?lang=ar`,
-        lastModified: new Date(post.updated_at || post.published_at),
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-      },
-    ])
+    // Only list indexable posts. Posts curated to noindex (thin AI-news bulk) are
+    // excluded so Googlebot's limited crawl budget is concentrated on the pages we
+    // actually want ranked. These posts are currently non-indexed, so dropping them
+    // from the sitemap removes nothing already in the index.
+    blogPages = posts
+      .filter((post) => !post.seo_noindex)
+      .flatMap((post) => [
+        // English version
+        {
+          url: `${baseUrl}/blog/${post.slug}`,
+          lastModified: new Date(post.updated_at || post.published_at),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        },
+        // Arabic version (kept so per-post hreflang in <head> stays reciprocal)
+        {
+          url: `${baseUrl}/blog/${post.slug}?lang=ar`,
+          lastModified: new Date(post.updated_at || post.published_at),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        },
+      ])
   } catch (error) {
     // If Supabase is not configured yet, just return static pages
     console.log('Blog posts not available for sitemap:', error)

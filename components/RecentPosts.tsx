@@ -1,16 +1,11 @@
-import { supabase } from '@/lib/supabase'
-import type { Post } from '@/lib/types'
+import { getCornerstonePosts } from '@/lib/blog'
 import RecentPostsClient from './RecentPostsClient'
 
+// Surface the curated, indexable ("cornerstone") posts on the homepage. The
+// homepage carries the most authority on the domain, so linking it to 9 of the
+// posts we actually want ranked is the cheapest crawl-equity transfer available.
 export default async function RecentPosts() {
-  const { data, error } = await supabase
-    .from('posts')
-    .select('id, slug, title_en, excerpt_en, published_at, reading_time_minutes, featured_image')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
-    .limit(3)
-
-  const posts = (!error && data ? data : []) as Post[]
+  const posts = await getCornerstonePosts(9)
 
   return <RecentPostsClient posts={posts} />
 }

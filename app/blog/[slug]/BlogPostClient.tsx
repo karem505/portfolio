@@ -12,7 +12,7 @@ import {
   HiLink,
 } from 'react-icons/hi2'
 import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa'
-import { BlogCard, BlogContent, ArticleJsonLd } from '@/components/blog'
+import { BlogCard, BlogContent, ArticleJsonLd, PostCTA } from '@/components/blog'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { localizePost, formatDate } from '@/lib/blog'
 import type { Post } from '@/lib/types'
@@ -47,6 +47,27 @@ export default function BlogPostClient({
       <ArticleJsonLd post={post} language={language} />
 
       <article dir={dir}>
+        {/* Breadcrumb (visible) */}
+        <nav aria-label="Breadcrumb" className="mb-6 text-xs sm:text-sm text-muted">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>
+              <Link href="/" className="hover:text-white transition-colors">
+                {t('Home', 'الرئيسية')}
+              </Link>
+            </li>
+            <li aria-hidden="true" className="text-white/30">/</li>
+            <li>
+              <Link href="/blog" className="hover:text-white transition-colors">
+                {t('Blog', 'المدونة')}
+              </Link>
+            </li>
+            <li aria-hidden="true" className="text-white/30">/</li>
+            <li className="text-ash line-clamp-1" aria-current="page">
+              {localized.title}
+            </li>
+          </ol>
+        </nav>
+
         {/* Back Button */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -149,6 +170,10 @@ export default function BlogPostClient({
         >
           <BlogContent content={localized.content} />
         </motion.div>
+
+        {/* In-content CTA → service (money) pages: gives every post an internal
+            link to /ai-training + /digital-transformation */}
+        <PostCTA postType={post.post_type} />
 
         {/* Category Badge */}
         {post.category && (

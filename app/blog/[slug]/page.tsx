@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPosts, getRelatedPosts } from '@/lib/blog'
 import BlogPostClient from './BlogPostClient'
 import ArticleJsonLd from '@/components/blog/ArticleJsonLd'
+import { ServiceBreadcrumbJsonLd } from '@/components/JsonLd'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -49,6 +50,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     description,
     authors: [{ name: 'Abo-Elmakarem Shohoud' }],
     keywords: post.seo_keywords?.length ? post.seo_keywords : [post.post_type],
+    robots: post.seo_noindex
+      ? { index: false, follow: true, googleBot: { index: false, follow: true } }
+      : { index: true, follow: true },
     alternates: {
       canonical: postUrl,
       languages: {
@@ -99,9 +103,18 @@ export default async function BlogPostPage({ params }: Props) {
 
   const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
 
+  const baseUrl = 'https://aboelmakarem.pro'
+
   return (
     <>
       <ArticleJsonLd post={post} language="en" />
+      <ServiceBreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: baseUrl },
+          { name: 'Blog', url: `${baseUrl}/blog` },
+          { name: post.title_en, url: `${baseUrl}/blog/${post.slug}` },
+        ]}
+      />
       <BlogPostClient post={post} relatedPosts={relatedPosts} />
     </>
   )

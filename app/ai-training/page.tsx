@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ServicePage, { ServicePageContent } from '@/components/ServicePage'
+import { getServiceClusterPosts } from '@/lib/blog'
 import {
   AiTrainingServiceJsonLd,
   AiTrainingCourseJsonLd,
@@ -8,6 +9,9 @@ import {
 } from '@/components/JsonLd'
 
 const BASE = 'https://aboelmakarem.pro/ai-training'
+
+// ISR: revalidate hourly so the related-posts cluster stays fresh.
+export const revalidate = 3600
 
 type SP = { searchParams: { lang?: string } }
 
@@ -261,9 +265,20 @@ function getContent(ar: boolean): ServicePageContent {
   }
 }
 
-export default function AiTrainingPage({ searchParams }: SP) {
+export default async function AiTrainingPage({ searchParams }: SP) {
   const ar = searchParams?.lang === 'ar'
   const content = getContent(ar)
+
+  const clusterPosts = await getServiceClusterPosts(['how-to', 'tutorial'], 6)
+  const relatedLinks = clusterPosts.length
+    ? {
+        heading: ar ? 'أدلة ومقالات ذات صلة' : 'Related guides & insights',
+        posts: clusterPosts.map((p) => ({
+          slug: p.slug,
+          title: ar ? p.title_ar : p.title_en,
+        })),
+      }
+    : undefined
 
   return (
     <ServicePage
@@ -271,6 +286,7 @@ export default function AiTrainingPage({ searchParams }: SP) {
       basePath="/ai-training"
       headerTitle={ar ? 'تدريب الذكاء الاصطناعي' : 'AI Training'}
       content={content}
+      relatedLinks={relatedLinks}
       schema={
         <>
           <AiTrainingServiceJsonLd ar={ar} />

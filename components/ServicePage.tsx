@@ -34,12 +34,18 @@ export interface ServicePageContent {
   updatedDate?: string
 }
 
+export interface ServiceRelatedLinks {
+  heading: string
+  posts: { slug: string; title: string }[]
+}
+
 interface ServicePageProps {
   ar: boolean
   headerTitle: string
   basePath: string
   content: ServicePageContent
   schema?: React.ReactNode
+  relatedLinks?: ServiceRelatedLinks
 }
 
 /**
@@ -54,6 +60,7 @@ export default function ServicePage({
   basePath,
   content,
   schema,
+  relatedLinks,
 }: ServicePageProps) {
   const font = ar ? 'font-rubik' : 'font-mono'
   const arrow = ar ? '←' : '→'
@@ -180,6 +187,28 @@ export default function ServicePage({
               ))}
             </div>
           </section>
+
+          {/* Related insights (pillar → cluster internal links to indexable posts) */}
+          {relatedLinks && relatedLinks.posts.length > 0 && (
+            <section className={`mt-24 ${ar ? 'text-right' : 'text-left'}`}>
+              <h2 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper mb-8 ${font}`}>
+                {relatedLinks.heading}
+              </h2>
+              <ul className="flex flex-col divide-y divide-wire border-y border-wire">
+                {relatedLinks.posts.map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/blog/${p.slug}`}
+                      className={`group flex items-center justify-between gap-4 py-4 text-ash hover:text-paper transition-colors ${font}`}
+                    >
+                      <span className="text-sm md:text-base leading-snug">{p.title}</span>
+                      <span className="text-signal shrink-0" aria-hidden="true">{arrow}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Closing CTA */}
           <section className="mt-24">

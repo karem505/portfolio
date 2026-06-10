@@ -52,7 +52,7 @@ export async function getPosts(
 export async function getAllPosts(): Promise<Post[]> {
   const { data, error } = await supabase
     .from('posts')
-    .select('slug, title_en, title_ar, updated_at, published_at')
+    .select('slug, title_en, title_ar, updated_at, published_at, seo_noindex')
     .eq('status', 'published')
     .order('published_at', { ascending: false })
 
@@ -93,6 +93,7 @@ export async function getRelatedPosts(
     .from('posts')
     .select('*')
     .eq('status', 'published')
+    .eq('seo_noindex', false)
     .eq('category_id', categoryId)
     .neq('slug', currentSlug)
     .order('published_at', { ascending: false })
@@ -100,6 +101,47 @@ export async function getRelatedPosts(
 
   if (error) {
     console.error('Error fetching related posts:', error)
+    return []
+  }
+
+  return data as Post[]
+}
+
+// Get cornerstone (indexable) posts for the homepage — concentrates internal-link
+// equity on the curated set that Google is allowed to index.
+export async function getCornerstonePosts(limit: number = 9): Promise<Post[]> {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('id, slug, title_en, excerpt_en, published_at, reading_time_minutes, featured_image, post_type')
+    .eq('status', 'published')
+    .eq('seo_noindex', false)
+    .order('published_at', { ascending: false })
+    .limit(limit)
+
+  if (error) {
+    console.error('Error fetching cornerstone posts:', error)
+    return []
+  }
+
+  return data as Post[]
+}
+
+// Get a topical cluster of indexable posts to link from a service (pillar) page.
+export async function getServiceClusterPosts(
+  postTypes: Post['post_type'][],
+  limit: number = 6
+): Promise<Post[]> {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('slug, title_en, title_ar, post_type, published_at')
+    .eq('status', 'published')
+    .eq('seo_noindex', false)
+    .in('post_type', postTypes)
+    .order('published_at', { ascending: false })
+    .limit(limit)
+
+  if (error) {
+    console.error('Error fetching service cluster posts:', error)
     return []
   }
 

@@ -33,6 +33,7 @@ export interface Post {
   // SEO
   seo_keywords: string[] | null
   trending_keywords: string[] | null
+  seo_noindex?: boolean
 
   // Source tracking (for news articles)
   source_url: string | null

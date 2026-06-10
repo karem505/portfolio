@@ -45,10 +45,20 @@ function metaDesc(block, label) {
   const v = field(block, label)
   return v ? v.replace(/\s*\(\d+\s*chars\)\s*$/i, '').trim() : null
 }
-function fenced(block, label, lang = '') {
-  const re = new RegExp(`\\*\\*${label}:\\*\\*\\s*\`\`\`${lang}\\n([\\s\\S]*?)\\n\`\`\``)
-  const m = block.match(re)
-  return m ? m[1].trim() : null
+// Extract a fenced markdown field, tolerant of NESTED ```code fences inside
+// the content. The old non-greedy regex stopped at the first inner fence,
+// silently truncating any post that embedded a code block. Instead, anchor
+// between this field's marker and the next field marker (or block end), then
+// strip only the OUTERMOST ```fence.
+function fenced(block, label, nextLabel = null) {
+  const head = `**${label}:**`
+  const start = block.indexOf(head)
+  if (start < 0) return null
+  let end = nextLabel ? block.indexOf(`**${nextLabel}:**`, start) : -1
+  if (end < 0) end = block.length
+  let seg = block.slice(start + head.length, end).trim()
+  seg = seg.replace(/^```[a-zA-Z]*\n/, '').replace(/\n```\s*$/, '')
+  return seg.trim() || null
 }
 function keywords(block) {
   const m = block.match(/\*\*seo_keywords:\*\*\s*```\s*([\s\S]*?)```/)
@@ -67,7 +77,7 @@ const sections = md
   .map((s) => s.split(/^## Summary/m)[0])
 
 const posts = sections.map((block) => {
-  const content_en = fenced(block, 'content_en', 'markdown')
+  const content_en = fenced(block, 'content_en', 'content_ar')
   const words = content_en ? content_en.split(/\s+/).length : 0
   return {
     slug: field(block, 'slug'),
@@ -78,7 +88,7 @@ const posts = sections.map((block) => {
     meta_description_en: metaDesc(block, 'meta_description_en'),
     meta_description_ar: metaDesc(block, 'meta_description_ar'),
     content_en,
-    content_ar: fenced(block, 'content_ar', 'markdown'),
+    content_ar: fenced(block, 'content_ar', null),
     post_type: field(block, 'post_type') || 'how-to',
     status: 'published',
     seo_keywords: keywords(block),
@@ -86,6 +96,14 @@ const posts = sections.map((block) => {
     published_at: new Date().toISOString(),
   }
 })
+
+// Quality gate: every post must carry at least one in-content link to a money
+// page (/ai-training or /digital-transformation) in BOTH languages. This is the
+// single biggest historical SEO gap (only 2 of 139 legacy posts linked a service
+// page), so we block publishing of any new post that would repeat it. Override
+// with --allow-no-service-link for the rare genuinely-unrelated piece.
+const SERVICE_LINK_RE = /\/(ai-training|digital-transformation)\b/
+const ALLOW_NO_LINK = process.argv.includes('--allow-no-service-link')
 
 // Validate
 let ok = true
@@ -103,9 +121,20 @@ for (const p of posts) {
     console.log(`    ❌ MISSING: ${missing.join(', ')}`)
     ok = false
   }
+  const hasServiceLink =
+    SERVICE_LINK_RE.test(p.content_en || '') && SERVICE_LINK_RE.test(p.content_ar || '')
+  if (!hasServiceLink) {
+    console.log(
+      `    ${ALLOW_NO_LINK ? '⚠️ ' : '❌'} no in-content service link (/ai-training or /digital-transformation) in EN+AR`
+    )
+    if (!ALLOW_NO_LINK) ok = false
+  }
 }
 if (!ok) {
-  console.error('\nParsing failed — fix the draft before publishing.')
+  console.error(
+    '\nValidation failed — fix the draft before publishing.' +
+      '\n(If a post is genuinely unrelated to the services, re-run with --allow-no-service-link.)'
+  )
   process.exit(1)
 }
 console.log(`\n✅ Parsed ${posts.length} posts cleanly.`)
@@ -126,6 +155,7 @@ const headers = {
   Prefer: 'return=representation',
 }
 
+const publishedSlugs = []
 for (const p of posts) {
   const existing = await fetch(
     `${SUPABASE_URL}/rest/v1/posts?slug=eq.${encodeURIComponent(p.slug)}&select=slug`,
@@ -142,9 +172,29 @@ for (const p of posts) {
   })
   if (res.ok) {
     console.log(`✓ published: ${p.slug}`)
+    publishedSlugs.push(p.slug)
   } else {
     console.error(`✗ FAILED ${p.slug}: ${res.status} ${await res.text()}`)
   }
+}
+
+// Submit newly published posts to IndexNow (Bing / Yandex / Seznam ONLY — this
+// does NOT feed Google; Google discovery relies on internal links + sitemap +
+// off-site authority, not IndexNow).
+if (publishedSlugs.length) {
+  const INDEXNOW_KEY = 'aboelmakarem2026indexnowkey'
+  const urlList = publishedSlugs.map((s) => `https://aboelmakarem.pro/blog/${s}`)
+  const r = await fetch('https://api.indexnow.org/indexnow', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      host: 'aboelmakarem.pro',
+      key: INDEXNOW_KEY,
+      keyLocation: `https://aboelmakarem.pro/${INDEXNOW_KEY}.txt`,
+      urlList,
+    }),
+  }).catch(() => null)
+  console.log(`\nIndexNow (Bing/Yandex) submit ${urlList.length} url(s): ${r ? r.status : 'request failed'}`)
 }
 
 // Trigger ISR revalidation so the new posts appear on the live /blog immediately.
