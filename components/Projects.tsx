@@ -236,6 +236,22 @@ export default function Projects() {
       github: 'https://github.com/karem505/tamara-payments-skill',
     },
     {
+      title: 'Paymob Payments Skill',
+      tagline: t(
+        'Open-Source AI Skill for Paymob Payment Gateway Integration',
+        'أداة مفتوحة المصدر لتكامل بوابة دفع باي موب بالذكاء الاصطناعي'
+      ),
+      description: t(
+        "Open-source skill for Claude Code, Codex, and AI coding agents with Paymob's real documentation — a complete offline mirror of developers.paymob.com (116 pages with full request/response schemas) plus a quick-reference for the Intention API, Unified Checkout, HMAC-SHA512 webhook verification (the exact 20-key order), refunds, saved cards, and mobile wallets across Egypt, KSA, UAE, and Oman.",
+        'أداة مفتوحة المصدر لوكلاء البرمجة بالذكاء الاصطناعي (Claude Code و Codex) تمنحهم وثائق باي موب الحقيقية — نسخة كاملة بدون إنترنت من developers.paymob.com (116 صفحة بكامل نماذج الطلب والاستجابة) مع مرجع سريع لـ Intention API و Unified Checkout والتحقق من HMAC-SHA512 للـ webhooks بالترتيب الدقيق للمفاتيح، والاسترداد والبطاقات المحفوظة والمحافظ الإلكترونية في مصر والسعودية والإمارات وعُمان.'
+      ),
+      tech: ['Claude Code', 'Codex', 'Paymob API', 'Agent Skill', 'Markdown'],
+      roles: [],
+      icon: FaCreditCard,
+      result: t('116 docs mirrored · open source (MIT)', '116 صفحة موثّقة · مفتوح المصدر (MIT)'),
+      github: 'https://github.com/karem505/paymob-payments-skill',
+    },
+    {
       title: 'whatRust',
       tagline: t('Lightweight WhatsApp Web Desktop Client', 'عميل سطح مكتب خفيف لـ WhatsApp Web'),
       description: t(
