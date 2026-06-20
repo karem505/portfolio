@@ -982,7 +982,7 @@ export function PharmacyManualAppJsonLd({
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'USD',
+      priceCurrency: 'EGP',
       availability: 'https://schema.org/InStock',
     },
     author: { '@id': 'https://aboelmakarem.pro/#person' },
