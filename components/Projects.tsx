@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard } from 'react-icons/fa'
+import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard, FaBookMedical } from 'react-icons/fa'
 import { SiPython, SiJavascript, SiRust } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -219,6 +219,23 @@ export default function Projects() {
   ]
 
   const notableBuilds: Project[] = [
+    {
+      title: 'Pharmacy Manual',
+      tagline: t(
+        'Offline Egyptian Drug Index & Price Checker (Android)',
+        'دليل أدوية مصر ومُدقّق الأسعار — بدون إنترنت (أندرويد)'
+      ),
+      description: t(
+        'An Arabic-first, fully offline Android app indexing 24,868+ Egyptian medicines: bilingual, diacritic-insensitive search across Arabic alias, English name, and active ingredient; a price checker that badges cheaper same-ingredient alternatives; and browse by drug class, manufacturer, and route. Distributed as a direct APK with a download page that always serves the latest signed build.',
+        'تطبيق أندرويد عربيّ أولاً يعمل بالكامل بدون إنترنت، يفهرس أكثر من 24,868 دواءً مصرياً: بحث ثنائي اللغة غير حسّاس للتشكيل بالاسم العربي والإنجليزي والمادة الفعّالة؛ ومُدقّق أسعار يُبرز البدائل الأرخص بنفس المادة؛ وتصفّح حسب التصنيف والشركة وطريقة الإعطاء. يُوزَّع كملف APK مباشر مع صفحة تحميل تقدّم دائماً أحدث إصدار موقّع.'
+      ),
+      tech: ['Android', 'Offline-first', 'Bilingual', 'RTL'],
+      roles: [],
+      icon: FaBookMedical,
+      result: t('24,868+ medicines · offline · free', 'أكثر من 24,868 دواءً · بدون إنترنت · مجاني'),
+      link: '/apps/pharmacy-manual',
+      github: 'https://github.com/karem505/pharmacy-manual-apk',
+    },
     {
       title: 'Tamara Payments Skill',
       tagline: t(
