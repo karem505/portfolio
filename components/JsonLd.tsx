@@ -927,3 +927,73 @@ export function ServiceBreadcrumbJsonLd({ items }: { items: { name: string; url:
     />
   )
 }
+
+// ── /apps/pharmacy-manual ────────────────────────────────────────────────────
+
+export function PharmacyManualAppJsonLd({
+  ar = false,
+  version,
+  sizeBytes,
+  downloadUrl,
+  screenshots,
+}: {
+  ar?: boolean
+  version: string
+  sizeBytes: number
+  downloadUrl: string
+  screenshots: string[]
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    '@id': 'https://aboelmakarem.pro/apps/pharmacy-manual#app',
+    name: ar ? 'دليل الأدوية الإكلينيكي' : 'Pharmacy Manual',
+    alternateName: ar ? 'Pharmacy Manual' : 'دليل الأدوية الإكلينيكي',
+    description: ar
+      ? 'دليل أدوية مصري يعمل بدون إنترنت ومُدقّق أسعار لأندرويد: بحث ثنائي اللغة عبر أكثر من 24,868 دواءً، ومقارنة أسعار البدائل بنفس المادة الفعّالة، وتصفّح حسب التصنيف والشركة وطريقة الإعطاء.'
+      : 'Offline Egyptian drug index and price checker for Android: bilingual search across 24,868+ medicines, cheapest same-ingredient price comparison, and browse by class, manufacturer, and route.',
+    applicationCategory: 'MedicalApplication',
+    operatingSystem: 'Android 5.0+',
+    softwareVersion: version,
+    fileSize: `${Math.round(sizeBytes / (1024 * 1024))} MB`,
+    downloadUrl,
+    installUrl: 'https://aboelmakarem.pro/apps/pharmacy-manual',
+    url: 'https://aboelmakarem.pro/apps/pharmacy-manual',
+    inLanguage: ['ar', 'en'],
+    image: 'https://aboelmakarem.pro/apps/pharmacy-manual/icon.png',
+    screenshot: screenshots,
+    featureList: ar
+      ? [
+          'بحث ثنائي اللغة غير حسّاس للتشكيل عبر أكثر من 24,868 دواءً',
+          'مقارنة أسعار البدائل بنفس المادة الفعّالة',
+          'تصفّح حسب التصنيف الدوائي والشركة وطريقة الإعطاء',
+          'وضع فاتح وداكن مع دعم كامل للعربية و RTL',
+          'قاعدة بيانات مدمجة تُحدّث نفسها',
+          'يعمل بالكامل بدون إنترنت',
+        ]
+      : [
+          'Bilingual, diacritic-insensitive search across 24,868+ medicines',
+          'Cheapest same-ingredient price comparison',
+          'Browse by drug class, manufacturer, and route',
+          'Light and dark themes, Arabic-first RTL',
+          'Self-updating embedded database',
+          'Works fully offline',
+        ],
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    author: { '@id': 'https://aboelmakarem.pro/#person' },
+    creator: { '@id': 'https://aboelmakarem.pro/#person' },
+    publisher: { '@id': 'https://aboelmakarem.pro/#person' },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
