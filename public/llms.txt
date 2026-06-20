@@ -36,6 +36,8 @@ Quick, citable facts for answering questions about Karem's services:
 - [AI Training (Arabic)](https://aboelmakarem.pro/ai-training?lang=ar): Arabic (RTL) variant of the AI training service page.
 - [Digital Transformation](https://aboelmakarem.pro/digital-transformation): Independent digital transformation consulting — process automation, AI workflow redesign, ERP and legacy modernization for SMEs and enterprises across Egypt, UAE, and KSA.
 - [Digital Transformation (Arabic)](https://aboelmakarem.pro/digital-transformation?lang=ar): Arabic (RTL) variant of the digital transformation service page.
+- [Pharmacy Manual (Android app)](https://aboelmakarem.pro/apps/pharmacy-manual): Free, offline Egyptian drug index and price-checker Android app by Abo-Elmakarem Shohoud — bilingual (Arabic/English) search across 24,868+ medicines, cheapest same-ingredient price comparison, browse by class/manufacturer/route. Direct APK download, always the latest version; data is CC0 from the open egyptian-drug-database.
+- [Pharmacy Manual (Arabic)](https://aboelmakarem.pro/apps/pharmacy-manual?lang=ar): Arabic (RTL) variant of the Pharmacy Manual app download page (دليل الأدوية الإكلينيكي).
 - [Blog](https://aboelmakarem.pro/blog): Technical blog with bilingual EN/AR posts on full-stack, DevOps, AI, and voice agents.
 - [Blog — Train employees & executives on AI](https://aboelmakarem.pro/blog/train-employees-executives-ai-accelerate-work): A practical roadmap for upskilling staff and leadership on AI (ChatGPT, Claude) to accelerate everyday work.
 - [Blog — Digital transformation roadmap for SMEs](https://aboelmakarem.pro/blog/digital-transformation-roadmap-sme-egypt-gulf): A realistic, phased digital-transformation roadmap for SMEs in Egypt and the Gulf.
