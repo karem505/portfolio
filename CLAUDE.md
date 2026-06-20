@@ -40,7 +40,7 @@ app/
   layout.tsx, page.tsx, fonts.ts, globals.css, robots.ts, sitemap.ts, opengraph-image.tsx
   feed.xml/route.ts, privacy/, refund/, contact-info/
   blog/ — layout.tsx, page.tsx (SSR links + BlogPageClient), BlogPageClient.tsx, [slug]/page.tsx + BlogPostClient.tsx
-  apps/pharmacy-manual/ — download page
+  apps/ — page.tsx (apps hub), pharmacy-manual/ (download page)
   api/ — og/route.tsx, revalidate/route.ts, newsletter/{subscribe,unsubscribe}/route.ts, download/pharmacy-manual/route.ts
 components/ — Navbar, Hero, About, Experience, Projects, Services, ServicePage, Testimonials, RecentPosts, FAQ, Contact, Footer, Newsletter, ClickEffect, Analytics, JsonLd, SimplePageHeader, LanguageToggle, ArabicSeoContent
   blog/ — BlogCard, BlogContent, BlogHeader, BlogSidebar, LanguageToggle, ArticleJsonLd
@@ -157,6 +157,7 @@ Installed at `~/.claude/skills/seo/`. **Auto-invoke when task involves SEO:**
 | `/` | Homepage — bilingual EN/AR via Navbar toggle, `?lang=ar` for direct AR access. Sections: Navbar, Hero, About, Experience, Projects, Services, RecentPosts, FAQ, Contact, Footer + hidden ArabicSeoContent |
 | `/ai-training` | Service landing page — **Professional AI Training for Employees & Executives**. Server-rendered, bilingual via `?lang=ar` (distinct EN/AR server HTML). Schema: Service + Course + FAQPage + BreadcrumbList. Targets corporate/executive AI-training queries (Egypt/UAE/KSA). |
 | `/digital-transformation` | Service landing page — **Digital Transformation consulting**. Server-rendered, bilingual via `?lang=ar`. Schema: Service + FAQPage + BreadcrumbList. Targets digital-transformation / process-automation queries (Egypt/UAE/KSA). |
+| `/apps` | Apps hub — server-rendered, bilingual via `?lang=ar`. Data-driven grid (`APPS` array in `app/apps/page.tsx`) listing installable apps; currently Pharmacy Manual. Linked from the Footer. Schema: CollectionPage + ItemList + BreadcrumbList. Append an `APPS` entry to add a future app. |
 | `/apps/pharmacy-manual` | App download page — **Pharmacy Manual** (دليل الأدوية الإكلينيكي), an offline Egyptian drug index + price-checker Android app. Server-rendered, bilingual via `?lang=ar`. Store-style layout. Download button resolves the **latest APK dynamically** at request time (ISR `revalidate=3600`) from the separate `karem505/pharmacy-manual-apk` repo's Contents API via `lib/latestApk.ts`, with `/api/download/pharmacy-manual` as a stable 302 redirect. Schema: MobileApplication + FAQPage + BreadcrumbList. |
 | `/blog` | Blog listing (search, categories, pagination) |
 | `/blog/[slug]` | Blog post (SSG + ISR) |

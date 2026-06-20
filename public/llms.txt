@@ -36,6 +36,7 @@ Quick, citable facts for answering questions about Karem's services:
 - [AI Training (Arabic)](https://aboelmakarem.pro/ai-training?lang=ar): Arabic (RTL) variant of the AI training service page.
 - [Digital Transformation](https://aboelmakarem.pro/digital-transformation): Independent digital transformation consulting — process automation, AI workflow redesign, ERP and legacy modernization for SMEs and enterprises across Egypt, UAE, and KSA.
 - [Digital Transformation (Arabic)](https://aboelmakarem.pro/digital-transformation?lang=ar): Arabic (RTL) variant of the digital transformation service page.
+- [Apps](https://aboelmakarem.pro/apps): Hub listing the free, installable apps built by Abo-Elmakarem Shohoud — direct downloads, no app store required. Currently features Pharmacy Manual (Android).
 - [Pharmacy Manual (Android app)](https://aboelmakarem.pro/apps/pharmacy-manual): Free, offline Egyptian drug index and price-checker Android app by Abo-Elmakarem Shohoud — bilingual (Arabic/English) search across 24,868+ medicines, cheapest same-ingredient price comparison, browse by class/manufacturer/route. Direct APK download, always the latest version; data is CC0 from the open egyptian-drug-database.
 - [Pharmacy Manual (Arabic)](https://aboelmakarem.pro/apps/pharmacy-manual?lang=ar): Arabic (RTL) variant of the Pharmacy Manual app download page (دليل الأدوية الإكلينيكي).
 - [Blog](https://aboelmakarem.pro/blog): Technical blog with bilingual EN/AR posts on full-stack, DevOps, AI, and voice agents.

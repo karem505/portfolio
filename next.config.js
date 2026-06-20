@@ -51,19 +51,6 @@ const nextConfig = {
       },
     ]
   },
-
-  // `/apps` has no index page (there is currently one app). Send the bare
-  // parent path to the app's page instead of a 404. Temporary (307) on purpose
-  // — when more apps exist, replace this with a real `/apps` hub listing.
-  async redirects() {
-    return [
-      {
-        source: '/apps',
-        destination: '/apps/pharmacy-manual',
-        permanent: false,
-      },
-    ]
-  },
 }
 
 module.exports = nextConfig

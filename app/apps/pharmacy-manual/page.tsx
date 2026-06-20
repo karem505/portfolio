@@ -129,6 +129,7 @@ export default async function PharmacyManualPage({ searchParams }: SP) {
       <ServiceBreadcrumbJsonLd
         items={[
           { name: t('Home', 'الرئيسية'), url: 'https://aboelmakarem.pro' },
+          { name: t('Apps', 'التطبيقات'), url: 'https://aboelmakarem.pro/apps' },
           { name: t('Pharmacy Manual', 'دليل الأدوية الإكلينيكي'), url: BASE },
         ]}
       />
@@ -318,8 +319,10 @@ export default async function PharmacyManualPage({ searchParams }: SP) {
             <a href={DOWNLOAD} className={`inline-flex items-center gap-3 px-6 py-4 bg-signal text-ink hover:bg-signal-deep transition-colors duration-150 text-base font-bold ${font}`}>
               <FaDownload /><span>{t(`Download v${apk.version} · ${apk.sizeLabel}`, `تحميل الإصدار ${apk.version} · ${apk.sizeLabel}`)}</span>
             </a>
-            <div className={`mt-4 text-xs ${font}`}>
-              <Link href="/" className="text-ash hover:text-signal transition-colors">{t('← Back to portfolio', 'العودة إلى الموقع →')}</Link>
+            <div className={`mt-4 flex items-center justify-center gap-4 text-xs ${font}`}>
+              <Link href="/apps" className="text-ash hover:text-signal transition-colors">{t('← All apps', 'كل التطبيقات →')}</Link>
+              <span className="text-wire" aria-hidden="true">·</span>
+              <Link href="/" className="text-ash hover:text-signal transition-colors">{t('Portfolio', 'الموقع')}</Link>
             </div>
           </section>
         </div>

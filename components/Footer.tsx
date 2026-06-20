@@ -16,6 +16,7 @@ export default function Footer() {
     { label: t('Digital Transformation', 'التحول الرقمي'), href: '/digital-transformation' },
     { label: t('AI Training', 'تدريب الذكاء الاصطناعي'), href: '/ai-training' },
     { label: t('projects', 'المشاريع'), href: '/#projects' },
+    { label: t('Apps', 'التطبيقات'), href: '/apps' },
     { label: t('contact', 'تواصل'), href: '/#contact' },
     { label: t('blog', 'المدونة'), href: '/blog' },
   ]
