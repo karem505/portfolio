@@ -21,8 +21,9 @@ const DATA_REPO = 'https://github.com/karem505/egyptian-drug-database'
 const APK_SHA256 = 'da03c38b3690324f439833cb121d4900181a91827ab1065e0d9afbeb82df0181'
 const CERT_SHA256 = '98a8ac45aa15f1c068ff8c7a6602592b0472be353bfb22158c43dd53f05b9403'
 
-// ISR: re-resolve the latest APK + re-render hourly without a redeploy.
-export const revalidate = 3600
+// ISR: re-resolve the latest APK + re-render every 5 min without a redeploy,
+// so a newly pushed APK shows up promptly.
+export const revalidate = 300
 
 type SP = { searchParams: { lang?: string } }
 

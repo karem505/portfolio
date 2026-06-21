@@ -9,8 +9,9 @@ import { getLatestApk } from '@/lib/latestApk'
 
 const BASE = 'https://aboelmakarem.pro/apps'
 
-// ISR: keep the resolved app version(s) fresh without a redeploy.
-export const revalidate = 3600
+// ISR: keep the resolved app version(s) fresh without a redeploy — re-render
+// every 5 min so a newly pushed APK shows up promptly.
+export const revalidate = 300
 
 type SP = { searchParams: { lang?: string } }
 

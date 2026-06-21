@@ -21,14 +21,15 @@ export interface GhEntry {
   type?: string
 }
 
-// Known-good fallback (current build at authoring time) so the button never
-// breaks if the GitHub API is unreachable or rate-limited.
+// Last-resort fallback so the button never breaks if the GitHub API is
+// unreachable or rate-limited. This is only a floor for total-outage cases —
+// the live version is resolved from the repo. Bump it on major releases.
 const FALLBACK: ApkInfo = {
-  version: '0.2.2',
-  fileName: 'pharmacy-manual-v0.2.2.apk',
-  sizeBytes: 65148247,
+  version: '0.3.0',
+  fileName: 'pharmacy-manual-v0.3.0.apk',
+  sizeBytes: 65528723,
   sizeLabel: '62 MB',
-  downloadUrl: `${RAW_BASE}/pharmacy-manual-v0.2.2.apk`,
+  downloadUrl: `${RAW_BASE}/pharmacy-manual-v0.3.0.apk`,
 }
 
 const APK_RE = /^pharmacy-manual-v(\d+)\.(\d+)\.(\d+)\.apk$/i
@@ -70,12 +71,17 @@ export function pickLatestApk(entries: GhEntry[]): ApkInfo | null {
   }
 }
 
-/** Resolve the latest APK, cached for an hour. Falls back on any failure. */
+/**
+ * Resolve the latest APK from the repo. The GitHub response is cached for 5
+ * minutes (shared across the page, the apps hub, and the download route), so a
+ * newly pushed APK appears site-wide within ~5 min — and ≤12 GitHub calls/hr
+ * keeps us far under the unauthenticated rate limit. Falls back on any failure.
+ */
 export async function getLatestApk(): Promise<ApkInfo> {
   try {
     const res = await fetch(CONTENTS_API, {
       headers: { Accept: 'application/vnd.github+json' },
-      next: { revalidate: 3600 },
+      next: { revalidate: 300 },
     })
     if (!res.ok) return FALLBACK
     const data = (await res.json()) as GhEntry[]
