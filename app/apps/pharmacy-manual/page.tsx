@@ -24,12 +24,13 @@ export const revalidate = 300
 type SP = { searchParams: { lang?: string } }
 
 const SHOTS = [
-  { file: '01.jpg', en: 'Bilingual search across 24,868+ medicines with prices', ar: 'بحث ثنائي اللغة عبر أكثر من 24,868 دواءً مع الأسعار' },
-  { file: '02.jpg', en: 'Drug detail with cheaper same-ingredient alternatives', ar: 'تفاصيل الدواء مع بدائل أرخص بنفس المادة الفعّالة' },
-  { file: '03.jpg', en: 'Drug detail with a class-coded chip', ar: 'تفاصيل الدواء مع وسم لوني حسب التصنيف' },
-  { file: '04.jpg', en: 'Drug detail view', ar: 'عرض تفاصيل الدواء' },
-  { file: '05.jpg', en: 'Browse by therapeutic class', ar: 'تصفّح حسب التصنيف الدوائي' },
-  { file: '06.jpg', en: 'Browse by manufacturer and route', ar: 'تصفّح حسب الشركة وطريقة الإعطاء' },
+  { file: '01.jpg', en: 'Bilingual search across 24,868+ medicines with live prices', ar: 'بحث ثنائي اللغة عبر أكثر من 24,868 دواءً مع الأسعار' },
+  { file: '02.jpg', en: 'Drug detail with verified, cited reference dosing', ar: 'تفاصيل الدواء مع جرعة مرجعية موثّقة ومذكور مصدرها' },
+  { file: '03.jpg', en: 'Reference doses cited from FDA, DailyMed and the WHO', ar: 'جرعات مرجعية مستندة إلى FDA و DailyMed ومنظمة الصحة العالمية' },
+  { file: '04.jpg', en: 'Weight-based dose calculator with cheapest same-ingredient alternatives', ar: 'حاسبة جرعة حسب الوزن مع أرخص البدائل بنفس المادة الفعّالة' },
+  { file: '05.jpg', en: 'Clinical tools: body surface area, creatinine clearance, IV infusion rate', ar: 'أدوات سريرية: مساحة سطح الجسم وتصفية الكرياتينين ومعدل التسريب الوريدي' },
+  { file: '06.jpg', en: 'Browse by therapeutic class, manufacturer and route', ar: 'تصفّح حسب التصنيف العلاجي والشركة وطريقة الإعطاء' },
+  { file: '07.jpg', en: 'Drug-interaction checker with severity and recommended action', ar: 'فاحص التفاعلات الدوائية مع درجة الخطورة والإجراء الموصى به' },
 ]
 
 export async function generateMetadata({ searchParams }: SP): Promise<Metadata> {
@@ -241,11 +242,18 @@ export default async function PharmacyManualPage({ searchParams }: SP) {
             </div>
           </section>
 
-          {/* ── Demo video ── */}
+          {/* ── Demo videos ── */}
           <section className="mt-24">
             <h2 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper mb-8 ${font} ${ar ? 'text-right' : ''}`}>{t('See it in action', 'شاهده أثناء العمل')}</h2>
-            <div className="max-w-[320px] mx-auto">
-              <DemoVideo src="/apps/pharmacy-manual/demo.mp4" poster="/apps/pharmacy-manual/demo-poster.jpg" width={582} height={1280} label={t('Play demo video', 'تشغيل الفيديو التوضيحي')} />
+            <div className="grid sm:grid-cols-2 gap-6 max-w-[640px] mx-auto">
+              <figure>
+                <DemoVideo src="/apps/pharmacy-manual/demo-ai.mp4" poster="/apps/pharmacy-manual/demo-ai-poster.jpg" width={540} height={1188} label={t('Play AI assistant demo', 'تشغيل عرض المساعد الذكي')} />
+                <figcaption className={`mt-2 text-xs text-ash text-center ${font}`}>{t('AI clinical assistant', 'المساعد الإكلينيكي بالذكاء الاصطناعي')}</figcaption>
+              </figure>
+              <figure>
+                <DemoVideo src="/apps/pharmacy-manual/demo-general.mp4" poster="/apps/pharmacy-manual/demo-general-poster.jpg" width={540} height={1188} label={t('Play full app tour', 'تشغيل الجولة الكاملة')} />
+                <figcaption className={`mt-2 text-xs text-ash text-center ${font}`}>{t('Full app tour', 'جولة كاملة في التطبيق')}</figcaption>
+              </figure>
             </div>
           </section>
 
