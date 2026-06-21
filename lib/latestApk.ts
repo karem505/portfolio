@@ -6,6 +6,12 @@
 const REPO = 'karem505/pharmacy-manual-apk'
 const CONTENTS_API = `https://api.github.com/repos/${REPO}/contents/`
 const RAW_BASE = `https://github.com/${REPO}/raw/main`
+const README_RAW = `https://raw.githubusercontent.com/${REPO}/main/README.md`
+
+// Cache tag shared by every fetch in this module. The /api/revalidate webhook
+// (pinged by the APK repo's GitHub Action on push) calls revalidateTag with
+// this to make a new build appear instantly across the page, hub, and route.
+export const APK_CACHE_TAG = 'pharmacy-apk'
 
 export interface ApkInfo {
   version: string // "0.2.2"
@@ -81,7 +87,7 @@ export async function getLatestApk(): Promise<ApkInfo> {
   try {
     const res = await fetch(CONTENTS_API, {
       headers: { Accept: 'application/vnd.github+json' },
-      next: { revalidate: 300 },
+      next: { revalidate: 300, tags: [APK_CACHE_TAG] },
     })
     if (!res.ok) return FALLBACK
     const data = (await res.json()) as GhEntry[]
@@ -89,5 +95,38 @@ export async function getLatestApk(): Promise<ApkInfo> {
     return pickLatestApk(data) ?? FALLBACK
   } catch {
     return FALLBACK
+  }
+}
+
+export interface ApkHashes {
+  apkSha256: string | null
+  certSha256: string | null
+}
+
+const HEX64 = '([0-9a-fA-F]{64})'
+const APK_SHA_RE = new RegExp(`SHA-256 of the APK:\\*\\*\\s*\`?${HEX64}`, 'i')
+const CERT_SHA_RE = new RegExp(`Signing certificate SHA-256:\\*\\*\\s*\`?${HEX64}`, 'i')
+
+/** Extract the APK + signing-cert SHA-256 fingerprints from the README text. */
+export function parseReadmeHashes(md: string): ApkHashes {
+  return {
+    apkSha256: APK_SHA_RE.exec(md)?.[1]?.toLowerCase() ?? null,
+    certSha256: CERT_SHA_RE.exec(md)?.[1]?.toLowerCase() ?? null,
+  }
+}
+
+/**
+ * Parse the current build's SHA-256 fingerprints out of the repo README so the
+ * "verify your download" block always matches the live APK. Same 5-min cache +
+ * tag as getLatestApk, so the webhook refreshes them too. Returns nulls on any
+ * failure; callers fall back to linking the README.
+ */
+export async function getApkHashes(): Promise<ApkHashes> {
+  try {
+    const res = await fetch(README_RAW, { next: { revalidate: 300, tags: [APK_CACHE_TAG] } })
+    if (!res.ok) return { apkSha256: null, certSha256: null }
+    return parseReadmeHashes(await res.text())
+  } catch {
+    return { apkSha256: null, certSha256: null }
   }
 }

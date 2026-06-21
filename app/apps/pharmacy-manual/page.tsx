@@ -9,17 +9,13 @@ import {
   ServiceFaqJsonLd,
   ServiceBreadcrumbJsonLd,
 } from '@/components/JsonLd'
-import { getLatestApk } from '@/lib/latestApk'
+import { getLatestApk, getApkHashes } from '@/lib/latestApk'
 import { DemoVideo, CopyButton } from './PharmacyManualClient'
 
 const BASE = 'https://aboelmakarem.pro/apps/pharmacy-manual'
 const DOWNLOAD = '/api/download/pharmacy-manual'
 const REPO = 'https://github.com/karem505/pharmacy-manual-apk'
 const DATA_REPO = 'https://github.com/karem505/egyptian-drug-database'
-
-// Version-specific integrity values published in the repo README (v0.2.2).
-const APK_SHA256 = 'da03c38b3690324f439833cb121d4900181a91827ab1065e0d9afbeb82df0181'
-const CERT_SHA256 = '98a8ac45aa15f1c068ff8c7a6602592b0472be353bfb22158c43dd53f05b9403'
 
 // ISR: re-resolve the latest APK + re-render every 5 min without a redeploy,
 // so a newly pushed APK shows up promptly.
@@ -72,7 +68,7 @@ export default async function PharmacyManualPage({ searchParams }: SP) {
   const ar = searchParams?.lang === 'ar'
   const t = (en: string, arabic: string) => (ar ? arabic : en)
   const font = ar ? 'font-rubik' : 'font-mono'
-  const apk = await getLatestApk()
+  const [apk, hashes] = await Promise.all([getLatestApk(), getApkHashes()])
 
   const stats = [
     { n: '24,868+', l: t('medicines', 'دواء') },
@@ -271,23 +267,29 @@ export default async function PharmacyManualPage({ searchParams }: SP) {
             <details className="border border-wire bg-graphite">
               <summary className={`cursor-pointer select-none px-5 py-4 text-paper font-bold text-sm ${font} ${ar ? 'text-right' : ''}`}>{t('Verify your download (optional)', 'تحقّق من تنزيلك (اختياري)')}</summary>
               <div className={`px-5 pb-5 flex flex-col gap-4 ${ar ? 'text-right' : ''}`} dir="ltr">
-                <div>
-                  <div className={`text-[0.7rem] uppercase tracking-wide text-ash mb-1 font-mono`}>APK SHA-256 (v0.2.2)</div>
-                  <div className="flex items-center gap-2 bg-ink border border-wire px-3 py-2">
-                    <code className="text-xs text-paper break-all font-mono">{APK_SHA256}</code>
-                    <CopyButton value={APK_SHA256} label="Copy APK SHA-256" />
+                {hashes.apkSha256 && (
+                  <div>
+                    <div className={`text-[0.7rem] uppercase tracking-wide text-ash mb-1 font-mono`}>APK SHA-256 (v{apk.version})</div>
+                    <div className="flex items-center gap-2 bg-ink border border-wire px-3 py-2">
+                      <code className="text-xs text-paper break-all font-mono">{hashes.apkSha256}</code>
+                      <CopyButton value={hashes.apkSha256} label="Copy APK SHA-256" />
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div className={`text-[0.7rem] uppercase tracking-wide text-ash mb-1 font-mono`}>Signing certificate SHA-256</div>
-                  <div className="flex items-center gap-2 bg-ink border border-wire px-3 py-2">
-                    <code className="text-xs text-paper break-all font-mono">{CERT_SHA256}</code>
-                    <CopyButton value={CERT_SHA256} label="Copy certificate SHA-256" />
+                )}
+                {hashes.certSha256 && (
+                  <div>
+                    <div className={`text-[0.7rem] uppercase tracking-wide text-ash mb-1 font-mono`}>Signing certificate SHA-256</div>
+                    <div className="flex items-center gap-2 bg-ink border border-wire px-3 py-2">
+                      <code className="text-xs text-paper break-all font-mono">{hashes.certSha256}</code>
+                      <CopyButton value={hashes.certSha256} label="Copy certificate SHA-256" />
+                    </div>
                   </div>
-                </div>
+                )}
                 <p className="text-xs text-ash font-mono">
-                  {t('Hashes shown are for v0.2.2. The repository README always lists the current build\'s fingerprints: ', 'البصمات المعروضة لإصدار 0.2.2. يعرض ملف README في المستودع دائماً بصمات الإصدار الحالي: ')}
-                  <a href={REPO} target="_blank" rel="noopener noreferrer" className="text-signal hover:underline">github.com/karem505/pharmacy-manual-apk</a>
+                  {t(`Fingerprints for the current build (v${apk.version}), read live from the repository `, `بصمات الإصدار الحالي (v${apk.version})، مقروءة مباشرةً من `)}
+                  <a href={REPO} target="_blank" rel="noopener noreferrer" className="text-signal hover:underline">README</a>
+                  {t(`. Verify with: `, `. تحقّق عبر: `)}
+                  <code className="text-paper">sha256sum {apk.fileName}</code>
                 </p>
               </div>
             </details>
