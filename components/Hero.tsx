@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useReducedMotion } from 'framer-motion'
+import { useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
@@ -19,12 +20,95 @@ export default function Hero() {
   const { t, language } = useLanguage()
   const ar = language === 'ar'
 
+  const heroRef = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const reduce = useReducedMotion()
+
+  // Hero scroll progress: 0 at the top, 1 once the hero has scrolled past.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+
+  // Scroll-scrub the galaxy: drive the video's currentTime from scroll, so the
+  // rotation plays forward on scroll-down and rewinds on scroll-up. SENSITIVITY
+  // > 1 runs the full rotation over a shorter scroll distance — the galaxy only
+  // shows on the hero, so we want the whole motion within roughly one screen.
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    if (reduce) {
+      v.pause()
+      return
+    }
+
+    const SENSITIVITY = 2
+    let raf = 0
+    let target = 0
+
+    const seek = () => {
+      raf = 0
+      if (v.duration && Number.isFinite(v.duration)) v.currentTime = target
+    }
+    const update = (p: number) => {
+      const d = v.duration
+      if (!d || !Number.isFinite(d)) return
+      target = Math.min(Math.max(p * SENSITIVITY, 0), 1) * d
+      if (!raf) raf = requestAnimationFrame(seek)
+    }
+    const start = () => {
+      // prime the decoder so mobile actually paints seeked frames
+      v.play().then(() => v.pause()).catch(() => {})
+      update(scrollYProgress.get())
+    }
+
+    if (v.readyState >= 1) start()
+    else v.addEventListener('loadedmetadata', start, { once: true })
+    const unsub = scrollYProgress.on('change', update)
+
+    return () => {
+      unsub()
+      if (raf) cancelAnimationFrame(raf)
+      v.removeEventListener('loadedmetadata', start)
+    }
+  }, [reduce, scrollYProgress])
+
   return (
     <section
+      ref={heroRef}
       id="home"
       className="relative min-h-screen flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
     >
-      <div className="max-w-7xl mx-auto w-full">
+      {/* Galaxy backdrop — scroll-scrubbed (see effect above): playback position
+          tracks scroll, forward on the way down and reversed on the way up.
+          Dimmed + scrim-protected; the wrapper clips any object-cover overflow. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+      >
+        <video
+          ref={videoRef}
+          muted
+          playsInline
+          preload="auto"
+          poster="/galaxy-poster.jpg"
+          className="w-full h-full object-cover opacity-[0.55]"
+        >
+          <source src="/galaxy.mp4" type="video/mp4" />
+        </video>
+      </div>
+      {/* Scrims: darken the text side (left) and anchor the bottom into the page */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-r from-ink via-ink/60 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-t from-ink via-transparent to-ink/30"
+      />
+
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
