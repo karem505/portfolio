@@ -1,7 +1,7 @@
 'use client'
 
-import { motion, useScroll, useReducedMotion } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { motion, useScroll, useReducedMotion, type MotionValue } from 'framer-motion'
+import { useRef, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
@@ -16,32 +16,18 @@ const orbitIcons = [
   { Icon: SiDocker, label: 'Docker' },
 ]
 
-export default function Hero() {
-  const { t, language } = useLanguage()
-  const ar = language === 'ar'
-
-  const heroRef = useRef<HTMLElement>(null)
+// Desktop galaxy: the full 2 MB clip, scroll-scrubbed. Its playback position
+// tracks scroll — rotation forward on the way down, reversed on the way up.
+// SENSITIVITY > 1 runs the whole rotation over a shorter scroll distance.
+// Mounted only on desktop, after hydration, so it never touches the critical path.
+function DesktopGalaxy({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const reduce = useReducedMotion()
+  const [ready, setReady] = useState(false)
 
-  // Hero scroll progress: 0 at the top, 1 once the hero has scrolled past.
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-
-  // Scroll-scrub the galaxy: drive the video's currentTime from scroll, so the
-  // rotation plays forward on scroll-down and rewinds on scroll-up. SENSITIVITY
-  // > 1 runs the full rotation over a shorter scroll distance — the galaxy only
-  // shows on the hero, so we want the whole motion within roughly one screen.
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
     v.muted = true
-    if (reduce) {
-      v.pause()
-      return
-    }
 
     const SENSITIVITY = 2
     let raf = 0
@@ -58,7 +44,7 @@ export default function Hero() {
       if (!raf) raf = requestAnimationFrame(seek)
     }
     const start = () => {
-      // prime the decoder so mobile actually paints seeked frames
+      // prime the decoder so seeked frames actually paint
       v.play().then(() => v.pause()).catch(() => {})
       update(scrollYProgress.get())
     }
@@ -72,7 +58,75 @@ export default function Hero() {
       if (raf) cancelAnimationFrame(raf)
       v.removeEventListener('loadedmetadata', start)
     }
-  }, [reduce, scrollYProgress])
+  }, [scrollYProgress])
+
+  return (
+    <video
+      ref={videoRef}
+      muted
+      playsInline
+      preload="auto"
+      onLoadedData={() => setReady(true)}
+      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <source src="/galaxy.mp4" type="video/mp4" />
+    </video>
+  )
+}
+
+// Mobile galaxy: a small 255 KB muted loop that autoplays (no scroll-scrub, so
+// no per-scroll decode/reflow on phones). Mounted only on mobile, after
+// hydration; the poster underneath carries the LCP while this fades in.
+function MobileGalaxy() {
+  const [ready, setReady] = useState(false)
+  return (
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      onPlaying={() => setReady(true)}
+      onLoadedData={() => setReady(true)}
+      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <source src="/galaxy-mobile.mp4" type="video/mp4" />
+    </video>
+  )
+}
+
+export default function Hero() {
+  const { t, language } = useLanguage()
+  const ar = language === 'ar'
+
+  const heroRef = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion()
+
+  // Pick the backdrop per device, only after mount — so the server render and
+  // first paint are always the lightweight poster (which carries the LCP) and
+  // neither video sits on the critical path. Desktop (>=1024px) gets the full
+  // scroll-scrubbed galaxy; mobile gets the small autoplay loop; reduced-motion
+  // keeps the static poster.
+  const [mounted, setMounted] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    setIsDesktop(mq.matches)
+    setMounted(true)
+    const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  // Hero scroll progress: 0 at the top, 1 once the hero has scrolled past.
+  // Drives the desktop scroll-scrub.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const showDesktopGalaxy = mounted && isDesktop && !reduce
+  const showMobileGalaxy = mounted && !isDesktop && !reduce
 
   return (
     <section
@@ -80,23 +134,26 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
     >
-      {/* Galaxy backdrop — scroll-scrubbed (see effect above): playback position
-          tracks scroll, forward on the way down and reversed on the way up.
-          Dimmed + scrim-protected; the wrapper clips any object-cover overflow. */}
+      {/* Galaxy backdrop. The optimized poster is the instant paint (and the
+          LCP); a video only layers over it after hydration — the full
+          scroll-scrubbed galaxy on desktop, a small 255 KB autoplay loop on
+          mobile — so the 2 MB desktop clip never reaches phones or the critical
+          path. The 55% dim lives on the wrapper so the group composites as one;
+          the wrapper clips any object-cover overflow. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.55]"
       >
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          poster="/galaxy-poster.jpg"
-          className="w-full h-full object-cover opacity-[0.55]"
-        >
-          <source src="/galaxy.mp4" type="video/mp4" />
-        </video>
+        <Image
+          src="/galaxy-poster.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        {showDesktopGalaxy && <DesktopGalaxy scrollYProgress={scrollYProgress} />}
+        {showMobileGalaxy && <MobileGalaxy />}
       </div>
       {/* Scrims: darken the text side (left) and anchor the bottom into the page */}
       <div
