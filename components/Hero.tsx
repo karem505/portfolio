@@ -144,15 +144,11 @@ export default function Hero() {
         aria-hidden="true"
         className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.55]"
       >
-        {/* Decorative backdrop: no priority and default (lazy) loading, so it
-            stays out of the preload set entirely and never competes for
-            bandwidth with the profile photo — the actual LCP element. It's
-            in-viewport, so the browser still fetches it promptly; a few hundred
-            ms of delay on a dim 55% backdrop is imperceptible. */}
         <Image
           src="/galaxy-poster.jpg"
           alt=""
           fill
+          priority
           sizes="100vw"
           className="object-cover"
         />
