@@ -191,9 +191,13 @@ export default function Hero() {
         </motion.div>
 
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-14 lg:gap-20 items-center">
+          {/* Above-the-fold hero content: animate transform only, never opacity
+              from 0 — Framer renders `initial` into the SSR HTML, so an
+              opacity:0 start would keep this (an LCP candidate) invisible until
+              hydration. A transform-only entrance paints immediately. */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 16 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="order-2 lg:order-1"
           >
@@ -296,10 +300,11 @@ export default function Hero() {
             </div>
           </motion.div>
 
+          {/* The profile photo is the LCP element — render it immediately with
+              no enter animation so it paints as soon as it downloads, instead
+              of waiting on hydration to fade in (was ~1.9s of LCP render delay). */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={false}
             className="order-1 lg:order-2 relative flex justify-center"
           >
             <div className="relative w-[280px] h-[360px] md:w-[320px] md:h-[420px]">
