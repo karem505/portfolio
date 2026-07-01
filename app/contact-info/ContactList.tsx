@@ -8,8 +8,8 @@ const contacts = [
   {
     icon: FaEnvelope,
     label: 'Email',
-    value: 'karm92000@gmail.com',
-    href: 'mailto:karm92000@gmail.com',
+    value: 'info@aboelmakarem.pro',
+    href: 'mailto:info@aboelmakarem.pro',
   },
   {
     icon: FaPhone,

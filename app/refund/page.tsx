@@ -64,7 +64,7 @@ export default function RefundPage() {
 
           <h2>5. Refund Process</h2>
           <ol>
-            <li>Contact me at <a href="mailto:karm92000@gmail.com">karm92000@gmail.com</a> with your refund request.</li>
+            <li>Contact me at <a href="mailto:info@aboelmakarem.pro">info@aboelmakarem.pro</a> with your refund request.</li>
             <li>Include your project name and reason for the request.</li>
             <li>I will review the request and respond within <strong>3 business days</strong>.</li>
             <li>Approved refunds are processed within <strong>7–10 business days</strong>.</li>
@@ -80,7 +80,7 @@ export default function RefundPage() {
           <h2>7. Contact</h2>
           <p>
             For refund requests or questions about this policy, contact me at:{' '}
-            <a href="mailto:karm92000@gmail.com">karm92000@gmail.com</a>
+            <a href="mailto:info@aboelmakarem.pro">info@aboelmakarem.pro</a>
           </p>
         </div>
       </main>

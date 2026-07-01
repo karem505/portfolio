@@ -97,7 +97,7 @@ export default function PrivacyPage() {
           <p>
             If you have questions about this Privacy Policy or wish to exercise your data rights,
             contact me at:{' '}
-            <a href="mailto:karm92000@gmail.com">karm92000@gmail.com</a>
+            <a href="mailto:info@aboelmakarem.pro">info@aboelmakarem.pro</a>
           </p>
         </div>
       </main>
