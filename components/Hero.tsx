@@ -260,10 +260,13 @@ export default function Hero() {
                 <span className="text-ink group-hover:text-paper">{ar ? '←' : '→'}</span>
               </a>
               <a
-                href="mailto:info@aboelmakarem.pro"
+                href="https://wa.me/201008867488"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp (opens in new tab)"
                 className="group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper font-mono text-sm font-medium tracking-wide hover:border-signal hover:text-signal transition-colors duration-150"
               >
-                <span>info@aboelmakarem.pro</span>
+                <span>+20 100 886 7488</span>
                 <span className="text-ash group-hover:text-signal">↗</span>
               </a>
               <a
