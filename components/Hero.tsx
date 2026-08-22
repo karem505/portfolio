@@ -264,9 +264,10 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp (opens in new tab)"
-                className="group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper font-mono text-sm font-medium tracking-wide hover:border-signal hover:text-signal transition-colors duration-150"
+                className={`group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper text-sm font-medium tracking-wide hover:border-signal hover:text-signal transition-colors duration-150 ${ar ? 'font-rubik' : 'font-mono'}`}
               >
-                <span>+20 100 886 7488</span>
+                <span>{t('Contact me on WhatsApp', 'راسلني على واتساب')}</span>
+                <span dir="ltr" className={`text-xs ${ar ? 'font-mono' : ''} text-ash group-hover:text-signal`}>+20 100 886 7488</span>
                 <span className="text-ash group-hover:text-signal">↗</span>
               </a>
               <a
