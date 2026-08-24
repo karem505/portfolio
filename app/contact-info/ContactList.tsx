@@ -14,8 +14,8 @@ const contacts = [
   {
     icon: FaPhone,
     label: 'Phone',
-    value: '+20 106 142 2876',
-    href: 'tel:+201061422876',
+    value: '+20 100 886 7488',
+    href: 'tel:+201008867488',
   },
   {
     icon: FaLinkedin,
@@ -60,7 +60,7 @@ export default function ContactList() {
             </div>
             <div className="flex-1">
               <div className="text-ash text-[0.7rem] tracking-[0.18em] uppercase">{contact.label}</div>
-              <div className="text-paper font-medium mt-1 group-hover:text-signal transition-colors">{contact.value}</div>
+              <div className="text-paper font-medium mt-1 group-hover:text-signal transition-colors" dir="ltr">{contact.value}</div>
             </div>
             {contact.href && <span className="text-ash group-hover:text-signal transition-colors">↗</span>}
           </motion.div>
