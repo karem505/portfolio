@@ -15,7 +15,7 @@ const contacts = [
     icon: FaPhone,
     label: 'Phone',
     value: '+20 100 886 7488',
-    href: 'tel:+201008867488',
+    href: 'https://wa.me/201008867488',
   },
   {
     icon: FaLinkedin,
