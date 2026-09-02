@@ -17,10 +17,13 @@ type IdleWindow = Window & {
   requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
 }
 
+const WAKE_EVENTS: (keyof WindowEventMap)[] = ['scroll', 'pointermove', 'touchstart', 'keydown', 'wheel']
+
 /**
  * Fixed WebGL backdrop for the whole homepage. Never on the critical path:
- * mounts after hydration on idle, only under html.motion and WebGL2, and the
- * three.js chunk is a separate lazy import. Renders an empty canvas otherwise.
+ * the three.js chunk (a separate lazy import) is fetched only after the
+ * visitor's first scroll/pointer/touch and then on idle, only under
+ * html.motion and WebGL2. Until then the hero poster carries the backdrop.
  */
 export default function JourneyStage() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -35,12 +38,13 @@ export default function JourneyStage() {
     const idle = (cb: () => void) =>
       w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 1500 }) : window.setTimeout(cb, 400)
 
-    idle(async () => {
+    const canvasEl: HTMLCanvasElement = canvas
+    const mount = async () => {
       if (cancelled) return
       const { GalaxyField } = await import('./GalaxyField')
       if (cancelled) return
       const coarse = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024
-      const field = new GalaxyField(canvas, {
+      const field = new GalaxyField(canvasEl, {
         count: coarse ? 3500 : 12000,
         dpr: Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.5),
       })
@@ -65,10 +69,16 @@ export default function JourneyStage() {
         unsub()
         field.dispose()
       }
-    })
+    }
+    const wake = () => {
+      WAKE_EVENTS.forEach((ev) => window.removeEventListener(ev, wake))
+      idle(mount)
+    }
+    WAKE_EVENTS.forEach((ev) => window.addEventListener(ev, wake, { passive: true }))
 
     return () => {
       cancelled = true
+      WAKE_EVENTS.forEach((ev) => window.removeEventListener(ev, wake))
       cleanup?.()
     }
   }, [])

@@ -18,7 +18,7 @@ export default function JourneyReadout() {
   return (
     <div
       aria-hidden="true"
-      className="hidden lg:flex fixed bottom-6 start-6 z-40 items-center gap-3 font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash pointer-events-none select-none"
+      className="journey-readout hidden lg:flex fixed bottom-8 start-5 z-40 items-center gap-3 font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash pointer-events-none select-none"
     >
       <span className="text-paper tabular-nums">{c.number}</span>
       <span className="text-wire">/</span>

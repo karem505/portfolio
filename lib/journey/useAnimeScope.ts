@@ -30,23 +30,37 @@ export function useAnimeScope<T extends HTMLElement = HTMLElement>(
   const root = useRef<T>(null)
   useEffect(() => {
     if (!root.current) return
-    const scope = createScope({
-      root,
-      mediaQueries: {
-        reduceMotion: '(prefers-reduced-motion: reduce)',
-        desktop: '(min-width: 1024px)',
-      },
-    })
-    // The constructor callback re-runs on media-query changes; `scope.matches`
-    // is refreshed before each run.
-    scope.add(() => {
-      build(scope, {
-        motion: isMotionEnabled() && !scope.matches.reduceMotion,
-        rtl: document.documentElement.dir === 'rtl',
-        desktop: !!scope.matches.desktop,
+    let scope: Scope | null = null
+    let cancelled = false
+    // Build off the hydration task: each section becomes its own short idle
+    // task instead of one long blocking one (keeps TBT low on slow devices).
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
+    const schedule = (cb: () => void) =>
+      w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 600 }) : window.setTimeout(cb, 0)
+    schedule(() => {
+      if (cancelled || !root.current) return
+      scope = createScope({
+        root,
+        mediaQueries: {
+          reduceMotion: '(prefers-reduced-motion: reduce)',
+          desktop: '(min-width: 1024px)',
+        },
+      })
+      const s = scope
+      // The constructor callback re-runs on media-query changes; `scope.matches`
+      // is refreshed before each run.
+      s.add(() => {
+        build(s, {
+          motion: isMotionEnabled() && !s.matches.reduceMotion,
+          rtl: document.documentElement.dir === 'rtl',
+          desktop: !!s.matches.desktop,
+        })
       })
     })
-    return () => scope.revert()
+    return () => {
+      cancelled = true
+      scope?.revert()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
   return root

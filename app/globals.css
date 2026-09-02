@@ -918,11 +918,19 @@ html.motion .pin-act[data-pinned="true"] [data-pin-grid] {
   transform-origin: right center;
 }
 
-/* Chapter-progress wire in the fixed readout. */
+/* Fixed chapter readout: a vertical edge label (reads bottom-to-top) so it
+   lives in the page gutter and never overlaps content. */
+.journey-readout {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+[dir="rtl"] .journey-readout {
+  transform: none;
+}
 .journey-readout-wire {
   position: relative;
-  width: 120px;
-  height: 1px;
+  width: 1px;
+  height: 120px;
   background: var(--wire);
   overflow: hidden;
 }
@@ -930,11 +938,11 @@ html.motion .pin-act[data-pinned="true"] [data-pin-grid] {
   position: absolute;
   inset: 0;
   background: var(--signal);
-  transform-origin: left center;
-  transform: scaleX(var(--chapter-p, 0));
+  transform-origin: center bottom;
+  transform: scaleY(var(--chapter-p, 0));
 }
 [dir="rtl"] .journey-readout-wire > span {
-  transform-origin: right center;
+  transform-origin: center top;
 }
 
 /* Authored silence: field-only beat before the peak (desktop, motion only). */
