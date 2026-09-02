@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'Abo-Elmakarem Shohoud (ابوالمكارم شهود · كارم شهود) — مطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent. Full-Stack Developer, DevOps Engineer & Scrum Master shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.net) for clients across Egypt, UAE, and KSA.',
+    'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent shipping AI-powered SaaS across Egypt, UAE and KSA.',
 
   keywords: [
     // Name variations (English & Arabic)

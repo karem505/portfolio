@@ -4,7 +4,7 @@ import { BlogHeader, BlogSidebar } from '@/components/blog'
 export const metadata: Metadata = {
   title: {
     default: 'Blog | Abo-Elmakarem Shohoud',
-    template: '%s | Blog - Abo-Elmakarem Shohoud',
+    template: '%s | Abo-Elmakarem Shohoud',
   },
   description: 'AI, automation, and software development insights in Arabic and English. Latest news, tutorials, and how-to guides.',
   keywords: [

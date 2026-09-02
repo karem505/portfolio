@@ -4,9 +4,14 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
-  description: 'Refund Policy for Aboelmakarem AI automation consulting services by Abo-Elmakarem Shohoud.',
+  description: 'Refund Policy for consulting and training services delivered by Abo-Elmakarem Shohoud.',
   alternates: {
     canonical: 'https://aboelmakarem.pro/refund',
+  },
+  openGraph: {
+    url: 'https://aboelmakarem.pro/refund',
+    title: 'Refund Policy | Abo-Elmakarem Shohoud',
+    description: 'Refund Policy for consulting and training services delivered by Abo-Elmakarem Shohoud.',
   },
 }
 

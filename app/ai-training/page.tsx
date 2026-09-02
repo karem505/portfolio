@@ -21,7 +21,7 @@ export function generateMetadata({ searchParams }: SP): Metadata {
     ? 'تدريب الذكاء الاصطناعي للموظفين والمدراء التنفيذيين'
     : 'Corporate AI Training for Employees & Executives | MENA'
   const description = ar
-    ? 'تدريب احترافي على الذكاء الاصطناعي للموظفين والمدراء التنفيذيين في مصر والإمارات والسعودية. ChatGPT وClaude وهندسة الأوامر، حضورياً أو عن بُعد، بالعربية أو الإنجليزية.'
+    ? 'تدريب احترافي على الذكاء الاصطناعي للموظفين والمدراء التنفيذيين في مصر والإمارات والسعودية: ChatGPT وClaude وهندسة الأوامر، حضورياً أو عن بُعد.'
     : 'Hands-on corporate AI training for employees & executives across Egypt, the UAE & Saudi Arabia. ChatGPT, Claude & prompt engineering. Arabic or English.'
   const url = ar ? `${BASE}?lang=ar` : BASE
   const ogTitle = ar

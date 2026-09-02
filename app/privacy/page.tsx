@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://aboelmakarem.pro/privacy',
   },
+  openGraph: {
+    url: 'https://aboelmakarem.pro/privacy',
+    title: 'Privacy Policy | Abo-Elmakarem Shohoud',
+    description: 'Privacy Policy for aboelmakarem.pro — how we collect, use, and protect your data.',
+  },
 }
 
 export default function PrivacyPage() {

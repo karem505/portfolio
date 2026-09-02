@@ -5,9 +5,14 @@ import ContactList from './ContactList'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with Abo-Elmakarem Shohoud — Email, LinkedIn, GitHub, Upwork. AI Automation Expert based in Cairo, Egypt.',
+  description: 'Get in touch with Abo-Elmakarem Shohoud — WhatsApp, email, LinkedIn, GitHub, Upwork. Full-Stack Developer and DevOps Engineer based in Cairo, Egypt.',
   alternates: {
     canonical: 'https://aboelmakarem.pro/contact-info',
+  },
+  openGraph: {
+    url: 'https://aboelmakarem.pro/contact-info',
+    title: 'Contact Abo-Elmakarem Shohoud',
+    description: 'WhatsApp, email, LinkedIn, GitHub and Upwork contact details for Abo-Elmakarem Shohoud, Cairo, Egypt.',
   },
 }
 

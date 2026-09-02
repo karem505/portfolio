@@ -39,8 +39,8 @@ export async function generateMetadata({ searchParams }: SP): Promise<Metadata> 
     ? 'تحميل تطبيق دليل الأدوية الإكلينيكي — دليل أدوية مصر بدون إنترنت (أندرويد)'
     : 'Download Pharmacy Manual — Offline Egyptian Drug Index (Android)'
   const description = ar
-    ? 'حمّل تطبيق دليل الأدوية الإكلينيكي لأندرويد: دليل أدوية مصري يعمل بدون إنترنت ومُدقّق أسعار، بحث ثنائي اللغة عبر أكثر من 24,868 دواءً ومقارنة أسعار البدائل. مجاني وبدون إعلانات.'
-    : 'Download Pharmacy Manual for Android: an offline Egyptian drug index and price checker with bilingual search across 24,868+ medicines and same-ingredient price comparison. Free, no ads.'
+    ? 'حمّل دليل الأدوية الإكلينيكي لأندرويد: دليل أدوية مصري يعمل بدون إنترنت مع مُدقّق أسعار وبحث ثنائي اللغة في أكثر من 24,868 دواءً. مجاني وبدون إعلانات.'
+    : 'Download Pharmacy Manual for Android: an offline Egyptian drug index and price checker with bilingual search across 24,868+ medicines. Free, no ads.'
   const url = ar ? `${BASE}?lang=ar` : BASE
   const ogTitle = ar ? 'دليل الأدوية الإكلينيكي' : 'Pharmacy Manual — Android App'
   const ogImage = `https://aboelmakarem.pro/api/og?title=${encodeURIComponent(ogTitle)}&category=${encodeURIComponent(ar ? 'تطبيق أندرويد' : 'Android App')}${ar ? '&lang=ar' : ''}`

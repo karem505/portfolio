@@ -53,8 +53,8 @@ export function generateMetadata({ searchParams }: SP): Metadata {
     ? 'تطبيقات ابوالمكارم شهود — تنزيلات مجانية'
     : 'Apps by Abo-Elmakarem Shohoud — Free Downloads'
   const description = ar
-    ? 'تطبيقات مجانية قابلة للتثبيت من تطوير ابوالمكارم شهود (كارم). نزّلها مباشرةً — بدءاً من دليل الأدوية الإكلينيكي، دليل أدوية مصري ومُدقّق أسعار يعمل بدون إنترنت لأندرويد.'
-    : 'Free, installable apps built by Abo-Elmakarem Shohoud (Karem). Download them directly — starting with Pharmacy Manual, an offline Egyptian drug index & price checker for Android.'
+    ? 'تطبيقات مجانية من تطوير ابوالمكارم شهود، تُنزَّل مباشرةً: بدءاً من دليل الأدوية الإكلينيكي، دليل أدوية مصري ومُدقّق أسعار يعمل بدون إنترنت لأندرويد.'
+    : 'Free, installable apps by Abo-Elmakarem Shohoud, direct download: starting with Pharmacy Manual, an offline Egyptian drug index and price checker for Android.'
   const url = ar ? `${BASE}?lang=ar` : BASE
   const ogTitle = ar ? 'تطبيقات ابوالمكارم شهود' : 'Apps by Abo-Elmakarem Shohoud'
   const ogImage = `https://aboelmakarem.pro/api/og?title=${encodeURIComponent(ogTitle)}&category=${encodeURIComponent(ar ? 'تطبيقات' : 'Apps')}${ar ? '&lang=ar' : ''}`
