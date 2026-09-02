@@ -109,7 +109,9 @@ export function revealLines(
     lines: { wrap: 'clip', class: 'split-line' },
     words: true,
     chars: false,
-    accessible: true,
+    // Words stay whole, so screen readers cope without the sr-only clone that
+    // `accessible: true` adds (it would duplicate heading text in the rendered DOM).
+    accessible: false,
   })
   if (rel === 'above' || !splitter.lines.length) return splitter
   utils.set(splitter.lines, { opacity: 0, translateY: '110%' })

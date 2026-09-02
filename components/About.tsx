@@ -1,18 +1,30 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef } from 'react'
 import {
   FaCode, FaServer, FaUsers, FaMicrophone, FaChartLine, FaClipboardList
 } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { parallaxLayers, revealLines, revealUp } from '@/lib/journey/reveal'
 
 export default function About() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, language } = useLanguage()
   const ar = language === 'ar'
+
+  const root = useAnimeScope<HTMLElement>((_, { motion }) => {
+    const el = root.current
+    if (!el || !motion) return
+    const h2 = el.querySelector<HTMLElement>('[data-lines]')
+    if (h2) revealLines(h2)
+    revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
+    revealUp(el.querySelectorAll('[data-reveal-tile]'), { staggerMs: 60, y: 32 })
+    const stack = el.querySelector<HTMLElement>('[data-stack]')
+    if (stack) {
+      revealUp(stack.querySelectorAll('[data-reveal-stack-head]'), { trigger: stack })
+      revealUp(stack.querySelectorAll('[data-reveal-cell]'), { staggerMs: 40, y: 12, trigger: stack })
+    }
+    parallaxLayers(el)
+  }, [language])
 
   const skillCategories = [
     {
@@ -89,16 +101,16 @@ export default function About() {
   ]
 
   return (
-    <section id="about" ref={ref} className="relative py-32 px-6">
+    <section id="about" ref={root} className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="tab-eyebrow mb-6">002 · {t('about', 'نبذة')}</span>
-          <h2 className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
+        <div className="relative text-center mb-20">
+          <span aria-hidden="true" className="watermark-num" data-depth="-0.35">002</span>
+          <span data-reveal-head className="tab-eyebrow mb-6">002 · {t('about', 'نبذة')}</span>
+          <h2
+            key={language}
+            data-lines
+            className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}
+          >
             {ar ? (
               <>
                 مهندس بثلاث منصات<br />
@@ -111,7 +123,7 @@ export default function About() {
               </>
             )}
           </h2>
-          <p className={`text-ash max-w-3xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+          <p data-reveal-head className={`text-ash max-w-3xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
             {ar ? (
               <>
                 مطور Full-Stack وخبير أتمتة بالذكاء الاصطناعي مقيم في القاهرة، مصر، بخبرة تتجاوز السنتين.
@@ -134,43 +146,39 @@ export default function About() {
               </>
             )}
           </p>
-        </motion.div>
+        </div>
 
+        {/* Six expertise tiles on three depth planes (outer wrapper parallaxes,
+            inner tile reveals) so the grid reads as layered, not flat. */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {expertise.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative p-6 bg-graphite border border-wire hover:border-signal transition-colors duration-200"
-            >
-              <div className="flex items-start justify-between mb-5">
-                <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors duration-200">
-                  <item.icon className="text-lg" />
+            <div key={item.title} data-depth={[0.06, 0.14, 0.22][index % 3]}>
+              <div
+                data-reveal-tile
+                className="group relative h-full p-6 bg-graphite border border-wire hover:border-signal transition-colors duration-200"
+              >
+                <div className="flex items-start justify-between mb-5">
+                  <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors duration-200">
+                    <item.icon className="text-lg" />
+                  </div>
+                  <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                 </div>
-                <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </div>
 
-              <h3 className={`font-bold text-lg mb-2 text-paper group-hover:text-signal transition-colors ${ar ? 'font-rubik' : 'font-mono'}`}>
-                {item.title}
-              </h3>
-              <p className={`text-ash text-sm leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
-                {item.description}
-              </p>
-            </motion.div>
+                <h3 className={`font-bold text-lg mb-2 text-paper group-hover:text-signal transition-colors ${ar ? 'font-rubik' : 'font-mono'}`}>
+                  {item.title}
+                </h3>
+                <p className={`text-ash text-sm leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+                  {item.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-20"
-        >
-          <div className="mb-8 flex items-baseline gap-4">
+        <div data-stack className="mb-20">
+          <div data-reveal-stack-head className="mb-8 flex items-baseline gap-4">
             <h3 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper ${ar ? 'font-rubik' : 'font-mono'}`}>
               {t('technical · stack', 'الحزمة · التقنية')}
             </h3>
@@ -180,12 +188,10 @@ export default function About() {
             </span>
           </div>
           <div className="grid md:grid-cols-2 gap-px bg-wire border border-wire max-w-5xl mx-auto">
-            {skillCategories.map((category, catIndex) => (
-              <motion.div
+            {skillCategories.map((category) => (
+              <div
                 key={category.title}
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.4 + catIndex * 0.06 }}
+                data-reveal-cell
                 className="p-6 bg-ink hover:bg-graphite transition-colors duration-200"
               >
                 <div className="flex items-center justify-between mb-4 pb-3 border-b border-wire">
@@ -194,18 +200,15 @@ export default function About() {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {category.items.map((item) => (
-                    <span
-                      key={item}
-                      className="tag-chip"
-                    >
+                    <span key={item} className="tag-chip">
                       {item}
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
       </div>
 
