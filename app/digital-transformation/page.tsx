@@ -250,9 +250,11 @@ export default async function DigitalTransformationPage({ searchParams }: SP) {
   const ar = searchParams?.lang === 'ar'
   const content = getContent(ar)
 
+  // The cornerstone post for this service is pinned first (pillar → cornerstone link).
   const clusterPosts = await getServiceClusterPosts(
     ['analysis', 'how-to', 'tutorial', 'insights'],
-    6
+    6,
+    ['digital-transformation-roadmap-sme-egypt-gulf']
   )
   const relatedLinks = clusterPosts.length
     ? {

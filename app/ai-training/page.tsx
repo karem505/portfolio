@@ -269,7 +269,10 @@ export default async function AiTrainingPage({ searchParams }: SP) {
   const ar = searchParams?.lang === 'ar'
   const content = getContent(ar)
 
-  const clusterPosts = await getServiceClusterPosts(['how-to', 'tutorial'], 6)
+  // The cornerstone post for this service is pinned first (pillar → cornerstone link).
+  const clusterPosts = await getServiceClusterPosts(['how-to', 'tutorial'], 6, [
+    'train-employees-executives-ai-accelerate-work',
+  ])
   const relatedLinks = clusterPosts.length
     ? {
         heading: ar ? 'أدلة ومقالات ذات صلة' : 'Related guides & insights',

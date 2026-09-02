@@ -402,6 +402,22 @@ export function FAQPageJsonLd() {
           text: 'LinkedIn DM or the contact form on this site. I respond within 24 hours and read every message; paste a role brief or scope and I will reply with a fit assessment, not a templated thank-you.',
         },
       },
+      {
+        '@type': 'Question',
+        name: 'Do you offer AI training or digital transformation consulting for companies?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, personally and independently. I run hands-on AI training for employees and executives (ChatGPT, Claude, prompt engineering, agentic automation) and digital transformation consulting where I both design and build the systems: process automation, AI workflow redesign, ERP and legacy modernization. On-site in Egypt, the UAE and Saudi Arabia or online, in Arabic or English. Details: https://aboelmakarem.pro/ai-training and https://aboelmakarem.pro/digital-transformation',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How does an engagement start?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'With a short scoping call. Training starts as a half-day workshop or a multi-week program scoped to your team and tracks. Transformation work starts with a small fixed-cost diagnostic and roadmap, then phased builds, so you fund one measurable outcome at a time instead of a big-bang rewrite.',
+        },
+      },
     ],
   }
 

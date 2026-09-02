@@ -5,6 +5,9 @@ import { FaChevronDown } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
 import { useAnimeScope } from '@/lib/journey/useAnimeScope'
 import { revealLines, revealUp } from '@/lib/journey/reveal'
+import type { ReactNode } from 'react'
+
+const linkClass = 'text-paper underline decoration-signal/60 underline-offset-4 hover:text-signal transition-colors'
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -20,7 +23,7 @@ export default function FAQ() {
     revealUp(el.querySelectorAll('[data-reveal-row]'), { staggerMs: 40, y: 12, duration: 500 })
   }, [language])
 
-  const faqs = ar
+  const faqs: { question: string; answer: ReactNode }[] = ar
     ? [
         {
           question: 'ما الـ Stack الأساسي الذي تعمل به؟',
@@ -51,6 +54,27 @@ export default function FAQ() {
           question: 'ما أسرع طريقة للوصول إليّ لمسؤولي التوظيف ومديري التوظيف؟',
           answer:
             'رسالة LinkedIn أو نموذج التواصل في هذا الموقع. أرد خلال 24 ساعة وأقرأ كل رسالة. أرسل وصفًا للوظيفة أو نطاق المشروع وستحصل على تقييم Fit فعلي، لا ردًا قالبيًا.',
+        },
+        {
+          question: 'هل تقدّم تدريبًا على الذكاء الاصطناعي أو استشارات تحول رقمي للشركات؟',
+          answer: (
+            <>
+              نعم، بشكل شخصي ومستقل. أقدّم{' '}
+              <a href="/ai-training?lang=ar" className={linkClass}>
+                تدريبًا عمليًا على الذكاء الاصطناعي للموظفين والمديرين التنفيذيين
+              </a>{' '}
+              (ChatGPT و Claude وهندسة الأوامر والأتمتة الوكيلة)، و{' '}
+              <a href="/digital-transformation?lang=ar" className={linkClass}>
+                استشارات تحول رقمي
+              </a>{' '}
+              أُصمّم فيها الأنظمة وأبنيها بنفسي: أتمتة العمليات، وإعادة تصميم سير العمل بالذكاء الاصطناعي، وتحديث أنظمة ERP والأنظمة القديمة. حضوريًا في مصر والإمارات والسعودية أو عن بُعد، بالعربية أو الإنجليزية.
+            </>
+          ),
+        },
+        {
+          question: 'كيف يبدأ التعاون؟',
+          answer:
+            'بمكالمة قصيرة لتحديد النطاق. التدريب يبدأ كورشة عمل نصف يوم أو برنامج على عدة أسابيع بحسب حجم الفريق والمسارات المطلوبة. أعمال التحول الرقمي تبدأ بتشخيص صغير بتكلفة ثابتة وخارطة طريق، ثم مراحل بناء متتالية، بحيث تموّل نتيجة واحدة قابلة للقياس في كل مرة بدل إعادة بناء شاملة.',
         },
       ]
     : [
@@ -83,6 +107,27 @@ export default function FAQ() {
           question: 'How can recruiters or hiring managers reach you fastest?',
           answer:
             'LinkedIn DM or the contact form on this site. I respond within 24 hours and read every message; paste a role brief or scope and I will reply with a fit assessment, not a templated thank-you.',
+        },
+        {
+          question: 'Do you offer AI training or digital transformation consulting for companies?',
+          answer: (
+            <>
+              Yes, personally and independently. I run{' '}
+              <a href="/ai-training" className={linkClass}>
+                hands-on AI training for employees and executives
+              </a>{' '}
+              (ChatGPT, Claude, prompt engineering, agentic automation) and{' '}
+              <a href="/digital-transformation" className={linkClass}>
+                digital transformation consulting
+              </a>{' '}
+              where I both design and build the systems: process automation, AI workflow redesign, ERP and legacy modernization. On-site in Egypt, the UAE and Saudi Arabia or online, in Arabic or English.
+            </>
+          ),
+        },
+        {
+          question: 'How does an engagement start?',
+          answer:
+            'With a short scoping call. Training starts as a half-day workshop or a multi-week program scoped to your team and tracks. Transformation work starts with a small fixed-cost diagnostic and roadmap, then phased builds, so you fund one measurable outcome at a time instead of a big-bang rewrite.',
         },
       ]
 

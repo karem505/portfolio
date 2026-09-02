@@ -127,25 +127,49 @@ export async function getCornerstonePosts(limit: number = 9): Promise<Post[]> {
 }
 
 // Get a topical cluster of indexable posts to link from a service (pillar) page.
+// `pinSlugs` (the cornerstone posts for that service) always come first, so the
+// pillar → cornerstone link survives newer posts pushing them out of the window.
 export async function getServiceClusterPosts(
   postTypes: Post['post_type'][],
-  limit: number = 6
+  limit: number = 6,
+  pinSlugs: string[] = []
 ): Promise<Post[]> {
-  const { data, error } = await supabase
+  const fields = 'slug, title_en, title_ar, post_type, published_at'
+
+  const pinnedPromise = pinSlugs.length
+    ? supabase
+        .from('posts')
+        .select(fields)
+        .eq('status', 'published')
+        .eq('seo_noindex', false)
+        .in('slug', pinSlugs)
+    : Promise.resolve({ data: [] as Post[], error: null })
+
+  let clusterQuery = supabase
     .from('posts')
-    .select('slug, title_en, title_ar, post_type, published_at')
+    .select(fields)
     .eq('status', 'published')
     .eq('seo_noindex', false)
     .in('post_type', postTypes)
     .order('published_at', { ascending: false })
     .limit(limit)
-
-  if (error) {
-    console.error('Error fetching service cluster posts:', error)
-    return []
+  if (pinSlugs.length) {
+    clusterQuery = clusterQuery.not('slug', 'in', `(${pinSlugs.join(',')})`)
   }
 
-  return data as Post[]
+  const [pinned, cluster] = await Promise.all([pinnedPromise, clusterQuery])
+
+  if (pinned.error) console.error('Error fetching pinned cluster posts:', pinned.error)
+  if (cluster.error) {
+    console.error('Error fetching service cluster posts:', cluster.error)
+    return ((pinned.data as Post[]) || []).slice(0, limit)
+  }
+
+  const pinnedOrdered = pinSlugs
+    .map((slug) => ((pinned.data as Post[]) || []).find((p) => p.slug === slug))
+    .filter((p): p is Post => Boolean(p))
+
+  return [...pinnedOrdered, ...(cluster.data as Post[])].slice(0, limit)
 }
 
 // Get all categories

@@ -173,6 +173,48 @@ export default function BlogPostClient({
             link to /ai-training + /digital-transformation */}
         <PostCTA postType={post.post_type} />
 
+        {/* Author box (E-E-A-T): who wrote this, in the CV's own words, linking to
+            the entity hub on the homepage and to LinkedIn. */}
+        <aside
+          aria-label={t('About the author', 'عن الكاتب')}
+          className="mt-10 pt-8 border-t border-white/10 flex items-start gap-4"
+        >
+          <Image
+            src="/profile.jpg"
+            alt="Abo-Elmakarem Shohoud"
+            width={56}
+            height={56}
+            className="rounded-full shrink-0 object-cover"
+          />
+          <div className="min-w-0">
+            <p className="text-sm text-muted mb-1">{t('Written by', 'كتبه')}</p>
+            <p className="font-display font-bold text-white">
+              <Link href="/" className="hover:text-primary transition-colors">
+                {t('Abo-Elmakarem Shohoud', 'ابوالمكارم شهود')}
+              </Link>
+            </p>
+            <p className="text-sm text-muted mt-1 leading-relaxed">
+              {t(
+                'Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst at Ailigent, Cairo. Ships AI-powered SaaS (Tornix.ai, Oravex.app, Costra.net) for clients across Egypt, the UAE and Saudi Arabia, and works independently as a digital transformation consultant and corporate AI trainer.',
+                'مطور Full-Stack ومهندس DevOps و Scrum Master ومحلل أعمال في Ailigent بالقاهرة. يبني منتجات SaaS مدعومة بالذكاء الاصطناعي (Tornix.ai و Oravex.app و Costra.net) لعملاء في مصر والإمارات والسعودية، ويعمل بشكل مستقل كمستشار تحول رقمي ومدرّب ذكاء اصطناعي للشركات.'
+              )}
+            </p>
+            <p className="text-sm mt-2 flex flex-wrap gap-x-4 gap-y-1">
+              <Link href="/" className="text-primary hover:underline">
+                {t('More about me', 'المزيد عني')}
+              </Link>
+              <a
+                href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                LinkedIn
+              </a>
+            </p>
+          </div>
+        </aside>
+
         {/* Category Badge */}
         {post.category && (
           <motion.div
