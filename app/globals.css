@@ -461,6 +461,8 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
   font-size: 0.9375rem;
   font-family: var(--font-mono);
   color: var(--ash);
+  /* Long URLs / tokens wrap instead of widening the column on phones. */
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 640px) {

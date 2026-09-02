@@ -30,7 +30,10 @@ export default function BlogLayout({
       <BlogHeader />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-12">
-          <div>{children}</div>
+          {/* min-w-0: a grid item's automatic minimum width is its content's
+              min-content size, so wide tables/code would otherwise push the whole
+              page wider than the phone instead of scrolling inside their wrappers. */}
+          <div className="min-w-0">{children}</div>
           <div className="hidden lg:block">
             <BlogSidebar />
           </div>

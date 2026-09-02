@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { HiMagnifyingGlass, HiXMark } from 'react-icons/hi2'
 import { BlogCard } from '@/components/blog'
+import { paginationWindow } from '@/lib/pagination'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { getPosts, searchPosts } from '@/lib/blog'
 import type { Post } from '@/lib/types'
@@ -141,28 +142,55 @@ function BlogContent() {
         </div>
       )}
 
-      {/* Pagination */}
+      {/* Pagination: windowed (first · gap · siblings · gap · last) so it fits
+          one row on a phone; the full 20+ button row used to force the page
+          wider than the viewport. */}
       {!searchQuery && totalPages > 1 && (
-        <motion.div
+        <motion.nav
+          aria-label={t('Pagination', 'ترقيم الصفحات')}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="flex justify-center gap-2 mt-12"
+          className="flex flex-wrap justify-center items-center gap-2 mt-12"
         >
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(i + 1)}
-              className={`w-10 h-10 rounded-lg font-medium transition-colors ${
-                page === i + 1
-                  ? 'bg-primary text-white'
-                  : 'bg-surface text-muted hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </motion.div>
+          <button
+            onClick={() => setPage(Math.max(page - 1, 1))}
+            disabled={page <= 1}
+            aria-label={t('Previous page', 'الصفحة السابقة')}
+            className="w-10 h-10 rounded-lg font-medium transition-colors bg-surface text-muted hover:text-white hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-muted"
+          >
+            {language === 'ar' ? '›' : '‹'}
+          </button>
+          {paginationWindow(page, totalPages).map((item, i) =>
+            item === 'gap' ? (
+              <span key={`gap-${i}`} aria-hidden="true" className="w-6 text-center text-muted select-none">
+                …
+              </span>
+            ) : (
+              <button
+                key={item}
+                onClick={() => setPage(item)}
+                aria-current={page === item ? 'page' : undefined}
+                aria-label={t(`Page ${item}`, `الصفحة ${item}`)}
+                className={`w-10 h-10 rounded-lg font-medium transition-colors tabular-nums ${
+                  page === item
+                    ? 'bg-primary text-white'
+                    : 'bg-surface text-muted hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {item}
+              </button>
+            ),
+          )}
+          <button
+            onClick={() => setPage(Math.min(page + 1, totalPages))}
+            disabled={page >= totalPages}
+            aria-label={t('Next page', 'الصفحة التالية')}
+            className="w-10 h-10 rounded-lg font-medium transition-colors bg-surface text-muted hover:text-white hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-muted"
+          >
+            {language === 'ar' ? '‹' : '›'}
+          </button>
+        </motion.nav>
       )}
 
       {/* Mobile Sidebar Toggle */}
