@@ -1,16 +1,27 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef } from 'react'
 import { FaCode, FaClipboardList, FaBuilding, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { parallaxLayers, revealLines, revealSlide, revealUp } from '@/lib/journey/reveal'
 
 export default function Experience() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, language } = useLanguage()
   const ar = language === 'ar'
+
+  const root = useAnimeScope<HTMLElement>((_, { motion, rtl }) => {
+    const el = root.current
+    if (!el || !motion) return
+    const h2 = el.querySelector<HTMLElement>('[data-lines]')
+    if (h2) revealLines(h2)
+    revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
+    el.querySelectorAll<HTMLElement>('[data-plate]').forEach((plate) => {
+      revealSlide(plate, plate.dataset.plate === 'end' ? 'end' : 'start', rtl)
+      revealUp(plate.querySelectorAll('li'), { staggerMs: 30, y: 8, duration: 500, trigger: plate })
+    })
+    revealUp(el.querySelectorAll('[data-reveal-note]'), { y: 32 })
+    parallaxLayers(el)
+  }, [language])
 
   const roles = [
     {
@@ -65,33 +76,28 @@ export default function Experience() {
   ]
 
   return (
-    <section id="experience" ref={ref} className="relative py-32 px-6">
+    <section id="experience" ref={root} className="silence-beat relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="tab-eyebrow mb-6">003 · {t('experience', 'الخبرات')}</span>
-          <h2 className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
+        <div className="relative text-center mb-16">
+          <span aria-hidden="true" className="watermark-num" data-depth="-0.35">003</span>
+          <span data-reveal-head className="tab-eyebrow mb-6">003 · {t('experience', 'الخبرات')}</span>
+          <h2
+            key={language}
+            data-lines
+            className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}
+          >
             {t('Roles at Ailigent', 'أدواري في Ailigent')}
             <span className="text-signal">.</span>
           </h2>
-          <p className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+          <p data-reveal-head className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
             {t(
               'Two concurrent roles: full-stack engineering and delivery, plus business analysis on digital transformation engagements.',
               'دوران متزامنان: هندسة Full-Stack وتسليم المنتج، بالإضافة إلى تحليل الأعمال في مشاريع التحول الرقمي.'
             )}
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex justify-center mb-14"
-        >
+        <div data-reveal-head className="flex justify-center mb-14">
           <div className={`inline-flex items-center gap-4 px-5 py-3 border border-wire bg-graphite text-sm ${ar ? 'font-rubik' : 'font-mono'}`}>
             <FaBuilding className="text-signal" />
             <span className="font-bold text-paper tracking-[-0.02em]">Ailigent</span>
@@ -100,15 +106,13 @@ export default function Experience() {
               {t('AI Automation Solutions', 'حلول أتمتة بالذكاء الاصطناعي')}
             </span>
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
           {roles.map((role, index) => (
-            <motion.div
+            <div
               key={role.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+              data-plate={index === 0 ? 'start' : 'end'}
               className="group relative p-7 md:p-8 bg-graphite border border-wire hover:border-signal transition-colors duration-200"
             >
               <div className="relative z-10">
@@ -148,32 +152,30 @@ export default function Experience() {
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-14 p-8 md:p-10 border border-signal bg-graphite"
-        >
-          <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 mb-4">
-            <h3 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper ${ar ? 'font-rubik' : 'font-mono'}`}>
-              {t('Concurrent delivery, end to end', 'تسليم متزامن من الألف إلى الياء')}
-              <span className="text-signal">.</span>
-            </h3>
-            <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-signal">
-              / {t('note', 'ملاحظة')}
-            </span>
+        {/* Note plate rides up over the plates' lower edge (overlap = depth). */}
+        <div data-depth="0.1" className="relative z-[2] -mt-10 mx-4 md:mx-10">
+          <div data-reveal-note className="p-8 md:p-10 border border-signal bg-graphite">
+            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 mb-4">
+              <h3 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper ${ar ? 'font-rubik' : 'font-mono'}`}>
+                {t('Concurrent delivery, end to end', 'تسليم متزامن من الألف إلى الياء')}
+                <span className="text-signal">.</span>
+              </h3>
+              <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-signal">
+                / {t('note', 'ملاحظة')}
+              </span>
+            </div>
+            <p className={`text-ash max-w-3xl leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+              {t(
+                'Concurrent delivery across three SaaS products, plus business analysis on digital transformation engagements across Egypt, UAE, and KSA.',
+                'تسليم متزامن لثلاث منصات SaaS، بالإضافة إلى تحليل الأعمال على مشاريع التحول الرقمي في مصر والإمارات والسعودية.'
+              )}
+            </p>
           </div>
-          <p className={`text-ash max-w-3xl leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
-            {t(
-              'Concurrent delivery across three SaaS products, plus business analysis on digital transformation engagements across Egypt, UAE, and KSA.',
-              'تسليم متزامن لثلاث منصات SaaS، بالإضافة إلى تحليل الأعمال على مشاريع التحول الرقمي في مصر والإمارات والسعودية.'
-            )}
-          </p>
-        </motion.div>
+        </div>
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 section-divider" />
