@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type DependencyList, type RefObject } from 'react'
 import { createScope, type Scope } from 'animejs'
+import { cleanupRegistry } from './reveal'
 
 export interface MotionContext {
   /** html.motion present AND the reduce-motion media query does not match. */
@@ -32,6 +33,7 @@ export function useAnimeScope<T extends HTMLElement = HTMLElement>(
     if (!root.current) return
     let scope: Scope | null = null
     let cancelled = false
+    const cleanups = new Set<() => void>()
     // Build off the hydration task: each section becomes its own short idle
     // task instead of one long blocking one (keeps TBT low on slow devices).
     const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
@@ -50,15 +52,22 @@ export function useAnimeScope<T extends HTMLElement = HTMLElement>(
       // The constructor callback re-runs on media-query changes; `scope.matches`
       // is refreshed before each run.
       s.add(() => {
-        build(s, {
-          motion: isMotionEnabled() && !s.matches.reduceMotion,
-          rtl: document.documentElement.dir === 'rtl',
-          desktop: !!s.matches.desktop,
-        })
+        cleanupRegistry.current = cleanups
+        try {
+          build(s, {
+            motion: isMotionEnabled() && !s.matches.reduceMotion,
+            rtl: document.documentElement.dir === 'rtl',
+            desktop: !!s.matches.desktop,
+          })
+        } finally {
+          cleanupRegistry.current = null
+        }
       })
     })
     return () => {
       cancelled = true
+      cleanups.forEach((fn) => fn())
+      cleanups.clear()
       scope?.revert()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

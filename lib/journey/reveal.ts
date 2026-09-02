@@ -1,5 +1,6 @@
 import {
   animate,
+  createTimeline,
   cubicBezier,
   onScroll,
   splitText,
@@ -29,27 +30,92 @@ export function parallaxRange(depth: number, amplitude = PARALLAX_PX): [number, 
   return [-depth * amplitude, depth * amplitude]
 }
 
+/**
+ * Cleanup registry. `useAnimeScope` installs a Set while a scope builds; the
+ * helpers register IntersectionObserver disconnects there so a scope revert
+ * (unmount, language switch) also tears down the observers anime does not own.
+ */
+export const cleanupRegistry: { current: Set<() => void> | null } = { current: null }
+function registerCleanup(fn: () => void) {
+  cleanupRegistry.current?.add(fn)
+}
+
+/**
+ * Scroll-rest safety net. IntersectionObserver only reports on rendered
+ * frames, so a scroll that finishes while the main thread is saturated can
+ * leave a hidden trigger unreported. 300 ms after the last scroll event every
+ * pending trigger is measured once (reads only, one layout pass) and anything
+ * now in or above view plays.
+ */
+const pendingChecks = new Set<() => void>()
+let restTimer = 0
+let restListening = false
+function armRestCheck() {
+  if (restListening) return
+  restListening = true
+  window.addEventListener(
+    'scroll',
+    () => {
+      window.clearTimeout(restTimer)
+      restTimer = window.setTimeout(() => pendingChecks.forEach((fn) => fn()), 300)
+    },
+    { passive: true },
+  )
+}
+
 type Targets = Element | Element[] | NodeListOf<Element>
 const toList = (t: Targets): HTMLElement[] =>
   (Array.isArray(t) ? t : t instanceof Element ? [t] : Array.from(t)) as HTMLElement[]
 
-const ENTER = 'bottom-=80 top' // container bottom minus 80px meets target top
-
 /**
- * Shared play-once logic: elements already scrolled past keep their final
- * state (no hidden content left behind), elements already in view play now,
- * elements below wait for a one-shot ScrollObserver.
+ * Enter-once trigger built on IntersectionObserver so geometry is read
+ * asynchronously in one batch (no forced layout between our style writes).
+ * The first callback classifies the trigger: already passed → leave the
+ * targets untouched (nothing hidden), in view → hide + play now, below →
+ * hide now and play when it enters ("enter" = 80px above the fold).
  */
-function playOnce(trigger: Element, make: () => JSAnimation): JSAnimation | null {
-  const rel = viewportRelation(trigger.getBoundingClientRect(), window.innerHeight)
-  if (rel === 'above') return null
-  const anim = make()
-  if (rel === 'in') {
-    anim.play()
-  } else {
-    onScroll({ target: trigger, enter: ENTER, repeat: false, onEnter: () => anim.play() })
+function playOnce(trigger: Element, hide: () => void, make: () => JSAnimation) {
+  let disposed = false
+  let anim: JSAnimation | null = null
+  const check = () => {
+    if (disposed || !anim) return
+    if (trigger.getBoundingClientRect().top < window.innerHeight - 80) fire()
   }
-  return anim
+  const fire = () => {
+    if (disposed || !anim) return
+    anim.play()
+    io.disconnect()
+    pendingChecks.delete(check)
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      const e = entries[entries.length - 1]
+      if (disposed) return
+      if (!anim) {
+        const passed = !e.isIntersecting && e.boundingClientRect.bottom < 0
+        if (passed) {
+          io.disconnect()
+          return
+        }
+        hide()
+        anim = make()
+        pendingChecks.add(check)
+        armRestCheck()
+      }
+      if (e.isIntersecting) fire()
+    },
+    // The root extends three viewports upward: a fast scroll while the main
+    // thread is busy can carry a hidden trigger through the viewport without a
+    // rendered frame, and a plain viewport root would never report it. Anything
+    // that slipped past still counts as intersecting on the next frame and plays.
+    { rootMargin: '300% 0px -80px 0px', threshold: 0 },
+  )
+  io.observe(trigger)
+  registerCleanup(() => {
+    disposed = true
+    io.disconnect()
+    pendingChecks.delete(check)
+  })
 }
 
 export interface RevealOptions {
@@ -61,21 +127,23 @@ export interface RevealOptions {
 }
 
 /** Fade + rise, once, when `trigger` (default: first target) enters. */
-export function revealUp(targets: Targets, opts: RevealOptions = {}): JSAnimation | null {
+export function revealUp(targets: Targets, opts: RevealOptions = {}): void {
   const list = toList(targets)
-  if (!list.length) return null
+  if (!list.length) return
   const { y = 24, duration = 700, staggerMs = 0, delay = 0, trigger = list[0] } = opts
-  return playOnce(trigger, () => {
-    utils.set(list, { opacity: 0, translateY: y })
-    return animate(list, {
-      opacity: [0, 1],
-      translateY: [y, 0],
-      duration,
-      ease: EASE_OUT,
-      delay: staggerMs ? stagger(staggerMs, { start: delay }) : delay,
-      autoplay: false,
-    })
-  })
+  playOnce(
+    trigger,
+    () => utils.set(list, { opacity: 0, translateY: y }),
+    () =>
+      animate(list, {
+        opacity: [0, 1],
+        translateY: [y, 0],
+        duration,
+        ease: EASE_OUT,
+        delay: staggerMs ? stagger(staggerMs, { start: delay }) : delay,
+        autoplay: false,
+      }),
+  )
 }
 
 /** Slide in from the logical start/end edge (mirrors under RTL). */
@@ -84,14 +152,15 @@ export function revealSlide(
   side: 'start' | 'end',
   rtl: boolean,
   opts: { trigger?: Element; duration?: number } = {},
-): JSAnimation | null {
+): void {
   const { trigger = el, duration = 800 } = opts
   const dir = (side === 'start' ? -1 : 1) * (rtl ? -1 : 1)
   const x = 40 * dir
-  return playOnce(trigger, () => {
-    utils.set(el, { opacity: 0, translateX: x })
-    return animate(el, { opacity: [0, 1], translateX: [x, 0], duration, ease: EASE_OUT, autoplay: false })
-  })
+  playOnce(
+    trigger,
+    () => utils.set(el, { opacity: 0, translateX: x }),
+    () => animate(el, { opacity: [0, 1], translateX: [x, 0], duration, ease: EASE_OUT, autoplay: false }),
+  )
 }
 
 /**
@@ -104,7 +173,6 @@ export function revealLines(
   opts: { staggerMs?: number; duration?: number } = {},
 ): TextSplitter {
   const { staggerMs = 90, duration = 900 } = opts
-  const rel = viewportRelation(el.getBoundingClientRect(), window.innerHeight)
   const splitter = splitText(el, {
     lines: { wrap: 'clip', class: 'split-line' },
     words: true,
@@ -113,18 +181,20 @@ export function revealLines(
     // `accessible: true` adds (it would duplicate heading text in the rendered DOM).
     accessible: false,
   })
-  if (rel === 'above' || !splitter.lines.length) return splitter
-  utils.set(splitter.lines, { opacity: 0, translateY: '110%' })
-  const anim = animate(splitter.lines, {
-    opacity: [0, 1],
-    translateY: ['110%', '0%'],
-    duration,
-    ease: EASE_OUT,
-    delay: stagger(staggerMs),
-    autoplay: false,
-  })
-  if (rel === 'in') anim.play()
-  else onScroll({ target: el, enter: ENTER, repeat: false, onEnter: () => anim.play() })
+  if (!splitter.lines.length) return splitter
+  playOnce(
+    el,
+    () => utils.set(splitter.lines, { opacity: 0, translateY: '110%' }),
+    () =>
+      animate(splitter.lines, {
+        opacity: [0, 1],
+        translateY: ['110%', '0%'],
+        duration,
+        ease: EASE_OUT,
+        delay: stagger(staggerMs),
+        autoplay: false,
+      }),
+  )
   return splitter
 }
 
@@ -136,20 +206,21 @@ export interface ParallaxOptions {
   amplitude?: number
 }
 
-/** Scroll-synced translateY over the trigger's visible life. */
-export function parallax(el: HTMLElement, depth: number, trigger: Element, opts: ParallaxOptions = {}): JSAnimation {
+/**
+ * Scroll-synced parallax for every `[data-depth]` descendant of `root`: ONE
+ * ScrollObserver per section driving a timeline with one tween per layer,
+ * instead of one observer (and one geometry read) per element.
+ */
+export function parallaxLayers(root: HTMLElement, opts: ParallaxOptions = {}): void {
   const { enter = 'bottom top', leave = 'top bottom', fromZero = false, amplitude = PARALLAX_PX } = opts
-  const [from, to] = parallaxRange(depth, amplitude)
-  return animate(el, {
-    translateY: fromZero ? [0, to * 2] : [from, to],
-    ease: 'linear',
-    autoplay: onScroll({ target: trigger, enter, leave, sync: true }),
+  const layers = Array.from(root.querySelectorAll<HTMLElement>('[data-depth]'))
+  if (!layers.length) return
+  const tl = createTimeline({
+    defaults: { ease: 'linear', duration: 1000 },
+    autoplay: onScroll({ target: root, enter, leave, sync: true }),
   })
-}
-
-/** Applies parallax to every `[data-depth]` descendant of `root`, triggered by `root`. */
-export function parallaxLayers(root: HTMLElement, opts: ParallaxOptions = {}): JSAnimation[] {
-  return Array.from(root.querySelectorAll<HTMLElement>('[data-depth]')).map((el) =>
-    parallax(el, parseFloat(el.dataset.depth || '0'), root, opts),
-  )
+  layers.forEach((el) => {
+    const [from, to] = parallaxRange(parseFloat(el.dataset.depth || '0'), amplitude)
+    tl.add(el, { translateY: fromZero ? [0, to * 2] : [from, to] }, 0)
+  })
 }

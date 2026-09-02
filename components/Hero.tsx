@@ -7,7 +7,7 @@ import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
 import { useLanguage } from '@/lib/LanguageContext'
 import { useAnimeScope } from '@/lib/journey/useAnimeScope'
-import { EASE_OUT, parallax } from '@/lib/journey/reveal'
+import { EASE_OUT, parallaxLayers } from '@/lib/journey/reveal'
 
 const orbitIcons = [
   { Icon: SiTypescript, label: 'TypeScript' },
@@ -35,13 +35,7 @@ export default function Hero() {
       .add('.hero-stack-icon', { translateX: [rtl ? -8 : 8, 0], duration: 500, delay: stagger(60) }, 200)
       .add('.hero-scroll-wire', { scaleX: [0, 1], duration: 700 }, 600)
 
-    section.querySelectorAll<HTMLElement>('[data-depth]').forEach((el) => {
-      parallax(el, parseFloat(el.dataset.depth || '0'), section, {
-        enter: 'top top',
-        leave: 'bottom top',
-        fromZero: true,
-      })
-    })
+    parallaxLayers(section, { enter: 'top top', leave: 'bottom top', fromZero: true })
   }, [language])
 
   // Pointer tilt on the photo frame (fine pointers only). Listeners live in
