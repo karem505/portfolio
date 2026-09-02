@@ -13,10 +13,6 @@ export function PersonJsonLd() {
     ],
     url: 'https://aboelmakarem.pro',
     image: 'https://aboelmakarem.pro/profile.jpg',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': 'https://aboelmakarem.pro/#webpage',
-    },
     jobTitle: [
       'Full-Stack Developer at Ailigent',
       'DevOps Engineer at Ailigent',
@@ -208,6 +204,8 @@ export function OrganizationJsonLd() {
     logo: {
       '@type': 'ImageObject',
       url: 'https://aboelmakarem.pro/logo.png',
+      width: 512,
+      height: 512,
     },
     description:
       'AI Automation Solutions: full-stack engineering, DevOps, and AI-powered SaaS delivery for clients across Egypt, UAE, and KSA.',
@@ -253,6 +251,7 @@ export function ProfessionalServiceJsonLd() {
       'Full-Stack Developer at Ailigent shipping production SaaS (Tornix.ai, Oravex.app, Costra) on TypeScript, React, Next.js, Python, and FastAPI. Concurrent DevOps Engineer and Scrum Master across all three products, with bilingual EN/AR delivery across Egypt, UAE, and KSA.',
     provider: {
       '@type': 'Person',
+      '@id': 'https://aboelmakarem.pro/#person',
       name: 'Abo-Elmakarem Shohoud',
     },
     areaServed: [

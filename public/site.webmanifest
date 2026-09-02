@@ -1,11 +1,11 @@
 {
-  "name": "Abo-Elmakarem Shohoud Portfolio",
-  "short_name": "AE Portfolio",
-  "description": "AI Automation Expert & Voice Agent Developer - Helping businesses cut costs by 70%",
+  "name": "Abo-Elmakarem Shohoud · ابوالمكارم شهود",
+  "short_name": "karem.pro",
+  "description": "Abo-Elmakarem Shohoud — Full-Stack Developer, DevOps Engineer, Scrum Master & Business Analyst at Ailigent. AI-powered SaaS, digital transformation consulting and corporate AI training across Egypt, UAE and KSA.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#6366f1",
+  "background_color": "#0c0a09",
+  "theme_color": "#ff3b1f",
   "icons": [
     {
       "src": "/favicon-192x192.png",
