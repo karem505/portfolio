@@ -64,7 +64,7 @@ export default function Hero() {
     <section
       ref={root}
       id="home"
-      className="relative min-h-screen flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
+      className="relative min-h-[min(100vh,1100px)] flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
     >
       {/* Poster = instant paint (LCP-safe) and the no-WebGL / reduced-motion
           fallback. The fixed WebGL field lives behind the page; once it is live

@@ -13,6 +13,15 @@ import {
 export const EASE_OUT = cubicBezier(0.23, 1, 0.32, 1)
 /** Total travel (px) of a depth-1 plane across a section's visible life. */
 export const PARALLAX_PX = 220
+/** Viewports taller than this belong to headless renderers (Google's, social
+ *  scrapers), which never scroll. Above it every reveal is skipped so the
+ *  rendered snapshot shows all copy at rest. */
+export const TALL_VIEWPORT_PX = 1600
+
+/** Pure: true when reveals should be skipped because nothing will ever scroll. */
+export function revealAllImmediately(innerHeight: number): boolean {
+  return innerHeight > TALL_VIEWPORT_PX
+}
 
 export type ViewportRelation = 'above' | 'in' | 'below'
 
@@ -93,7 +102,9 @@ function playOnce(trigger: Element, hide: () => void, make: () => JSAnimation) {
       if (disposed) return
       if (!anim) {
         const passed = !e.isIntersecting && e.boundingClientRect.bottom < 0
-        if (passed) {
+        // Already scrolled past, or a renderer that never scrolls: leave the
+        // targets untouched (nothing hidden, no animation).
+        if (passed || revealAllImmediately(window.innerHeight)) {
           io.disconnect()
           return
         }

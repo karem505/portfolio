@@ -842,7 +842,8 @@ html.motion[dir="rtl"] .hero-stack-icon {
   position: relative;
 }
 html.motion .pin-act[data-pinned="true"] {
-  height: calc(var(--span, 3.8) * 100vh);
+  /* Capped so a tall headless viewport cannot inflate the runway. */
+  height: min(calc(var(--span, 3.8) * 100vh), 4200px);
 }
 html.motion .pin-act[data-pinned="true"] > .pin-stage {
   position: sticky;
@@ -952,7 +953,7 @@ html.motion .pin-act[data-pinned="true"] [data-pin-grid] {
 /* Authored silence: field-only beat before the peak (desktop, motion only). */
 @media (min-width: 1024px) {
   html.motion .silence-beat {
-    padding-bottom: 50vh;
+    padding-bottom: min(50vh, 700px);
   }
 }
 
