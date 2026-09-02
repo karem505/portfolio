@@ -80,9 +80,10 @@ components/journey/
                         render-on-demand loop, resize, dispose.
   JourneyReadout.tsx    'use client'. Fixed timecode readout "004 / shipped · work" (desktop),
                         1px progress wire under the navbar (all sizes). Reads the journey store.
-  PinnedAct.tsx         Sticky pin wrapper: <section style={{height: span*100vh}}><div sticky>…
-                        Publishes progress via anime onScroll(sync) to a callback + --p CSS var.
-                        Renders children plainly (no pin) when motion is off or viewport < 1024.
+  (pinning)             No wrapper component. `lib/journey/usePinned.ts` decides pin eligibility
+                        (html.motion + ≥1024px + innerHeight ≥ 720) and Projects sets
+                        data-pinned + --span on its own <section class="pin-act">; CSS makes the
+                        inner .pin-stage sticky. Progress comes from anime onScroll(sync: true).
 lib/journey/
   store.ts              Tiny subscribable store: page progress 0..1, velocity, active chapter,
                         per-chapter progress. Updated by one passive scroll listener + rAF.
@@ -94,6 +95,7 @@ lib/journey/
   chapters.ts           Chapter list: id, number, label EN/AR (single source for readout + nav).
   useAnimeScope.ts      React hook wrapping anime createScope({ root, mediaQueries }) with revert
                         on unmount and on deps change (language).
+  usePinned.ts          Client hook: true only when html.motion, ≥1024px wide, ≥720px tall.
   reveal.ts             anime helpers: revealLines(el), revealStagger(els, opts), parallax(el, depth)
                         — each returns instances registered in the scope.
 components/
@@ -108,8 +110,9 @@ Dependencies added: `animejs@^4.5`, `three@^0.185`, `@types/three` (dev).
 ### Data flow
 
 1. `store.ts` listens to `scroll` (passive) and `resize`; on rAF it computes page progress,
-   velocity, and the active chapter from section offsets (measured once per resize + after fonts
-   load), then notifies subscribers and sets `--journey-p`.
+   velocity, and the active chapter from section offsets (measured once per resize, after fonts
+   load, and whenever `document.body` resizes), then notifies subscribers and sets `--journey-p`
+   (page progress) and `--chapter-p` (progress through the active chapter) on `<html>`.
 2. `JourneyStage` subscribes; on change it calls `field.setTarget(fieldState(...))`. The field
    lerps toward the target in its own rAF (0.08/frame) and renders only while the target differs
    from the current state, while the pointer is moving, or on a slow idle twinkle (≤ 20 fps).
@@ -117,9 +120,10 @@ Dependencies added: `animejs@^4.5`, `three@^0.185`, `@types/three` (dev).
    pinned act) use anime `onScroll({ target, enter, leave, sync: true })`. Enter-once reveals use
    anime `onScroll` with `sync: false` and `repeat: false` (plays forward once when the target
    enters at `enter: 'bottom-=80 top'`), so the whole motion system has one scroll engine.
-4. `PinnedAct` (Projects, desktop only) links one anime `createTimeline` to `onScroll({ sync: true })`
-   spanning the sticky section, and hands progress to the store so the WebGL `order` uniform is
-   driven by the same number.
+4. Projects (desktop only, when `usePinned()` is true) links one anime `createTimeline` to
+   `onScroll({ target: section, enter: 'top top', leave: 'bottom bottom', sync: true })`. The
+   store's own chapter progress (viewport midline through the 3.8vh section) drives the WebGL
+   `order` uniform; the field mapping is tuned so order reaches 1 at 70% of that progress.
 
 ## 6. WebGL field (three.js)
 
@@ -207,7 +211,8 @@ Dependencies added: `animejs@^4.5`, `three@^0.185`, `@types/three` (dev).
 - **Navbar:** `aria-current="page"` on the link matching the active chapter (existing CSS shows
   the signal underline). Existing scrolled/blur behaviour kept. Mobile menu unchanged.
 - **JourneyReadout:** fixed bottom-inline-start on desktop, mono 0.65rem uppercase, e.g.
-  `004 / shipped · work` with a 120px wire whose fill = chapter progress. Hidden < 1024px.
+  `004 / shipped · work` with a 120px wire whose fill = `--chapter-p` (no React re-render per
+  scroll frame; the component re-renders only when the chapter changes). Hidden < 1024px.
   A 1px signal progress wire sits at the bottom edge of the navbar on all sizes
   (`transform: scaleX(--journey-p)`, transform-origin inline-start).
 - The existing "scroll ↓ 002 / about" hero line stays (it is part of the lane) but its wire is
