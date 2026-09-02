@@ -3170,6 +3170,23 @@ Scroll frame budget: not representative headless (software GL); scripting-only r
 
 - [x] **Step 7: Record results and commit**
 
+**Post-deploy (production, 2026-09-02):**
+
+```
+Deploys: bbad67b (redesign) 14:40Z, fac4577 (perf follow-up + image hosts) 15:21Z — Netlify auto-build from master
+Live SSR gate vs pre-change production HTML: h1 2 · h2 10 · h3 33 · jsonld 12 · links 64 · imgs 9 · hrefLang 5 (all equal)
+  inline opacity:0 77 → 0 · FAQ answers now in DOM (6 hidden panels) · no more next/image 400s on journal cards
+SEO agent review (read-only): all parity checks PASS; its two follow-ups (pin cap ≤ 1400px for headless renderers,
+  FAQ answers in DOM) shipped in bbad67b.
+Perf follow-up (fac4577): ~65 anime ScrollObservers → 1 scroll-synced timeline per section + IntersectionObserver
+  reveals with a scroll-rest safety net. Live Lighthouse mobile 66 / TBT 2,280 ms → 82 / TBT 280 ms (measured on a
+  heavily loaded workstation, load 13–28; expect better on a quiet machine). Desktop measured 80 under the same load
+  vs 100 quiet — re-measure when idle. SEO 100, CLS 0 on every run.
+Not done: GSC request-indexing / IndexNow for `/` (owner action); PageSpeed Insights API quota exhausted today.
+```
+
+- [x] **Step 8: Post-deploy verification**
+
 Append the after-numbers table (SSR counts, First Load JS, Lighthouse, LCP/CLS/TBT, screenshot list) under this task in the plan and commit:
 
 ```bash
