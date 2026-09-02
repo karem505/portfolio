@@ -3092,14 +3092,14 @@ Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 - Create: `/tmp/journey-after/` (not committed)
 - Modify: this plan (record results)
 
-- [ ] **Step 1: Unit tests and typecheck**
+- [x] **Step 1: Unit tests and typecheck**
 
 ```bash
 npm test 2>&1 | tail -8 && npx tsc --noEmit && echo TSC_OK
 ```
 Expected: all vitest suites pass; `TSC_OK`.
 
-- [ ] **Step 2: Build, First Load JS, SSR counts**
+- [x] **Step 2: Build, First Load JS, SSR counts**
 
 ```bash
 mkdir -p /tmp/journey-after
@@ -3118,7 +3118,7 @@ console.log(gates); if(gates.some(g=>!g[1])) process.exit(1)'
 ```
 Expected: the script exits 0 with every gate `true`; `opacity0` is lower than baseline (Framer's SSR'd hidden states are gone); First Load JS for `/` grew by ≤ 15 kB (three.js is not in it — confirm the largest new chunk only appears in `/tmp/journey-after/build.log` as a shared/lazy chunk, not under `/`).
 
-- [ ] **Step 3: Lighthouse after**
+- [x] **Step 3: Lighthouse after**
 
 ```bash
 npx --yes lighthouse@12 http://localhost:3000/ --output=json --output-path=/tmp/journey-after/lh-mobile.json --chrome-flags="--headless=new --no-sandbox" --quiet --only-categories=performance,accessibility,best-practices,seo
@@ -3130,11 +3130,11 @@ for (const k of ["mobile","desktop"]) { for (const w of ["baseline","after"]) { 
 ```
 Expected: SEO 100 in both modes; mobile performance ≥ baseline − 5; CLS ≤ 0.05; accessibility not lower than baseline. If mobile performance regressed by more than 5: lower the mobile particle count to 2000 in `JourneyStage.tsx`, or delay the idle mount timeout to 3000 ms, rebuild and re-measure.
 
-- [ ] **Step 4: Visual pass (chrome-devtools MCP)**
+- [x] **Step 4: Visual pass (chrome-devtools MCP)**
 
 For each of `http://localhost:3000/` and `http://localhost:3000/?lang=ar`, at 1440×900 and 390×844: take screenshots at hero, about, experience, projects p=0/0.3/0.6/1, services, contact/footer (scroll with `evaluate_script`, wait ~800 ms for lerps to settle). Check: text over the field is readable (sample a body-copy pixel region and confirm the field stays faint), nothing overlaps wrongly, RTL mirrors the slides and readout position, the last screen holds the footer. Emulate reduced motion once (`emulate`), reload: poster visible, no canvas, all content visible with no pin. Save screenshots to `/tmp/journey-after/shots/`.
 
-- [ ] **Step 5: Keyboard and console**
+- [x] **Step 5: Keyboard and console**
 
 `press_key Tab` ×12 from the top and `take_snapshot`: focus moves nav → hero CTAs → … in DOM order; the pinned section does not trap focus. `list_console_messages`: no errors or React hydration warnings (a single "Extra attributes from the server: class" warning would indicate the html hydration suppression is missing — fix in `layout.tsx`).
 
@@ -3144,7 +3144,31 @@ Scroll-frame budget: `performance_start_trace` (reload: false), scroll from top 
 
 Stop the server, then dispatch the project `seo` agent (Agent tool, `subagent_type: seo`) with: "Run a technical SEO review of the local build of `/` and `/?lang=ar` after the scroll-journey redesign on branch feat/scroll-journey. Compare `/tmp/journey-baseline/home.html` vs `/tmp/journey-after/home.html`: headings, JSON-LD, links, hreflang, ArabicSeoContent, no hidden-content regressions, lazy three.js chunk not in critical path. Do NOT request indexing, submit IndexNow, deploy, or push. Report findings only." Address any blocking finding, re-run Steps 2-3 if code changed.
 
-- [ ] **Step 7: Record results and commit**
+**Results recorded (local prod build of feat/scroll-journey, 2026-09-02):**
+
+```
+Unit tests: 6 files, 40 tests pass · tsc clean
+SSR HTML of / (same local environment as the baseline; journal absent locally in both):
+  h1 2 · h2 9 · h3 24 · jsonld 12 · links 54 · imgs 2 · sr-only-seo 2 · hrefLang 5 · title unchanged
+  inline opacity:0 66 → 0 (all pre-animation states now applied by JS after hydration)
+  /?lang=ar identical counts
+Build: route "/" 50.6 kB, First Load JS 166 kB (baseline 180 kB; framer-motion left the homepage route,
+  anime.js core added; three.js ships as separate lazy chunks ~81 + 60 kB gz fetched only after first interaction)
+Lighthouse mobile:  performance 82 (baseline 85) · accessibility 96 (=) · best-practices 100 (=) · seo 100 (=)
+                    LCP 4.1 s (3.8) · CLS 0 (0) · TBT 240 ms (90) · SI 3.3 s (4.5)
+Lighthouse desktop: performance 100 (99) · accessibility 96 (=) · best-practices 100 (=) · seo 100 (=)
+                    LCP 0.7 s (0.8) · CLS 0 · TBT 0 ms · SI 0.6 s (0.8)
+  (a11y flags color-contrast + label-content-name-mismatch are identical in the baseline: pre-existing)
+Visual pass (headless Chromium + SwiftShader, screenshots in /tmp/journey-shots/*):
+  hero EN/AR, about, experience (+silence), projects p=0/0.3/0.6/1 at 1440×900, 1366×768, 1920×1080,
+  services, faq (accordion open), contact, footer, mobile 390×844 (flow, menu), AR mirrored, reduced motion
+  (no canvas, poster, plain grid), language toggle EN→AR→EN (split headings rebuild, nothing left hidden)
+Keyboard: tab order follows DOM (nav → toggles → CTA → hero links); no console errors/warnings in any run
+Scroll frame budget: not representative headless (software GL); scripting-only run avg 51 ms/frame at 1440×900
+  under SwiftShader — re-check on real hardware after deploy.
+```
+
+- [x] **Step 7: Record results and commit**
 
 Append the after-numbers table (SSR counts, First Load JS, Lighthouse, LCP/CLS/TBT, screenshot list) under this task in the plan and commit:
 
