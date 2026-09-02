@@ -12,6 +12,7 @@ import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import ArabicSeoContent from '@/components/ArabicSeoContent'
 import JourneyStage from '@/components/journey/JourneyStage'
+import JourneyReadout from '@/components/journey/JourneyReadout'
 import {
   ProfessionalServiceJsonLd,
   BreadcrumbJsonLd,
@@ -61,6 +62,7 @@ export default function Home() {
       {/* Content */}
       <div className="relative z-10">
         <Navbar />
+        <JourneyReadout />
         <Hero />
         <About />
         <Experience />

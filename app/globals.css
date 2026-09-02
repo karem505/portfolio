@@ -857,11 +857,14 @@ html.motion .pin-act[data-pinned="true"] > .pin-stage {
 .pin-act {
   --pin-zoom: 1;
 }
-@media (max-height: 899px) {
-  .pin-act { --pin-zoom: 0.86; }
+@media (max-height: 959px) {
+  .pin-act { --pin-zoom: 0.9; }
 }
-@media (max-height: 799px) {
-  .pin-act { --pin-zoom: 0.78; }
+@media (max-height: 859px) {
+  .pin-act { --pin-zoom: 0.82; }
+}
+@media (max-height: 779px) {
+  .pin-act { --pin-zoom: 0.76; }
 }
 html.motion .pin-act[data-pinned="true"] .pin-inner {
   zoom: var(--pin-zoom);
@@ -950,4 +953,45 @@ html.motion .pin-act[data-pinned="true"] [data-pin-grid] {
   .journey-canvas {
     display: none;
   }
+}
+
+/* Chrome motion without Framer: nav entrance, mobile menu, FAQ accordion.
+   All CSS-only; the nav entrance is gated on html.motion so reduced-motion
+   users and crawlers see the nav in place from the first frame. */
+@keyframes nav-enter {
+  from { transform: translateY(-16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+html.motion .nav-enter {
+  animation: nav-enter 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes menu-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes menu-item-enter {
+  from { transform: translateX(12px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.menu-enter {
+  animation: menu-enter 0.18s linear both;
+}
+.menu-item-enter {
+  animation: menu-item-enter 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+[dir="rtl"] .menu-item-enter {
+  animation-name: menu-item-enter-rtl;
+}
+@keyframes menu-item-enter-rtl {
+  from { transform: translateX(-12px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes faq-open {
+  from { max-height: 0; opacity: 0; }
+  to { max-height: 320px; opacity: 1; }
+}
+.faq-panel {
+  overflow: hidden;
+  animation: faq-open 0.3s ease-out both;
 }

@@ -1,15 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, type CSSProperties } from 'react'
+import { usePathname } from 'next/navigation'
 import { HiMenuAlt4, HiX } from 'react-icons/hi'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useJourneyChapter } from '@/lib/journey/store'
 import LanguageToggle from './LanguageToggle'
 
 export default function Navbar() {
   const { t, language } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const chapter = useJourneyChapter()
+  // Only the homepage has chapter sections; elsewhere nothing is "current".
+  const currentHref = pathname === '/' ? `#${chapter}` : null
 
   const navLinks = [
     { name: t('Home', 'الرئيسية'), href: '#home', n: '01' },
@@ -31,11 +36,8 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-200 ${
+      <nav
+        className={`nav-enter fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-200 ${
           isScrolled ? 'bg-ink/85 backdrop-blur-md border-wire' : 'bg-transparent border-transparent'
         }`}
       >
@@ -56,6 +58,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
+                aria-current={link.href === currentHref ? 'page' : undefined}
                 className="nav-link group inline-flex items-baseline gap-1.5"
               >
                 <span className="text-ash/55 text-[0.7rem] tabular-nums">{link.n}</span>
@@ -94,21 +97,18 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </motion.nav>
+        {/* 1px page-progress wire, driven by the --journey-p CSS var (no re-render). */}
+        <span className="journey-wire" aria-hidden="true" />
+      </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
+      {isMobileMenuOpen && (
+          <div
             id="mobile-nav-menu"
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-40 md:hidden bg-ink"
+            className="menu-enter fixed inset-0 z-40 md:hidden bg-ink"
           >
             <div className="relative h-full flex flex-col justify-center px-8 font-mono">
               <div className="mb-10 pb-4 border-b border-wire text-[0.7rem] tracking-[0.18em] uppercase text-ash">
@@ -117,11 +117,10 @@ export default function Navbar() {
               </div>
               <ul className="flex flex-col gap-5">
                 {navLinks.map((link, index) => (
-                  <motion.li
+                  <li
                     key={link.href}
-                    initial={{ opacity: 0, x: 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.04 }}
+                    className="menu-item-enter"
+                    style={{ '--i': index } as CSSProperties}
                   >
                     <a
                       href={link.href}
@@ -136,7 +135,7 @@ export default function Navbar() {
                         {language === 'ar' ? '←' : '→'}
                       </span>
                     </a>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
               <a
@@ -150,9 +149,8 @@ export default function Navbar() {
                 <span>{language === 'ar' ? '←' : '→'}</span>
               </a>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </>
   )
 }

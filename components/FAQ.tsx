@@ -1,6 +1,5 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -12,9 +11,9 @@ export default function FAQ() {
   const { t, language } = useLanguage()
   const ar = language === 'ar'
 
-  const root = useAnimeScope<HTMLElement>((_, { motion: allowMotion }) => {
+  const root = useAnimeScope<HTMLElement>((_, { motion }) => {
     const el = root.current
-    if (!el || !allowMotion) return
+    if (!el || !motion) return
     const h2 = el.querySelector<HTMLElement>('[data-lines]')
     if (h2) revealLines(h2)
     revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
@@ -126,33 +125,29 @@ export default function FAQ() {
                     {faq.question}
                   </span>
                 </span>
-                <motion.span
-                  animate={{ rotate: openIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-signal flex-shrink-0 ml-4"
+                <span
+                  className="text-signal flex-shrink-0 ml-4 transition-transform duration-200"
+                  style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)' }}
                   aria-hidden="true"
                 >
                   <FaChevronDown size={12} />
-                </motion.span>
+                </span>
               </button>
 
-              <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div
-                    id={`faq-panel-${index}`}
-                    role="region"
-                    aria-labelledby={`faq-button-${index}`}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
-                  >
+              {openIndex === index && (
+                <div
+                  id={`faq-panel-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-button-${index}`}
+                  className="faq-panel"
+                >
+                  <div>
                     <div className={`pb-6 pl-12 pr-4 text-ash leading-relaxed text-sm md:text-base ${ar ? 'font-rubik' : 'font-mono'}`}>
                       {faq.answer}
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
