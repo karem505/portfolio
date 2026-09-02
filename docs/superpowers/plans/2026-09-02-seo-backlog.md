@@ -31,9 +31,36 @@ Source: live crawl of all 248 sitemap URLs + Search Console (gwcli) on 2026-09-0
 
 ## Ship & verify
 
-- [ ] **B19 Deploy** (push `master`), then owner actions: resubmit sitemap, request indexing (`/`, `/apps`, `/blog`, both cornerstone posts, newest post), IndexNow for the same set.
-- [ ] **B20 Review.** Re-run the crawl checks on production (AR post raw HTML, tall-viewport opacity count, schema image URLs, `/blog` h1, sitemap lastmod, manifest, og cache header, `?lang=en` absence, cornerstone inlinks, FAQ count), Lighthouse mobile/desktop on `/` and a post, and Search Console URL inspection for the key URLs. Record results below.
+- [x] **B19 Deploy** (push `master`), then owner actions: resubmit sitemap, request indexing (`/`, `/apps`, `/blog`, both cornerstone posts, newest post), IndexNow for the same set.
+- [x] **B20 Review.** Re-run the crawl checks on production (AR post raw HTML, tall-viewport opacity count, schema image URLs, `/blog` h1, sitemap lastmod, manifest, og cache header, `?lang=en` absence, cornerstone inlinks, FAQ count), Lighthouse mobile/desktop on `/` and a post, and Search Console URL inspection for the key URLs. Record results below.
 
-## Results
+## Results (production, 2026-09-03 00:00–00:20 EET, commits a647ee6…9e3fa5e)
 
-(filled in at B20)
+Verification scripts: `/tmp/harness/prod-verify.sh` (raw-HTML checks), `/tmp/harness/local-verify.mjs` + `contact-debug.mjs` (Playwright as Googlebot), Lighthouse 12.8.2, `gsc-full.mjs` (URL Inspection API).
+
+| Item | Before | After (production) |
+|---|---|---|
+| B3 AR post raw HTML | `lang=en`, English h1, 589 Arabic chars, 2 × BlogPosting (`inLanguage: en`) | `<div lang="ar" dir="rtl">`, Arabic h1, 6,184 Arabic chars, 1 × BlogPosting `inLanguage: ar`, Arabic breadcrumbs |
+| B1 tall no-scroll render (1280×9000 / 412×9000) | 62 opacity-0 text blocks, page 24,629 px | 0 hidden, page 13,095 / 22,309 px; normal 1280×800 scrolled: 0 hidden |
+| B2 schema images | `/logo.png` 404 (site-wide + 234 posts), `/og-blog.png` 404 (30 URLs) | `/logo.png` 200; 0 `og-blog.png` references; author/publisher chained to `#person` / `#organization`; `#webpage` dangling ref gone |
+| B4 manifest | "AI Automation Expert… cut costs by 70%", `#6366f1` | CV positioning, no invented numbers, `#ff3b1f` / `#0c0a09` |
+| B5 cornerstone inlinks | 0 internal links to either cornerstone post | `/ai-training` → train post, `/digital-transformation` → roadmap post |
+| B6 homepage FAQ | 6 recruiter Q&As, no service links | 8 Q&As (DOM = FAQPage JSON-LD), 6 links into the service pages |
+| B8 `/blog` | no raw h1; hidden nav 420 links (186 to noindex posts); `ar` alternate → canonical `/blog` | raw `<h1>Blog</h1>`; 234 links (indexable only); 0 hreflang |
+| B9 sitemap lastmod | 14 static URLs = build time, hourly | real per-page dates (2026-04-29 … 2026-09-02); 248 URLs |
+| B10 `?lang=en` links | 4 URLs emitted them | 0 on posts |
+| B11 AR inlinks | `/?lang=ar` 0 inlinks | footer English/العربية on every page; AR pages link AR service/app variants |
+| B12 metadata | homepage description 265 chars; legal pages og:url = homepage | 158 chars; per-page og:url on contact/privacy/refund; blog titles without " \| Blog" |
+| B13 `/api/og` Cache-Control | `public,immutable,…,no-cache,no-store,must-revalidate` | `public,max-age=86400,s-maxage=86400` |
+| B14 inline `opacity:0` | on every subpage header + post | 0 on `/`, `/blog`, posts, `/privacy`, `/contact-info`, `/ai-training`, `/apps`; Framer removed from all routes except none (blog route no longer bundles it) |
+| B15 feed / llms.txt | 600-char excerpts; llms.txt dated 2026-06-01 | 30 items with full article HTML (first item 9,094 chars, 311 KB, well-formed); llms.txt 2026-09-02 with Wikidata Q139799493 and WhatsApp |
+| B16 hero priority | 2 × `fetchpriority=high` | 1 (poster only) |
+| B17 duplicate h1 | 7 posts with 2 h1 | sample post: 1 h1 |
+| Homepage SSR parity | h1 2 · h2 10 · h3 33 · JSON-LD 12 · links 64 | h1 2 · h2 10 · h3 33 · JSON-LD 12 · links 68 |
+| Bundle | `/blog` First Load JS 299 kB | 260 kB (`/blog/[slug]` 267 kB) |
+
+**Lighthouse (machine load average 14–37 during the runs, so mobile TBT is inflated; quiet-machine mobile was 82 before this batch):** home mobile 67 (LCP 3.0 s, TBT 1,270 ms, CLS 0), home desktop 99 (LCP 0.7 s), post mobile 68 (TBT 2,220 ms), post desktop 100; SEO 100 on all four, best-practices 100, a11y 96 (home) / 87–88 (post, pre-existing contrast/label flags).
+
+**Owner actions (2026-09-02 21:14 UTC):** sitemap resubmitted (GSC record went from Jun 20 / 126 URLs to now / 248 URLs); Indexing API requests for `/`, `/apps`, `/blog`, both service pages, both cornerstone posts, the newest post; IndexNow batch of 17 URLs accepted (HTTP 200). `/apps` already moved from "URL is unknown to Google" to "Discovered - currently not indexed" (sitemap referenced). The DT cornerstone is still "Crawled - currently not indexed" (last crawl Jul 16) pending recrawl; recheck in 1–2 weeks with `gwcli sc inspect`.
+
+**Not done / follow-ups:** `Organization.url` still points at the personal site (Ailigent's real URL needs owner confirmation); `<html lang>` stays `en` on AR URLs (compensated by `lang`/`dir` on `<main>`/article); the 7 posts' leading `# Title` lines remain in Supabase (stripped at render time); re-measure mobile Lighthouse on a quiet machine.
