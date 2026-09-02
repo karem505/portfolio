@@ -47,7 +47,7 @@ void main() {
   float r2 = dot(d, d);
   if (r2 > 0.25) discard;
   float a = smoothstep(0.25, 0.02, r2);
-  gl_FragColor = vec4(vColor, a * vAlpha * 0.6);
+  gl_FragColor = vec4(vColor, a * vAlpha * 0.5);
 }`
 
 export interface GalaxyFieldOptions {

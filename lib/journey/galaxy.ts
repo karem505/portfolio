@@ -65,7 +65,9 @@ export function buildFieldGeometry({
     const r = radius * (0.04 + 0.96 * Math.pow(rng(), 0.75))
     const armAngle = (i % arms) * ((Math.PI * 2) / arms)
     const twist = r * 0.85
-    const spread = (1 - r / radius) * 0.35 + 0.08
+    // Arms tighten toward the core and diffuse outward, so the outer arms read as
+    // haze rather than bright hairlines behind body copy.
+    const spread = 0.1 + 0.3 * (r / radius)
     const sgn = () => (rng() < 0.5 ? 1 : -1)
     const rx = Math.pow(rng(), 3) * sgn() * spread * radius * 0.3
     const ry = Math.pow(rng(), 3) * sgn() * spread * radius * 0.3
