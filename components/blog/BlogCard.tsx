@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { HiArrowRight, HiClock, HiNewspaper, HiLightBulb } from 'react-icons/hi2'
 import { useLanguage, translations } from '@/lib/LanguageContext'
+import { postPath } from '@/lib/postPath'
 import { localizePost, formatDate } from '@/lib/blog'
 import type { Post } from '@/lib/types'
 
@@ -37,7 +38,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
       className="group relative"
       dir={dir}
     >
-      <Link href={`/blog/${post.slug}?lang=${language}`}>
+      <Link href={postPath(post.slug, language)}>
         <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-surface border border-white/5 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
           {/* Cover Image */}
           <div className="relative aspect-video overflow-hidden">

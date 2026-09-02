@@ -10,13 +10,16 @@ export default function Footer() {
 
   // Homepage section anchors are written as absolute "/#id" so they also work
   // when the Footer is rendered on subpages (e.g. the service landing pages).
+  // In Arabic mode the pages that have a server-rendered AR variant link to it,
+  // so the ?lang=ar URLs in the sitemap get real internal links.
+  const arVariant = (href: string) => (ar ? `${href}?lang=ar` : href)
   const links = [
-    { label: t('home', 'الرئيسية'), href: '/' },
+    { label: t('home', 'الرئيسية'), href: ar ? '/?lang=ar' : '/' },
     { label: t('about', 'نبذة'), href: '/#about' },
-    { label: t('Digital Transformation', 'التحول الرقمي'), href: '/digital-transformation' },
-    { label: t('AI Training', 'تدريب الذكاء الاصطناعي'), href: '/ai-training' },
+    { label: t('Digital Transformation', 'التحول الرقمي'), href: arVariant('/digital-transformation') },
+    { label: t('AI Training', 'تدريب الذكاء الاصطناعي'), href: arVariant('/ai-training') },
     { label: t('projects', 'المشاريع'), href: '/#projects' },
-    { label: t('Apps', 'التطبيقات'), href: '/apps' },
+    { label: t('Apps', 'التطبيقات'), href: arVariant('/apps') },
     { label: t('contact', 'تواصل'), href: '/#contact' },
     { label: t('blog', 'المدونة'), href: '/blog' },
   ]
@@ -100,6 +103,16 @@ export default function Footer() {
             {ar ? ' · DevOps · Scrum Master · محلل أعمال' : ' · DevOps · Scrum Master · Business Analyst'}
           </p>
           <div className="flex items-center gap-3">
+            {/* Static language links: the toggle is a button, so without these the
+                Arabic homepage URL had no crawlable inlink anywhere on the site. */}
+            <a href="/" hrefLang="en" lang="en" className="hover:text-signal transition-colors py-3 -my-3 font-mono">
+              English
+            </a>
+            <span className="text-wire" aria-hidden="true">/</span>
+            <a href="/?lang=ar" hrefLang="ar" lang="ar" className="hover:text-signal transition-colors py-3 -my-3 font-rubik">
+              العربية
+            </a>
+            <span className="text-wire" aria-hidden="true">/</span>
             <a href="/privacy" className="hover:text-signal transition-colors py-3 -my-3">
               {t('privacy', 'الخصوصية')}
             </a>

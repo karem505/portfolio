@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { HiTag, HiClock, HiNewspaper, HiLightBulb, HiCodeBracket, HiChartBar, HiEnvelope } from 'react-icons/hi2'
 import { Newsletter } from '@/components/Newsletter'
 import { useLanguage, translations } from '@/lib/LanguageContext'
+import { postPath } from '@/lib/postPath'
 import { getCategories, getRecentPosts, formatDate } from '@/lib/blog'
 import type { Category, Post } from '@/lib/types'
 
@@ -94,7 +95,7 @@ export default function BlogSidebar() {
           {recentPosts.map((post) => (
             <Link
               key={post.id}
-              href={`/blog/${post.slug}?lang=${language}`}
+              href={postPath(post.slug, language)}
               className="block group"
             >
               <h4 className="text-sm font-medium text-white group-hover:text-primary transition-colors line-clamp-2 mb-1">

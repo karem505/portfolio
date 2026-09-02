@@ -14,6 +14,7 @@ import {
 import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa'
 import { BlogCard, BlogContent, PostCTA } from '@/components/blog'
 import { useLanguage, translations } from '@/lib/LanguageContext'
+import { postPath } from '@/lib/postPath'
 import { localizePost, formatDate } from '@/lib/blog'
 import type { Post } from '@/lib/types'
 
@@ -39,7 +40,7 @@ export default function BlogPostClient({
     trending: translations.trending,
   }
 
-  const shareUrl = `https://aboelmakarem.pro/blog/${post.slug}?lang=${language}`
+  const shareUrl = `https://aboelmakarem.pro${postPath(post.slug, language)}`
   const shareText = localized.title
 
   return (
