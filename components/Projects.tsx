@@ -1,12 +1,14 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
+import { createTimeline, onScroll } from 'animejs'
 import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard, FaBookMedical } from 'react-icons/fa'
 import { SiPython, SiJavascript, SiRust } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { usePinned } from '@/lib/journey/usePinned'
+import { parallaxLayers, revealLines, revealUp } from '@/lib/journey/reveal'
 
 type Project = {
   title: string
@@ -23,38 +25,18 @@ type Project = {
 type ProjectCardProps = {
   project: Project
   index: number
-  isInView: boolean
   size?: 'flagship' | 'notable'
-  hoveredKey: string | null
-  onHoverChange: (key: string | null) => void
-  cardKey: string
   ar: boolean
   outcomeLabel: string
+  pinCard?: boolean
 }
 
-function ProjectCard({
-  project,
-  index,
-  isInView,
-  size = 'flagship',
-  hoveredKey,
-  onHoverChange,
-  cardKey,
-  ar,
-  outcomeLabel,
-}: ProjectCardProps) {
+function ProjectCard({ project, index, size = 'flagship', ar, outcomeLabel, pinCard = false }: ProjectCardProps) {
   const isFlagship = size === 'flagship'
   const primaryLink = project.link ?? project.github ?? '#'
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.12 }}
-      onMouseEnter={() => onHoverChange(cardKey)}
-      onMouseLeave={() => onHoverChange(null)}
-      className="group relative"
-    >
+    <div className="group relative h-full" data-pin-card={pinCard ? '' : undefined} data-reveal-card={pinCard ? undefined : ''}>
       <div
         className={`relative h-full ${isFlagship ? 'p-7 md:p-8' : 'p-6'} bg-graphite border border-wire hover:border-signal transition-colors duration-200 overflow-hidden`}
       >
@@ -136,41 +118,92 @@ function ProjectCard({
 
           <div className="mt-auto flex flex-wrap gap-1.5">
             {project.tech.map((tech) => (
-              <span
-                key={tech}
-                className="tag-chip"
-              >
+              <span key={tech} className="tag-chip">
                 {tech}
               </span>
             ))}
           </div>
         </div>
 
-        <motion.a
+        <a
           href={primaryLink}
           target="_blank"
           rel="noopener noreferrer"
-          initial={false}
-          animate={{
-            opacity: hoveredKey === cardKey ? 1 : 0,
-          }}
-          className="hover-only absolute bottom-5 right-5 text-signal"
+          className="hover-only absolute bottom-5 right-5 text-signal opacity-0 group-hover:opacity-100 transition-opacity"
           aria-hidden="true"
           tabIndex={-1}
         >
           <FaExternalLinkAlt size={14} />
-        </motion.a>
+        </a>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
 export default function Projects() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [hoveredKey, setHoveredKey] = useState<string | null>(null)
   const { t, language } = useLanguage()
   const ar = language === 'ar'
+  const pinned = usePinned()
+
+  // Desktop: one scroll-synced timeline brings the three flagships forward out of
+  // the field one at a time (FLIP: measured slot → grid centre), ending exactly in
+  // the static grid layout so releasing the pin changes nothing. Elsewhere: flow.
+  const root = useAnimeScope<HTMLElement>((_, { motion }) => {
+    const el = root.current
+    if (!el || !motion) return
+    const header = el.querySelector<HTMLElement>('[data-pin-header]')
+    const grid = el.querySelector<HTMLElement>('[data-pin-grid]')
+    const cards = Array.from(el.querySelectorAll<HTMLElement>('[data-pin-card]'))
+    if (!header || !grid || cards.length === 0) return
+    parallaxLayers(el)
+
+    if (!pinned) {
+      const h2 = header.querySelector<HTMLElement>('[data-lines]')
+      if (h2) revealLines(h2)
+      revealUp(header.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: header })
+      revealUp(cards, { staggerMs: 100, y: 40, trigger: grid })
+      return
+    }
+
+    // Rects are visual (post-zoom) pixels; transforms apply in the zoomed local
+    // space, so divide by the stage zoom (see .pin-inner in globals.css).
+    const inner = el.querySelector<HTMLElement>('.pin-inner')
+    const zoom = parseFloat((inner && getComputedStyle(inner).zoom) || '1') || 1
+    const g = grid.getBoundingClientRect()
+    const cx = g.left + g.width / 2
+    const cy = g.top + g.height / 2
+    const offsets = cards.map((c) => {
+      const r = c.getBoundingClientRect()
+      return { dx: (cx - (r.left + r.width / 2)) / zoom, dy: (cy - (r.top + r.height / 2)) / zoom }
+    })
+    // [arrive start, arrive end / travel start, travel end] in timeline ms (0..1000 = pin progress)
+    const windows: [number, number, number][] = [
+      [120, 360, 620],
+      [360, 620, 860],
+      [620, 860, 1000],
+    ]
+    const tl = createTimeline({
+      defaults: { ease: 'linear' },
+      autoplay: onScroll({ target: el, enter: 'top top', leave: 'bottom bottom', sync: true }),
+    })
+    tl.add(header, { opacity: [0, 1], translateY: [24, 0], duration: 120 }, 0)
+    cards.forEach((card, i) => {
+      const { dx, dy } = offsets[i]
+      const [a0, a1, a2] = windows[i]
+      card.style.zIndex = String(i + 1)
+      tl.set(card, { translateX: dx, translateY: dy, scale: 1.12, opacity: 0, filter: 'blur(10px)' }, 0)
+      tl.add(card, { opacity: [0, 1], filter: ['blur(10px)', 'blur(0px)'], scale: [1.12, 1.06], duration: a1 - a0 }, a0)
+      tl.add(card, { translateX: [dx, 0], translateY: [dy, 0], scale: [1.06, 1], duration: a2 - a1 }, a1)
+    })
+  }, [language, pinned])
+
+  const notableRoot = useAnimeScope<HTMLDivElement>((_, { motion }) => {
+    const el = notableRoot.current
+    if (!el || !motion) return
+    revealUp(el.querySelectorAll('[data-reveal-notable-head]'))
+    revealUp(el.querySelectorAll('[data-reveal-card]'), { staggerMs: 80, y: 32 })
+    revealUp(el.querySelectorAll('[data-reveal-notable-cta]'))
+  }, [language])
 
   const roleLabels = ar
     ? ['Scrum Master', 'مهندس DevOps', 'مطور Full-Stack']
@@ -312,94 +345,92 @@ export default function Projects() {
   const outcomeLabel = t('outcome', 'النتيجة')
 
   return (
-    <section id="projects" ref={ref} className="relative py-32 px-6">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="tab-eyebrow mb-6">004 · {t('shipped · work', 'الأعمال · المنشورة')}</span>
-          <h2 className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
-            {t('Three production SaaS', 'ثلاث منصات SaaS في الإنتاج')}
-            <span className="text-signal">.</span>
-          </h2>
-          <p className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
-            {t(
-              'Live products I architect, ship, and run as Full-Stack Developer, DevOps Engineer, and Scrum Master at Ailigent.',
-              'منتجات حيّة أُصمّمها وأُطلقها وأُشغّلها كمطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent.'
-            )}
-          </p>
-        </motion.div>
+    <>
+      <section
+        id="projects"
+        ref={root}
+        data-pinned={pinned ? 'true' : 'false'}
+        style={{ '--span': 3.8 } as CSSProperties}
+        className="pin-act px-6"
+      >
+        <div className="pin-stage max-w-7xl mx-auto w-full py-32">
+          <div className="pin-inner">
+          <div data-pin-header className="relative text-center mb-12">
+            <span aria-hidden="true" className="watermark-num" data-depth="-0.3">004</span>
+            <span data-reveal-head className="tab-eyebrow mb-6">004 · {t('shipped · work', 'الأعمال · المنشورة')}</span>
+            <h2
+              key={language}
+              data-lines
+              className={`pin-heading font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}
+            >
+              {t('Three production SaaS', 'ثلاث منصات SaaS في الإنتاج')}
+              <span className="text-signal">.</span>
+            </h2>
+            <p data-reveal-head className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+              {t(
+                'Live products I architect, ship, and run as Full-Stack Developer, DevOps Engineer, and Scrum Master at Ailigent.',
+                'منتجات حيّة أُصمّمها وأُطلقها وأُشغّلها كمطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent.'
+              )}
+            </p>
+          </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 mb-20">
-          {flagships.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              cardKey={`flagship-${index}`}
-              project={project}
-              index={index}
-              isInView={isInView}
-              size="flagship"
-              hoveredKey={hoveredKey}
-              onHoverChange={setHoveredKey}
-              ar={ar}
-              outcomeLabel={outcomeLabel}
-            />
-          ))}
+          <div data-pin-grid className="grid lg:grid-cols-3 gap-6">
+            {flagships.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                size="flagship"
+                ar={ar}
+                outcomeLabel={outcomeLabel}
+                pinCard
+              />
+            ))}
+          </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Notable builds flow after the pinned act (never inside the sticky stage). */}
+      <div ref={notableRoot} className="relative px-6 pb-32 pt-4 lg:pt-12">
+        <div className="max-w-7xl mx-auto">
+          <div data-reveal-notable-head className="flex items-center gap-4 mb-8">
+            <FaRocket className="text-signal" />
+            <h3 className={`font-extrabold tracking-[-0.03em] text-2xl text-paper ${ar ? 'font-rubik' : 'font-mono'}`}>
+              {t('notable · builds', 'أعمال · مميزة')}
+            </h3>
+            <span className="flex-1 h-px bg-wire" />
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {notableBuilds.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                size="notable"
+                ar={ar}
+                outcomeLabel={outcomeLabel}
+              />
+            ))}
+          </div>
+
+          <div data-reveal-notable-cta className="text-center mt-12">
+            <a
+              href="https://github.com/karem505"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper text-sm tracking-wide hover:border-signal hover:text-signal transition-colors ${ar ? 'font-rubik' : 'font-mono'}`}
+            >
+              <FaGithub size={16} />
+              <span>{t('More on GitHub', 'المزيد على GitHub')}</span>
+              <span className="text-ash group-hover:text-signal">↗</span>
+            </a>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex items-center gap-4 mb-8"
-        >
-          <FaRocket className="text-signal" />
-          <h3 className={`font-extrabold tracking-[-0.03em] text-2xl text-paper ${ar ? 'font-rubik' : 'font-mono'}`}>
-            {t('notable · builds', 'أعمال · مميزة')}
-          </h3>
-          <span className="flex-1 h-px bg-wire" />
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {notableBuilds.map((project, index) => (
-            <ProjectCard
-              key={project.title}
-              cardKey={`notable-${index}`}
-              project={project}
-              index={index}
-              isInView={isInView}
-              size="notable"
-              hoveredKey={hoveredKey}
-              onHoverChange={setHoveredKey}
-              ar={ar}
-              outcomeLabel={outcomeLabel}
-            />
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-12"
-        >
-          <a
-            href="https://github.com/karem505"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper text-sm tracking-wide hover:border-signal hover:text-signal transition-colors ${ar ? 'font-rubik' : 'font-mono'}`}
-          >
-            <FaGithub size={16} />
-            <span>{t('More on GitHub', 'المزيد على GitHub')}</span>
-            <span className="text-ash group-hover:text-signal">↗</span>
-          </a>
-        </motion.div>
+        <div className="absolute bottom-0 left-0 right-0 section-divider" />
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 section-divider" />
-    </section>
+    </>
   )
 }

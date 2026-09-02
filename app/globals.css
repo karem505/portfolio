@@ -848,11 +848,38 @@ html.motion .pin-act[data-pinned="true"] > .pin-stage {
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  padding-top: 5rem;
-  padding-bottom: 2rem;
+  padding-top: 4.5rem;
+  padding-bottom: 1rem;
+}
+/* The stage content must fit one viewport: compact the header and, on shorter
+   viewports, zoom the whole inner block (zoom affects layout, so the sticky
+   stage never clips; the FLIP maths in Projects divides by this zoom). */
+.pin-act {
+  --pin-zoom: 1;
+}
+@media (max-height: 899px) {
+  .pin-act { --pin-zoom: 0.86; }
+}
+@media (max-height: 799px) {
+  .pin-act { --pin-zoom: 0.78; }
+}
+html.motion .pin-act[data-pinned="true"] .pin-inner {
+  zoom: var(--pin-zoom);
+}
+html.motion .pin-act[data-pinned="true"] [data-pin-header] {
+  margin-bottom: 1.25rem;
 }
 html.motion .pin-act[data-pinned="true"] .pin-heading {
-  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+html.motion .pin-act[data-pinned="true"] [data-pin-header] p {
+  font-size: 0.875rem;
+  max-width: 40rem;
+}
+html.motion .pin-act[data-pinned="true"] [data-pin-grid] {
+  gap: 1rem;
 }
 
 /* Big mono chapter numeral on a far plane behind a section header. */
