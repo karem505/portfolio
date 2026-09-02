@@ -64,9 +64,9 @@ describe('buildFieldGeometry', () => {
 
   it('sizes points between 0.6 and 2.4', () => {
     const g = buildFieldGeometry({ count: 2000 })
-    for (const s of g.size) {
-      expect(s).toBeGreaterThanOrEqual(0.6)
-      expect(s).toBeLessThanOrEqual(2.4)
+    for (let i = 0; i < g.size.length; i++) {
+      expect(g.size[i]).toBeGreaterThanOrEqual(0.6)
+      expect(g.size[i]).toBeLessThanOrEqual(2.4)
     }
   })
 })
