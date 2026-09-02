@@ -234,7 +234,6 @@ export default function Hero() {
                   alt={t('Abo-Elmakarem Shohoud', 'ابوالمكارم شهود')}
                   fill
                   className="object-cover grayscale contrast-110 hover:grayscale-0 transition-[filter] duration-700"
-                  priority
                   sizes="(max-width: 768px) 280px, 320px"
                 />
                 <div className="absolute bottom-2 left-2 font-mono text-[0.65rem] tracking-[0.18em] uppercase text-paper/80 mix-blend-difference">

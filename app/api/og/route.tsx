@@ -196,9 +196,8 @@ export async function GET(request: NextRequest) {
       height: 630,
       fonts: fonts.length > 0 ? fonts : undefined,
       headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'CDN-Cache-Control': 'no-cache',
-        'Netlify-CDN-Cache-Control': 'no-cache',
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+        'Netlify-CDN-Cache-Control': 'public, max-age=86400',
       },
     }
   )

@@ -32,13 +32,14 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Prevent caching for dynamic OG images
+# Dynamic OG images: one day at the edge and in browsers (one policy; the old
+# no-cache trio merged with Next's immutable default into a contradictory header
+# and regenerated the PNG on every social/AI fetch).
 [[headers]]
   for = "/api/og"
   [headers.values]
-    Cache-Control = "no-cache, no-store, must-revalidate"
-    CDN-Cache-Control = "no-cache"
-    Netlify-CDN-Cache-Control = "no-cache"
+    Cache-Control = "public, max-age=86400, s-maxage=86400"
+    Netlify-CDN-Cache-Control = "public, max-age=86400"
 
 # Cache static assets
 [[headers]]
