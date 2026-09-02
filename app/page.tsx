@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-ink">
+    <main className="journey-main relative min-h-screen bg-ink">
       <ProfessionalServiceJsonLd />
       <BreadcrumbJsonLd />
       <FAQPageJsonLd />

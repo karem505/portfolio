@@ -768,3 +768,159 @@ select:focus-visible,
   align-items: center;
   justify-content: center;
 }
+
+/* =========================================================================
+   Journey — scroll-driven homepage (spec: docs/superpowers/specs/2026-09-02-*)
+   Rules of the road:
+   - Nothing here hides content in the SSR HTML. Pre-animation hidden states
+     are applied by JS after hydration, only under html.motion.
+   - Transforms and opacity only. Sticky, never scroll-jacking.
+   ========================================================================= */
+
+/* `overflow: hidden` on <main> would make it the scroll container and kill
+   position: sticky for the pinned act. `clip` clips without scrolling. */
+.journey-main {
+  overflow-x: clip;
+}
+
+/* Fixed WebGL layer behind the whole page (z-0; content wrapper is z-10). */
+.journey-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s linear;
+}
+.journey-canvas.is-ready {
+  opacity: 1;
+}
+
+/* Hero poster is the instant paint + the no-WebGL/reduced-motion fallback.
+   It fades out once the field is live. */
+.hero-poster {
+  transition: opacity 1.4s linear;
+}
+html.field-ready .hero-poster {
+  opacity: 0;
+}
+
+/* Hero intro pre-states (transform only, never opacity, so the LCP paints).
+   anime.js animates these to identity on mount and reverts on language switch. */
+html.motion .hero-rise {
+  transform: translateY(18px);
+}
+html.motion .hero-rule,
+html.motion .hero-scroll-wire {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+html.motion[dir="rtl"] .hero-rule,
+html.motion[dir="rtl"] .hero-scroll-wire {
+  transform-origin: right center;
+}
+html.motion .hero-stack-icon {
+  transform: translateX(8px);
+}
+html.motion[dir="rtl"] .hero-stack-icon {
+  transform: translateX(-8px);
+}
+.hero-photo {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Pinned act: a tall section whose stage sticks for the travel.
+   Only when JS decided to pin (desktop + motion); otherwise plain flow. */
+.pin-act {
+  position: relative;
+}
+html.motion .pin-act[data-pinned="true"] {
+  height: calc(var(--span, 3.8) * 100vh);
+}
+html.motion .pin-act[data-pinned="true"] > .pin-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+html.motion .pin-act[data-pinned="true"] .pin-heading {
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+}
+
+/* Big mono chapter numeral on a far plane behind a section header. */
+.watermark-num {
+  position: absolute;
+  inset-inline-end: -0.05em;
+  top: -0.55em;
+  z-index: -1;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: clamp(6rem, 18vw, 16rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--paper);
+  opacity: 0.045;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 1px page-progress wire under the navbar; driven by a CSS var the store sets. */
+.journey-wire {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--signal);
+  transform-origin: left center;
+  transform: scaleX(var(--journey-p, 0));
+  pointer-events: none;
+}
+[dir="rtl"] .journey-wire {
+  transform-origin: right center;
+}
+
+/* Chapter-progress wire in the fixed readout. */
+.journey-readout-wire {
+  position: relative;
+  width: 120px;
+  height: 1px;
+  background: var(--wire);
+  overflow: hidden;
+}
+.journey-readout-wire > span {
+  position: absolute;
+  inset: 0;
+  background: var(--signal);
+  transform-origin: left center;
+  transform: scaleX(var(--chapter-p, 0));
+}
+[dir="rtl"] .journey-readout-wire > span {
+  transform-origin: right center;
+}
+
+/* Authored silence: field-only beat before the peak (desktop, motion only). */
+@media (min-width: 1024px) {
+  html.motion .silence-beat {
+    padding-bottom: 50vh;
+  }
+}
+
+/* anime.js splitText line wrappers. */
+.split-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-canvas {
+    display: none;
+  }
+}

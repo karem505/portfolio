@@ -199,8 +199,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${jetBrainsMono.variable} ${rubik.variable}`}>
+    <html
+      lang="en"
+      className={`scroll-smooth ${jetBrainsMono.variable} ${rubik.variable}`}
+      suppressHydrationWarning
+    >
       <head>
+        {/* Motion gate: marks the document motion-capable before first paint so CSS can
+            hold decorative pre-states (hero intro transforms) without ever hiding
+            content. Reduced-motion users and no-JS crawlers never get the class. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('motion')}}catch(e){}",
+          }}
+        />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://zklvvwugirvwimxdvybw.supabase.co" />
         {/* hreflang is now set per-page via metadata `alternates.languages`
