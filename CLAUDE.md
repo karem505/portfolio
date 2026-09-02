@@ -59,7 +59,11 @@ Path alias: `@/*` → project root.
 
 **RLS**: Public reads published posts/categories/tags. Service role has full access.
 
-**Data flow**: SSG via `generateStaticParams` → ISR via `/api/revalidate?secret=XXX&path=/blog` → RSS revalidates hourly → Sitemap includes EN + AR variants.
+**Data flow**: SSG via `generateStaticParams` → ISR via `/api/revalidate?secret=XXX&path=/blog` → RSS revalidates hourly (full English article HTML in `content:encoded`, 30 newest indexable posts) → Sitemap includes EN + AR variants.
+
+**Blog post SSR per language**: `app/blog/[slug]/page.tsx` reads `searchParams.lang` (the route is request-rendered because `generateMetadata` already does) and renders the requested language on the server: one `ArticleJsonLd` in that language, localized BreadcrumbList, `<div lang dir>` around the article, and a scoped `<LanguageProvider initialLanguage>` so `?lang=ar` ships Arabic HTML to crawlers. `LanguageProvider` nested under the root provider mirrors the root's later toggles and delegates `setLanguage` to it. Never render a second client-side `ArticleJsonLd`.
+
+**Hidden SSR nav on `/blog`** lists indexable posts only (`!seo_noindex`); the `/blog` h1 lives in `BlogIntro`, outside the `useSearchParams` Suspense boundary, so it is in the SSR HTML. `postPath(slug, lang)` (`lib/postPath.ts`) is the only way to build post links: EN is the bare path, AR appends `?lang=ar`, never `?lang=en`.
 
 ## Bilingual (EN/AR)
 
@@ -72,6 +76,8 @@ Path alias: `@/*` → project root.
 - AR — Rubik (latin + arabic subsets, weights 300–900). All Arabic strings use `font-rubik`; mono is reserved for Latin in AR mode.
 
 **Hidden Arabic SEO block** (`components/ArabicSeoContent.tsx` + `.sr-only-seo` in globals.css): always-SSR'd Arabic copy on the homepage with the Arabic name (ابوالمكارم شهود), services, projects, contact. Visually hidden, fully indexable — fixes the case where client-rendered toggling made the AR surface invisible to Googlebot.
+
+**Sitemap `lastmod`**: static routes use the real dates in `STATIC_LASTMOD` (`app/sitemap.ts`); bump the matching entry when a page's content changes. `/blog` uses the newest indexable post's `updated_at`. Never use `new Date()` for lastmod.
 
 **hreflang**: set **per-page** via metadata `alternates.languages` (homepage in `app/page.tsx`; the service pages in their own `generateMetadata`), so each route emits exactly one hreflang set instead of the homepage's hreflang leaking onto every subpage. Next 14.2 preserves the `?lang=ar` query for non-root paths (e.g. `/ai-training?lang=ar`) but normalizes the **root** `?lang=ar` to `/` — so the homepage legitimately self-groups en/ar/x-default at `/` (it's one server-URL with a client toggle + always-rendered `.sr-only` Arabic block). The distinct `/?lang=ar` is still listed in the sitemap for discovery. **Do not re-add raw `<link rel="alternate">` injection in `app/layout.tsx`** — it applied the homepage's hreflang to every subpage.
 
@@ -90,12 +96,13 @@ Spec: `docs/superpowers/specs/2026-09-02-scroll-journey-redesign-design.md` · p
 - **Reveals:** sections use `useAnimeScope` + `lib/journey/reveal.ts` (`revealUp`, `revealSlide`, `revealLines`, `parallax`/`parallaxLayers` via `data-depth`). Scopes rebuild on language change; split headings carry `key={language}` so React remounts them (anime mutates their children). Text splits by lines/words only (Arabic-safe), never characters.
 - **Pinned act:** Projects only, when `usePinned()` is true (html.motion + ≥1024px wide + ≥720px tall). CSS-sticky `.pin-stage` inside `section#projects.pin-act[data-pinned]`; one anime timeline linked to `onScroll({ sync: true })`; the end state equals the static grid. The stage content zooms on shorter viewports (`--pin-zoom` media queries) and the FLIP offsets divide by that zoom.
 - **WebGL:** `components/journey/JourneyStage.tsx` mounts `GalaxyField` on idle, only with `html.motion` + WebGL2; three.js is a separate lazy chunk (never in the route's First Load JS). Uniforms come from `fieldState()` (pure, tested). Hero keeps `public/galaxy-poster.jpg` as the instant paint + no-WebGL/reduced-motion fallback; the old scrubbed `galaxy*.mp4` clips were removed.
+- **Headless renderers:** `revealAllImmediately(innerHeight)` (`lib/journey/reveal.ts`) skips every reveal when the viewport is taller than 1600px (Google's renderer never scrolls), and the hero / pinned runway / silence-beat heights are capped in px, so a tall no-scroll render shows all copy at rest. Subpage intros (blog, service, legal) use the `enter-up` / `enter-down` / `enter-fade` CSS classes gated on `html.motion`; do not reintroduce Framer `initial={{ opacity: 0 }}` on any route.
 - **Chrome:** Navbar marks the active chapter with `aria-current` (homepage only) and draws the `--journey-p` wire; nav entrance, mobile menu and FAQ accordion are CSS-only (no Framer on the homepage route).
 - **Invariants:** `main` uses `overflow-x: clip` (never `hidden`, or sticky breaks); never move copy into the canvas; keep `ArabicSeoContent` always rendered; re-run the SSR gate in the plan (headings / JSON-LD / links / no hidden content) after touching homepage sections.
 
 ## SEO
 
-JSON-LD (Person, Website, Organization, ProfessionalService, Service, Course, FAQPage, BreadcrumbList, Article) · Dynamic OG images (Edge, Arabic support) · GSC verified · IndexNow · Dynamic sitemap (EN + AR including homepage `/?lang=ar` and the service pages) · RSS `/feed.xml` · Canonical + per-page metadata hreflang (en/en-US/ar/ar-EG/x-default) · Hidden `ArabicSeoContent` block on homepage for AR query indexing · `<title>` carries both `Abo-Elmakarem Shohoud · ابوالمكارم شهود` · robots.txt disallows `/api/`, `/_next/` · Twitter `@karem_shohud`
+JSON-LD (Person `#person`, Website, Organization `#organization` with `/logo.png`, ProfessionalService, Service, Course, FAQPage (6 engineer Q&As + 2 service Q&As linking the service pages), BreadcrumbList, BlogPosting chained to `#person` / `#organization`; posts without a featured image use `/api/og` as the schema image) · Dynamic OG images (Edge, Arabic support) · GSC verified · IndexNow · Dynamic sitemap (EN + AR including homepage `/?lang=ar` and the service pages) · RSS `/feed.xml` · Canonical + per-page metadata hreflang (en/en-US/ar/ar-EG/x-default) · Hidden `ArabicSeoContent` block on homepage for AR query indexing · `<title>` carries both `Abo-Elmakarem Shohoud · ابوالمكارم شهود` · robots.txt disallows `/api/`, `/_next/` · Twitter `@karem_shohud`
 
 ## Google Search Console (gwcli)
 
