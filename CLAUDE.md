@@ -12,7 +12,7 @@ Personal portfolio and blog for **Abo-Elmakarem Shohoud** (Karem / كارم شه
 
 ## Tech Stack
 
-Next.js 14 (App Router) · TypeScript · Tailwind CSS 3 · Framer Motion · react-icons · Supabase (blog CMS, bilingual EN/AR) · react-markdown + rehype/remark · GA4 · Netlify Forms · `@netlify/plugin-nextjs` · Node 20 · npm
+Next.js 14 (App Router) · TypeScript · Tailwind CSS 3 · Framer Motion (blog/subpages only) · anime.js 4 (homepage scroll-linked motion) · three.js (lazy WebGL field) · react-icons · Supabase (blog CMS, bilingual EN/AR) · react-markdown + rehype/remark · GA4 · Netlify Forms · `@netlify/plugin-nextjs` · Node 20 · npm
 
 ## Commands
 
@@ -44,7 +44,9 @@ app/
   api/ — og/route.tsx, revalidate/route.ts, newsletter/{subscribe,unsubscribe}/route.ts, download/pharmacy-manual/route.ts
 components/ — Navbar, Hero, About, Experience, Projects, Services, ServicePage, Testimonials, RecentPosts, FAQ, Contact, Footer, Newsletter, ClickEffect, Analytics, JsonLd, SimplePageHeader, LanguageToggle, ArabicSeoContent
   blog/ — BlogCard, BlogContent, BlogHeader, BlogSidebar, LanguageToggle, ArticleJsonLd
+  journey/ — JourneyStage (fixed three.js canvas, lazy), GalaxyField (scene + shaders), JourneyReadout (fixed chapter readout)
 lib/ — supabase.ts, blog.ts, types.ts, LanguageContext.tsx, latestApk.ts
+  journey/ — chapters.ts, field.ts (scroll→uniforms, tested), galaxy.ts (geometry, tested), store.ts (scroll store + hooks, tested), reveal.ts, useAnimeScope.ts, usePinned.ts
 supabase/ — schema.sql
 public/ — profile.jpg, cursor.png, favicons, __forms.html, GSC verification, IndexNow key
 ```
@@ -75,9 +77,21 @@ Path alias: `@/*` → project root.
 
 ## Design System
 
-**Colors**: background `#0a0a0a`, surface `#111111`, card `#1a1a1a`, primary `#6366f1`, accent `#8b5cf6`, muted `#a1a1aa`
+**Colors** (lane: "Vercel-after-midnight", see `tailwind.config.js`): ink `#0c0a09` (page), slate `#141211` (surface), graphite `#1c1917` (card), wire `#2a2522` (hairlines), paper `#f5f1ea` (emphasis text), ash `#a09690` (body), signal `#ff3b1f` (the single accent), moss `#2f9e44` (status dot only). Legacy names `background/surface/card/primary/accent/muted` alias onto this ramp.
 
 **CSS utilities**: `.gradient-text`, `.glass`, `.glow`, `.noise`, `.animated-gradient`, `.card-hover`, `.float`, `.orbit`, `.blog-content`, `.tech-badge`
+
+## Motion System (homepage)
+
+Spec: `docs/superpowers/specs/2026-09-02-scroll-journey-redesign-design.md` · plan: `docs/superpowers/plans/2026-09-02-scroll-journey-redesign.md`.
+
+- **Gate:** an inline `<head>` script in `app/layout.tsx` adds `html.motion` when JS runs and `prefers-reduced-motion` is off. All decorative pre-states key off it; the SSR HTML never contains hidden content (no inline `opacity:0`). `<html>` carries `suppressHydrationWarning` for that class.
+- **Store:** `lib/journey/store.ts` — one passive scroll listener → page/chapter progress, `--journey-p` / `--chapter-p` CSS vars on `<html>`, `useJourney()` / `useJourneyChapter()`. Chapters come from `lib/journey/chapters.ts` (section ids `home … contact`; `blog` is optional).
+- **Reveals:** sections use `useAnimeScope` + `lib/journey/reveal.ts` (`revealUp`, `revealSlide`, `revealLines`, `parallax`/`parallaxLayers` via `data-depth`). Scopes rebuild on language change; split headings carry `key={language}` so React remounts them (anime mutates their children). Text splits by lines/words only (Arabic-safe), never characters.
+- **Pinned act:** Projects only, when `usePinned()` is true (html.motion + ≥1024px wide + ≥720px tall). CSS-sticky `.pin-stage` inside `section#projects.pin-act[data-pinned]`; one anime timeline linked to `onScroll({ sync: true })`; the end state equals the static grid. The stage content zooms on shorter viewports (`--pin-zoom` media queries) and the FLIP offsets divide by that zoom.
+- **WebGL:** `components/journey/JourneyStage.tsx` mounts `GalaxyField` on idle, only with `html.motion` + WebGL2; three.js is a separate lazy chunk (never in the route's First Load JS). Uniforms come from `fieldState()` (pure, tested). Hero keeps `public/galaxy-poster.jpg` as the instant paint + no-WebGL/reduced-motion fallback; the old scrubbed `galaxy*.mp4` clips were removed.
+- **Chrome:** Navbar marks the active chapter with `aria-current` (homepage only) and draws the `--journey-p` wire; nav entrance, mobile menu and FAQ accordion are CSS-only (no Framer on the homepage route).
+- **Invariants:** `main` uses `overflow-x: clip` (never `hidden`, or sticky breaks); never move copy into the canvas; keep `ArabicSeoContent` always rendered; re-run the SSR gate in the plan (headings / JSON-LD / links / no hidden content) after touching homepage sections.
 
 ## SEO
 
