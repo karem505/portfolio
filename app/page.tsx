@@ -11,6 +11,7 @@ import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import ArabicSeoContent from '@/components/ArabicSeoContent'
+import JourneyStage from '@/components/journey/JourneyStage'
 import {
   ProfessionalServiceJsonLd,
   BreadcrumbJsonLd,
@@ -49,9 +50,9 @@ export default function Home() {
       <BreadcrumbJsonLd />
       <FAQPageJsonLd />
 
-      {/* No background orbs, no animated gradient. The lane is "engineer's
-          terminal at 2am" — flat ink with a hairline column rule, not a
-          purple-orb wallpaper. */}
+      {/* Fixed WebGL depth field (galaxy → lattice), behind the z-10 content.
+          Lazy, idle-mounted, gated on html.motion + WebGL2. Never SSR content. */}
+      <JourneyStage />
 
       {/* Always-rendered Arabic SEO block — keeps Arabic queries indexable
           regardless of the EN/AR toggle state on first render. */}
