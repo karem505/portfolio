@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import {
   HiArrowLeft,
   HiArrowRight,
@@ -15,6 +15,7 @@ import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa'
 import { BlogCard, BlogContent, PostCTA } from '@/components/blog'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { postPath } from '@/lib/postPath'
+import { stripLeadingHeading } from '@/lib/stripLeadingHeading'
 import { localizePost, formatDate } from '@/lib/blog'
 import type { Post } from '@/lib/types'
 
@@ -68,11 +69,7 @@ export default function BlogPostClient({
         </nav>
 
         {/* Back Button */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="mb-8"
-        >
+        <div className="mb-8 enter-fade">
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-muted hover:text-white transition-colors"
@@ -84,15 +81,10 @@ export default function BlogPostClient({
             )}
             {t(translations.backToBlog.en, translations.backToBlog.ar)}
           </Link>
-        </motion.div>
+        </div>
 
         {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-8"
-        >
+        <header className="mb-8 enter-up" style={{ '--enter-delay': '100ms' } as CSSProperties}>
           {/* Post Type Badge */}
           <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary/20 text-primary mb-4">
             {postTypeLabels[post.post_type]
@@ -120,15 +112,13 @@ export default function BlogPostClient({
               {localized.readingTime} {t(translations.minRead.en, translations.minRead.ar)}
             </span>
           </div>
-        </motion.header>
+        </header>
 
         {/* Cover Image */}
         {localized.featuredImage && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="relative aspect-video rounded-xl sm:rounded-2xl overflow-hidden mb-6 sm:mb-10"
+          <div
+            className="relative aspect-video rounded-xl sm:rounded-2xl overflow-hidden mb-6 sm:mb-10 enter-fade"
+            style={{ '--enter-delay': '200ms' } as CSSProperties}
           >
             <Image
               src={localized.featuredImage}
@@ -137,16 +127,14 @@ export default function BlogPostClient({
               className="object-cover"
               priority
             />
-          </motion.div>
+          </div>
         )}
 
         {/* Source Attribution */}
         {post.source_url && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="flex items-center gap-2 text-xs sm:text-sm text-muted mb-6 sm:mb-8 p-3 sm:p-4 rounded-lg bg-surface border border-white/5"
+          <div
+            className="flex items-center gap-2 text-xs sm:text-sm text-muted mb-6 sm:mb-8 p-3 sm:p-4 rounded-lg bg-surface border border-white/5 enter-fade"
+            style={{ '--enter-delay': '300ms' } as CSSProperties}
           >
             <HiLink className="w-4 h-4" />
             <span>{t('Source:', 'المصدر:')}</span>
@@ -158,17 +146,13 @@ export default function BlogPostClient({
             >
               {post.source_title || post.source_url}
             </a>
-          </motion.div>
+          </div>
         )}
 
         {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <BlogContent content={localized.content} />
-        </motion.div>
+        <div className="enter-up" style={{ '--enter-delay': '300ms' } as CSSProperties}>
+          <BlogContent content={stripLeadingHeading(localized.content, localized.title)} />
+        </div>
 
         {/* In-content CTA → service (money) pages: gives every post an internal
             link to /ai-training + /digital-transformation */}
@@ -218,28 +202,18 @@ export default function BlogPostClient({
 
         {/* Category Badge */}
         {post.category && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-10 pt-8 border-t border-white/10"
-          >
+          <div className="mt-10 pt-8 border-t border-white/10">
             <h3 className="text-sm font-medium text-muted mb-3">
               {t('Category', 'التصنيف')}
             </h3>
             <span className="px-3 py-1.5 text-sm rounded-lg bg-surface text-muted">
               {language === 'ar' ? post.category.name_ar : post.category.name_en}
             </span>
-          </motion.div>
+          </div>
         )}
 
         {/* Share Buttons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-10 pt-8 border-t border-white/10"
-        >
+        <div className="mt-10 pt-8 border-t border-white/10">
           <h3 className="text-sm font-medium text-muted mb-4">
             {t(translations.sharePost.en, translations.sharePost.ar)}
           </h3>
@@ -277,16 +251,11 @@ export default function BlogPostClient({
               <HiLink className="w-5 h-5" />
             </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-white/10"
-          >
+          <section className="mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-white/10">
             <h2 className="font-display font-bold text-xl sm:text-2xl mb-6 sm:mb-8">
               {t(translations.relatedPosts.en, translations.relatedPosts.ar)}
             </h2>
@@ -295,7 +264,7 @@ export default function BlogPostClient({
                 <BlogCard key={relatedPost.id} post={relatedPost} index={index} />
               ))}
             </div>
-          </motion.section>
+          </section>
         )}
       </article>
     </>

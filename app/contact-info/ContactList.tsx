@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
+
 import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa'
 import { SiUpwork } from 'react-icons/si'
 
@@ -48,12 +49,10 @@ export default function ContactList() {
     <div className="grid gap-4 sm:grid-cols-2">
       {contacts.map((contact, index) => {
         const Card = (
-          <motion.div
+          <div
             key={contact.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: index * 0.05 }}
-            className="group flex items-center gap-5 p-5 bg-graphite border border-wire hover:border-signal transition-colors duration-200 font-mono"
+            className="group flex items-center gap-5 p-5 bg-graphite border border-wire hover:border-signal transition-colors duration-200 font-mono enter-up"
+            style={{ '--enter-delay': `${index * 50}ms` } as CSSProperties}
           >
             <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors shrink-0">
               <contact.icon className="text-base" />
@@ -63,7 +62,7 @@ export default function ContactList() {
               <div className="text-paper font-medium mt-1 group-hover:text-signal transition-colors" dir="ltr">{contact.value}</div>
             </div>
             {contact.href && <span className="text-ash group-hover:text-signal transition-colors">↗</span>}
-          </motion.div>
+          </div>
         )
 
         if (contact.href) {

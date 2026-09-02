@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { HiMail, HiCheck, HiExclamation } from 'react-icons/hi'
 
 type Language = 'en' | 'ar'
@@ -99,12 +98,10 @@ export function Newsletter({ language = 'en', className = '' }: NewsletterProps)
               className={`w-full bg-white/5 border border-white/10 rounded-xl py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'}`}
             />
           </div>
-          <motion.button
+          <button
             type="submit"
             disabled={status === 'loading'}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/25"
+            className="px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-indigo-500/25"
           >
             {status === 'loading' ? (
               <span className="inline-flex items-center gap-2">
@@ -114,24 +111,20 @@ export function Newsletter({ language = 'en', className = '' }: NewsletterProps)
                 </svg>
               </span>
             ) : t.button}
-          </motion.button>
+          </button>
         </form>
 
-        <AnimatePresence>
-          {status !== 'idle' && status !== 'loading' && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className={`mt-4 flex items-center gap-2 text-sm ${
-                status === 'success' ? 'text-green-400' : 'text-red-400'
-              }`}
-            >
-              {status === 'success' ? <HiCheck className="text-lg" /> : <HiExclamation className="text-lg" />}
-              {message}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {status !== 'idle' && status !== 'loading' && (
+          <div
+            role="status"
+            className={`mt-4 flex items-center gap-2 text-sm enter-down ${
+              status === 'success' ? 'text-green-400' : 'text-red-400'
+            }`}
+          >
+            {status === 'success' ? <HiCheck className="text-lg" /> : <HiExclamation className="text-lg" />}
+            {message}
+          </div>
+        )}
       </div>
     </div>
   )

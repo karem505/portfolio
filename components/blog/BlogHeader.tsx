@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import { HiHome, HiNewspaper } from 'react-icons/hi2'
 import LanguageToggle from './LanguageToggle'
 import { useLanguage, translations } from '@/lib/LanguageContext'
@@ -32,13 +32,9 @@ export default function BlogHeader() {
           </div>
 
           {/* Language Toggle */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          <div className="enter-fade" style={{ '--enter-delay': '200ms' } as CSSProperties}>
             <LanguageToggle />
-          </motion.div>
+          </div>
         </div>
       </div>
     </header>

@@ -1,7 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 import Image from 'next/image'
 import { HiArrowRight, HiClock, HiNewspaper, HiLightBulb } from 'react-icons/hi2'
 import { useLanguage, translations } from '@/lib/LanguageContext'
@@ -31,11 +31,9 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
   const PostTypeIcon = post.post_type === 'news' ? HiNewspaper : HiLightBulb
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative"
+    <article
+      className="group relative enter-up"
+      style={{ '--enter-delay': `${Math.min(index, 8) * 100}ms` } as CSSProperties}
       dir={dir}
     >
       <Link href={postPath(post.slug, language)}>
@@ -101,6 +99,6 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
           </div>
         </div>
       </Link>
-    </motion.article>
+    </article>
   )
 }

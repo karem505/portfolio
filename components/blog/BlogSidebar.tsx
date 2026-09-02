@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { HiTag, HiClock, HiNewspaper, HiLightBulb, HiCodeBracket, HiChartBar, HiEnvelope } from 'react-icons/hi2'
 import { Newsletter } from '@/components/Newsletter'
 import { useLanguage, translations } from '@/lib/LanguageContext'
@@ -37,11 +36,9 @@ export default function BlogSidebar() {
   return (
     <aside className="space-y-8" dir={dir}>
       {/* Categories */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="p-6 rounded-2xl bg-surface border border-white/5"
+      <div
+        className="p-6 rounded-2xl bg-surface border border-white/5 enter-up"
+        style={{ '--enter-delay': '300ms' } as CSSProperties}
       >
         <h3 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
           <HiTag className="w-5 h-5 text-primary" />
@@ -78,14 +75,12 @@ export default function BlogSidebar() {
             )
           })}
         </div>
-      </motion.div>
+      </div>
 
       {/* Recent Posts */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="p-6 rounded-2xl bg-surface border border-white/5"
+      <div
+        className="p-6 rounded-2xl bg-surface border border-white/5 enter-up"
+        style={{ '--enter-delay': '400ms' } as CSSProperties}
       >
         <h3 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
           <HiClock className="w-5 h-5 text-primary" />
@@ -107,16 +102,12 @@ export default function BlogSidebar() {
             </Link>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Newsletter Subscription */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
+      <div className="enter-up" style={{ '--enter-delay': '500ms' } as CSSProperties}>
         <Newsletter language={language} />
-      </motion.div>
+      </div>
     </aside>
   )
 }
