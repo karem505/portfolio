@@ -247,7 +247,8 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 }
 
 .nav-link:hover,
-.nav-link[aria-current="page"] {
+.nav-link[aria-current="page"],
+.nav-link[aria-current="location"] {
   color: var(--paper);
 }
 
@@ -263,7 +264,8 @@ a, button, [role="button"], input[type="submit"], input[type="button"],
 }
 
 .nav-link:hover::after,
-.nav-link[aria-current="page"]::after {
+.nav-link[aria-current="page"]::after,
+.nav-link[aria-current="location"]::after {
   width: 100%;
 }
 
@@ -1001,5 +1003,7 @@ html.motion .nav-enter {
 }
 .faq-panel {
   overflow: hidden;
+}
+.faq-panel.is-open {
   animation: faq-open 0.3s ease-out both;
 }

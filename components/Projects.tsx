@@ -186,7 +186,7 @@ export default function Projects() {
       defaults: { ease: 'linear' },
       autoplay: onScroll({ target: el, enter: 'top top', leave: 'bottom bottom', sync: true }),
     })
-    tl.add(header, { opacity: [0, 1], translateY: [24, 0], duration: 120 }, 0)
+    tl.add(header, { translateY: [24, 0], duration: 120 }, 0)
     cards.forEach((card, i) => {
       const { dx, dy } = offsets[i]
       const [a0, a1, a2] = windows[i]

@@ -134,20 +134,21 @@ export default function FAQ() {
                 </span>
               </button>
 
-              {openIndex === index && (
-                <div
-                  id={`faq-panel-${index}`}
-                  role="region"
-                  aria-labelledby={`faq-button-${index}`}
-                  className="faq-panel"
-                >
-                  <div>
-                    <div className={`pb-6 pl-12 pr-4 text-ash leading-relaxed text-sm md:text-base ${ar ? 'font-rubik' : 'font-mono'}`}>
-                      {faq.answer}
-                    </div>
+              {/* Answers stay in the DOM (crawlable, matches the FAQPage JSON-LD);
+                  closed panels use the hidden attribute, opening replays the CSS animation. */}
+              <div
+                id={`faq-panel-${index}`}
+                role="region"
+                aria-labelledby={`faq-button-${index}`}
+                hidden={openIndex !== index}
+                className={`faq-panel${openIndex === index ? ' is-open' : ''}`}
+              >
+                <div>
+                  <div className={`pb-6 pl-12 pr-4 text-ash leading-relaxed text-sm md:text-base ${ar ? 'font-rubik' : 'font-mono'}`}>
+                    {faq.answer}
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

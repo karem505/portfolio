@@ -58,7 +58,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                aria-current={link.href === currentHref ? 'page' : undefined}
+                aria-current={link.href === currentHref ? 'location' : undefined}
                 className="nav-link group inline-flex items-baseline gap-1.5"
               >
                 <span className="text-ash/55 text-[0.7rem] tabular-nums">{link.n}</span>
