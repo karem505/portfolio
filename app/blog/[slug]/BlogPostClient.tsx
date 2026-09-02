@@ -12,7 +12,7 @@ import {
   HiLink,
 } from 'react-icons/hi2'
 import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa'
-import { BlogCard, BlogContent, ArticleJsonLd, PostCTA } from '@/components/blog'
+import { BlogCard, BlogContent, PostCTA } from '@/components/blog'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { localizePost, formatDate } from '@/lib/blog'
 import type { Post } from '@/lib/types'
@@ -44,8 +44,6 @@ export default function BlogPostClient({
 
   return (
     <>
-      <ArticleJsonLd post={post} language={language} />
-
       <article dir={dir}>
         {/* Breadcrumb (visible) */}
         <nav aria-label="Breadcrumb" className="mb-6 text-xs sm:text-sm text-muted">

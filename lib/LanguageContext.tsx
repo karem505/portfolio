@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useEffect, useRef, useState, ReactNode } from 'react'
 import type { Language } from './types'
 
 interface LanguageContextType {
@@ -12,34 +12,62 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+const isLanguage = (v: unknown): v is Language => v === 'en' || v === 'ar'
+
 function applyHtmlAttrs(lang: Language) {
   if (typeof document === 'undefined') return
   document.documentElement.lang = lang
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en')
+/**
+ * Root provider (app/layout.tsx): renders 'en' on the server, then resolves the
+ * client language once from `?lang` / localStorage.
+ *
+ * Scoped provider: a server page that knows the language from its searchParams
+ * (blog posts) mounts `<LanguageProvider initialLanguage>` around its content so
+ * the SSR HTML is already in that language for crawlers. After mount it mirrors
+ * every later change of the root provider (the header toggle) and delegates
+ * `setLanguage` to it, so the whole page still switches together.
+ */
+export function LanguageProvider({
+  children,
+  initialLanguage,
+}: {
+  children: ReactNode
+  initialLanguage?: Language
+}) {
+  const parent = useContext(LanguageContext)
+  const hasParent = parent !== undefined
+  const [language, setLanguageState] = useState<Language>(initialLanguage ?? parent?.language ?? 'en')
 
+  // Root only: resolve the client-side language once.
   useEffect(() => {
-    // Check URL params first
-    const urlParams = new URLSearchParams(window.location.search)
-    const urlLang = urlParams.get('lang') as Language
-
+    if (hasParent) return
+    const urlLang = new URLSearchParams(window.location.search).get('lang')
     let initial: Language = 'en'
-    if (urlLang && ['en', 'ar'].includes(urlLang)) {
+    if (isLanguage(urlLang)) {
       initial = urlLang
     } else {
-      const storedLang = localStorage.getItem('blog-language') as Language
-      if (storedLang && ['en', 'ar'].includes(storedLang)) {
-        initial = storedLang
-      }
+      const storedLang = localStorage.getItem('blog-language')
+      if (isLanguage(storedLang)) initial = storedLang
     }
     setLanguageState(initial)
     applyHtmlAttrs(initial)
-  }, [])
+  }, [hasParent])
 
-  const setLanguage = (lang: Language) => {
+  // Scoped only: follow the parent's changes after mount. The first run is
+  // skipped so the server-rendered language survives hydration (the parent
+  // still reads 'en' until its own effect has run).
+  const parentLanguage = parent?.language
+  const seenParent = useRef(parentLanguage)
+  useEffect(() => {
+    if (parentLanguage === undefined) return
+    if (seenParent.current !== parentLanguage) setLanguageState(parentLanguage)
+    seenParent.current = parentLanguage
+  }, [parentLanguage])
+
+  const setLanguageRoot = (lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem('blog-language', lang)
     applyHtmlAttrs(lang)
@@ -49,6 +77,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     url.searchParams.set('lang', lang)
     window.history.pushState({}, '', url)
   }
+  const setLanguage = parent ? parent.setLanguage : setLanguageRoot
 
   const t = (en: string, ar: string) => (language === 'ar' ? ar : en)
   const dir = language === 'ar' ? 'rtl' : 'ltr'

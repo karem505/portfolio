@@ -4,6 +4,8 @@ import { getPostBySlug, getAllPosts, getRelatedPosts } from '@/lib/blog'
 import BlogPostClient from './BlogPostClient'
 import ArticleJsonLd from '@/components/blog/ArticleJsonLd'
 import { ServiceBreadcrumbJsonLd } from '@/components/JsonLd'
+import { LanguageProvider } from '@/lib/LanguageContext'
+import type { Language } from '@/lib/types'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -93,8 +95,15 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-export default async function BlogPostPage({ params }: Props) {
+// The route renders per request (generateMetadata reads searchParams), so the
+// page can render the requested language on the server: `?lang=ar` ships Arabic
+// HTML, schema and breadcrumbs to crawlers instead of English that flips after
+// hydration.
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const { slug } = await params
+  const { lang } = await searchParams
+  const language: Language = lang === 'ar' ? 'ar' : 'en'
+  const isArabic = language === 'ar'
   const post = await getPostBySlug(slug)
 
   if (!post) {
@@ -104,18 +113,23 @@ export default async function BlogPostPage({ params }: Props) {
   const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
 
   const baseUrl = 'https://aboelmakarem.pro'
+  const postUrl = isArabic ? `${baseUrl}/blog/${post.slug}?lang=ar` : `${baseUrl}/blog/${post.slug}`
 
   return (
     <>
-      <ArticleJsonLd post={post} language="en" />
+      <ArticleJsonLd post={post} language={language} />
       <ServiceBreadcrumbJsonLd
         items={[
-          { name: 'Home', url: baseUrl },
-          { name: 'Blog', url: `${baseUrl}/blog` },
-          { name: post.title_en, url: `${baseUrl}/blog/${post.slug}` },
+          { name: isArabic ? 'الرئيسية' : 'Home', url: baseUrl },
+          { name: isArabic ? 'المدونة' : 'Blog', url: `${baseUrl}/blog` },
+          { name: isArabic ? post.title_ar : post.title_en, url: postUrl },
         ]}
       />
-      <BlogPostClient post={post} relatedPosts={relatedPosts} />
+      <LanguageProvider initialLanguage={language}>
+        <div lang={language} dir={isArabic ? 'rtl' : 'ltr'}>
+          <BlogPostClient post={post} relatedPosts={relatedPosts} />
+        </div>
+      </LanguageProvider>
     </>
   )
 }
