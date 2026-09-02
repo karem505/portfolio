@@ -33,7 +33,7 @@
 **Interfaces:**
 - Produces: `/tmp/journey-baseline/summary.json` with `{ h1, h2, h3, jsonld, links, imgs, opacity0, firstLoadKb, lh: { mobile: {...}, desktop: {...} } }` used by Task 16.
 
-- [ ] **Step 1: Build the current code and start a production server**
+- [x] **Step 1: Build the current code and start a production server**
 
 ```bash
 cd "/home/karem505/side projects/mywebsite"
@@ -45,7 +45,7 @@ sleep 5 && curl -sI http://localhost:3000/ | head -1
 ```
 Expected: `HTTP/1.1 200 OK`.
 
-- [ ] **Step 2: Save SSR HTML counts**
+- [x] **Step 2: Save SSR HTML counts**
 
 ```bash
 curl -s http://localhost:3000/ -o /tmp/journey-baseline/home.html
@@ -58,7 +58,7 @@ fs.writeFileSync("/tmp/journey-baseline/summary.json",JSON.stringify(out,null,2)
 ```
 Expected: numbers close to production (`h1 2, h2 10, h3 33, jsonld 12, links 64, imgs 9`). `opacity0` will be > 0 (Framer's SSR'd hidden state) — that is the number we must reduce.
 
-- [ ] **Step 3: Lighthouse mobile + desktop**
+- [x] **Step 3: Lighthouse mobile + desktop**
 
 ```bash
 npx --yes lighthouse@12 http://localhost:3000/ --output=json --output-path=/tmp/journey-baseline/lh-mobile.json --chrome-flags="--headless=new --no-sandbox" --quiet --only-categories=performance,accessibility,best-practices,seo
@@ -74,7 +74,18 @@ Expected: prints four category scores per mode. Append them by hand to `/tmp/jou
 pkill -f "next start" ; sleep 1; (ss -ltn | grep -q ':3000' && echo "still up" || echo "stopped")
 ```
 
-- [ ] **Step 4: Record the baseline in the plan**
+**Baseline recorded (local prod build of 9b3ea5b + spec/plan commits, 2026-09-02):**
+
+```
+SSR HTML of / (local; the journal section is absent locally because .env.local points at a stub Supabase URL):
+  h1 2 · h2 9 · h3 24 · jsonld 12 · links 54 · imgs 2 · sr-only-seo 2 · hrefLang 5 · inline opacity:0 66 · 192,805 bytes
+Build: route "/" 26.4 kB, First Load JS 180 kB (shared 87.3 kB)
+Lighthouse mobile:  performance 85 · accessibility 96 · best-practices 100 · seo 100 · LCP 3.8 s · CLS 0 · TBT 90 ms · SI 4.5 s
+Lighthouse desktop: performance 99 · accessibility 96 · best-practices 100 · seo 100 · LCP 0.8 s · CLS 0 · TBT 0 ms
+Production reference (aboelmakarem.pro, includes 9 journal posts): h1 2 · h2 10 · h3 33 · jsonld 12 · links 64 · imgs 9
+```
+
+- [x] **Step 4: Record the baseline in the plan**
 
 Edit this plan file: under this task, add a fenced block with the printed numbers (SSR counts, First Load JS, Lighthouse scores, LCP/CLS/TBT). Commit:
 
