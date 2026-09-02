@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     fonts.push({ name: 'NotoSansArabic', data: arabicFont, style: 'normal' as const })
   }
 
-  return new ImageResponse(
+  const res = new ImageResponse(
     (
       <div
         style={{
@@ -195,10 +195,11 @@ export async function GET(request: NextRequest) {
       width: 1200,
       height: 630,
       fonts: fonts.length > 0 ? fonts : undefined,
-      headers: {
-        'Cache-Control': 'public, max-age=86400, s-maxage=86400',
-        'Netlify-CDN-Cache-Control': 'public, max-age=86400',
-      },
     }
   )
+  // Set (not merge): ImageResponse appends its own immutable default to any
+  // Cache-Control passed in options, which produced a contradictory header.
+  res.headers.set('Cache-Control', 'public, max-age=86400, s-maxage=86400')
+  res.headers.set('Netlify-CDN-Cache-Control', 'public, max-age=86400')
+  return res
 }
