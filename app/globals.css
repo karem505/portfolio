@@ -1010,3 +1010,31 @@ html.motion .nav-enter {
 .faq-panel.is-open {
   animation: faq-open 0.3s ease-out both;
 }
+
+/* Subpage intros (blog, service, legal headers): same gate as the homepage.
+   Only animate when JS runs and motion is allowed, so SSR HTML never carries an
+   inline opacity:0 and a no-JS or reduced-motion visitor sees everything at rest. */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes enter-down {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes enter-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+html.motion .enter-up {
+  animation: enter-up 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+html.motion .enter-down {
+  animation: enter-down 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+html.motion .enter-fade {
+  animation: enter-fade 0.5s ease both;
+  animation-delay: var(--enter-delay, 0ms);
+}

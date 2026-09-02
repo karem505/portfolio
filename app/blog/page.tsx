@@ -6,13 +6,10 @@ import BlogPageClient from './BlogPageClient'
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Explore AI automation tutorials, voice agent guides, and tech insights by Abo-Elmakarem Shohoud. Practical tips for cutting business costs with AI.',
+  // Single canonical: the listing is one server URL with a client-side language
+  // toggle, so no hreflang pair (an `ar` alternate would just canonicalize back).
   alternates: {
     canonical: 'https://aboelmakarem.pro/blog',
-    languages: {
-      en: 'https://aboelmakarem.pro/blog',
-      ar: 'https://aboelmakarem.pro/blog?lang=ar',
-      'x-default': 'https://aboelmakarem.pro/blog',
-    },
   },
   openGraph: {
     title: 'Blog',
@@ -33,8 +30,10 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   // Fetch all posts server-side so Googlebot can discover all blog post links
-  // without needing to execute JavaScript
-  const allPosts = await getAllPosts()
+  // without needing to execute JavaScript. Only indexable posts are listed: the
+  // curated noindex set is excluded from the sitemap too, so linking it here only
+  // spent crawl budget (and ~40 KB of HTML) on pages we do not want indexed.
+  const allPosts = (await getAllPosts()).filter((post) => !post.seo_noindex)
 
   return (
     <>

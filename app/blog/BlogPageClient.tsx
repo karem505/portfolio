@@ -1,14 +1,42 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState, type CSSProperties } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { motion } from 'framer-motion'
 import { HiMagnifyingGlass, HiXMark } from 'react-icons/hi2'
 import { BlogCard } from '@/components/blog'
 import { paginationWindow } from '@/lib/pagination'
 import { useLanguage, translations } from '@/lib/LanguageContext'
 import { getPosts, searchPosts } from '@/lib/blog'
 import type { Post } from '@/lib/types'
+
+const categoryLabels: Record<string, { en: string; ar: string }> = {
+  news: translations.news,
+  'how-to': translations['how-to'],
+  tutorial: translations.tutorial,
+  insights: translations.insights,
+}
+
+/**
+ * Page intro. Kept outside the useSearchParams() Suspense boundary so the h1 and
+ * lead are in the server HTML (inside the boundary they would render as the
+ * loading skeleton for crawlers).
+ */
+function BlogIntro() {
+  const { t, dir } = useLanguage()
+  return (
+    <div dir={dir} className="mb-8 sm:mb-12 enter-up">
+      <h1 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4">
+        {t(translations.blog.en, translations.blog.ar)}
+      </h1>
+      <p className="text-muted text-base sm:text-lg max-w-2xl">
+        {t(
+          'Latest insights on AI, automation, and software development.',
+          'أحدث الرؤى حول الذكاء الاصطناعي والأتمتة وتطوير البرمجيات.'
+        )}
+      </p>
+    </div>
+  )
+}
 
 function BlogContent() {
   const searchParams = useSearchParams()
@@ -52,41 +80,18 @@ function BlogContent() {
     handleSearch('')
   }
 
-  const categoryLabels: Record<string, { en: string; ar: string }> = {
-    news: translations.news,
-    'how-to': translations['how-to'],
-    tutorial: translations.tutorial,
-    insights: translations.insights,
-  }
-
   return (
     <div dir={dir}>
-      {/* Page Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8 sm:mb-12"
-      >
-        <h1 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4">
-          {category && categoryLabels[category]
-            ? t(categoryLabels[category].en, categoryLabels[category].ar)
-            : t(translations.blog.en, translations.blog.ar)}
-        </h1>
-        <p className="text-muted text-base sm:text-lg max-w-2xl">
-          {t(
-            'Latest insights on AI, automation, and software development.',
-            'أحدث الرؤى حول الذكاء الاصطناعي والأتمتة وتطوير البرمجيات.'
-          )}
+      {/* Active category (the h1 lives in BlogIntro, outside the Suspense boundary) */}
+      {category && categoryLabels[category] && (
+        <p className="mb-6 -mt-4 text-sm text-muted">
+          {t('Category:', 'التصنيف:')}{' '}
+          <span className="text-white">{t(categoryLabels[category].en, categoryLabels[category].ar)}</span>
         </p>
-      </motion.div>
+      )}
 
       {/* Search Bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-8"
-      >
+      <div className="mb-8 enter-up" style={{ '--enter-delay': '100ms' } as CSSProperties}>
         <div className="relative max-w-md">
           <HiMagnifyingGlass className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
           <input
@@ -105,7 +110,7 @@ function BlogContent() {
             </button>
           )}
         </div>
-      </motion.div>
+      </div>
 
       {/* Posts Grid */}
       {loading ? (
@@ -125,15 +130,11 @@ function BlogContent() {
           ))}
         </div>
       ) : posts.length === 0 ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-16"
-        >
+        <div className="text-center py-16 enter-fade">
           <p className="text-muted text-lg">
             {t(translations.noResults.en, translations.noResults.ar)}
           </p>
-        </motion.div>
+        </div>
       ) : (
         <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {posts.map((post, index) => (
@@ -146,12 +147,10 @@ function BlogContent() {
           one row on a phone; the full 20+ button row used to force the page
           wider than the viewport. */}
       {!searchQuery && totalPages > 1 && (
-        <motion.nav
+        <nav
           aria-label={t('Pagination', 'ترقيم الصفحات')}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center items-center gap-2 mt-12"
+          className="flex flex-wrap justify-center items-center gap-2 mt-12 enter-fade"
+          style={{ '--enter-delay': '300ms' } as CSSProperties}
         >
           <button
             onClick={() => setPage(Math.max(page - 1, 1))}
@@ -190,7 +189,7 @@ function BlogContent() {
           >
             {language === 'ar' ? '‹' : '›'}
           </button>
-        </motion.nav>
+        </nav>
       )}
 
       {/* Mobile Sidebar Toggle */}
@@ -231,12 +230,6 @@ function BlogContent() {
 function BlogLoadingFallback() {
   return (
     <div>
-      {/* Header Skeleton */}
-      <div className="mb-12">
-        <div className="h-12 bg-surface rounded w-48 mb-4 animate-pulse" />
-        <div className="h-6 bg-surface rounded w-96 animate-pulse" />
-      </div>
-
       {/* Search Skeleton */}
       <div className="mb-8">
         <div className="h-12 bg-surface rounded-xl w-full max-w-md animate-pulse" />
@@ -264,8 +257,11 @@ function BlogLoadingFallback() {
 
 export default function BlogPageClient() {
   return (
-    <Suspense fallback={<BlogLoadingFallback />}>
-      <BlogContent />
-    </Suspense>
+    <>
+      <BlogIntro />
+      <Suspense fallback={<BlogLoadingFallback />}>
+        <BlogContent />
+      </Suspense>
+    </>
   )
 }
