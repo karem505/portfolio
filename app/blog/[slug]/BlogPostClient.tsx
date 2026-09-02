@@ -222,6 +222,7 @@ export default function BlogPostClient({
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={t('Share on X (Twitter)', 'شارك على X (تويتر)')}
               className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-[#1DA1F2] transition-colors"
             >
               <FaTwitter className="w-5 h-5" />
@@ -230,6 +231,7 @@ export default function BlogPostClient({
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={t('Share on LinkedIn', 'شارك على LinkedIn')}
               className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-[#0077B5] transition-colors"
             >
               <FaLinkedin className="w-5 h-5" />
@@ -238,11 +240,14 @@ export default function BlogPostClient({
               href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={t('Share on Facebook', 'شارك على فيسبوك')}
               className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-muted hover:text-white hover:bg-[#1877F2] transition-colors"
             >
               <FaFacebook className="w-5 h-5" />
             </a>
             <button
+              type="button"
+              aria-label={t('Copy link', 'نسخ الرابط')}
               onClick={() => {
                 navigator.clipboard.writeText(shareUrl)
               }}
