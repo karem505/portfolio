@@ -119,6 +119,8 @@ gwcli sc sitemaps "https://aboelmakarem.pro/"                     # Check sitema
 gwcli sc submit-sitemap "https://aboelmakarem.pro/" "https://aboelmakarem.pro/sitemap.xml"
 ```
 
+**Status check (sitemap record + index state of the key URLs):** `node scripts/gsc-status.mjs` (add URLs as arguments to inspect others). The CLI's `sc inspect` prints only five fields; this script also shows Google's chosen canonical and rich-result verdict. After a deploy that changes indexable pages: resubmit the sitemap, request indexing for the changed URLs, send the IndexNow batch, then re-run this script after 1–2 weeks to confirm recrawl dates moved past the deploy.
+
 **Token refresh (on `invalid_grant`):** gwcli has no `auth login` command. Re-auth = remove + re-add the profile (browser OAuth). User must run interactively:
 ```bash
 gwcli profiles remove karem
