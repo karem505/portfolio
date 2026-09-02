@@ -1,16 +1,24 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
 import { FaChartLine, FaChalkboardTeacher, FaCode } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { parallaxLayers, revealLines, revealUp } from '@/lib/journey/reveal'
 
 export default function Services() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const { t, language } = useLanguage()
   const ar = language === 'ar'
+
+  const root = useAnimeScope<HTMLElement>((_, { motion }) => {
+    const el = root.current
+    if (!el || !motion) return
+    const h2 = el.querySelector<HTMLElement>('[data-lines]')
+    if (h2) revealLines(h2)
+    revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
+    revealUp(el.querySelectorAll('[data-reveal-card]'), { staggerMs: 90, y: 32 })
+    parallaxLayers(el)
+  }, [language])
 
   const cards = [
     {
@@ -46,16 +54,12 @@ export default function Services() {
   ]
 
   return (
-    <section id="services" ref={ref} className="relative py-32 px-6">
+    <section id="services" ref={root} className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="tab-eyebrow mb-6">005 · {t('services', 'الخدمات')}</span>
-          <h2 className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
+        <div className="relative text-center mb-20">
+          <span aria-hidden="true" className="watermark-num" data-depth="-0.35">005</span>
+          <span data-reveal-head className="tab-eyebrow mb-6">005 · {t('services', 'الخدمات')}</span>
+          <h2 key={language} data-lines className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
             {ar ? (
               <>
                 خدمتان أقدّمهما للشركات:<br />
@@ -68,24 +72,20 @@ export default function Services() {
               </>
             )}
           </h2>
-          <p className={`text-ash max-w-3xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+          <p data-reveal-head className={`text-ash max-w-3xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
             {ar
               ? 'استشاري مستقل ومدرب ذكاء اصطناعي للشركات في مصر والإمارات والسعودية. أُعيد تصميم طريقة سير عملياتكم، ثم أُدرّب فريقكم على تشغيلها بالذكاء الاصطناعي. بالعربية أو الإنجليزية، حضورياً أو عن بُعد.'
               : 'Independent consultant and corporate AI trainer for teams across Egypt, the UAE, and Saudi Arabia. I redesign how your operations run, then get your people using AI to run them. In Arabic or English, on-site or remote.'}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {cards.map((card, index) => (
-            <motion.div
-              key={card.href}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
+            <div key={card.href} data-depth={[0.06, 0.16, 0.06][index]} className={index === 1 ? 'lg:-mt-6' : ''}>
               <Link
                 href={card.href}
                 dir={ar ? 'rtl' : 'ltr'}
+                data-reveal-card
                 className="group relative flex h-full flex-col p-6 bg-graphite border border-wire hover:border-signal transition-colors duration-200"
               >
                 <div className="flex items-start justify-between mb-5">
@@ -110,7 +110,7 @@ export default function Services() {
                   <span aria-hidden="true">{ar ? '' : '→'}</span>
                 </span>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

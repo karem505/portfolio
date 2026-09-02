@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
 import Image from 'next/image'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { parallaxLayers, revealLines, revealUp } from '@/lib/journey/reveal'
 import { FaArrowRight, FaClock, FaCalendarAlt } from 'react-icons/fa'
 import type { Post } from '@/lib/types'
 
@@ -19,40 +19,42 @@ interface RecentPostsClientProps {
 }
 
 export default function RecentPostsClient({ posts }: RecentPostsClientProps) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const root = useAnimeScope<HTMLElement>((_, { motion }) => {
+    const el = root.current
+    if (!el || !motion) return
+    const h2 = el.querySelector<HTMLElement>('[data-lines]')
+    if (h2) revealLines(h2)
+    revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
+    revealUp(el.querySelectorAll('[data-reveal-post]'), { staggerMs: 120, y: 40 })
+    revealUp(el.querySelectorAll('[data-reveal-cta]'))
+    parallaxLayers(el)
+  }, [posts.length])
 
   if (posts.length === 0) return null
 
   return (
-    <section id="blog" ref={ref} className="relative py-32 px-6">
+    <section id="blog" ref={root} className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="tab-eyebrow mb-6">008 · journal</span>
-          <h2 className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
+        <div className="relative text-center mb-20">
+          <span aria-hidden="true" className="watermark-num" data-depth="-0.35">008</span>
+          <span data-reveal-head className="tab-eyebrow mb-6">008 · journal</span>
+          <h2 data-lines className="font-mono font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95]">
             Recent posts<span className="text-signal">.</span>
           </h2>
-          <p className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
+          <p data-reveal-head className="text-ash max-w-2xl mx-auto text-base md:text-lg font-mono leading-relaxed">
             Insights on AI automation, voice agents, and building smarter business systems.
           </p>
-        </motion.div>
+        </div>
 
         {/* Posts Grid */}
         <div className="grid md:grid-cols-3 gap-8">
           {posts.map((post, index) => (
-            <motion.a
-              key={post.id}
+            <div key={post.id} data-depth={[0.05, 0.15, 0.25][index % 3]}>
+            <a
               href={`/blog/${post.slug}`}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group relative bg-graphite border border-wire hover:border-signal transition-colors duration-200 overflow-hidden font-mono"
+              data-reveal-post
+              className="group relative block h-full bg-graphite border border-wire hover:border-signal transition-colors duration-200 overflow-hidden font-mono"
             >
               {/* Featured Image */}
               {post.featured_image && (
@@ -97,17 +99,13 @@ export default function RecentPostsClient({ posts }: RecentPostsClientProps) {
                   </p>
                 )}
               </div>
-            </motion.a>
+            </a>
+            </div>
           ))}
         </div>
 
         {/* View All Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-12"
-        >
+        <div data-reveal-cta className="text-center mt-12">
           <a
             href="/blog"
             className="inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper font-mono text-sm hover:border-signal hover:text-signal transition-colors"
@@ -115,7 +113,7 @@ export default function RecentPostsClient({ posts }: RecentPostsClientProps) {
             <span>View all posts</span>
             <FaArrowRight size={12} />
           </a>
-        </motion.div>
+        </div>
       </div>
 
       {/* Section Divider */}

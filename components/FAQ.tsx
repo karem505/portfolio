@@ -1,17 +1,25 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { revealLines, revealUp } from '@/lib/journey/reveal'
 
 export default function FAQ() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const { t, language } = useLanguage()
   const ar = language === 'ar'
+
+  const root = useAnimeScope<HTMLElement>((_, { motion: allowMotion }) => {
+    const el = root.current
+    if (!el || !allowMotion) return
+    const h2 = el.querySelector<HTMLElement>('[data-lines]')
+    if (h2) revealLines(h2)
+    revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
+    revealUp(el.querySelectorAll('[data-reveal-row]'), { staggerMs: 40, y: 12, duration: 500 })
+  }, [language])
 
   const faqs = ar
     ? [
@@ -80,34 +88,27 @@ export default function FAQ() {
       ]
 
   return (
-    <section id="faq" ref={ref} className="relative py-32 px-6">
+    <section id="faq" ref={root} className="relative py-32 px-6">
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="tab-eyebrow mb-6">006 · {t('faq', 'أسئلة شائعة')}</span>
-          <h2 className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
+        <div className="text-center mb-20">
+          <span data-reveal-head className="tab-eyebrow mb-6">006 · {t('faq', 'أسئلة شائعة')}</span>
+          <h2 key={language} data-lines className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
             {t('Frequently asked', 'أسئلة متكررة')}
             <span className="text-signal">.</span>
           </h2>
-          <p className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+          <p data-reveal-head className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
             {t(
               'Stack, shipping cadence, languages, and how to reach me. Engineer-spoken, no consulting pitch.',
               'الـ Stack وإيقاع التسليم واللغات وكيفية الوصول إليّ. بلسان مهندس، بدون عرض استشاري.'
             )}
           </p>
-        </motion.div>
+        </div>
 
         <div className="border-t border-wire">
           {faqs.map((faq, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.35, delay: index * 0.06 }}
+              data-reveal-row
               className="border-b border-wire transition-colors duration-200"
             >
               <button
@@ -152,7 +153,7 @@ export default function FAQ() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

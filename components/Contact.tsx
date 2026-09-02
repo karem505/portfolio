@@ -1,20 +1,35 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
+import { useAnimeScope } from '@/lib/journey/useAnimeScope'
+import { parallaxLayers, revealLines, revealSlide, revealUp } from '@/lib/journey/reveal'
 
 export default function Contact() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState('')
   const { t, language } = useLanguage()
   const ar = language === 'ar'
+
+  const root = useAnimeScope<HTMLElement>((_, { motion, rtl }) => {
+    const el = root.current
+    if (!el || !motion) return
+    const h2 = el.querySelector<HTMLElement>('[data-lines]')
+    if (h2) revealLines(h2)
+    revealUp(el.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: h2 ?? el })
+    const form = el.querySelector<HTMLElement>('[data-col-start]')
+    const info = el.querySelector<HTMLElement>('[data-col-end]')
+    if (form) revealSlide(form, 'start', rtl)
+    if (info) {
+      revealSlide(info, 'end', rtl)
+      revealUp(info.querySelectorAll('[data-reveal-row]'), { staggerMs: 60, y: 12, trigger: info })
+      revealUp(info.querySelectorAll('[data-reveal-plate]'), { y: 32, trigger: info })
+    }
+    parallaxLayers(el)
+  }, [language, isSubmitted])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -75,37 +90,27 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" ref={ref} className="relative py-32 px-6">
+    <section id="contact" ref={root} className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="tab-eyebrow mb-6">007 · {t('contact', 'تواصل')}</span>
-          <h2 className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
+        <div className="relative text-center mb-20">
+          <span aria-hidden="true" className="watermark-num" data-depth="-0.35">007</span>
+          <span data-reveal-head className="tab-eyebrow mb-6">007 · {t('contact', 'تواصل')}</span>
+          <h2 key={language} data-lines className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
             {t("Let's work together", 'لنعمل معًا')}
             <span className="text-signal">.</span>
           </h2>
-          <p className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
+          <p data-reveal-head className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
             {t(
               'Send a role, send a brief. I read every message and reply within 24 hours.',
               'أرسل وصف الوظيفة أو نطاق المشروع. أقرأ كل رسالة وأرد خلال 24 ساعة.'
             )}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: ar ? 50 : -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div data-col-start>
             {isSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+              <div
                 className={`h-full flex flex-col items-center justify-center p-12 bg-graphite border border-moss text-center ${ar ? 'font-rubik' : 'font-mono'}`}
               >
                 <FaCheckCircle className="text-moss text-5xl mb-6" />
@@ -126,7 +131,7 @@ export default function Contact() {
                   <span>{t('Send another message', 'إرسال رسالة أخرى')}</span>
                   <span>{ar ? '←' : '→'}</span>
                 </button>
-              </motion.div>
+              </div>
             ) : (
               <form
                 name="contact"
@@ -214,21 +219,14 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: ar ? -50 : 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-8"
-          >
+          <div data-col-end className="space-y-8">
             <div className="border-t border-wire">
-              {contactInfo.map((info, index) => (
-                <motion.div
+              {contactInfo.map((info) => (
+                <div
                   key={info.label}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.35, delay: 0.4 + index * 0.06 }}
+                  data-reveal-row
                   className="border-b border-wire group"
                 >
                   {info.href ? (
@@ -260,16 +258,12 @@ export default function Contact() {
                       </div>
                     </div>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.7 }}
-              className="p-8 bg-signal text-ink"
-            >
+            <div data-depth="0.18">
+            <div data-reveal-plate className="p-8 bg-signal text-ink">
               <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase block mb-4 opacity-80">
                 ▍ {t('recruiters · clients', 'مسؤولو · التوظيف · والعملاء')}
               </span>
@@ -292,8 +286,9 @@ export default function Contact() {
                 <span>{t('Connect on LinkedIn', 'تواصل عبر LinkedIn')}</span>
                 <span>{ar ? '←' : '→'}</span>
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
