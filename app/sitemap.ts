@@ -8,7 +8,7 @@ export const revalidate = 3600
 // changes). A `new Date()` here made every static lastmod identical and change
 // every hour, which teaches Google to ignore the field.
 const STATIC_LASTMOD = {
-  home: new Date('2026-09-02'),
+  home: new Date('2026-09-18'),
   aiTraining: new Date('2026-09-02'),
   digitalTransformation: new Date('2026-09-02'),
   apps: new Date('2026-06-21'),

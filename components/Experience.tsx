@@ -1,5 +1,7 @@
 'use client'
 
+import AssemblyVisual from '@/components/journey/AssemblyVisual'
+
 import { FaCode, FaClipboardList, FaBuilding, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
 import { useAnimeScope } from '@/lib/journey/useAnimeScope'
@@ -108,6 +110,7 @@ export default function Experience() {
           </div>
         </div>
 
+        <AssemblyVisual kind="experience" />
         <div className="grid lg:grid-cols-2 gap-6">
           {roles.map((role, index) => (
             <div

@@ -3,11 +3,9 @@ import {
   createTimeline,
   cubicBezier,
   onScroll,
-  splitText,
   stagger,
   utils,
   type JSAnimation,
-  type TextSplitter,
 } from 'animejs'
 
 export const EASE_OUT = cubicBezier(0.23, 1, 0.32, 1)
@@ -137,18 +135,17 @@ export interface RevealOptions {
   trigger?: Element
 }
 
-/** Fade + rise, once, when `trigger` (default: first target) enters. */
+/** Small entrance translation; copy is opaque before, during and after motion. */
 export function revealUp(targets: Targets, opts: RevealOptions = {}): void {
   const list = toList(targets)
   if (!list.length) return
   const { y = 24, duration = 700, staggerMs = 0, delay = 0, trigger = list[0] } = opts
   playOnce(
     trigger,
-    () => utils.set(list, { opacity: 0, translateY: y }),
+    () => utils.set(list, { translateY: Math.min(y, 12) }),
     () =>
       animate(list, {
-        opacity: [0, 1],
-        translateY: [y, 0],
+        translateY: [Math.min(y, 12), 0],
         duration,
         ease: EASE_OUT,
         delay: staggerMs ? stagger(staggerMs, { start: delay }) : delay,
@@ -166,47 +163,20 @@ export function revealSlide(
 ): void {
   const { trigger = el, duration = 800 } = opts
   const dir = (side === 'start' ? -1 : 1) * (rtl ? -1 : 1)
-  const x = 40 * dir
+  const x = 12 * dir
   playOnce(
     trigger,
-    () => utils.set(el, { opacity: 0, translateX: x }),
-    () => animate(el, { opacity: [0, 1], translateX: [x, 0], duration, ease: EASE_OUT, autoplay: false }),
+    () => utils.set(el, { translateX: x }),
+    () => animate(el, { translateX: [x, 0], duration, ease: EASE_OUT, autoplay: false }),
   )
 }
 
-/**
- * Split a heading into lines (words kept whole — Arabic shaping survives) and
- * rise each line out of a clipped wrapper. The splitter re-splits on resize;
- * a resize mid-animation simply lands the new lines in their final state.
- */
+/** Preserve semantic headings and Arabic shaping: never split or clip copy. */
 export function revealLines(
   el: HTMLElement,
   opts: { staggerMs?: number; duration?: number } = {},
-): TextSplitter {
-  const { staggerMs = 90, duration = 900 } = opts
-  const splitter = splitText(el, {
-    lines: { wrap: 'clip', class: 'split-line' },
-    words: true,
-    chars: false,
-    // Words stay whole, so screen readers cope without the sr-only clone that
-    // `accessible: true` adds (it would duplicate heading text in the rendered DOM).
-    accessible: false,
-  })
-  if (!splitter.lines.length) return splitter
-  playOnce(
-    el,
-    () => utils.set(splitter.lines, { opacity: 0, translateY: '110%' }),
-    () =>
-      animate(splitter.lines, {
-        opacity: [0, 1],
-        translateY: ['110%', '0%'],
-        duration,
-        ease: EASE_OUT,
-        delay: stagger(staggerMs),
-        autoplay: false,
-      }),
-  )
-  return splitter
+): void {
+  revealUp(el, { y: 10, duration: opts.duration ?? 650 })
 }
 
 export interface ParallaxOptions {

@@ -14,7 +14,7 @@ export interface MotionContext {
 export type ScopeBuilder = (scope: Scope, ctx: MotionContext) => void
 
 export function isMotionEnabled(): boolean {
-  return typeof document !== 'undefined' && document.documentElement.classList.contains('motion')
+  return typeof document !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches
 }
 
 /**
@@ -33,42 +33,43 @@ export function useAnimeScope<T extends HTMLElement = HTMLElement>(
     if (!root.current) return
     let scope: Scope | null = null
     let cancelled = false
+    let version = 0
     const cleanups = new Set<() => void>()
-    // Build off the hydration task: each section becomes its own short idle
-    // task instead of one long blocking one (keeps TBT low on slow devices).
-    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
-    const schedule = (cb: () => void) =>
-      w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 600 }) : window.setTimeout(cb, 0)
-    schedule(() => {
-      if (cancelled || !root.current) return
-      scope = createScope({
-        root,
-        mediaQueries: {
-          reduceMotion: '(prefers-reduced-motion: reduce)',
-          desktop: '(min-width: 1024px)',
-        },
-      })
-      const s = scope
-      // The constructor callback re-runs on media-query changes; `scope.matches`
-      // is refreshed before each run.
-      s.add(() => {
-        cleanupRegistry.current = cleanups
-        try {
-          build(s, {
-            motion: isMotionEnabled() && !s.matches.reduceMotion,
-            rtl: document.documentElement.dir === 'rtl',
-            desktop: !!s.matches.desktop,
-          })
-        } finally {
-          cleanupRegistry.current = null
-        }
-      })
-    })
-    return () => {
-      cancelled = true
-      cleanups.forEach((fn) => fn())
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const desktop = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)')
+    const clear = () => {
+      cleanups.forEach(fn => fn())
       cleanups.clear()
       scope?.revert()
+      scope = null
+    }
+    const rebuild = () => {
+      const current = ++version
+      clear()
+      document.documentElement.classList.toggle('motion', !media.matches && desktop.matches)
+      if (media.matches || !desktop.matches) return
+      const setup = () => {
+        if (cancelled || current !== version || media.matches || !desktop.matches || !root.current) return
+        scope = createScope({ root })
+        scope.add(() => {
+          cleanupRegistry.current = cleanups
+          try {
+            build(scope!, { motion: true, rtl: document.documentElement.dir === 'rtl', desktop: desktop.matches })
+          } finally { cleanupRegistry.current = null }
+        })
+      }
+      if ('requestIdleCallback' in window) window.requestIdleCallback(setup, { timeout: 600 })
+      else globalThis.setTimeout(setup, 0)
+    }
+    media.addEventListener('change', rebuild)
+    desktop.addEventListener('change', rebuild)
+    rebuild()
+    return () => {
+      cancelled = true
+      version++
+      clear()
+      media.removeEventListener('change', rebuild)
+      desktop.removeEventListener('change', rebuild)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)

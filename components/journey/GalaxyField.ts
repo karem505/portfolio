@@ -1,204 +1,166 @@
-import {
-  AdditiveBlending,
-  BufferAttribute,
-  BufferGeometry,
-  PerspectiveCamera,
-  Points,
-  Scene,
-  ShaderMaterial,
-  WebGLRenderer,
-} from 'three'
-import { buildFieldGeometry } from '@/lib/journey/galaxy'
-import type { FieldState } from '@/lib/journey/field'
+import { AmbientLight, BoxGeometry, BufferGeometry, DirectionalLight, EdgesGeometry, ExtrudeGeometry, Group, LineBasicMaterial, LineSegments, Mesh, MeshStandardMaterial, OrthographicCamera, Scene, WebGLRenderer, type Material } from 'three'
+import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
+import { PERSONAL_MARK_PATH, PERSONAL_DOT_PATH } from './AssemblyVisual'
+import { momentPose, momentProgress, type Moment } from '@/lib/journey/moments'
 
-const VERT = /* glsl */ `
-attribute vec3 aGalaxy;
-attribute vec3 aLattice;
-attribute vec3 aColor;
-attribute float aSize;
-attribute float aSeed;
-uniform float uSpin;
-uniform float uOrder;
-uniform float uTime;
-uniform float uPixelRatio;
-uniform float uDensity;
-varying vec3 vColor;
-varying float vAlpha;
-void main() {
-  float c = cos(uSpin);
-  float s = sin(uSpin);
-  vec3 g = vec3(aGalaxy.x * c - aGalaxy.y * s, aGalaxy.x * s + aGalaxy.y * c, aGalaxy.z);
-  float k = uOrder * uOrder * (3.0 - 2.0 * uOrder);
-  vec3 p = mix(g, aLattice, k);
-  vec4 mv = modelViewMatrix * vec4(p, 1.0);
-  gl_Position = projectionMatrix * mv;
-  gl_PointSize = aSize * uPixelRatio * (16.0 / -mv.z);
-  float tw = 0.7 + 0.3 * sin(uTime * 0.9 + aSeed);
-  vColor = aColor;
-  vAlpha = tw * uDensity;
-}`
+export interface GalaxyFieldOptions { dpr: number }
+type Sculpture = { element: HTMLElement; kind: Moment; scene: Scene; group: Group; pieces: Group[] }
 
-const FRAG = /* glsl */ `
-precision mediump float;
-varying vec3 vColor;
-varying float vAlpha;
-void main() {
-  vec2 d = gl_PointCoord - vec2(0.5);
-  float r2 = dot(d, d);
-  if (r2 > 0.25) discard;
-  float a = smoothstep(0.25, 0.02, r2);
-  gl_FragColor = vec4(vColor, a * vAlpha * 0.5);
-}`
-
-export interface GalaxyFieldOptions {
-  count: number
-  dpr: number
-}
-
-const KEYS = ['spin', 'order', 'dolly', 'density'] as const
-
-/**
- * One Points mesh whose vertices carry both a galaxy position and a lattice
- * position; `uOrder` mixes between them. Renders on demand: full rate while
- * the state or pointer is moving, ≤ 20 fps twinkle when idle.
+/** One lazy, low-power WebGL context. Scissor regions never contain readable copy.
+ * No idle loop: scroll, resize, and visibility changes request a single frame.
+ * The public name is retained so JourneyStage's lazy import stays compatible.
  */
 export class GalaxyField {
   private renderer: WebGLRenderer
-  private scene = new Scene()
-  private camera: PerspectiveCamera
-  private geometry: BufferGeometry
-  private material: ShaderMaterial
-  private current: FieldState = { spin: 0, order: 0, dolly: 8, density: 1 }
-  private target: FieldState = { spin: 0, order: 0, dolly: 8, density: 1 }
-  private pointer = { x: 0, y: 0, tx: 0, ty: 0 }
-  private raf = 0
+  private camera = new OrthographicCamera(-4, 4, 2, -2, .1, 100)
+  private sculptures: Sculpture[] = []
+  private geometries = new Set<BufferGeometry>()
+  private materials = new Set<Material>()
+  private frame = 0
   private running = false
-  private lastRender = 0
-  private readonly t0 = performance.now()
-  private readonly onLost = (e: Event) => {
-    e.preventDefault()
-    this.stop()
-  }
-  private readonly onRestored = () => this.start()
+  private disposed = false
+  private observer: ResizeObserver
+  private readonly lost = (event: Event) => { event.preventDefault(); this.stop(); this.fallback() }
+  private readonly restored = () => { if (!document.hidden) this.start() }
 
   constructor(private canvas: HTMLCanvasElement, opts: GalaxyFieldOptions) {
-    this.renderer = new WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: false,
-      powerPreference: 'low-power',
-      premultipliedAlpha: false,
-    })
-    this.renderer.setPixelRatio(opts.dpr)
+    this.renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' })
+    this.renderer.setPixelRatio(Math.min(opts.dpr, 1.5))
     this.renderer.setClearColor(0x000000, 0)
-
-    this.camera = new PerspectiveCamera(50, 1, 0.1, 100)
-    this.camera.position.z = this.current.dolly
-
-    const g = buildFieldGeometry({ count: opts.count })
-    this.geometry = new BufferGeometry()
-    this.geometry.setAttribute('position', new BufferAttribute(g.galaxy, 3))
-    this.geometry.setAttribute('aGalaxy', new BufferAttribute(g.galaxy, 3))
-    this.geometry.setAttribute('aLattice', new BufferAttribute(g.lattice, 3))
-    this.geometry.setAttribute('aColor', new BufferAttribute(g.color, 3))
-    this.geometry.setAttribute('aSize', new BufferAttribute(g.size, 1))
-    this.geometry.setAttribute('aSeed', new BufferAttribute(g.seed, 1))
-
-    this.material = new ShaderMaterial({
-      vertexShader: VERT,
-      fragmentShader: FRAG,
-      transparent: true,
-      depthWrite: false,
-      depthTest: false,
-      blending: AdditiveBlending,
-      uniforms: {
-        uSpin: { value: 0 },
-        uOrder: { value: 0 },
-        uTime: { value: 0 },
-        uPixelRatio: { value: opts.dpr },
-        uDensity: { value: 1 },
-      },
+    this.renderer.autoClear = false
+    this.camera.position.set(0, 0, 10)
+    document.querySelectorAll<HTMLElement>('[data-assembly]').forEach(element => {
+      const kind = element.dataset.assembly as Moment
+      // The portrait already has a crisp SSR frame. Keep WebGL away from the face.
+      if (kind === 'portrait') return
+      this.sculptures.push(this.createSculpture(element, kind))
     })
-
-    const points = new Points(this.geometry, this.material)
-    points.frustumCulled = false
-    this.scene.add(points)
-
-    canvas.addEventListener('webglcontextlost', this.onLost)
-    canvas.addEventListener('webglcontextrestored', this.onRestored)
+    this.observer = new ResizeObserver(() => this.request())
+    this.sculptures.forEach(s => this.observer.observe(s.element))
+    const main = document.querySelector('main')
+    if (main) this.observer.observe(main)
+    canvas.addEventListener('webglcontextlost', this.lost)
+    canvas.addEventListener('webglcontextrestored', this.restored)
+    window.addEventListener('scroll', this.request, { passive: true })
     this.resize()
   }
 
-  setTarget(state: FieldState) {
-    this.target = state
+  private material(color: number, opacity = 1) {
+    const mat = new MeshStandardMaterial({ color, metalness: .5, roughness: .35, transparent: opacity < 1, opacity })
+    this.materials.add(mat)
+    return mat
   }
 
-  /** x, y in -0.5..0.5 (viewport-relative pointer). */
-  setPointer(x: number, y: number) {
-    this.pointer.tx = x
-    this.pointer.ty = y
+  private box(w: number, h: number, d: number, color = 0x2a2522) {
+    const group = new Group()
+    const geometry = new BoxGeometry(w, h, d)
+    const edges = new EdgesGeometry(geometry)
+    const line = new LineBasicMaterial({ color: color === 0xff3b1f ? 0xff8a77 : 0xa09690, transparent: true, opacity: .75 })
+    this.geometries.add(geometry); this.geometries.add(edges); this.materials.add(line)
+    group.add(new Mesh(geometry, this.material(color)), new LineSegments(edges, line))
+    return group
+  }
+
+  private createSculpture(element: HTMLElement, kind: Moment): Sculpture {
+    const scene = new Scene(), group = new Group(), pieces: Group[] = []
+    scene.add(new AmbientLight(0xffffff, 2))
+    const key = new DirectionalLight(0xffb4a0, 4); key.position.set(-3, 5, 7); scene.add(key)
+    const rim = new DirectionalLight(0xf5f1ea, 3); rim.position.set(4, 1, -3); scene.add(rim)
+    scene.add(group)
+    const piece = (w: number, h: number, d: number, x: number, y: number, z: number, accent = false) => {
+      const mesh = this.box(w, h, d, accent ? 0xff3b1f : 0x2a2522)
+      mesh.position.set(x, y, z)
+      mesh.userData.base = { x, y, z }; pieces.push(mesh); group.add(mesh)
+      return mesh
+    }
+    if (kind === 'expertise' || kind === 'oravex') {
+      for (let i = 0; i < 6; i++) piece(.74, .54, .65, (i % 3 - 1) * 1.08, (Math.floor(i / 3) - .5) * .9, 0, i === 1)
+      piece(3.15, .035, .05, 0, 0, -.45)
+      for (let i = 0; i < 3; i++) piece(.035, .85, .05, (i-1)*1.08, 0, -.45)
+    } else if (kind === 'experience') {
+      for (let i = 0; i < 3; i++) {
+        const plate = piece(3.2, .13, 1.2, 0, (i-1)*.55, (i-1)*-.1, i === 2)
+        plate.rotation.x = .22
+        piece(.07, .35, .07, -1.3 + i * 1.3, (i-1)*.55+.24, .1, true)
+      }
+    } else if (kind === 'tornix') {
+      piece(3.3, 1.85, .1, 0, 0, -.23)
+      for (let i = 0; i < 4; i++) {
+        piece(2.9, .02, .025, 0, .62-i*.4, -.15)
+        piece(.78+i*.12, .19, .24, -.85+i*.46, .48-i*.36, .04, i === 1)
+      }
+    } else if (kind === 'costra') {
+      piece(3.5, .09, 1.1, 0, -.93, 0)
+      for (let i = 0; i < 4; i++) piece(.52, .45+i*.35, .6, -.99+i*.66, -.66+i*.175, 0, i === 3)
+    } else {
+      const parsed = new SVGLoader().parse(`<svg xmlns="http://www.w3.org/2000/svg"><path d="${PERSONAL_MARK_PATH}"/><path transform="translate(500 0)" d="${PERSONAL_DOT_PATH}"/></svg>`)
+      for (const path of parsed.paths) for (const shape of SVGLoader.createShapes(path)) {
+        const geometry = new ExtrudeGeometry(shape, { depth: 11, bevelEnabled: false })
+        geometry.translate(-475, 275, -5.5); geometry.scale(.0048, -.0048, .0048)
+        this.geometries.add(geometry)
+        group.add(new Mesh(geometry, this.material(path === parsed.paths[0] ? 0xf5f1ea : 0xff3b1f)))
+      }
+    }
+    return { element, kind, scene, group, pieces }
   }
 
   resize() {
-    const w = window.innerWidth
-    const h = window.innerHeight
-    this.renderer.setSize(w, h, false)
-    this.camera.aspect = w / h
-    this.camera.updateProjectionMatrix()
-    this.render(performance.now())
+    if (this.disposed) return
+    this.renderer.setSize(window.innerWidth, window.innerHeight, false)
+    this.request()
   }
-
-  start() {
-    if (this.running) return
-    this.running = true
-    this.raf = requestAnimationFrame(this.tick)
-  }
-
-  stop() {
-    this.running = false
-    if (this.raf) cancelAnimationFrame(this.raf)
-    this.raf = 0
-  }
-
+  start() { if (!this.disposed) { this.running = true; this.request() } }
+  stop() { this.running = false; if (this.frame) cancelAnimationFrame(this.frame); this.frame = 0 }
+  private fallback() { this.sculptures.forEach(s => { delete s.element.dataset.rendered; delete s.element.dataset.pose }) }
   dispose() {
-    this.stop()
-    this.canvas.removeEventListener('webglcontextlost', this.onLost)
-    this.canvas.removeEventListener('webglcontextrestored', this.onRestored)
-    this.geometry.dispose()
-    this.material.dispose()
+    if (this.disposed) return
+    this.stop(); this.disposed = true; this.observer.disconnect(); this.fallback()
+    window.removeEventListener('scroll', this.request)
+    this.canvas.removeEventListener('webglcontextlost', this.lost)
+    this.canvas.removeEventListener('webglcontextrestored', this.restored)
+    this.geometries.forEach(g => g.dispose()); this.materials.forEach(m => m.dispose())
+    // Dispose resources, but preserve this canvas's context for preference rebuilds.
     this.renderer.dispose()
   }
-
-  private readonly tick = (now: number) => {
-    if (!this.running) return
-    this.raf = requestAnimationFrame(this.tick)
-    const c = this.current
-    const t = this.target
-    let delta = 0
-    for (const k of KEYS) {
-      const d = t[k] - c[k]
-      c[k] += d * 0.08
-      delta += Math.abs(d)
-    }
-    const p = this.pointer
-    const pd = Math.abs(p.tx - p.x) + Math.abs(p.ty - p.y)
-    p.x += (p.tx - p.x) * 0.06
-    p.y += (p.ty - p.y) * 0.06
-    const busy = delta > 1e-3 || pd > 1e-3
-    if (!busy && now - this.lastRender < 50) return
-    this.render(now)
+  private readonly request = () => {
+    if (!this.running || this.frame || this.disposed || document.hidden) return
+    this.frame = requestAnimationFrame(this.draw)
   }
-
-  private render(now: number) {
-    this.lastRender = now
-    const c = this.current
-    const u = this.material.uniforms
-    u.uSpin.value = c.spin
-    u.uOrder.value = c.order
-    u.uDensity.value = c.density
-    u.uTime.value = (now - this.t0) / 1000
-    this.camera.position.set(this.pointer.x * 0.9, -this.pointer.y * 0.6, c.dolly)
-    this.camera.lookAt(0, 0, 0)
-    this.renderer.render(this.scene, this.camera)
+  private readonly draw = () => {
+    this.frame = 0
+    if (!this.running || this.disposed || document.hidden) return
+    try {
+      const W = window.innerWidth, H = window.innerHeight
+      this.renderer.setScissorTest(false); this.renderer.setViewport(0, 0, W, H); this.renderer.clear()
+      this.renderer.setScissorTest(true)
+      for (const s of this.sculptures) {
+        const rect = s.element.getBoundingClientRect()
+        if (rect.bottom <= 0 || rect.top >= H || rect.width <= 0 || rect.height <= 0) continue
+        const p = momentProgress(rect.top, rect.height, H)
+        const pose = momentPose(s.kind, p)
+        s.group.rotation.set(pose.x, pose.y, pose.z)
+        s.pieces.forEach((piece, i) => {
+          const base = piece.userData.base
+          const spread = 1 - pose.assembly
+          piece.position.set(base.x * (1 + spread * .22), base.y * (1 + spread * .35), base.z + ((i % 3)-1) * spread * .55)
+        })
+        const halfH = s.kind === 'signature' ? 1.6 : 1.9
+        this.camera.top = halfH; this.camera.bottom = -halfH
+        this.camera.left = -halfH * rect.width / rect.height; this.camera.right = -this.camera.left
+        this.camera.updateProjectionMatrix()
+        const navBottom = document.querySelector('nav')?.getBoundingClientRect().bottom ?? 0
+        const left = Math.max(0, rect.left), top = Math.max(navBottom, rect.top)
+        const width = Math.min(W, rect.right)-left, height = Math.min(H, rect.bottom)-top
+        if (width <= 0 || height <= 0) continue
+        this.renderer.setViewport(rect.left, H-rect.bottom, rect.width, rect.height)
+        this.renderer.setScissor(left, H-top-height, width, height)
+        this.renderer.render(s.scene, this.camera)
+        s.element.dataset.rendered = 'true'
+        s.element.dataset.pose = `${pose.y.toFixed(4)},${pose.assembly.toFixed(4)}`
+      }
+    } catch {
+      // GPU failures cannot leave hidden fallback artwork behind.
+      this.stop(); this.fallback()
+    }
   }
 }

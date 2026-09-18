@@ -1,87 +1,91 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { fieldState } from '@/lib/journey/field'
-import { getJourneyStore } from '@/lib/journey/store'
-import { isMotionEnabled } from '@/lib/journey/useAnimeScope'
 
-function hasWebGL2(): boolean {
-  try {
-    return !!document.createElement('canvas').getContext('webgl2')
-  } catch {
-    return false
-  }
-}
+const WAKE_EVENTS = ['scroll', 'pointermove', 'touchstart', 'keydown'] as const
+const DESKTOP_MOTION = '(min-width: 1024px) and (hover: hover) and (pointer: fine)'
 
-type IdleWindow = Window & {
-  requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
-}
-
-const WAKE_EVENTS: (keyof WindowEventMap)[] = ['scroll', 'pointermove', 'touchstart', 'keydown', 'wheel']
-
-/**
- * Fixed WebGL backdrop for the whole homepage. Never on the critical path:
- * the three.js chunk (a separate lazy import) is fetched only after the
- * visitor's first scroll/pointer/touch and then on idle, only under
- * html.motion and WebGL2. Until then the hero poster carries the backdrop.
- */
+/** A single desktop renderer, invalidated on preferences, breakpoints and unmount. */
 export default function JourneyStage() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas || !isMotionEnabled() || !hasWebGL2()) return
-    let cancelled = false
-    let cleanup: (() => void) | null = null
-    const w = window as IdleWindow
-    const idle = (cb: () => void) =>
-      w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 1500 }) : window.setTimeout(cb, 400)
-
-    const canvasEl: HTMLCanvasElement = canvas
-    const mount = async () => {
-      if (cancelled) return
-      const { GalaxyField } = await import('./GalaxyField')
-      if (cancelled) return
-      const coarse = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 1024
-      const field = new GalaxyField(canvasEl, {
-        count: coarse ? 3500 : 12000,
-        dpr: Math.min(window.devicePixelRatio || 1, coarse ? 1 : 1.5),
-      })
-      const store = getJourneyStore()
-      field.setTarget(fieldState(store.get()))
-      const unsub = store.subscribe((s) => field.setTarget(fieldState(s)))
-      const onResize = () => field.resize()
-      const onVis = () => (document.hidden ? field.stop() : field.start())
-      const onPointer = (e: PointerEvent) =>
-        field.setPointer(e.clientX / window.innerWidth - 0.5, e.clientY / window.innerHeight - 0.5)
-      window.addEventListener('resize', onResize)
-      document.addEventListener('visibilitychange', onVis)
-      if (!coarse) window.addEventListener('pointermove', onPointer, { passive: true })
-      field.start()
-      setReady(true)
-      document.documentElement.classList.add('field-ready')
-      cleanup = () => {
-        window.removeEventListener('resize', onResize)
-        document.removeEventListener('visibilitychange', onVis)
-        window.removeEventListener('pointermove', onPointer)
-        document.documentElement.classList.remove('field-ready')
-        unsub()
-        field.dispose()
-      }
+    if (!canvas) return
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const desktop = window.matchMedia(DESKTOP_MOTION)
+    const allowed = () => !media.matches && desktop.matches
+    let generation = 0, idle = 0
+    let disposed = false, awakened = false, pending = false, failed = false
+    let cleanup: (() => void) | undefined
+    const cancelIdle = () => {
+      if ('cancelIdleCallback' in window) window.cancelIdleCallback(idle)
+      window.clearTimeout(idle)
     }
-    const wake = () => {
-      WAKE_EVENTS.forEach((ev) => window.removeEventListener(ev, wake))
-      idle(mount)
+    const reset = () => {
+      generation++; cancelIdle(); pending = false
+      cleanup?.(); cleanup = undefined
+      canvas.classList.remove('is-ready')
+      document.documentElement.classList.remove('field-ready')
+      if (!disposed) setReady(false)
     }
-    WAKE_EVENTS.forEach((ev) => window.addEventListener(ev, wake, { passive: true }))
-
+    const mount = async (version: number) => {
+      if (disposed || version !== generation || !allowed() || document.hidden) { pending = false; return }
+      try {
+        const { GalaxyField } = await import('./GalaxyField')
+        if (disposed || version !== generation || !allowed() || document.hidden) return
+        const field = new GalaxyField(canvas, { dpr: Math.min(window.devicePixelRatio || 1, 1.5) })
+        const resize = () => { if (!document.hidden) field.resize() }
+        const visibility = () => document.hidden ? field.stop() : field.start()
+        window.addEventListener('resize', resize)
+        document.addEventListener('visibilitychange', visibility)
+        cleanup = () => {
+          window.removeEventListener('resize', resize)
+          document.removeEventListener('visibilitychange', visibility)
+          field.dispose()
+        }
+        field.start()
+        setReady(true)
+        document.documentElement.classList.add('field-ready')
+      } catch {
+        // Do not retry unsupported GPUs on every pointermove.
+        if (version === generation) { reset(); failed = true }
+      } finally { if (version === generation) pending = false }
+    }
+    const schedule = () => {
+      if (!awakened || disposed || failed || !allowed() || document.hidden || pending || cleanup) return
+      pending = true
+      const version = generation
+      idle = 'requestIdleCallback' in window
+        ? window.requestIdleCallback(() => { void mount(version) }, { timeout: 1200 })
+        : Number(globalThis.setTimeout(() => { void mount(version) }, 200))
+    }
+    const wake = () => { awakened = true; schedule() }
+    const preference = () => {
+      document.documentElement.classList.toggle('motion', allowed())
+      reset(); failed = false; schedule()
+    }
+    const lost = (event: Event) => { event.preventDefault(); reset(); failed = true }
+    const restored = () => { failed = false; schedule() }
+    const visible = () => { if (!document.hidden) schedule() }
+    media.addEventListener('change', preference)
+    desktop.addEventListener('change', preference)
+    canvas.addEventListener('webglcontextlost', lost)
+    canvas.addEventListener('webglcontextrestored', restored)
+    document.addEventListener('visibilitychange', visible)
+    WAKE_EVENTS.forEach(event => window.addEventListener(event, wake, { passive: true }))
+    preference()
     return () => {
-      cancelled = true
-      WAKE_EVENTS.forEach((ev) => window.removeEventListener(ev, wake))
-      cleanup?.()
+      disposed = true; reset()
+      media.removeEventListener('change', preference)
+      desktop.removeEventListener('change', preference)
+      canvas.removeEventListener('webglcontextlost', lost)
+      canvas.removeEventListener('webglcontextrestored', restored)
+      document.removeEventListener('visibilitychange', visible)
+      WAKE_EVENTS.forEach(event => window.removeEventListener(event, wake))
     }
   }, [])
 
-  return <canvas ref={canvasRef} aria-hidden="true" className={`journey-canvas${ready ? ' is-ready' : ''}`} />
+  return <canvas ref={canvasRef} className={`journey-canvas${ready ? ' is-ready' : ''}`} aria-hidden="true" />
 }

@@ -1,3 +1,4 @@
+import '@/components/journey/home-enhancements.css'
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Navbar from '@/components/Navbar'
@@ -51,8 +52,8 @@ export default function Home() {
       <BreadcrumbJsonLd />
       <FAQPageJsonLd />
 
-      {/* Fixed WebGL depth field (galaxy → lattice), behind the z-10 content.
-          Lazy, idle-mounted, gated on html.motion + WebGL2. Never SSR content. */}
+      {/* Lazy on-demand 3D in reserved artwork regions only. Text and personal
+          photography remain SSR-visible; mobile/reduced-motion use static SVGs. */}
       <JourneyStage />
 
       {/* Always-rendered Arabic SEO block — keeps Arabic queries indexable

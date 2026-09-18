@@ -1,14 +1,12 @@
 'use client'
 
-import type { CSSProperties } from 'react'
-import { createTimeline, onScroll } from 'animejs'
+import AssemblyVisual from '@/components/journey/AssemblyVisual'
+
+import { useRef } from 'react'
 import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard, FaBookMedical } from 'react-icons/fa'
 import { SiPython, SiJavascript, SiRust } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/LanguageContext'
-import { useAnimeScope } from '@/lib/journey/useAnimeScope'
-import { usePinned } from '@/lib/journey/usePinned'
-import { parallaxLayers, revealLines, revealUp } from '@/lib/journey/reveal'
 
 type Project = {
   title: string
@@ -41,6 +39,7 @@ function ProjectCard({ project, index, size = 'flagship', ar, outcomeLabel, pinC
         className={`relative h-full ${isFlagship ? 'p-7 md:p-8' : 'p-6'} bg-graphite border border-wire hover:border-signal transition-colors duration-200 overflow-hidden`}
       >
         <div className="relative z-10 h-full flex flex-col">
+          {isFlagship && <AssemblyVisual kind={(["tornix", "oravex", "costra"] as const)[index]} />}
           <div className="flex items-start justify-between mb-5 pb-5 border-b border-wire">
             <div
               className={`${isFlagship ? 'w-12 h-12' : 'w-11 h-11'} border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors`}
@@ -143,67 +142,8 @@ function ProjectCard({ project, index, size = 'flagship', ar, outcomeLabel, pinC
 export default function Projects() {
   const { t, language } = useLanguage()
   const ar = language === 'ar'
-  const pinned = usePinned()
-
-  // Desktop: one scroll-synced timeline brings the three flagships forward out of
-  // the field one at a time (FLIP: measured slot → grid centre), ending exactly in
-  // the static grid layout so releasing the pin changes nothing. Elsewhere: flow.
-  const root = useAnimeScope<HTMLElement>((_, { motion }) => {
-    const el = root.current
-    if (!el || !motion) return
-    const header = el.querySelector<HTMLElement>('[data-pin-header]')
-    const grid = el.querySelector<HTMLElement>('[data-pin-grid]')
-    const cards = Array.from(el.querySelectorAll<HTMLElement>('[data-pin-card]'))
-    if (!header || !grid || cards.length === 0) return
-    parallaxLayers(el)
-
-    if (!pinned) {
-      const h2 = header.querySelector<HTMLElement>('[data-lines]')
-      if (h2) revealLines(h2)
-      revealUp(header.querySelectorAll('[data-reveal-head]'), { staggerMs: 80, trigger: header })
-      revealUp(cards, { staggerMs: 100, y: 40, trigger: grid })
-      return
-    }
-
-    // Rects are visual (post-zoom) pixels; transforms apply in the zoomed local
-    // space, so divide by the stage zoom (see .pin-inner in globals.css).
-    const inner = el.querySelector<HTMLElement>('.pin-inner')
-    const zoom = parseFloat((inner && getComputedStyle(inner).zoom) || '1') || 1
-    const g = grid.getBoundingClientRect()
-    const cx = g.left + g.width / 2
-    const cy = g.top + g.height / 2
-    const offsets = cards.map((c) => {
-      const r = c.getBoundingClientRect()
-      return { dx: (cx - (r.left + r.width / 2)) / zoom, dy: (cy - (r.top + r.height / 2)) / zoom }
-    })
-    // [arrive start, arrive end / travel start, travel end] in timeline ms (0..1000 = pin progress)
-    const windows: [number, number, number][] = [
-      [120, 360, 620],
-      [360, 620, 860],
-      [620, 860, 1000],
-    ]
-    const tl = createTimeline({
-      defaults: { ease: 'linear' },
-      autoplay: onScroll({ target: el, enter: 'top top', leave: 'bottom bottom', sync: true }),
-    })
-    tl.add(header, { translateY: [24, 0], duration: 120 }, 0)
-    cards.forEach((card, i) => {
-      const { dx, dy } = offsets[i]
-      const [a0, a1, a2] = windows[i]
-      card.style.zIndex = String(i + 1)
-      tl.set(card, { translateX: dx, translateY: dy, scale: 1.12, opacity: 0, filter: 'blur(10px)' }, 0)
-      tl.add(card, { opacity: [0, 1], filter: ['blur(10px)', 'blur(0px)'], scale: [1.12, 1.06], duration: a1 - a0 }, a0)
-      tl.add(card, { translateX: [dx, 0], translateY: [dy, 0], scale: [1.06, 1], duration: a2 - a1 }, a1)
-    })
-  }, [language, pinned])
-
-  const notableRoot = useAnimeScope<HTMLDivElement>((_, { motion }) => {
-    const el = notableRoot.current
-    if (!el || !motion) return
-    revealUp(el.querySelectorAll('[data-reveal-notable-head]'))
-    revealUp(el.querySelectorAll('[data-reveal-card]'), { staggerMs: 80, y: 32 })
-    revealUp(el.querySelectorAll('[data-reveal-notable-cta]'))
-  }, [language])
+  const root = useRef<HTMLElement>(null)
+  const notableRoot = useRef<HTMLDivElement>(null)
 
   const roleLabels = ar
     ? ['Scrum Master', 'مهندس DevOps', 'مطور Full-Stack']
@@ -349,19 +289,17 @@ export default function Projects() {
       <section
         id="projects"
         ref={root}
-        data-pinned={pinned ? 'true' : 'false'}
-        style={{ '--span': 3.8 } as CSSProperties}
-        className="pin-act px-6"
+        className="relative px-6"
       >
-        <div className="pin-stage max-w-7xl mx-auto w-full py-32">
-          <div className="pin-inner">
+        <div className="max-w-7xl mx-auto w-full py-32">
+          <div className="projects-inner">
           <div data-pin-header className="relative text-center mb-12">
             <span aria-hidden="true" className="watermark-num" data-depth="-0.3">004</span>
             <span data-reveal-head className="tab-eyebrow mb-6">004 · {t('shipped · work', 'الأعمال · المنشورة')}</span>
             <h2
               key={language}
               data-lines
-              className={`pin-heading font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}
+              className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}
             >
               {t('Three production SaaS', 'ثلاث منصات SaaS في الإنتاج')}
               <span className="text-signal">.</span>
@@ -391,7 +329,7 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* Notable builds flow after the pinned act (never inside the sticky stage). */}
+      {/* Notable builds remain in native document flow. */}
       <div ref={notableRoot} className="relative px-6 pb-32 pt-4 lg:pt-12">
         <div className="max-w-7xl mx-auto">
           <div data-reveal-notable-head className="flex items-center gap-4 mb-8">

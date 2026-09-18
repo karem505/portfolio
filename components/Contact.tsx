@@ -1,5 +1,7 @@
 'use client'
 
+import AssemblyVisual from '@/components/journey/AssemblyVisual'
+
 import { useState } from 'react'
 import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle } from 'react-icons/fa'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -92,6 +94,7 @@ export default function Contact() {
   return (
     <section id="contact" ref={root} className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
+        <AssemblyVisual kind="signature" />
         <div className="relative text-center mb-20">
           <span aria-hidden="true" className="watermark-num" data-depth="-0.35">007</span>
           <span data-reveal-head className="tab-eyebrow mb-6">007 · {t('contact', 'تواصل')}</span>

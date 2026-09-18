@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import AssemblyVisual from '@/components/journey/AssemblyVisual'
+
 import Image from 'next/image'
-import { animate, createTimeline, stagger } from 'animejs'
+import { createTimeline, stagger } from 'animejs'
 import { FaLinkedin, FaGithub, FaArrowDown } from 'react-icons/fa'
 import { SiTypescript, SiPython, SiReact, SiNextdotjs, SiOpenai, SiDocker } from 'react-icons/si'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -38,33 +39,11 @@ export default function Hero() {
     parallaxLayers(section, { enter: 'top top', leave: 'bottom top', fromZero: true })
   }, [language])
 
-  // Pointer tilt on the photo frame (fine pointers only). Listeners live in
-  // their own effect so they are removed independently of the anime scope.
-  useEffect(() => {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
-    if (!document.documentElement.classList.contains('motion')) return
-    const frame = root.current?.querySelector<HTMLElement>('.hero-photo')
-    if (!frame) return
-    const onMove = (e: PointerEvent) => {
-      const r = frame.getBoundingClientRect()
-      const x = (e.clientX - r.left) / r.width - 0.5
-      const y = (e.clientY - r.top) / r.height - 0.5
-      animate(frame, { rotateY: x * 10, rotateX: -y * 8, duration: 500, ease: EASE_OUT })
-    }
-    const onLeave = () => animate(frame, { rotateY: 0, rotateX: 0, duration: 700, ease: EASE_OUT })
-    frame.addEventListener('pointermove', onMove)
-    frame.addEventListener('pointerleave', onLeave)
-    return () => {
-      frame.removeEventListener('pointermove', onMove)
-      frame.removeEventListener('pointerleave', onLeave)
-    }
-  }, [root])
-
   return (
     <section
       ref={root}
       id="home"
-      className="relative min-h-[min(100vh,1100px)] flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
+      className="profile-hero relative min-h-[min(100vh,1100px)] flex items-center px-6 lg:px-10 pt-24 pb-16 border-b border-wire"
     >
       {/* Poster = instant paint (LCP-safe) and the no-WebGL / reduced-motion
           fallback. The fixed WebGL field lives behind the page; once it is live
@@ -88,7 +67,7 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div
           data-depth="0.05"
-          className="relative grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 pb-8 mb-12 text-[0.7rem] tracking-[0.18em] uppercase text-ash font-mono"
+          className="hero-meta relative grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 pb-5 mb-7 lg:pb-8 lg:mb-12 text-[0.7rem] tracking-[0.18em] uppercase text-ash font-mono"
         >
           <span aria-hidden="true" className="hero-rule absolute inset-x-0 bottom-0 h-px bg-wire" />
           <div>
@@ -109,9 +88,10 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-14 lg:gap-20 items-center">
-          <div className="order-2 lg:order-1">
-            <span className="tab-eyebrow mb-8">
+        <div className="hero-layout grid lg:grid-cols-[1.4fr_1fr] gap-14 lg:gap-20 items-center">
+          <div className="hero-copy order-1">
+            <div className="hero-identity">
+            <span className="tab-eyebrow mb-4 lg:mb-8">
               001 · {t('engineer.profile', 'ملف.المهندس')}
             </span>
 
@@ -139,9 +119,9 @@ export default function Hero() {
               </h1>
             )}
 
+            </div>
             <div
-              data-depth="0.08"
-              className={`text-base md:text-lg text-ash mb-10 leading-relaxed max-w-xl ${ar ? 'font-rubik' : 'font-mono'}`}
+              className={`hero-bio text-base md:text-lg text-ash mb-10 leading-relaxed max-w-xl ${ar ? 'font-rubik' : 'font-mono'}`}
             >
               <p>
                 {ar ? (
@@ -164,7 +144,7 @@ export default function Hero() {
               </p>
             </div>
 
-            <div data-depth="0.12" className="flex flex-wrap gap-3 mb-10">
+            <div className="hero-actions flex flex-wrap gap-3 mb-10">
               <a
                 href="/Aboelmakarem_Portfolio.pdf"
                 download="Aboelmakarem_Portfolio.pdf"
@@ -181,7 +161,7 @@ export default function Hero() {
                 className={`group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper text-sm font-medium tracking-wide hover:border-signal hover:text-signal transition-colors duration-150 ${ar ? 'font-rubik' : 'font-mono'}`}
               >
                 <span>{t('Contact me on WhatsApp', 'راسلني على واتساب')}</span>
-                <span dir="ltr" className={`text-xs ${ar ? 'font-mono' : ''} text-ash group-hover:text-signal`}>+20 100 886 7488</span>
+                <span dir="ltr" className={`whitespace-nowrap text-xs ${ar ? 'font-mono' : ''} text-ash group-hover:text-signal`}>+20 100 886 7488</span>
                 <span className="text-ash group-hover:text-signal">↗</span>
               </a>
               <a
@@ -192,7 +172,7 @@ export default function Hero() {
               </a>
             </div>
 
-            <div data-depth="0.14" className="flex items-center gap-4 text-xs font-mono uppercase tracking-[0.18em] text-ash">
+            <div className="hero-socials flex items-center gap-4 text-xs font-mono uppercase tracking-[0.18em] text-ash">
               <span>{t('find ↦', 'تابعني ↦')}</span>
               <a
                 href="https://www.linkedin.com/in/abo-el-makarem-shohoud-745367244"
@@ -221,8 +201,9 @@ export default function Hero() {
           {/* The profile photo is the LCP element — no enter animation. It sits on
               a near plane (negative depth) so it leads the scroll, and tilts under
               a fine pointer. */}
-          <div data-depth="-0.18" className="order-1 lg:order-2 relative flex justify-center" style={{ perspective: '900px' }}>
-            <div className="relative w-[280px] h-[360px] md:w-[320px] md:h-[420px]">
+          <div data-depth="-0.18" className="hero-portrait order-2 relative flex flex-col items-center justify-center" style={{ perspective: '900px' }}>
+            <div className="portrait-frame relative w-[280px] h-[360px] md:w-[320px] md:h-[420px]">
+              <AssemblyVisual kind="portrait" />
               <span aria-hidden="true" className="absolute -top-2 -left-2 w-3 h-3 border-t border-l border-signal" />
               <span aria-hidden="true" className="absolute -top-2 -right-2 w-3 h-3 border-t border-r border-signal" />
               <span aria-hidden="true" className="absolute -bottom-2 -left-2 w-3 h-3 border-b border-l border-signal" />
@@ -233,8 +214,9 @@ export default function Hero() {
                   src="/profile.jpg"
                   alt={t('Abo-Elmakarem Shohoud', 'ابوالمكارم شهود')}
                   fill
-                  className="object-cover grayscale contrast-110 hover:grayscale-0 transition-[filter] duration-700"
-                  sizes="(max-width: 768px) 280px, 320px"
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 599px) 210px, (max-width: 1023px) 220px, 350px"
                 />
                 <div className="absolute bottom-2 left-2 font-mono text-[0.65rem] tracking-[0.18em] uppercase text-paper/80 mix-blend-difference">
                   frame 01 · 2026
@@ -243,7 +225,7 @@ export default function Hero() {
 
               <div
                 data-depth="-0.28"
-                className="hidden lg:grid absolute -right-14 top-0 bottom-0 grid-rows-6 gap-2"
+                className="hero-tech-desktop hidden lg:grid absolute -right-14 top-0 bottom-0 grid-rows-6 gap-2"
                 aria-label="Tech stack"
               >
                 {orbitIcons.map(({ Icon, label }) => (
@@ -257,7 +239,7 @@ export default function Hero() {
                 ))}
               </div>
 
-              <div className="lg:hidden absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
+              <div className="hero-tech-mobile lg:hidden absolute -bottom-12 left-0 right-0 flex justify-center gap-2">
                 {orbitIcons.map(({ Icon, label }) => (
                   <div
                     key={label}

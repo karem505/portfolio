@@ -1,5 +1,7 @@
 'use client'
 
+import AssemblyVisual from '@/components/journey/AssemblyVisual'
+
 import {
   FaCode, FaServer, FaUsers, FaMicrophone, FaChartLine, FaClipboardList
 } from 'react-icons/fa'
@@ -147,6 +149,8 @@ export default function About() {
             )}
           </p>
         </div>
+
+        <AssemblyVisual kind="expertise" />
 
         {/* Six expertise tiles on three depth planes (outer wrapper parallaxes,
             inner tile reveals) so the grid reads as layered, not flat. */}
