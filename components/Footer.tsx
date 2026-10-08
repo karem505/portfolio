@@ -31,7 +31,7 @@ export default function Footer() {
           <div>
             <span className="text-ash/60">{t('role', 'الدور')}</span>
             <div className="text-paper mt-1 normal-case tracking-normal">
-              {t('Full-Stack Developer', 'مطور Full-Stack')}
+              {t('CTO · Full-Stack Engineer', 'المدير التقني · مهندس Full-Stack')}
             </div>
           </div>
           <div>
@@ -98,9 +98,9 @@ export default function Footer() {
         <div className="mt-10 pt-8 border-t border-wire flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-ash">
           <p>
             © {currentYear}{' '}
-            {ar ? 'ابوالمكارم شهود · مطور Full-Stack في' : 'Abo-Elmakarem Shohoud · Full-Stack Developer at'}{' '}
+            {ar ? 'ابوالمكارم شهود · المدير التقني (CTO) في' : 'Abo-Elmakarem Shohoud · CTO at'}{' '}
             <span className="text-paper">Ailigent</span>
-            {ar ? ' · DevOps · Scrum Master · محلل أعمال' : ' · DevOps · Scrum Master · Business Analyst'}
+            {ar ? ' · Full-Stack · DevOps · Agile' : ' · Full-Stack · DevOps · Agile'}
           </p>
           <div className="flex items-center gap-3">
             {/* Static language links: the toggle is a button, so without these the

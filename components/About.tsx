@@ -128,9 +128,9 @@ export default function About() {
           <p data-reveal-head className={`text-ash max-w-3xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
             {ar ? (
               <>
-                مطور Full-Stack وخبير أتمتة بالذكاء الاصطناعي مقيم في القاهرة، مصر، بخبرة تتجاوز السنتين.
-                في <span className="text-paper font-semibold">Ailigent</span> أعمل بشكل متزامن كـ Scrum Master ومهندس
-                DevOps ومطور Full-Stack على ثلاث منصات SaaS حيّة —
+                المدير التقني (CTO) ومهندس Full-Stack وخبير أتمتة بالذكاء الاصطناعي مقيم في القاهرة، مصر، بخبرة تتجاوز السنتين.
+                في <span className="text-paper font-semibold">Ailigent</span> أعمل مديرًا تقنيًا (CTO) أقود الهندسة والبنية السحابية
+                وأطوّر بنفسي Full-Stack على ثلاث منصات SaaS حيّة —
                 <span className="text-paper font-semibold"> Tornix.ai</span>،
                 <span className="text-paper font-semibold"> Oravex.app</span>،
                 و<span className="text-paper font-semibold"> Costra.net</span> —
@@ -138,9 +138,9 @@ export default function About() {
               </>
             ) : (
               <>
-                Full-Stack Developer and AI automation expert based in Cairo, Egypt with 2+ years of experience.
-                At <span className="text-paper font-semibold">Ailigent</span> I serve concurrently as Scrum Master,
-                DevOps Engineer, and Full-Stack Developer across three live SaaS products —
+                Chief Technology Officer (CTO), Full-Stack Engineer and AI automation expert based in Cairo, Egypt with 2+ years of experience.
+                At <span className="text-paper font-semibold">Ailigent</span> I lead engineering, architecture and cloud operations,
+                and build hands-on as a Full-Stack Engineer across three live SaaS products —
                 <span className="text-paper font-semibold"> Tornix.ai</span>,
                 <span className="text-paper font-semibold"> Oravex.app</span>, and
                 <span className="text-paper font-semibold"> Costra.net</span> — delivering digital

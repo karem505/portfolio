@@ -14,10 +14,10 @@ export function PersonJsonLd() {
     url: 'https://aboelmakarem.pro',
     image: 'https://aboelmakarem.pro/profile.jpg',
     jobTitle: [
-      'Full-Stack Developer at Ailigent',
+      'Chief Technology Officer (CTO) at Ailigent',
+      'Full-Stack Engineer at Ailigent',
       'DevOps Engineer at Ailigent',
       'Scrum Master at Ailigent',
-      'Business Analyst at Ailigent',
       'AI Automation Expert',
     ],
     worksFor: {
@@ -26,7 +26,7 @@ export function PersonJsonLd() {
       description: 'AI Automation Solutions',
     },
     description:
-      'Full-Stack Developer, DevOps Engineer, Scrum Master and Business Analyst at Ailigent with 2+ years of experience shipping production-grade SaaS. Builds AI-powered products (Tornix.ai, Oravex.app, Costra.net) and voice AI agents (LiveKit, OpenAI Realtime, MCP, Tavus) for clients across Egypt, UAE, and KSA.',
+      'Chief Technology Officer (CTO) at Ailigent, leading engineering, DevOps and delivery, and working hands-on as a Full-Stack Engineer with 2+ years of experience shipping production-grade SaaS. Builds AI-powered products (Tornix.ai, Oravex.app, Costra.net) and voice AI agents (LiveKit, OpenAI Realtime, MCP, Tavus) for clients across Egypt, UAE, and KSA.',
     identifier: {
       '@type': 'PropertyValue',
       propertyID: 'wikidata',
@@ -111,6 +111,15 @@ export function PersonJsonLd() {
     hasOccupation: [
       {
         '@type': 'Occupation',
+        name: 'Chief Technology Officer',
+        occupationLocation: {
+          '@type': 'Country',
+          name: 'Egypt',
+        },
+        skills: 'Technology Strategy, Engineering Leadership, Software Architecture, Cloud Infrastructure, AI Systems',
+      },
+      {
+        '@type': 'Occupation',
         name: 'Full-Stack Developer',
         occupationLocation: {
           '@type': 'Country',
@@ -179,7 +188,7 @@ export function WebsiteJsonLd() {
     ],
     url: 'https://aboelmakarem.pro',
     description:
-      'Portfolio of Abo-Elmakarem Shohoud (كارم شهود): Full-Stack Developer, DevOps Engineer, Scrum Master, and Business Analyst at Ailigent.',
+      'Portfolio of Abo-Elmakarem Shohoud (كارم شهود): CTO and Full-Stack Engineer at Ailigent, with DevOps and Agile delivery.',
     publisher: {
       '@id': 'https://aboelmakarem.pro/#person',
     },
@@ -246,9 +255,9 @@ export function ProfessionalServiceJsonLd() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Abo-Elmakarem Shohoud: Full-Stack, DevOps, and AI Automation',
+    name: 'Abo-Elmakarem Shohoud: CTO, Full-Stack, DevOps, and AI Automation',
     description:
-      'Full-Stack Developer at Ailigent shipping production SaaS (Tornix.ai, Oravex.app, Costra) on TypeScript, React, Next.js, Python, and FastAPI. Concurrent DevOps Engineer and Scrum Master across all three products, with bilingual EN/AR delivery across Egypt, UAE, and KSA.',
+      'CTO at Ailigent leading and shipping production SaaS (Tornix.ai, Oravex.app, Costra) on TypeScript, React, Next.js, Python, and FastAPI. Concurrent DevOps Engineer and Scrum Master across all three products, with bilingual EN/AR delivery across Egypt, UAE, and KSA.',
     provider: {
       '@type': 'Person',
       '@id': 'https://aboelmakarem.pro/#person',

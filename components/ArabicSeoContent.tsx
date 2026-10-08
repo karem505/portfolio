@@ -13,9 +13,9 @@
 export default function ArabicSeoContent() {
   return (
     <div className="sr-only-seo" lang="ar" dir="rtl" aria-hidden="true">
-      <h1>ابوالمكارم شهود — مطور Full-Stack ومهندس DevOps و Scrum Master</h1>
+      <h1>ابوالمكارم شهود — المدير التقني (CTO) ومهندس Full-Stack و DevOps</h1>
       <p>
-        ابوالمكارم شهود (كارم شهود) مطور Full-Stack ومهندس DevOps و Scrum Master ومحلل أعمال
+        ابوالمكارم شهود (كارم شهود) المدير التقني (CTO) ومهندس Full-Stack و DevOps ومحلل أعمال
         في شركة Ailigent مقيم في القاهرة، مصر. يبني ويُشغّل ثلاث منصات SaaS مدعومة بالذكاء
         الاصطناعي: Tornix.ai و Oravex.app و Costra.net، ويخدم عملاء في مصر والإمارات
         العربية المتحدة والمملكة العربية السعودية.

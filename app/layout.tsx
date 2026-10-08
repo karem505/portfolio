@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: 'Abo-Elmakarem Shohoud · ابوالمكارم شهود | Full-Stack Developer & AI Automation Expert',
+    default: 'Abo-Elmakarem Shohoud · ابوالمكارم شهود | CTO & Full-Stack Engineer · AI Automation',
     template: '%s | Abo-Elmakarem Shohoud',
   },
 
   description:
-    'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent shipping AI-powered SaaS across Egypt, UAE and KSA.',
+    'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Chief Technology Officer (CTO) and Full-Stack Engineer at Ailigent, leading and shipping AI-powered SaaS across Egypt, UAE and KSA.',
 
   keywords: [
     // Name variations (English & Arabic)
@@ -53,6 +53,11 @@ export const metadata: Metadata = {
     'Tavus',
     'Business Automation',
     'AI Solutions Egypt',
+    // Leadership
+    'CTO',
+    'Chief Technology Officer',
+    'CTO Egypt',
+    'Technical Director',
     // Scrum & Business Analyst
     'Scrum Master',
     'Scrum Master Egypt',
@@ -149,18 +154,18 @@ export const metadata: Metadata = {
     alternateLocale: ['ar_EG'],
     url: siteUrl,
     siteName: 'Abo-Elmakarem Shohoud Portfolio',
-    title: 'Abo-Elmakarem Shohoud | ابوالمكارم شهود — Full-Stack Developer & AI Automation Expert',
+    title: 'Abo-Elmakarem Shohoud | ابوالمكارم شهود — CTO & Full-Stack Engineer · AI Automation',
     description:
-      'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. Shipping AI-powered SaaS (Tornix.ai, Oravex.app, Costra.net) across Egypt, UAE, and KSA.',
+      'Abo-Elmakarem Shohoud (ابوالمكارم شهود) — CTO and Full-Stack Engineer at Ailigent. Leading AI-powered SaaS (Tornix.ai, Oravex.app, Costra.net) across Egypt, UAE, and KSA.',
   },
 
   twitter: {
     card: 'summary_large_image',
     site: '@karem_shohud',
     creator: '@karem_shohud',
-    title: 'Abo-Elmakarem Shohoud | Full-Stack Developer & AI Automation Expert',
+    title: 'Abo-Elmakarem Shohoud | CTO & Full-Stack Engineer · AI Automation',
     description:
-      'Full-Stack Developer, DevOps Engineer & Scrum Master at Ailigent. AI-powered SaaS for clients across Egypt, UAE, and KSA.',
+      'CTO and Full-Stack Engineer at Ailigent. AI-powered SaaS for clients across Egypt, UAE, and KSA.',
   },
 
   icons: {

@@ -146,8 +146,8 @@ export default function Projects() {
   const notableRoot = useRef<HTMLDivElement>(null)
 
   const roleLabels = ar
-    ? ['Scrum Master', 'مهندس DevOps', 'مطور Full-Stack']
-    : ['Scrum Master', 'DevOps Engineer', 'Full-Stack Developer']
+    ? ['CTO', 'مهندس DevOps', 'مطور Full-Stack']
+    : ['CTO', 'DevOps Engineer', 'Full-Stack Engineer']
 
   const flagships: Project[] = [
     {
@@ -306,8 +306,8 @@ export default function Projects() {
             </h2>
             <p data-reveal-head className={`text-ash max-w-2xl mx-auto text-base md:text-lg leading-relaxed ${ar ? 'font-rubik' : 'font-mono'}`}>
               {t(
-                'Live products I architect, ship, and run as Full-Stack Developer, DevOps Engineer, and Scrum Master at Ailigent.',
-                'منتجات حيّة أُصمّمها وأُطلقها وأُشغّلها كمطور Full-Stack ومهندس DevOps و Scrum Master في Ailigent.'
+                'Live products I architect, ship, and run as CTO and Full-Stack Engineer at Ailigent.',
+                'منتجات حيّة أُصمّمها وأُطلقها وأُشغّلها كمدير تقني (CTO) ومهندس Full-Stack في Ailigent.'
               )}
             </p>
           </div>

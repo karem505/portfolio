@@ -29,28 +29,28 @@ export default function Experience() {
     {
       icon: FaCode,
       title: t(
-        'Full-Stack Developer / DevOps / Scrum Master',
-        'مطور Full-Stack / DevOps / Scrum Master'
+        'Chief Technology Officer (CTO) / Full-Stack Engineer',
+        'المدير التقني (CTO) / مهندس Full-Stack'
       ),
       focus: t('Engineering & Delivery', 'الهندسة والتسليم'),
       period: t('2023 – Present', '2023 – حتى الآن'),
       location: t('Cairo, Egypt', 'القاهرة، مصر'),
       bullets: ar
         ? [
-            'أعمل بشكل متزامن كمطور Full-Stack ومهندس DevOps و Scrum Master على ثلاث منصات SaaS حيّة.',
+            'أعمل مديرًا تقنيًا (CTO) وأقود الهندسة والبنية السحابية وتسليم ثلاث منصات SaaS حيّة، وأطوّر بنفسي Full-Stack.',
             'أُصمّم وأبني تطبيقات Full-Stack باستخدام TypeScript و React و Next.js و Python و FastAPI و Node.js.',
             'أُدير البنية السحابية و الحاويات و خطوط CI/CD على Railway و AWS EC2 باستخدام Docker و GitHub Actions.',
-            'أُيسّر طقوس Agile و أُدير الـ Backlog و أُنسّق تخطيط الـ Sprints عبر فرق متعددة الاختصاصات.',
+            'أقود منهجية Agile وأُدير الـ Backlog وأُنسّق تخطيط الـ Sprints عبر فرق متعددة الاختصاصات.',
             'أُصمّم وأنشر وكلاء صوتيين بالذكاء الاصطناعي باستخدام LiveKit Agents و OpenAI Realtime API لأتمتة المبيعات وخدمة العملاء.',
             'بنيتُ OpenClaw Agent Dashboard — واجهة إدارة وكلاء بتصميم Glassmorphic مع 11 تكامل API ومراقبة فورية.',
             'طوّرتُ PE Live AI Agent: وكيل صوتي جاهز للإنتاج مع تكامل قاعدة البيانات عبر MCP و 8 أدوات قاعدة بيانات ودعم Tavus Avatar.',
             'أُسلّم مشاريع العملاء من الألف إلى الياء — من تحليل المتطلبات وهندسة النظام إلى النشر وتحسين ما بعد الإطلاق.',
           ]
         : [
-            'Serve concurrently as Full-Stack Developer, DevOps Engineer, and Scrum Master across three live SaaS platforms.',
+            'Serve as Chief Technology Officer (CTO): lead engineering, architecture, cloud operations and delivery across three live SaaS platforms, while building hands-on as a Full-Stack Engineer.',
             'Architect and build full-stack applications using TypeScript, React, Next.js, Python, FastAPI, and Node.js.',
             'Manage cloud infrastructure, containerization, and CI/CD pipelines on Railway and AWS EC2 using Docker and GitHub Actions.',
-            'Facilitate Agile ceremonies, maintain product backlogs, and coordinate sprint planning across cross-functional teams.',
+            'Lead Agile delivery: run sprint ceremonies, own product backlogs, and coordinate sprint planning across cross-functional teams.',
             'Design and deploy voice AI agents using LiveKit Agents framework and OpenAI Realtime API for sales and customer support automation.',
             'Built OpenClaw Agent Dashboard, a glassmorphic agent management UI with 11 API integrations and real-time monitoring.',
             'Developed PE Live AI Agent: production-ready voice AI with MCP database integration, 8 database tools, and Tavus video avatar support.',

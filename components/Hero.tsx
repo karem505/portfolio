@@ -126,19 +126,19 @@ export default function Hero() {
               <p>
                 {ar ? (
                   <>
-                    مطور Full-Stack ومهندس DevOps وScrum Master في{' '}
+                    المدير التقني (CTO) ومهندس Full-Stack في{' '}
                     <span className="text-paper underline decoration-signal decoration-1 underline-offset-4">
                       Ailigent
                     </span>
-                    . أُشغّل ثلاث منصات SaaS مدعومة بالذكاء الاصطناعي (Tornix.ai، Oravex.app، Costra) لعملاء في مصر والإمارات والسعودية.
+                    . أقود الهندسة والبنية السحابية وأُشغّل ثلاث منصات SaaS مدعومة بالذكاء الاصطناعي (Tornix.ai، Oravex.app، Costra) لعملاء في مصر والإمارات والسعودية.
                   </>
                 ) : (
                   <>
-                    Full-Stack Developer, DevOps Engineer and Scrum Master at{' '}
+                    Chief Technology Officer (CTO) and Full-Stack Engineer at{' '}
                     <span className="text-paper underline decoration-signal decoration-1 underline-offset-4">
                       Ailigent
                     </span>
-                    . Shipping three production AI SaaS (Tornix.ai, Oravex.app, Costra) across EG · UAE · KSA.
+                    . Leading engineering, cloud infrastructure and delivery of three production AI SaaS (Tornix.ai, Oravex.app, Costra) across EG · UAE · KSA.
                   </>
                 )}
               </p>
