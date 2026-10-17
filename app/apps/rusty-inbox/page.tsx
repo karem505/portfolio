@@ -6,11 +6,16 @@ import SimplePageHeader from '@/components/SimplePageHeader'
 import Footer from '@/components/Footer'
 import { RustyInboxAppJsonLd, ServiceFaqJsonLd, ServiceBreadcrumbJsonLd } from '@/components/JsonLd'
 import { YouTubeFacade, CopyCommand } from './RustyInboxClient'
+import { getPostBySlug } from '@/lib/blog'
 
 const BASE = 'https://aboelmakarem.pro/apps/rusty-inbox'
 const REPO = 'https://github.com/karem505/rusty-inbox'
 const RELEASES = `${REPO}/releases`
-const POST = '/blog/rusty-inbox-open-source-email-client-rust-qt'
+const POST_SLUG = 'rusty-inbox-open-source-email-client-rust-qt'
+const POST = `/blog/${POST_SLUG}`
+
+// Re-render hourly so the build-story card appears once the post is published.
+export const revalidate = 3600
 
 type SP = { searchParams: { lang?: string } }
 
@@ -67,10 +72,12 @@ export function generateMetadata({ searchParams }: SP): Metadata {
   }
 }
 
-export default function RustyInboxPage({ searchParams }: SP) {
+export default async function RustyInboxPage({ searchParams }: SP) {
   const ar = searchParams?.lang === 'ar'
   const t = (en: string, arabic: string) => (ar ? arabic : en)
   const font = ar ? 'font-rubik' : 'font-mono'
+  // Only link the build story once it is live, so the page never ships a 404 link.
+  const post = await getPostBySlug(POST_SLUG).catch(() => null)
   const align = ar ? 'text-right' : 'text-left'
   const h2 = `font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper mb-8 ${font} ${ar ? 'text-right' : ''}`
 
@@ -323,6 +330,7 @@ cargo build --release
           </section>
 
           {/* ── Build story ── */}
+          {post && (
           <section className="mt-24">
             <Link href={ar ? `${POST}?lang=ar` : POST} className={`group block border border-wire bg-graphite hover:border-signal transition-colors p-6 ${ar ? 'text-right' : ''}`}>
               <span className={`inline-flex items-center gap-2 text-xs text-signal ${font}`}><FaBookOpen /> {t('Build story', 'قصة البناء')}</span>
@@ -334,6 +342,7 @@ cargo build --release
               </p>
             </Link>
           </section>
+          )}
 
           {/* ── FAQ ── */}
           <section className="mt-24" id="faq">
