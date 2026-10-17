@@ -3,7 +3,7 @@
 import AssemblyVisual from '@/components/journey/AssemblyVisual'
 
 import { useRef } from 'react'
-import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard, FaBookMedical } from 'react-icons/fa'
+import { FaGithub, FaExternalLinkAlt, FaRocket, FaTasks, FaLanguage, FaCalculator, FaCreditCard, FaBookMedical, FaEnvelopeOpenText } from 'react-icons/fa'
 import { SiPython, SiJavascript, SiRust } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 import { useLanguage } from '@/lib/LanguageContext'
@@ -192,6 +192,23 @@ export default function Projects() {
   ]
 
   const notableBuilds: Project[] = [
+    {
+      title: 'Rusty Inbox',
+      tagline: t(
+        'Fast, Open-Source Desktop Email Client (Rust + Qt 6)',
+        'عميل بريد سطح مكتب سريع ومفتوح المصدر (Rust + Qt 6)'
+      ),
+      description: t(
+        'A native email client for Linux, Windows and macOS: a Rust mail engine (IMAP over rustls, SMTP, SQLite cache) behind a Qt 6 / QML interface via cxx-qt. Smart Inbox, unified mailboxes, Undo Send and Send Later, drafts synced to the server, keyboard-first shortcuts, tray and notifications, live desktop theming, and one-click Thunderbird import. No telemetry; MIT / Apache-2.0.',
+        'عميل بريد أصلي للينكس وويندوز وماك: محرّك بريد بلغة Rust (IMAP عبر rustls و SMTP وتخزين SQLite) خلف واجهة Qt 6 / QML عبر cxx-qt. صندوق وارد ذكي، وصناديق موحّدة، وتراجع عن الإرسال وجدولة، ومسودات متزامنة مع الخادم، واختصارات لوحة مفاتيح، وأيقونة شريط النظام والإشعارات، وتغيير السمة مباشرةً، واستيراد من Thunderbird بنقرة. بدون تتبّع؛ رخصة MIT / Apache-2.0.'
+      ),
+      tech: ['Rust', 'Qt 6 / QML', 'cxx-qt', 'IMAP / SMTP', 'SQLite'],
+      roles: [],
+      icon: FaEnvelopeOpenText,
+      result: t('Linux · Windows · macOS · open source', 'لينكس · ويندوز · ماك · مفتوح المصدر'),
+      link: '/apps/rusty-inbox',
+      github: 'https://github.com/karem505/rusty-inbox',
+    },
     {
       title: 'Pharmacy Manual',
       tagline: t(

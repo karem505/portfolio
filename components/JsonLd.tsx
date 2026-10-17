@@ -1021,3 +1021,96 @@ export function PharmacyManualAppJsonLd({
     />
   )
 }
+
+// Rusty Inbox — open-source desktop email client (Rust + Qt 6/QML). Emits the
+// app as a SoftwareApplication plus its source repository and the two YouTube
+// videos, all chained to #person so search engines and AI answer engines tie
+// the project to its author.
+export function RustyInboxAppJsonLd({ ar = false }: { ar?: boolean }) {
+  const PAGE = 'https://aboelmakarem.pro/apps/rusty-inbox'
+  const REPO = 'https://github.com/karem505/rusty-inbox'
+  const shots = ['smart-inbox', 'reader', 'composer', 'bulk-actions', 'accounts', 'light-theme'].map(
+    (s) => `https://aboelmakarem.pro/apps/rusty-inbox/${s}.jpg`
+  )
+  const graph = [
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${PAGE}#app`,
+      name: 'Rusty Inbox',
+      description: ar
+        ? 'عميل بريد إلكتروني مفتوح المصدر وسريع لسطح المكتب على لينكس وويندوز وماك: محرّك بريد مكتوب بلغة Rust وواجهة Qt 6 / QML، مع صندوق وارد ذكي، والتراجع عن الإرسال، والجدولة، والاستيراد من Thunderbird.'
+        : 'A fast, open-source desktop email client for Linux, Windows and macOS: a native Rust mail engine with a Qt 6 / QML interface, Smart Inbox, Undo Send, Send Later and one-click Thunderbird import.',
+      applicationCategory: 'CommunicationApplication',
+      applicationSubCategory: 'Email client',
+      operatingSystem: 'Linux, Windows 10/11, macOS 12+',
+      softwareVersion: '0.1.0',
+      url: PAGE,
+      installUrl: `${REPO}/releases`,
+      downloadUrl: `${REPO}/releases`,
+      image: 'https://aboelmakarem.pro/apps/rusty-inbox/icon.png',
+      screenshot: shots,
+      inLanguage: 'en',
+      isAccessibleForFree: true,
+      license: 'https://opensource.org/licenses/MIT',
+      sameAs: [REPO],
+      featureList: [
+        'Smart Inbox: people first, notifications and newsletters grouped',
+        'Unified inbox across IMAP/SMTP accounts (Gmail, Fastmail, iCloud, Yahoo, cPanel)',
+        'Undo Send and Send Later with a local outbox and automatic retry',
+        'Drafts synced to the server, templates, per-account signatures',
+        'Done, Snooze, Pin and bulk actions with undo',
+        'Keyboard-first shortcuts',
+        'Tray icon, desktop notifications, mailto: handler, live desktop theming',
+        'One-click import from Thunderbird',
+        'Script-free sandboxed HTML mail rendering',
+        'Local SQLite cache, no telemetry, no cloud relay',
+      ],
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+      author: { '@id': 'https://aboelmakarem.pro/#person' },
+      creator: { '@id': 'https://aboelmakarem.pro/#person' },
+      subjectOf: [{ '@id': `${PAGE}#launch-video` }, { '@id': `${PAGE}#tour-video` }],
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      '@id': `${PAGE}#source`,
+      name: 'rusty-inbox',
+      codeRepository: REPO,
+      programmingLanguage: ['Rust', 'QML'],
+      runtimePlatform: 'Qt 6',
+      license: 'https://opensource.org/licenses/MIT',
+      author: { '@id': 'https://aboelmakarem.pro/#person' },
+      targetProduct: { '@id': `${PAGE}#app` },
+    },
+    {
+      '@type': 'VideoObject',
+      '@id': `${PAGE}#launch-video`,
+      name: 'Rusty Inbox — Fast. Native. Yours. (open-source email client in Rust + Qt)',
+      description: 'A 53-second launch video for Rusty Inbox, the open-source desktop email client built with a Rust mail engine and a Qt 6 / QML interface.',
+      thumbnailUrl: ['https://aboelmakarem.pro/apps/rusty-inbox/promo-poster.jpg', 'https://i.ytimg.com/vi/eDgUudd3zOw/hqdefault.jpg'],
+      uploadDate: '2026-10-16T15:27:16-07:00',
+      duration: 'PT53S',
+      embedUrl: 'https://www.youtube.com/embed/eDgUudd3zOw',
+      contentUrl: 'https://www.youtube.com/watch?v=eDgUudd3zOw',
+      author: { '@id': 'https://aboelmakarem.pro/#person' },
+    },
+    {
+      '@type': 'VideoObject',
+      '@id': `${PAGE}#tour-video`,
+      name: 'Rusty Inbox — Feature tour (open-source email client for Linux, Windows, macOS)',
+      description: 'A 2-minute feature tour of Rusty Inbox recorded on a demo mailbox: Smart Inbox, reading, replying, bulk actions, accounts and themes.',
+      thumbnailUrl: ['https://aboelmakarem.pro/apps/rusty-inbox/tour-poster.jpg', 'https://i.ytimg.com/vi/QinUtaGOhWg/hqdefault.jpg'],
+      uploadDate: '2026-10-16T15:27:34-07:00',
+      duration: 'PT2M20S',
+      embedUrl: 'https://www.youtube.com/embed/QinUtaGOhWg',
+      contentUrl: 'https://www.youtube.com/watch?v=QinUtaGOhWg',
+      author: { '@id': 'https://aboelmakarem.pro/#person' },
+    },
+  ]
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }) }}
+    />
+  )
+}

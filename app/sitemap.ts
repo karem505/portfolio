@@ -11,7 +11,8 @@ const STATIC_LASTMOD = {
   home: new Date('2026-09-18'),
   aiTraining: new Date('2026-09-02'),
   digitalTransformation: new Date('2026-09-02'),
-  apps: new Date('2026-06-21'),
+  apps: new Date('2026-10-17'),
+  rustyInbox: new Date('2026-10-17'),
   pharmacyManual: new Date('2026-06-22'),
   privacy: new Date('2026-07-01'),
   refund: new Date('2026-07-01'),
@@ -115,6 +116,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_LASTMOD.apps,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/apps/rusty-inbox`,
+      lastModified: STATIC_LASTMOD.rustyInbox,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/apps/rusty-inbox?lang=ar`,
+      lastModified: STATIC_LASTMOD.rustyInbox,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/apps/pharmacy-manual`,

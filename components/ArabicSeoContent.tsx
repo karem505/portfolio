@@ -41,6 +41,11 @@ export default function ArabicSeoContent() {
         <strong>Costra.net</strong> — منصة تقدير تكلفة وتحليلات إنشاءات مدعومة
         بالذكاء الاصطناعي مع دعم كامل للعربية و RTL.
       </p>
+      <p>
+        <strong>Rusty Inbox</strong> — عميل بريد إلكتروني مجاني ومفتوح المصدر لسطح المكتب
+        (لينكس وويندوز وماك)، محرّكه مكتوب بلغة Rust وواجهته بـ Qt 6 / QML.{' '}
+        <a href="/apps/rusty-inbox?lang=ar">صفحة Rusty Inbox</a>
+      </p>
       <h2>التواصل</h2>
       <p>
         للتواصل: ابوالمكارم شهود متاح للعمل عن بُعد، أدوار دوام كامل، عقود استشارية،

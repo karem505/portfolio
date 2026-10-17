@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { FaAndroid } from 'react-icons/fa'
+import { FaAndroid, FaDesktop } from 'react-icons/fa'
 import SimplePageHeader from '@/components/SimplePageHeader'
 import Footer from '@/components/Footer'
 import { ServiceBreadcrumbJsonLd } from '@/components/JsonLd'
@@ -22,6 +22,7 @@ type AppEntry = {
   name: { en: string; ar: string }
   tagline: { en: string; ar: string }
   platform: string
+  platformIcon?: 'android' | 'desktop'
   href: string
   icon: string
   highlights: { en: string[]; ar: string[] }
@@ -29,6 +30,22 @@ type AppEntry = {
 }
 
 const APPS: AppEntry[] = [
+  {
+    id: 'rusty-inbox',
+    name: { en: 'Rusty Inbox', ar: 'Rusty Inbox' },
+    tagline: {
+      en: 'Fast, open-source email client in Rust + Qt',
+      ar: 'عميل بريد سريع ومفتوح المصدر بـ Rust و Qt',
+    },
+    platform: 'Linux · Windows · macOS',
+    platformIcon: 'desktop',
+    href: '/apps/rusty-inbox',
+    icon: '/apps/rusty-inbox/icon.png',
+    highlights: {
+      en: ['Open source', 'Smart Inbox', 'No telemetry'],
+      ar: ['مفتوح المصدر', 'صندوق وارد ذكي', 'بدون تتبّع'],
+    },
+  },
   {
     id: 'pharmacy-manual',
     name: { en: 'Pharmacy Manual', ar: 'دليل الأدوية الإكلينيكي' },
@@ -53,8 +70,8 @@ export function generateMetadata({ searchParams }: SP): Metadata {
     ? 'تطبيقات ابوالمكارم شهود — تنزيلات مجانية'
     : 'Apps by Abo-Elmakarem Shohoud — Free Downloads'
   const description = ar
-    ? 'تطبيقات مجانية من تطوير ابوالمكارم شهود، تُنزَّل مباشرةً: بدءاً من دليل الأدوية الإكلينيكي، دليل أدوية مصري ومُدقّق أسعار يعمل بدون إنترنت لأندرويد.'
-    : 'Free, installable apps by Abo-Elmakarem Shohoud, direct download: starting with Pharmacy Manual, an offline Egyptian drug index and price checker for Android.'
+    ? 'تطبيقات مجانية من تطوير ابوالمكارم شهود: Rusty Inbox، عميل بريد مفتوح المصدر بـ Rust و Qt لسطح المكتب، ودليل الأدوية الإكلينيكي، دليل أدوية مصري يعمل بدون إنترنت لأندرويد.'
+    : 'Free apps by Abo-Elmakarem Shohoud: Rusty Inbox, an open-source Rust + Qt desktop email client, and Pharmacy Manual, an offline Egyptian drug index for Android.'
   const url = ar ? `${BASE}?lang=ar` : BASE
   const ogTitle = ar ? 'تطبيقات ابوالمكارم شهود' : 'Apps by Abo-Elmakarem Shohoud'
   const ogImage = `https://aboelmakarem.pro/api/og?title=${encodeURIComponent(ogTitle)}&category=${encodeURIComponent(ar ? 'تطبيقات' : 'Apps')}${ar ? '&lang=ar' : ''}`
@@ -178,7 +195,7 @@ export default async function AppsPage({ searchParams }: SP) {
 
                   <div className={`mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-ash ${font} ${ar ? 'justify-end' : ''}`}>
                     <span className="inline-flex items-center gap-1.5">
-                      <FaAndroid className="text-moss" /> {app.platform}
+                      {app.platformIcon === 'desktop' ? <FaDesktop className="text-moss" /> : <FaAndroid className="text-moss" />} {app.platform}
                     </span>
                     {version && (
                       <>

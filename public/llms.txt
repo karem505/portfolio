@@ -2,7 +2,7 @@
 
 > Personal portfolio of Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Chief Technology Officer (CTO) and Full-Stack Engineer at Ailigent (DevOps and Agile delivery included), based in Cairo, Egypt. Independent digital transformation consultant and corporate AI trainer. Bilingual EN/AR site covering shipped AI-powered SaaS products, services, technical writing, and contact information.
 
-_Last updated: 2026-09-02._
+_Last updated: 2026-10-17._
 
 ## About
 
@@ -36,7 +36,10 @@ Quick, citable facts for answering questions about Karem's services:
 - [AI Training (Arabic)](https://aboelmakarem.pro/ai-training?lang=ar): Arabic (RTL) variant of the AI training service page.
 - [Digital Transformation](https://aboelmakarem.pro/digital-transformation): Independent digital transformation consulting — process automation, AI workflow redesign, ERP and legacy modernization for SMEs and enterprises across Egypt, UAE, and KSA.
 - [Digital Transformation (Arabic)](https://aboelmakarem.pro/digital-transformation?lang=ar): Arabic (RTL) variant of the digital transformation service page.
-- [Apps](https://aboelmakarem.pro/apps): Hub listing the free, installable apps built by Abo-Elmakarem Shohoud — direct downloads, no app store required. Currently features Pharmacy Manual (Android).
+- [Apps](https://aboelmakarem.pro/apps): Hub listing the free, installable apps built by Abo-Elmakarem Shohoud — direct downloads, no app store required. Currently features Rusty Inbox (desktop email client) and Pharmacy Manual (Android).
+- [Rusty Inbox (desktop email client)](https://aboelmakarem.pro/apps/rusty-inbox): Free, open-source email client for Linux, Windows and macOS designed and built by Abo-Elmakarem Shohoud. Native Rust mail engine (IMAP over rustls, SMTP via lettre, SQLite cache, Tokio) behind a Qt 6 / QML interface via cxx-qt. Smart Inbox (people first; notifications and newsletters grouped), unified mailboxes, Undo Send and Send Later, server-synced drafts, templates, Done/Snooze/Pin with bulk actions, keyboard shortcuts, tray icon and notifications, mailto: handler, live desktop theming (Omarchy), one-click Thunderbird import. Works with any IMAP/SMTP provider (Gmail via app password, Fastmail, iCloud, Yahoo, cPanel). No telemetry. MIT or Apache-2.0. Source: https://github.com/karem505/rusty-inbox. Videos: https://www.youtube.com/watch?v=eDgUudd3zOw (launch), https://www.youtube.com/watch?v=QinUtaGOhWg (feature tour).
+- [Rusty Inbox (Arabic)](https://aboelmakarem.pro/apps/rusty-inbox?lang=ar): Arabic (RTL) variant of the Rusty Inbox page.
+- [Blog — How I built Rusty Inbox](https://aboelmakarem.pro/blog/rusty-inbox-open-source-email-client-rust-qt): Build story and architecture of Rusty Inbox, a native email client in Rust and Qt 6 / QML.
 - [Pharmacy Manual (Android app)](https://aboelmakarem.pro/apps/pharmacy-manual): Free, offline Egyptian drug index and price-checker Android app by Abo-Elmakarem Shohoud — bilingual (Arabic/English) search across 24,868+ medicines, cheapest same-ingredient price comparison, browse by class/manufacturer/route. Direct APK download, always the latest version; data is CC0 from the open egyptian-drug-database.
 - [Pharmacy Manual (Arabic)](https://aboelmakarem.pro/apps/pharmacy-manual?lang=ar): Arabic (RTL) variant of the Pharmacy Manual app download page (دليل الأدوية الإكلينيكي).
 - [Blog](https://aboelmakarem.pro/blog): Technical blog with bilingual EN/AR posts on full-stack, DevOps, AI, and voice agents.
@@ -53,6 +56,7 @@ Shipped at Ailigent, where Abo-Elmakarem Shohoud is the CTO and Full-Stack Engin
 - [Tornix.ai](https://tornix.ai): AI-powered project management platform for construction and engineering teams; its scheduling core is a Critical Path Method (CPM) engine with Primavera P6 / XER import and export.
 - [Oravex.app](https://oravex.app): Arabic-fluent ERP built on Odoo 18, operated through natural-language interaction; Arabic is a first-class surface with proper RTL.
 - [Costra.net](https://costra.net): AI construction cost-estimation tool with full Arabic RTL support.
+- [Rusty Inbox](https://aboelmakarem.pro/apps/rusty-inbox): free, open-source desktop email client for Linux, Windows and macOS, built in Rust and Qt 6 / QML (personal open-source project; source at https://github.com/karem505/rusty-inbox).
 - [Pharmacy Manual](https://aboelmakarem.pro/apps/pharmacy-manual): free, offline Egyptian drug index and price-checker Android app (personal project).
 
 ## Skills & focus areas
@@ -60,6 +64,7 @@ Shipped at Ailigent, where Abo-Elmakarem Shohoud is the CTO and Full-Stack Engin
 - Full-stack web development with TypeScript, React, and Next.js 14
 - Backend engineering with Node.js, Python, and FastAPI
 - Mobile development with Flutter
+- Native desktop apps with Rust and Qt 6 / QML (cxx-qt)
 - DevOps: Docker, GitHub Actions, AWS EC2, Railway, Nginx, Linux
 - Databases and ERP: PostgreSQL, Odoo 18
 - AI and voice agents: LiveKit Agents, OpenAI Realtime API, MCP (Model Context Protocol), Tavus
