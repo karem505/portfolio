@@ -18,11 +18,11 @@ type SP = { searchParams: { lang?: string } }
 export function generateMetadata({ searchParams }: SP): Metadata {
   const ar = searchParams?.lang === 'ar'
   const title = ar
-    ? 'تدريب الذكاء الاصطناعي للموظفين والمدراء التنفيذيين'
-    : 'Corporate AI Training for Employees & Executives | MENA'
+    ? 'تدريب الذكاء الاصطناعي للمديرين والموظفين — ورش ChatGPT وClaude'
+    : 'AI Training for Executives & Teams — ChatGPT & Claude Workshops'
   const description = ar
-    ? 'تدريب احترافي على الذكاء الاصطناعي للموظفين والمدراء التنفيذيين في مصر والإمارات والسعودية: ChatGPT وClaude وهندسة الأوامر، حضورياً أو عن بُعد.'
-    : 'Hands-on corporate AI training for employees & executives across Egypt, the UAE & Saudi Arabia. ChatGPT, Claude & prompt engineering. Arabic or English.'
+    ? 'ورش عملية على ChatGPT Business وClaude للإدارة العليا والموظفين في مصر والإمارات والسعودية، مبنية على شغلكم الفعلي. حضورياً أو أونلاين، بالعربي أو الإنجليزي.'
+    : 'Hands-on ChatGPT Business & Claude workshops for executives and teams in Egypt, the UAE & KSA, built on your real work. On-site or online, Arabic or English.'
   const url = ar ? `${BASE}?lang=ar` : BASE
   const ogTitle = ar
     ? 'تدريب الذكاء الاصطناعي للموظفين والمدراء التنفيذيين'
@@ -107,6 +107,23 @@ function getContent(ar: boolean): ServicePageContent {
             'One coordinated rollout: so AI adoption is consistent across the whole organization.',
             'تطبيق واحد منسّق: ليكون تبنّي الذكاء الاصطناعي موحّداً عبر المؤسسة كلها.'
           ),
+        ],
+      },
+      {
+        h2: t(
+          'Executive Workshops: ChatGPT Business & Claude for Leadership Teams',
+          'ورش الإدارة العليا: ChatGPT Business وClaude لفرق القيادة'
+        ),
+        body: t(
+          'For a CEO and executive committee, the most useful format is a focused half-day or full-day workshop run on-site, using the AI workspace the company already pays for — ChatGPT Business (Team or Enterprise) or Claude Team. Every exercise uses the executives’ own kind of work, so each leader leaves with prompts and workflows they use the next morning, plus a clear view of what is safe to share with AI and what is not.',
+          'أنسب صيغة للرئيس التنفيذي ولجنة الإدارة هي ورشة مركّزة لنصف يوم أو يوم كامل في مقر الشركة، على مساحة العمل التي تدفع الشركة اشتراكها أصلاً — ChatGPT Business (Team أو Enterprise) أو Claude Team. كل تمرين مبني على نوع العمل الفعلي للمديرين، فيخرج كل قائد بأوامر وطرق عمل يستخدمها من صباح اليوم التالي، مع وضوح ما يجوز مشاركته مع الذكاء الاصطناعي وما لا يجوز.'
+        ),
+        bullets: [
+          t('Executive briefings and board-ready reports drafted from raw notes and long documents.', 'إعداد الإحاطات التنفيذية وتقارير مجلس الإدارة من الملاحظات والمستندات الطويلة.'),
+          t('Excel, financial and operational data analysis with charts and plain-language findings.', 'تحليل بيانات Excel والبيانات المالية والتشغيلية مع رسوم بيانية واستنتاجات واضحة.'),
+          t('Meeting preparation, minutes and follow-up actions in minutes, not hours.', 'التحضير للاجتماعات وكتابة المحاضر ومهام المتابعة في دقائق بدلاً من ساعات.'),
+          t('Decision support: comparing options, stress-testing a plan, drafting a strategy memo.', 'دعم القرار: مقارنة البدائل واختبار الخطط وصياغة مذكرة استراتيجية.'),
+          t('Custom GPTs / Claude Projects for recurring leadership tasks, and workspace governance.', 'GPTs مخصّصة ومشاريع Claude للمهام القيادية المتكررة، وحوكمة مساحة العمل.'),
         ],
       },
       {

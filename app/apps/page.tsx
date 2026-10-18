@@ -64,6 +64,73 @@ const APPS: AppEntry[] = [
   },
 ]
 
+type L = { en: string; ar: string }
+
+const ABOUT: { h2: L; body: { en: string[]; ar: string[] } }[] = [
+  {
+    h2: {
+      en: 'Real software I build, use and give away',
+      ar: 'برامج حقيقية أبنيها وأستخدمها وأتيحها مجاناً',
+    },
+    body: {
+      en: [
+        'These are the apps Abo-Elmakarem Shohoud builds outside client work: small, focused tools that solve one problem well, ship as real installers, and stay free. Each one has its own page with screenshots, the current version and a direct download.',
+        'Rusty Inbox is a desktop email client for Linux, Windows and macOS. Its engine is written in Rust and its interface in Qt 6 / QML, so it opens instantly, stays light on memory and keeps mail on your machine with no telemetry. It is open source on GitHub.',
+        'Pharmacy Manual (دليل الأدوية الإكلينيكي) is an offline Android drug index for Egypt, built with Flutter. It covers more than 24,868 medicines searchable by Arabic or English name and active ingredient, shows cheaper same-ingredient alternatives and prices, and works with no internet connection, which is what pharmacists and doctors in Egypt actually need at the counter.',
+      ],
+      ar: [
+        'هذه هي التطبيقات التي يبنيها ابوالمكارم شهود خارج مشاريع العملاء: أدوات صغيرة ومركّزة تحل مشكلة واحدة جيداً، وتُوزَّع كملفات تثبيت حقيقية، وتبقى مجانية. لكل تطبيق صفحته الخاصة بالصور والإصدار الحالي ورابط التحميل المباشر.',
+        'Rusty Inbox عميل بريد إلكتروني لسطح المكتب يعمل على لينكس وويندوز وماك. محرّكه مكتوب بلغة Rust وواجهته بـ Qt 6 / QML، فيفتح فوراً ويستهلك ذاكرة قليلة ويحفظ بريدك على جهازك دون أي تتبّع. وهو مفتوح المصدر على GitHub.',
+        'دليل الأدوية الإكلينيكي (Pharmacy Manual) تطبيق أندرويد لفهرس الأدوية المصرية يعمل بدون إنترنت، مبني بـ Flutter. يضم أكثر من 24,868 دواءً يمكن البحث فيها بالاسم العربي أو الإنجليزي أو المادة الفعالة، ويعرض الأسعار وأرخص البدائل بنفس المادة الفعالة، ويعمل دون اتصال، وهذا ما يحتاجه الصيادلة والأطباء في مصر فعلاً.',
+      ],
+    },
+  },
+  {
+    h2: { en: 'How the apps are built', ar: 'كيف تُبنى هذه التطبيقات' },
+    body: {
+      en: [
+        'The stack is chosen per problem: Rust and Qt for a fast native desktop app, Flutter and Dart for a single Android codebase with a local offline database. Each app ships as a real installer, and the download buttons on these pages always point to the latest published version.',
+        'The same engineering approach is behind the production SaaS products Karem leads as CTO at Ailigent: Tornix.ai, Oravex.app and Costra.',
+      ],
+      ar: [
+        'تُختار التقنيات حسب المشكلة: Rust وQt لتطبيق سطح مكتب أصلي وسريع، وFlutter وDart لكود واحد على أندرويد مع قاعدة بيانات محلية تعمل بدون إنترنت. كل تطبيق يُنشر كملف تثبيت حقيقي، وأزرار التحميل في هذه الصفحات تشير دائماً إلى أحدث إصدار منشور.',
+        'وهو نفس النهج الهندسي وراء منتجات SaaS التي يقودها كارم بصفته المدير التقني (CTO) في Ailigent: ‏Tornix.ai وOravex.app وCostra.',
+      ],
+    },
+  },
+]
+
+const FAQ: { q: L; a: L }[] = [
+  {
+    q: { en: 'Are these apps free?', ar: 'هل هذه التطبيقات مجانية؟' },
+    a: {
+      en: 'Yes. Both apps are free to download and use, with no ads and no account required.',
+      ar: 'نعم. التطبيقان مجانيان للتحميل والاستخدام، بلا إعلانات ودون الحاجة لإنشاء حساب.',
+    },
+  },
+  {
+    q: { en: 'Why download from this site instead of an app store?', ar: 'لماذا التحميل من هذا الموقع وليس من متجر التطبيقات؟' },
+    a: {
+      en: 'Downloads come straight from the developer, so you always get the newest version as soon as it is published. Rusty Inbox source code is also public on GitHub.',
+      ar: 'التحميل يأتي مباشرةً من المطوّر، فتحصل دائماً على أحدث نسخة فور نشرها. كما أن الكود المصدري لـ Rusty Inbox متاح على GitHub.',
+    },
+  },
+  {
+    q: { en: 'Do the apps collect my data?', ar: 'هل تجمع التطبيقات بياناتي؟' },
+    a: {
+      en: 'No. Rusty Inbox has no telemetry and keeps mail on your device, and Pharmacy Manual works fully offline from a local database.',
+      ar: 'لا. Rusty Inbox لا يحتوي على أي تتبّع ويحفظ البريد على جهازك، ودليل الأدوية يعمل بالكامل دون إنترنت من قاعدة بيانات محلية.',
+    },
+  },
+  {
+    q: { en: 'Can you build a similar app for my company?', ar: 'هل يمكنك بناء تطبيق مشابه لشركتي؟' },
+    a: {
+      en: 'Yes. Abo-Elmakarem Shohoud builds custom desktop, mobile and web software for companies in Egypt, the UAE and Saudi Arabia. Get in touch through the contact page or WhatsApp.',
+      ar: 'نعم. يبني ابوالمكارم شهود برامج مخصّصة لسطح المكتب والموبايل والويب للشركات في مصر والإمارات والسعودية. تواصل عبر صفحة التواصل أو واتساب.',
+    },
+  },
+]
+
 export function generateMetadata({ searchParams }: SP): Metadata {
   const ar = searchParams?.lang === 'ar'
   const title = ar
@@ -129,11 +196,27 @@ export default async function AppsPage({ searchParams }: SP) {
     },
   }
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${BASE}#faq`,
+    inLanguage: ar ? 'ar' : 'en',
+    mainEntity: FAQ.map((f) => ({
+      '@type': 'Question',
+      name: ar ? f.q.ar : f.q.en,
+      acceptedAnswer: { '@type': 'Answer', text: ar ? f.a.ar : f.a.en },
+    })),
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <ServiceBreadcrumbJsonLd
         items={[
@@ -177,7 +260,7 @@ export default async function AppsPage({ searchParams }: SP) {
                   href={app.href}
                   className={`group block border border-wire bg-graphite hover:border-signal transition-colors p-6 ${ar ? 'text-right' : ''}`}
                 >
-                  <div className={`flex items-start gap-4 ${ar ? 'flex-row-reverse' : ''}`}>
+                  <div className="flex items-start gap-4">
                     <Image
                       src={app.icon}
                       alt={t(`${app.name.en} app icon`, `أيقونة تطبيق ${app.name.ar}`)}
@@ -193,7 +276,7 @@ export default async function AppsPage({ searchParams }: SP) {
                     </div>
                   </div>
 
-                  <div className={`mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-ash ${font} ${ar ? 'justify-end' : ''}`}>
+                  <div className={`mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-ash ${font}`}>
                     <span className="inline-flex items-center gap-1.5">
                       {app.platformIcon === 'desktop' ? <FaDesktop className="text-moss" /> : <FaAndroid className="text-moss" />} {app.platform}
                     </span>
@@ -205,7 +288,7 @@ export default async function AppsPage({ searchParams }: SP) {
                     )}
                   </div>
 
-                  <div className={`mt-4 flex flex-wrap gap-1.5 ${ar ? 'justify-end' : ''}`}>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
                     {(ar ? app.highlights.ar : app.highlights.en).map((h) => (
                       <span key={h} className="tag-chip">{h}</span>
                     ))}
@@ -218,6 +301,34 @@ export default async function AppsPage({ searchParams }: SP) {
                 </Link>
               )
             })}
+          </section>
+
+          {/* About the apps — crawlable context for search and AI answers */}
+          <section className={`mt-20 space-y-12 ${font}`}>
+            {ABOUT.map((s) => (
+              <div key={s.h2.en}>
+                <h2 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper mb-4 ${font}`}>
+                  {ar ? s.h2.ar : s.h2.en}
+                </h2>
+                {(ar ? s.body.ar : s.body.en).map((p, i) => (
+                  <p key={i} className="text-ash text-sm md:text-base leading-relaxed mb-4 max-w-3xl">{p}</p>
+                ))}
+              </div>
+            ))}
+
+            <div>
+              <h2 className={`font-extrabold tracking-[-0.03em] text-2xl md:text-3xl text-paper mb-6 ${font}`}>
+                {t('Frequently asked questions', 'أسئلة شائعة')}
+              </h2>
+              <div className="divide-y divide-wire border-y border-wire">
+                {FAQ.map((f) => (
+                  <div key={f.q.en} className="py-5">
+                    <h3 className="text-paper font-bold text-base mb-2">{ar ? f.q.ar : f.q.en}</h3>
+                    <p className="text-ash text-sm md:text-base leading-relaxed max-w-3xl">{ar ? f.a.ar : f.a.en}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </section>
 
           {/* Closing */}

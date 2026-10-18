@@ -8,15 +8,15 @@ export const revalidate = 3600
 // changes). A `new Date()` here made every static lastmod identical and change
 // every hour, which teaches Google to ignore the field.
 const STATIC_LASTMOD = {
-  home: new Date('2026-09-18'),
-  aiTraining: new Date('2026-09-02'),
+  home: new Date('2026-10-18'),
+  aiTraining: new Date('2026-10-18'),
   digitalTransformation: new Date('2026-09-02'),
-  apps: new Date('2026-10-17'),
+  apps: new Date('2026-10-18'),
   rustyInbox: new Date('2026-10-17'),
   pharmacyManual: new Date('2026-06-22'),
   privacy: new Date('2026-07-01'),
   refund: new Date('2026-07-01'),
-  contactInfo: new Date('2026-04-29'),
+  contactInfo: new Date('2026-10-18'),
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
