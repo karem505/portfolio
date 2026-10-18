@@ -59,6 +59,8 @@ Path alias: `@/*` → project root.
 
 **RLS**: Public reads published posts/categories/tags. Service role has full access.
 
+**Blog policy (Oct 2026)**: only hand-written posts tied to Karem's services and projects stay `published`. The daily AI-news generator (`karem505/blog-agent`, GitHub Actions "Daily Blog Generator") is disabled and its 246 posts are `status='archived'` (they 404); do not re-enable it or bulk-publish generated news.
+
 **Data flow**: SSG via `generateStaticParams` → ISR via `/api/revalidate?secret=XXX&path=/blog` → RSS revalidates hourly (full English article HTML in `content:encoded`, 30 newest indexable posts) → Sitemap includes EN + AR variants.
 
 **Blog post SSR per language**: `app/blog/[slug]/page.tsx` reads `searchParams.lang` (the route is request-rendered because `generateMetadata` already does) and renders the requested language on the server: one `ArticleJsonLd` in that language, localized BreadcrumbList, `<div lang dir>` around the article, and a scoped `<LanguageProvider initialLanguage>` so `?lang=ar` ships Arabic HTML to crawlers. `LanguageProvider` nested under the root provider mirrors the root's later toggles and delegates `setLanguage` to it. Never render a second client-side `ArticleJsonLd`.
