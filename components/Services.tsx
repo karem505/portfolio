@@ -62,12 +62,12 @@ export default function Services() {
           <h2 key={language} data-lines className={`font-extrabold tracking-[-0.04em] text-4xl md:text-5xl lg:text-6xl mb-6 mt-4 text-paper leading-[0.95] ${ar ? 'font-rubik' : 'font-mono'}`}>
             {ar ? (
               <>
-                خدمتان أقدّمهما للشركات:<br />
+                خدمتان أقدّمهما للشركات:{' '}<br />
                 أُحدّث العمل، وأُدرّب الفريق<span className="text-signal">.</span>
               </>
             ) : (
               <>
-                Two things I do for companies:<br />
+                Two things I do for companies:{' '}<br />
                 modernize the work, train the people<span className="text-signal">.</span>
               </>
             )}

@@ -101,7 +101,7 @@ export default function Hero() {
               <h1 className="font-rubik font-extrabold tracking-[-0.02em] leading-[1.05] text-paper mt-6 mb-8">
                 <span className="hero-rise block text-[2.75rem] sm:text-[3.75rem] md:text-[4.75rem] lg:text-[5.5rem] xl:text-[6rem]">
                   ابوالمكارم
-                </span>
+                </span>{' '}
                 <span className="hero-rise block text-[2.75rem] sm:text-[3.75rem] md:text-[4.75rem] lg:text-[5.5rem] xl:text-[6rem]">
                   شهود
                   <span className="text-signal" aria-hidden="true">.</span>
@@ -111,7 +111,7 @@ export default function Hero() {
               <h1 className="font-mono font-extrabold tracking-[-0.05em] leading-[0.92] text-paper mt-6 mb-8">
                 <span className="hero-rise block text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]">
                   Abo-Elmakarem
-                </span>
+                </span>{' '}
                 <span className="hero-rise block text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]">
                   Shohoud
                   <span className="text-signal" aria-hidden="true">.</span>

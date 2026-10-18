@@ -31,8 +31,8 @@ const SHOTS = [
 export function generateMetadata({ searchParams }: SP): Metadata {
   const ar = searchParams?.lang === 'ar'
   const title = ar
-    ? 'Rusty Inbox — عميل بريد مفتوح المصدر سريع مكتوب بـ Rust و Qt (لينكس وويندوز وماك)'
-    : 'Rusty Inbox — Fast Open-Source Email Client in Rust + Qt (Linux, Windows, macOS)'
+    ? 'Rusty Inbox — عميل بريد مفتوح المصدر بـ Rust و Qt'
+    : 'Rusty Inbox — Open-Source Email Client in Rust + Qt'
   const description = ar
     ? 'Rusty Inbox عميل بريد مجاني مفتوح المصدر لسطح المكتب: محرّك بريد بلغة Rust وواجهة Qt 6 / QML، صندوق وارد ذكي، تراجع عن الإرسال، واستيراد من Thunderbird. بدون تتبّع.'
     : 'Rusty Inbox is a free, open-source desktop email client: a native Rust mail engine with a Qt 6 / QML UI, Smart Inbox, Undo Send and Thunderbird import. No telemetry.'

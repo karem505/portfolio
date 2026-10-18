@@ -115,12 +115,12 @@ export default function About() {
           >
             {ar ? (
               <>
-                مهندس بثلاث منصات<br />
+                مهندس بثلاث منصات{' '}<br />
                 في الإنتاج<span className="text-signal">.</span>
               </>
             ) : (
               <>
-                Engineer with three<br />
+                Engineer with three{' '}<br />
                 shipped products<span className="text-signal">.</span>
               </>
             )}

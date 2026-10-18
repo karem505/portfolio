@@ -48,7 +48,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     : `${baseUrl}/blog/${post.slug}`
 
   return {
-    title,
+    // Long post titles + the layout's " | Abo-Elmakarem Shohoud" suffix get cut
+    // off in Google's SERP; keep the bare title when the suffix would overflow.
+    title: title.length > 45 ? { absolute: title } : title,
     description,
     authors: [{ name: 'Abo-Elmakarem Shohoud' }],
     keywords: post.seo_keywords?.length ? post.seo_keywords : [post.post_type],
