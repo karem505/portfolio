@@ -308,7 +308,7 @@ cargo build --release
                 <h3 className={`text-paper font-bold text-base mb-3 ${font}`}>{t('Packages', 'الحزم الجاهزة')}</h3>
                 <ul className={`flex flex-col gap-2 text-ash text-sm leading-relaxed ${font}`}>
                   <li>{t('Linux: AppImage and Flatpak bundle', 'لينكس: AppImage وحزمة Flatpak')}</li>
-                  <li>{t('Arch Linux: the rusty-inbox package (AUR)', 'آرتش لينكس: حزمة rusty-inbox على AUR')}</li>
+                  <li>{t('Arch Linux: PKGBUILD in the repo (makepkg -si); AUR listing coming soon', 'آرتش لينكس: ملف PKGBUILD داخل المستودع (makepkg -si)، وحزمة AUR قريبًا')}</li>
                   <li>{t('Windows 10/11: installer or portable zip', 'ويندوز 10/11: مثبّت أو نسخة محمولة zip')}</li>
                   <li>{t('macOS 12+: .dmg for Apple Silicon and Intel', 'ماك 12+: ملف dmg لمعالجات Apple Silicon و Intel')}</li>
                 </ul>
