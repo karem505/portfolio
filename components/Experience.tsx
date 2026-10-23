@@ -126,7 +126,7 @@ export default function Experience() {
                   <span className={`text-[0.65rem] tracking-[0.18em] uppercase text-signal border border-signal px-2 py-1 ${ar ? 'font-rubik' : 'font-mono'}`}>
                     {role.focus}
                   </span>
-                  <span className="ml-auto font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+                  <span className="ml-auto font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/80">
                     {t('role', 'دور')} · {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>

@@ -44,7 +44,7 @@ export default function ArabicSeoContent() {
       <p>
         <strong>Rusty Inbox</strong> — عميل بريد إلكتروني مجاني ومفتوح المصدر لسطح المكتب
         (لينكس وويندوز وماك)، محرّكه مكتوب بلغة Rust وواجهته بـ Qt 6 / QML.{' '}
-        <a href="/apps/rusty-inbox?lang=ar">صفحة Rusty Inbox</a>
+        <a tabIndex={-1} href="/apps/rusty-inbox?lang=ar">صفحة Rusty Inbox</a>
       </p>
       <h2>التواصل</h2>
       <p>

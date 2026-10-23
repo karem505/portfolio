@@ -165,7 +165,7 @@ export default function About() {
                   <div className="w-11 h-11 border border-wire flex items-center justify-center text-paper group-hover:border-signal group-hover:text-signal transition-colors duration-200">
                     <item.icon className="text-lg" />
                   </div>
-                  <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+                  <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/80">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>

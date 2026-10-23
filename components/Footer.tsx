@@ -29,23 +29,23 @@ export default function Footer() {
       <div className={`max-w-7xl mx-auto ${ar ? 'font-rubik' : 'font-mono'}`}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-3 pb-10 mb-10 border-b border-wire text-[0.7rem] tracking-[0.18em] uppercase text-ash">
           <div>
-            <span className="text-ash/60">{t('role', 'الدور')}</span>
+            <span className="text-ash/80">{t('role', 'الدور')}</span>
             <div className="text-paper mt-1 normal-case tracking-normal">
               {t('CTO · Full-Stack Engineer', 'المدير التقني · مهندس Full-Stack')}
             </div>
           </div>
           <div>
-            <span className="text-ash/60">{t('company', 'الشركة')}</span>
+            <span className="text-ash/80">{t('company', 'الشركة')}</span>
             <div className="text-paper mt-1 normal-case tracking-normal">Ailigent</div>
           </div>
           <div>
-            <span className="text-ash/60">{t('based', 'المقر')}</span>
+            <span className="text-ash/80">{t('based', 'المقر')}</span>
             <div className="text-paper mt-1 normal-case tracking-normal">
               {t('Cairo, Egypt', 'القاهرة، مصر')}
             </div>
           </div>
           <div>
-            <span className="text-ash/60">{t('version', 'الإصدار')}</span>
+            <span className="text-ash/80">{t('version', 'الإصدار')}</span>
             <div className="text-paper mt-1 normal-case tracking-normal font-mono">v.{currentYear}.04</div>
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function Footer() {
           <a
             href="/"
             className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors font-mono"
-            aria-label="Abo-Elmakarem — home"
+            aria-label="karem.pro — Abo-Elmakarem, home"
           >
             <span className="font-extrabold tracking-[-0.04em] text-2xl">karem</span>
             <span className="text-signal font-extrabold text-2xl">.</span>
@@ -66,7 +66,7 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-ash hover:text-signal transition-colors py-3 -my-3"
+                className="text-ash hover:text-signal transition-colors py-3 -my-3 inline-block min-w-[24px] text-center"
               >
                 {language === 'ar' ? link.label : link.label.toLowerCase()}
               </a>

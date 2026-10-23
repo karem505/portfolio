@@ -45,7 +45,7 @@ export default function Navbar() {
           <a
             href="#home"
             className="group flex items-baseline gap-1 text-paper hover:text-signal transition-colors duration-150"
-            aria-label="Abo-Elmakarem — home"
+            aria-label="karem.pro — Abo-Elmakarem, home"
           >
             <span className="font-extrabold tracking-[-0.04em] text-base">karem</span>
             <span className="text-signal font-extrabold">.</span>
@@ -61,7 +61,7 @@ export default function Navbar() {
                 aria-current={link.href === currentHref ? 'location' : undefined}
                 className="nav-link group inline-flex items-baseline gap-1.5"
               >
-                <span className="text-ash/55 text-[0.7rem] tabular-nums">{link.n}</span>
+                <span className="text-ash/80 text-[0.7rem] tabular-nums">{link.n}</span>
                 <span className={language === 'ar' ? 'font-rubik' : ''}>
                   {language === 'ar' ? link.name : link.name.toLowerCase()}
                 </span>
@@ -129,7 +129,7 @@ export default function Navbar() {
                         language === 'ar' ? 'font-rubik' : ''
                       }`}
                     >
-                      <span className="text-ash/55 text-sm tabular-nums">{link.n}</span>
+                      <span className="text-ash/80 text-sm tabular-nums">{link.n}</span>
                       <span>{language === 'ar' ? link.name : link.name.toLowerCase()}</span>
                       <span className="ml-auto opacity-0 group-hover:opacity-100 text-signal transition-opacity">
                         {language === 'ar' ? '←' : '→'}

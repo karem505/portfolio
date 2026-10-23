@@ -163,7 +163,7 @@ export default function FAQ() {
                 id={`faq-button-${index}`}
               >
                 <span className="flex items-baseline gap-4">
-                  <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-ash/55 tabular-nums">
+                  <span className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-ash/80 tabular-nums">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span className={`font-bold text-paper text-base md:text-lg group-hover:text-signal transition-colors ${ar ? 'font-rubik' : 'font-mono'}`}>

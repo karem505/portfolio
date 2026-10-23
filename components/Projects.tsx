@@ -75,7 +75,7 @@ function ProjectCard({ project, index, size = 'flagship', ar, outcomeLabel, pinC
 
           <div className="mb-4">
             <div className="flex items-baseline gap-2 mb-1">
-              <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/60">
+              <span className="font-mono text-[0.65rem] tracking-[0.18em] uppercase text-ash/80">
                 {String(index + 1).padStart(2, '0')} ·
               </span>
               <h3

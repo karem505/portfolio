@@ -71,15 +71,15 @@ export default function Hero() {
         >
           <span aria-hidden="true" className="hero-rule absolute inset-x-0 bottom-0 h-px bg-wire" />
           <div>
-            <span className="text-ash/60">{t('file', 'الملف')}</span>{' '}
+            <span className="text-ash/80">{t('file', 'الملف')}</span>{' '}
             <span className="text-paper">/karem.profile</span>
           </div>
           <div>
-            <span className="text-ash/60">{t('role', 'الدور')}</span>{' '}
+            <span className="text-ash/80">{t('role', 'الدور')}</span>{' '}
             <span className="text-paper">{t('full-stack · devops', 'مطور · ديف-أوبس')}</span>
           </div>
           <div>
-            <span className="text-ash/60">{t('based', 'المقر')}</span>{' '}
+            <span className="text-ash/80">{t('based', 'المقر')}</span>{' '}
             <span className="text-paper">{t('cairo · eg', 'القاهرة · مصر')}</span>
           </div>
           <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default function Hero() {
                 href="https://wa.me/201008867488"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="WhatsApp (opens in new tab)"
+                aria-label={t('Contact me on WhatsApp +20 100 886 7488 (opens in new tab)', 'راسلني على واتساب +20 100 886 7488 (يفتح في نافذة جديدة)')}
                 className={`group inline-flex items-center gap-3 px-5 py-3 border border-wire text-paper text-sm font-medium tracking-wide hover:border-signal hover:text-signal transition-colors duration-150 ${ar ? 'font-rubik' : 'font-mono'}`}
               >
                 <span>{t('Contact me on WhatsApp', 'راسلني على واتساب')}</span>
@@ -262,7 +262,7 @@ export default function Hero() {
           <span>{t('scroll', 'مرر')}</span>
           <FaArrowDown className="text-signal" size={10} />
           <span className="hero-scroll-wire h-px flex-1 max-w-[200px] bg-wire" />
-          <span className="text-ash/60">002 / {t('about', 'نبذة')}</span>
+          <span className="text-ash/80">002 / {t('about', 'نبذة')}</span>
         </div>
       </div>
     </section>
