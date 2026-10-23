@@ -89,6 +89,8 @@ Path alias: `@/*` → project root.
 
 **CSS utilities**: `.gradient-text`, `.glass`, `.glow`, `.noise`, `.animated-gradient`, `.card-hover`, `.float`, `.orbit`, `.blog-content`, `.tech-badge`
 
+**Liquid glass layer** (`app/liquid-glass.css` + `components/LiquidLens.tsx`): gated on `html.lg` (inline head script; `?glass=0` shows the flat look for comparison). Cards (`.bg-graphite.border-wire`, `.frame`) get a gradient fill + lit gradient rim via `padding-box`/`border-box` backgrounds, rounded 14px; section ambient light is `background-image` radials on `#about/#projects/#services/#contact`. Paint-once by design: never add `backdrop-filter`, fixed overlays or `mix-blend-mode` to cards — over the live WebGL field they re-composite every frame. Real blur only on the navbar and mobile menu; the SVG refraction lens (`#lg-lens`, `html.lg-lens`) is Chromium desktop + navbar only.
+
 ## Motion System (homepage)
 
 Spec: `docs/superpowers/specs/2026-09-02-scroll-journey-redesign-design.md` · plan: `docs/superpowers/plans/2026-09-02-scroll-journey-redesign.md`.
