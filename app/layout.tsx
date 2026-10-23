@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import './liquid-glass.css'
 import { jetBrainsMono, rubik } from './fonts'
 import {
   PersonJsonLd,
@@ -9,6 +10,7 @@ import {
 import ClickEffect from '@/components/ClickEffect'
 import { GoogleAnalytics } from '@/components/Analytics'
 import { LanguageProvider } from '@/lib/LanguageContext'
+import LiquidLens from '@/components/LiquidLens'
 
 const siteUrl = 'https://aboelmakarem.pro'
 
@@ -216,7 +218,9 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('motion')}}catch(e){}",
+              "try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('motion')}}catch(e){}" +
+              // Liquid-glass gate: on unless ?glass=0 (lets us compare against the flat look).
+              "try{if(!/[?&]glass=0(&|$)/.test(location.search)){document.documentElement.classList.add('lg')}}catch(e){}",
           }}
         />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -234,6 +238,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <ClickEffect />
         <LanguageProvider>{children}</LanguageProvider>
+        <LiquidLens />
       </body>
     </html>
   )

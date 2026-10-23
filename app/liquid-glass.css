@@ -1,0 +1,139 @@
+/* Liquid glass layer.
+   Gated on html.lg (set by the inline head script in app/layout.tsx; ?glass=0 turns it off),
+   so removing the class restores the flat "frame" look exactly.
+
+   Performance model (measured on an integrated GPU with the WebGL field running):
+   - Everything here is painted ONCE into the normal content layer: gradient fills, a
+     gradient rim drawn with border-box backgrounds (no masks, no pseudo-elements),
+     shadows, and the ambient light as section backgrounds that scroll with the page.
+     None of it adds a per-frame compositing pass over the live canvas.
+   - Real backdrop blur stays where it already was: the navbar (and the mobile menu
+     sheet, which is static while open).
+   - The lens (SVG refraction, html.lg-lens) is Chromium desktop only, on the navbar only.
+   - Reduced transparency falls back to opaque surfaces. */
+
+:root {
+  --lg-fill: linear-gradient(180deg, rgba(40, 35, 31, 0.78), rgba(22, 20, 19, 0.66));
+  --lg-rim: linear-gradient(180deg, rgba(245, 241, 234, 0.24), rgba(245, 241, 234, 0.05) 50%, rgba(245, 241, 234, 0.10));
+  --lg-rim-hot: linear-gradient(180deg, rgba(255, 59, 31, 0.80), rgba(255, 59, 31, 0.14) 55%, rgba(245, 241, 234, 0.10));
+  --lg-radius: 14px;
+  --lg-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 18px 40px -18px rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Ambient light (scrolls with the content; no fixed layer, no blend mode) ---------- */
+html.lg :is(#about, #projects, #services, #contact) {
+  background-repeat: no-repeat;
+}
+html.lg #about {
+  background-image: radial-gradient(48rem 30rem at 92% 70%, rgba(255, 59, 31, 0.09), transparent 70%);
+}
+html.lg #projects {
+  background-image:
+    radial-gradient(52rem 34rem at 8% 40%, rgba(255, 120, 60, 0.08), transparent 70%),
+    radial-gradient(40rem 28rem at 96% 90%, rgba(255, 59, 31, 0.08), transparent 70%);
+}
+html.lg #services {
+  background-image: radial-gradient(56rem 32rem at 50% 85%, rgba(255, 59, 31, 0.10), transparent 70%);
+}
+html.lg #contact {
+  background-image: radial-gradient(44rem 30rem at 85% 15%, rgba(255, 59, 31, 0.10), transparent 70%);
+}
+
+/* ---------- Glass surfaces: cards and panels ---------- */
+html.lg :is(.bg-graphite.border-wire, .frame):not(input, textarea, select, .hero-photo) {
+  border: 1px solid transparent;
+  border-radius: var(--lg-radius);
+  background: var(--lg-fill) padding-box, var(--lg-rim) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--lg-shadow);
+  transition: box-shadow 0.25s ease;
+}
+/* Accent-bordered panels keep their colour, as a warm (or green) rim. */
+html.lg .bg-graphite:is(.border-signal, .border-moss):not(input, textarea, select) {
+  border: 1px solid transparent;
+  border-radius: var(--lg-radius);
+  background: var(--lg-fill) padding-box, var(--lg-rim-hot) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--lg-shadow);
+}
+html.lg .bg-graphite.border-moss:not(input, textarea, select) {
+  background: var(--lg-fill) padding-box,
+    linear-gradient(180deg, rgba(47, 158, 68, 0.8), rgba(47, 158, 68, 0.15) 60%, rgba(47, 158, 68, 0.3)) border-box;
+}
+/* Hover: the rim warms toward the accent and a soft glow rises from below. */
+html.lg :is(.bg-graphite.border-wire, .frame):not(input, textarea, select, .hero-photo):hover {
+  border-color: transparent;
+  background: var(--lg-fill) padding-box, var(--lg-rim-hot) border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 22px 48px -20px rgba(255, 59, 31, 0.30);
+}
+
+/* Inner boxes on glass (icon squares, chips, tags): clear ground + soft rim, never a second slab. */
+html.lg :is(.bg-graphite, .frame) :is(.border.border-wire, .tag-chip) {
+  border-color: rgba(245, 241, 234, 0.10);
+  border-radius: 9px;
+  background-color: rgba(245, 241, 234, 0.03);
+}
+
+/* Form fields: translucent, rounded, with a visible focus ring. */
+html.lg :is(input, textarea, select).bg-graphite {
+  background: rgba(28, 25, 23, 0.6);
+  border-color: rgba(245, 241, 234, 0.12);
+  border-radius: 10px;
+}
+html.lg :is(input, textarea, select).bg-graphite:focus {
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px rgba(255, 59, 31, 0.18);
+}
+
+/* Hero photo: rounded to match the surfaces. */
+html.lg .hero-photo {
+  border-radius: var(--lg-radius);
+}
+
+/* ---------- Navbar: the one floating glass layer ---------- */
+html.lg nav.nav-enter.backdrop-blur-md {
+  background: linear-gradient(180deg, rgba(28, 25, 23, 0.62), rgba(12, 10, 9, 0.45));
+  border-bottom-color: rgba(245, 241, 234, 0.09);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03), 0 12px 32px -18px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(12px) saturate(1.35);
+  backdrop-filter: blur(12px) saturate(1.35);
+}
+/* Lens: after the plain blur, so browsers without SVG backdrop filters keep the frost. */
+html.lg.lg-lens nav.nav-enter.backdrop-blur-md {
+  backdrop-filter: url(#lg-lens) blur(10px) saturate(1.35);
+}
+/* Navbar CTA becomes a pill. */
+html.lg nav a.bg-paper.text-ink {
+  border-radius: 999px;
+}
+
+/* Mobile menu: full-screen frosted sheet (static while open, so the blur is cheap). */
+html.lg .menu-enter.bg-ink {
+  background: linear-gradient(180deg, rgba(28, 25, 23, 0.74), rgba(12, 10, 9, 0.86));
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+}
+
+/* ---------- Phones: lighter shadows (raster cost scales with DPR x blur radius) ---------- */
+@media (max-width: 767px) {
+  :root {
+    --lg-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 22px -14px rgba(0, 0, 0, 0.7);
+  }
+  html.lg :is(.bg-graphite.border-wire, .frame):not(input, textarea, select, .hero-photo):hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), var(--lg-shadow);
+  }
+}
+
+/* ---------- Accessibility fallbacks ---------- */
+@media (prefers-reduced-transparency: reduce) {
+  html.lg :is(.bg-graphite.border-wire, .frame):not(input, textarea, select, .hero-photo) {
+    background: var(--graphite) padding-box, var(--lg-rim) border-box;
+  }
+  html.lg nav.nav-enter.backdrop-blur-md,
+  html.lg .menu-enter.bg-ink {
+    background: var(--ink);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
