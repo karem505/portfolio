@@ -91,21 +91,105 @@ html.lg .hero-photo {
   border-radius: var(--lg-radius);
 }
 
-/* ---------- Navbar: the one floating glass layer ---------- */
-html.lg nav.nav-enter.backdrop-blur-md {
-  background: linear-gradient(180deg, rgba(28, 25, 23, 0.62), rgba(12, 10, 9, 0.45));
-  border-bottom-color: rgba(245, 241, 234, 0.09);
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03), 0 12px 32px -18px rgba(0, 0, 0, 0.8);
+/* ---------- Header: a floating glass capsule (the one blurred layer) ---------- */
+/* The full-width bar becomes a transparent carrier; the inner row is the capsule. */
+html.lg nav.nav-enter {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+  box-shadow: none;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  padding: 10px 10px 0;
+}
+html.lg nav.nav-enter > div:first-child {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(36, 32, 29, 0.42), rgba(14, 12, 11, 0.30)) padding-box,
+    var(--lg-rim) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px -16px rgba(0, 0, 0, 0.8);
   -webkit-backdrop-filter: blur(12px) saturate(1.35);
   backdrop-filter: blur(12px) saturate(1.35);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+/* Scrolled: denser glass so the links stay readable over content. */
+html.lg nav.nav-enter.backdrop-blur-md > div:first-child {
+  background:
+    linear-gradient(180deg, rgba(36, 32, 29, 0.70), rgba(14, 12, 11, 0.58)) padding-box,
+    var(--lg-rim) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 14px 36px -16px rgba(0, 0, 0, 0.9);
 }
 /* Lens: after the plain blur, so browsers without SVG backdrop filters keep the frost. */
-html.lg.lg-lens nav.nav-enter.backdrop-blur-md {
+html.lg.lg-lens nav.nav-enter > div:first-child {
   backdrop-filter: url(#lg-lens) blur(10px) saturate(1.35);
 }
-/* Navbar CTA becomes a pill. */
-html.lg nav a.bg-paper.text-ink {
+/* Page-progress wire rides the capsule's straight bottom edge. */
+html.lg nav.nav-enter .journey-wire {
+  left: max(42px, calc((100% - 80rem) / 2 + 32px));
+  right: max(42px, calc((100% - 80rem) / 2 + 32px));
+  bottom: 0;
+  border-radius: 1px;
+}
+@media (max-width: 767px) {
+  html.lg nav.nav-enter {
+    padding: 8px 8px 0;
+  }
+  html.lg nav.nav-enter > div:first-child {
+    padding-inline: 18px 8px;
+  }
+  html.lg nav.nav-enter .journey-wire {
+    left: 30px;
+    right: 30px;
+  }
+}
+
+/* CTA: a pill. */
+html.lg nav a.bg-paper.text-ink,
+html.lg .menu-enter a.bg-paper.text-ink {
   border-radius: 999px;
+}
+html.lg nav a.bg-paper.text-ink {
+  box-shadow: 0 6px 18px -8px rgba(245, 241, 234, 0.35);
+}
+
+/* Mobile menu button: a round glass key. */
+html.lg nav button[aria-controls="mobile-nav-menu"] {
+  border-radius: 999px;
+  background: rgba(245, 241, 234, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 0 1px rgba(245, 241, 234, 0.08);
+}
+
+/* ---------- Toggles: glass segmented control ---------- */
+html.lg [role="group"][aria-label="Language"] {
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(36, 32, 29, 0.55), rgba(14, 12, 11, 0.40)) padding-box,
+    var(--lg-rim) border-box;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+html.lg [role="group"][aria-label="Language"] > span[aria-hidden="true"] {
+  display: none;
+}
+html.lg [role="group"][aria-label="Language"] > button {
+  min-width: 2.25rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+html.lg [role="group"][aria-label="Language"] > button[aria-pressed="true"] {
+  background: linear-gradient(180deg, #fbf8f3, #e9e3da);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 8px -2px rgba(0, 0, 0, 0.6);
+}
+html.lg [role="group"][aria-label="Language"] > button[aria-pressed="false"]:hover {
+  background: rgba(245, 241, 234, 0.07);
+}
+html.lg [role="group"][aria-label="Language"] > button:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 1px;
 }
 
 /* Mobile menu: full-screen frosted sheet (static while open, so the blur is cheap). */
@@ -130,7 +214,7 @@ html.lg .menu-enter.bg-ink {
   html.lg :is(.bg-graphite.border-wire, .frame):not(input, textarea, select, .hero-photo) {
     background: var(--graphite) padding-box, var(--lg-rim) border-box;
   }
-  html.lg nav.nav-enter.backdrop-blur-md,
+  html.lg nav.nav-enter > div:first-child,
   html.lg .menu-enter.bg-ink {
     background: var(--ink);
     -webkit-backdrop-filter: none;

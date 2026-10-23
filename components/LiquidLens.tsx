@@ -3,8 +3,8 @@
 import { useEffect } from 'react'
 
 /**
- * Lens for the glass navbar (Chromium desktop only; html.lg-lens).
- * Builds an edge-refraction displacement map for the navbar's size and exposes it as
+ * Lens for the glass header capsule (Chromium desktop only; html.lg-lens).
+ * Builds an edge-refraction displacement map for the capsule's size and exposes it as
  * the SVG filter #lg-lens, which liquid-glass.css uses as `backdrop-filter: url(#lg-lens)`.
  * Other browsers never get the class and keep the plain frosted blur.
  */
@@ -62,7 +62,7 @@ export default function LiquidLens() {
       }
     }
 
-    const nav = document.querySelector('nav.nav-enter') as HTMLElement | null
+    const nav = document.querySelector('nav.nav-enter > div') as HTMLElement | null
     const sync = () => {
       if (!nav || !desktop.matches) {
         html.classList.remove('lg-lens')
