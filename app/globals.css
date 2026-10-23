@@ -50,7 +50,9 @@
 
 html {
   scroll-behavior: smooth;
-  cursor: url('/cursor.png') 4 4, auto;
+  cursor: url('/cursor-arrow.png') 2 2, auto;
+  cursor: -webkit-image-set(url('/cursor-arrow.png') 1x, url('/cursor-arrow@2x.png') 2x) 2 2, auto;
+  cursor: image-set(url('/cursor-arrow.png') 1x, url('/cursor-arrow@2x.png') 2x) 2 2, auto;
 }
 
 body {
@@ -59,7 +61,9 @@ body {
   background: var(--ink);
   color: var(--paper);
   overflow-x: hidden;
-  cursor: url('/cursor.png') 4 4, auto;
+  cursor: url('/cursor-arrow.png') 2 2, auto;
+  cursor: -webkit-image-set(url('/cursor-arrow.png') 1x, url('/cursor-arrow@2x.png') 2x) 2 2, auto;
+  cursor: image-set(url('/cursor-arrow.png') 1x, url('/cursor-arrow@2x.png') 2x) 2 2, auto;
   /* Subtle warm-grain — pulls away from the "default dark mode" silhouette
      without resorting to noise.svg AI-slop. */
   background-image:
@@ -75,7 +79,9 @@ body {
 /* Custom cursor for interactive elements */
 a, button, [role="button"], input[type="submit"], input[type="button"],
 .cursor-pointer, [onclick] {
-  cursor: url('/cursor.png') 4 4, pointer;
+  cursor: url('/cursor-link.png') 2 2, pointer;
+  cursor: -webkit-image-set(url('/cursor-link.png') 1x, url('/cursor-link@2x.png') 2x) 2 2, pointer;
+  cursor: image-set(url('/cursor-link.png') 1x, url('/cursor-link@2x.png') 2x) 2 2, pointer;
 }
 
 /* Click effect lines tinted to the signal accent */

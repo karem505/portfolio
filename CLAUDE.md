@@ -48,7 +48,7 @@ components/ — Navbar, Hero, About, Experience, Projects, Services, ServicePage
 lib/ — supabase.ts, blog.ts, types.ts, LanguageContext.tsx, latestApk.ts
   journey/ — chapters.ts, field.ts (scroll→uniforms, tested), galaxy.ts (geometry, tested), store.ts (scroll store + hooks, tested), reveal.ts, useAnimeScope.ts, usePinned.ts
 supabase/ — schema.sql
-public/ — profile.jpg, cursor.png, favicons, __forms.html, GSC verification, IndexNow key
+public/ — profile.jpg, cursor-arrow/cursor-link (+@2x; GPT-Image masters in proposals/cursor-src/), favicons, __forms.html, GSC verification, IndexNow key
 ```
 
 Path alias: `@/*` → project root.

@@ -199,6 +199,100 @@ html.lg .menu-enter.bg-ink {
   backdrop-filter: blur(22px) saturate(1.5);
 }
 
+
+/* ---------- Hero actions: glass pills ---------- */
+html.lg .hero-actions > a {
+  border-radius: 999px;
+  padding-inline: 1.4rem;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+/* Primary: polished paper pill with a lit top edge. */
+html.lg .hero-actions > a.bg-paper {
+  border-color: transparent;
+  background: linear-gradient(180deg, #fffdf9 0%, #f5f1ea 55%, #e6dfd4 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(12, 10, 9, 0.12),
+    0 10px 28px -12px rgba(245, 241, 234, 0.45);
+}
+html.lg .hero-actions > a.bg-paper:hover {
+  background: linear-gradient(180deg, #ff6a50 0%, #ff3b1f 55%, #e52f15 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(12, 10, 9, 0.2),
+    0 12px 32px -12px rgba(255, 59, 31, 0.65);
+}
+/* Secondary: frosted glass pills (small, so the blur stays cheap over the field). */
+html.lg .hero-actions > a.border-wire {
+  border-color: transparent;
+  background:
+    linear-gradient(180deg, rgba(40, 35, 31, 0.55), rgba(16, 14, 13, 0.40)) padding-box,
+    var(--lg-rim) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 10px 26px -14px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+}
+html.lg .hero-actions > a.border-wire:hover {
+  background:
+    linear-gradient(180deg, rgba(48, 30, 26, 0.6), rgba(20, 14, 12, 0.45)) padding-box,
+    var(--lg-rim-hot) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 30px -14px rgba(255, 59, 31, 0.45);
+}
+html.lg .hero-actions > a:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+/* Tech-stack keys beside the portrait: small glass tiles. */
+html.lg :is(.hero-tech-desktop, .hero-tech-mobile) > div {
+  border-color: transparent;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(40, 35, 31, 0.55), rgba(16, 14, 13, 0.40)) padding-box,
+    var(--lg-rim) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 20px -12px rgba(0, 0, 0, 0.8);
+}
+html.lg .hero-tech-desktop > div:hover {
+  background:
+    linear-gradient(180deg, rgba(48, 30, 26, 0.6), rgba(20, 14, 12, 0.45)) padding-box,
+    var(--lg-rim-hot) border-box;
+}
+
+/* Phones: stacked full-width pills; the WhatsApp number drops to its own line instead of
+   squeezing the label into two lines. */
+@media (max-width: 639px) {
+  html.lg .hero-actions > a {
+    width: 100%;
+    justify-content: space-between;
+  }
+  html.lg .hero-actions > a[href^="https://wa.me"] {
+    flex-wrap: wrap;
+    row-gap: 2px;
+    border-radius: 22px;
+  }
+  html.lg .hero-actions > a > span:first-child {
+    white-space: nowrap;
+  }
+}
+
+/* Social links: small glass chips. */
+html.lg .hero-socials > a {
+  padding: 0 0.85rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(40, 35, 31, 0.45), rgba(16, 14, 13, 0.30)) padding-box,
+    var(--lg-rim) border-box;
+}
+html.lg .hero-socials > a:hover {
+  background:
+    linear-gradient(180deg, rgba(48, 30, 26, 0.5), rgba(20, 14, 12, 0.35)) padding-box,
+    var(--lg-rim-hot) border-box;
+}
+html.lg .hero-socials > span[aria-hidden="true"] {
+  display: none;
+}
+
 /* ---------- Phones: lighter shadows (raster cost scales with DPR x blur radius) ---------- */
 @media (max-width: 767px) {
   :root {
@@ -215,6 +309,7 @@ html.lg .menu-enter.bg-ink {
     background: var(--graphite) padding-box, var(--lg-rim) border-box;
   }
   html.lg nav.nav-enter > div:first-child,
+  html.lg .hero-actions > a.border-wire,
   html.lg .menu-enter.bg-ink {
     background: var(--ink);
     -webkit-backdrop-filter: none;
