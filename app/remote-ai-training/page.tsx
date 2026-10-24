@@ -97,7 +97,7 @@ const content: ServicePageContent = {
     },
     {
       h2: 'Does my company need AI literacy training under the EU AI Act?',
-      body: 'Possibly, if you sell or deploy AI-enabled products or services in the EU. Article 4 of the EU AI Act, in force since 2 February 2025, requires providers and deployers of AI systems to take measures to ensure a sufficient level of AI literacy among the staff who operate or use those systems. Through the Act’s territorial scope (Article 2), it can reach UK, US, Canadian and Australian companies that place AI systems on the EU market or whose AI output is used in the EU. A documented, role-based training programme is a practical way to show you have taken those measures. This is general information, not legal advice.',
+      body: 'Possibly, if you sell or deploy AI-enabled products or services in the EU. Article 4 of the EU AI Act has applied since 2 February 2025. As amended by the Digital Omnibus on AI (consolidated text of 27 July 2026), it requires providers and deployers of AI systems to take measures to support the development of AI literacy of the staff who operate or use those systems, without having to guarantee any specific level for each individual. Through the Act’s territorial scope (Article 2), it can reach UK, US, Canadian and Australian companies that place AI systems on the EU market or whose AI output is used in the EU. A documented, role-based training programme is a practical way to show you have taken those measures. This is general information, not legal advice.',
     },
     {
       h2: 'What does a delivered programme look like?',
