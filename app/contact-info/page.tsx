@@ -35,13 +35,13 @@ const contactSchema = {
     '@type': 'Person',
     '@id': 'https://aboelmakarem.pro/#person',
     name: 'Abo-Elmakarem Shohoud',
-    email: 'mailto:info@aboelmakarem.pro',
+    email: 'mailto:karm92000@gmail.com',
     telephone: '+201008867488',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'sales',
       telephone: '+201008867488',
-      email: 'info@aboelmakarem.pro',
+      email: 'karm92000@gmail.com',
       url: 'https://wa.me/201008867488',
       availableLanguage: ['English', 'Arabic'],
       areaServed: ['EG', 'AE', 'SA'],
@@ -129,7 +129,7 @@ export default function ContactInfoPage() {
             <p className="text-ash text-base leading-relaxed">
               ابوالمكارم شهود (كارم)، المدير التقني (CTO) في Ailigent ومدرّب ذكاء اصطناعي مستقل للشركات، من القاهرة.
               أسرع طريقة للتواصل هي واتساب على الرقم <span dir="ltr">+20 100 886 7488</span>، أو البريد
-              الإلكتروني <span dir="ltr">info@aboelmakarem.pro</span>. أقدّم تدريب الذكاء الاصطناعي للمديرين والموظفين،
+              الإلكتروني <span dir="ltr">karm92000@gmail.com</span>. أقدّم تدريب الذكاء الاصطناعي للمديرين والموظفين،
               واستشارات التحول الرقمي، وبناء البرمجيات المخصّصة للشركات في مصر والإمارات والسعودية.
             </p>
           </section>

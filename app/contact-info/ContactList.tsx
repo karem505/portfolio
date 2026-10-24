@@ -9,8 +9,8 @@ const contacts = [
   {
     icon: FaEnvelope,
     label: 'Email',
-    value: 'info@aboelmakarem.pro',
-    href: 'mailto:info@aboelmakarem.pro',
+    value: 'karm92000@gmail.com',
+    href: 'mailto:karm92000@gmail.com',
   },
   {
     icon: FaPhone,
