@@ -155,7 +155,7 @@ function getContent(ar: boolean): ServicePageContent {
         ),
         bullets: [
           t('On-site at your offices: UAE, Saudi Arabia, Egypt.', 'حضورياً في مقر شركتك: الإمارات والسعودية ومصر.'),
-          t('Live online for distributed and remote teams.', 'أونلاين مباشرةً للفرق الموزّعة وعن بُعد.'),
+          t('Live online for distributed and remote teams, including teams in the US, UK, Canada and Australia (see Remote AI Training).', 'أونلاين مباشرةً للفرق الموزّعة وعن بُعد، ومنها فرق في أمريكا وبريطانيا وكندا وأستراليا.'),
           t('Delivered in Arabic or English.', 'بالعربية أو الإنجليزية.'),
           t('Half-day workshop (3–4 hours) or multi-week program.', 'ورشة نصف يوم (3–4 ساعات) أو برنامج يمتد على أسابيع.'),
           t('Content customized to your industry and real tasks.', 'محتوى مخصّص لقطاعك ومهامك الحقيقية.'),
@@ -278,7 +278,7 @@ function getContent(ar: boolean): ServicePageContent {
       'مطوّر Full-Stack ومدرّب ذكاء اصطناعي للشركات'
     ),
     updatedLabel: t('Updated', 'آخر تحديث'),
-    updatedDate: t('June 2026', 'يونيو 2026'),
+    updatedDate: t('October 2026', 'أكتوبر 2026'),
   }
 }
 

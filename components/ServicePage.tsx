@@ -46,6 +46,8 @@ interface ServicePageProps {
   content: ServicePageContent
   schema?: React.ReactNode
   relatedLinks?: ServiceRelatedLinks
+  /** English-only pages (e.g. /remote-ai-training) have no Arabic variant. */
+  hideLanguageSwitch?: boolean
 }
 
 /**
@@ -61,6 +63,7 @@ export default function ServicePage({
   content,
   schema,
   relatedLinks,
+  hideLanguageSwitch = false,
 }: ServicePageProps) {
   const font = ar ? 'font-rubik' : 'font-mono'
   const arrow = ar ? '←' : '→'
@@ -77,6 +80,7 @@ export default function ServicePage({
       >
         <div className="max-w-3xl mx-auto">
           {/* Language switch */}
+          {!hideLanguageSwitch && (
           <div className={`mb-10 flex items-center gap-3 text-xs font-mono ${ar ? 'justify-start' : 'justify-end'}`}>
             <Link
               href={basePath}
@@ -94,6 +98,7 @@ export default function ServicePage({
               ع
             </Link>
           </div>
+          )}
 
           {/* Hero */}
           <header className={ar ? 'text-right' : 'text-left'}>

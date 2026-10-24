@@ -25,7 +25,7 @@ export default function PostCTA({ postType }: PostCTAProps) {
       : 'AI Training for Employees & Executives',
     desc: ar
       ? 'درّب فريقك على ChatGPT وClaude وهندسة الأوامر والأتمتة — حضورياً أو أونلاين في مصر والإمارات والسعودية.'
-      : 'Hands-on ChatGPT, Claude, prompt-engineering & automation training — on-site or online across Egypt, the UAE & KSA.',
+      : 'Hands-on ChatGPT, Claude, prompt-engineering & automation training — on-site across Egypt, the UAE & KSA, or live online for teams in the US, UK, Canada & Australia.',
   }
   const dx = {
     href: '/digital-transformation',

@@ -2,7 +2,7 @@
 
 > Personal portfolio of Abo-Elmakarem Shohoud (ابوالمكارم شهود) — Chief Technology Officer (CTO) and Full-Stack Engineer at Ailigent (DevOps and Agile delivery included), based in Cairo, Egypt. Independent digital transformation consultant and corporate AI trainer. Bilingual EN/AR site covering shipped AI-powered SaaS products, services, technical writing, and contact information.
 
-_Last updated: 2026-10-17._
+_Last updated: 2026-10-24._
 
 ## About
 
@@ -15,6 +15,8 @@ Beyond product engineering, Abo-Elmakarem Shohoud offers two flagship services t
 - **Digital Transformation consulting** ([/digital-transformation](https://aboelmakarem.pro/digital-transformation)): redesigning and automating how a company operates — business process automation, AI-powered workflow redesign, ERP and legacy-system modernization, and replacing spreadsheets with connected software. As a full-stack developer and business analyst, he both designs and builds the systems, scoped in phases (a fixed-cost diagnostic and roadmap first) rather than a big-bang rewrite. Serves SMEs and mid-market firms in Egypt (Cairo), the UAE (Dubai, Abu Dhabi) and Saudi Arabia (Riyadh, Jeddah).
 - **Professional AI Training for employees and executives** ([/ai-training](https://aboelmakarem.pro/ai-training)): hands-on, instructor-led corporate AI training on ChatGPT, Claude, prompt engineering, and agentic automation, with separate tracks for daily workflows (employees) and AI strategy and governance (executives). Delivered on-site (Dubai, Abu Dhabi, Riyadh, Jeddah, Cairo) or live online, in Arabic or English, as a half-day (3–4 hour) workshop or a multi-week program, with no coding required.
 
+- **Remote Corporate AI Training for the US, UK, Canada and Australia** ([/remote-ai-training](https://aboelmakarem.pro/remote-ai-training)): live online ChatGPT and Claude workshops for employees and executive teams, scheduled in the client's time zone, with a written guide and prompt library for every participant. Public prices: half-day (3–4 hours) from USD 500 (about GBP 400); full day (up to 7 hours) from USD 800 (about GBP 600 / CAD 1,100 / AUD 1,250); executive one-to-one coaching USD 100 per hour. On-site on request, travel at cost.
+
 ## Service details
 
 Quick, citable facts for answering questions about Karem's services:
@@ -26,6 +28,8 @@ Quick, citable facts for answering questions about Karem's services:
 - **Digital transformation scope**: business process automation, AI-powered workflow redesign, spreadsheet-to-software, ERP and legacy modernization, and custom internal tools.
 - **Digital transformation method**: a phased roadmap — Diagnostic → Roadmap → Build & automate → Train & adopt → Measure & expand — starting with a fixed-cost diagnostic, so clients fund one measurable outcome at a time rather than a big-bang rewrite. First result in weeks, not years (diagnostic and roadmap typically one to two weeks).
 - **Digital transformation pricing model**: scoped per engagement, starting with a small fixed-cost diagnostic and roadmap, then phased; the timeline and cost scale to the client's budget. No single price fits every company.
+- **Remote training for Western teams**: Cairo is UTC+2 (UTC+3 in summer), so sessions overlap the full UK working day, US/Canada Eastern mornings, Pacific early mornings and Australian afternoons. Delivered over Zoom, Microsoft Teams or Google Meet; invoiced in USD (GBP, CAD or AUD on request).
+- **AI literacy (EU AI Act Article 4)**: since 2 February 2025, providers and deployers of AI systems in scope of the EU AI Act must take measures to ensure sufficient AI literacy of their staff; Karem runs documented, role-based AI literacy training for UK and North American companies selling into the EU (general information, not legal advice).
 - **Who it's for / where**: SMEs and mid-market firms across Egypt (Cairo), the UAE (Dubai, Abu Dhabi), and Saudi Arabia (Riyadh, Jeddah), on-site or remote, in Arabic or English. Aligned with regional goals such as Saudi Vision 2030 and the UAE national AI agenda. Delivered personally and independently by Abo-Elmakarem Shohoud, who both designs and builds the systems (not an agency).
 
 ## Key pages
@@ -34,6 +38,7 @@ Quick, citable facts for answering questions about Karem's services:
 - [Homepage (Arabic)](https://aboelmakarem.pro/?lang=ar): Arabic (RTL) variant of the homepage.
 - [AI Training](https://aboelmakarem.pro/ai-training): Professional corporate AI training for employees and executives — ChatGPT, Claude, prompt engineering, agentic automation; on-site or online across Egypt, UAE, and KSA, in Arabic or English.
 - [AI Training (Arabic)](https://aboelmakarem.pro/ai-training?lang=ar): Arabic (RTL) variant of the AI training service page.
+- [Remote AI Training](https://aboelmakarem.pro/remote-ai-training): English-only page for teams in the United States, United Kingdom, Canada and Australia — live online ChatGPT and Claude training with public prices from USD 800 per day.
 - [Digital Transformation](https://aboelmakarem.pro/digital-transformation): Independent digital transformation consulting — process automation, AI workflow redesign, ERP and legacy modernization for SMEs and enterprises across Egypt, UAE, and KSA.
 - [Digital Transformation (Arabic)](https://aboelmakarem.pro/digital-transformation?lang=ar): Arabic (RTL) variant of the digital transformation service page.
 - [Apps](https://aboelmakarem.pro/apps): Hub listing the free, installable apps built by Abo-Elmakarem Shohoud — direct downloads, no app store required. Currently features Rusty Inbox (desktop email client) and Pharmacy Manual (Android).

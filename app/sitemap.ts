@@ -8,8 +8,9 @@ export const revalidate = 3600
 // changes). A `new Date()` here made every static lastmod identical and change
 // every hour, which teaches Google to ignore the field.
 const STATIC_LASTMOD = {
-  home: new Date('2026-10-18'),
-  aiTraining: new Date('2026-10-18'),
+  home: new Date('2026-10-24'),
+  aiTraining: new Date('2026-10-24'),
+  remoteAiTraining: new Date('2026-10-24'),
   digitalTransformation: new Date('2026-09-02'),
   apps: new Date('2026-10-18'),
   rustyInbox: new Date('2026-10-17'),
@@ -90,6 +91,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/ai-training?lang=ar`,
       lastModified: STATIC_LASTMOD.aiTraining,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    // English-only page for remote teams in the US, UK, Canada and Australia
+    {
+      url: `${baseUrl}/remote-ai-training`,
+      lastModified: STATIC_LASTMOD.remoteAiTraining,
       changeFrequency: 'monthly',
       priority: 0.9,
     },

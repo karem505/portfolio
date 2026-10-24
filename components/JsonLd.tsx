@@ -1,3 +1,10 @@
+const WESTERN_MARKETS = [
+  { '@type': 'Country', name: 'United States' },
+  { '@type': 'Country', name: 'United Kingdom' },
+  { '@type': 'Country', name: 'Canada' },
+  { '@type': 'Country', name: 'Australia' },
+]
+
 export function PersonJsonLd() {
   const personSchema = {
     '@context': 'https://schema.org',
@@ -267,6 +274,7 @@ export function ProfessionalServiceJsonLd() {
       { '@type': 'Country', name: 'Egypt' },
       { '@type': 'Country', name: 'United Arab Emirates' },
       { '@type': 'Country', name: 'Saudi Arabia' },
+      ...WESTERN_MARKETS,
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -290,6 +298,16 @@ export function ProfessionalServiceJsonLd() {
             url: 'https://aboelmakarem.pro/ai-training',
             description:
               'Hands-on corporate AI training for employees and executives on ChatGPT, Claude, prompt engineering, and agentic automation — delivered on-site or live online, in Arabic or English, across Egypt, UAE, and KSA.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Remote Corporate AI Training (US, UK, Canada, Australia)',
+            url: 'https://aboelmakarem.pro/remote-ai-training',
+            description:
+              'Live online ChatGPT and Claude workshops for teams in the United States, United Kingdom, Canada and Australia, scheduled in the client time zone, from USD 800 per day.',
           },
         },
         {
@@ -468,6 +486,63 @@ export function BreadcrumbJsonLd() {
 
 // ── /ai-training ─────────────────────────────────────────────────────────────
 
+const priced = (name: string, price: number, unitText: string, description: string) => ({
+  '@type': 'Offer',
+  name,
+  description,
+  priceCurrency: 'USD',
+  price,
+  availability: 'https://schema.org/InStock',
+  priceSpecification: {
+    '@type': 'UnitPriceSpecification',
+    price,
+    priceCurrency: 'USD',
+    unitText,
+  },
+})
+
+export function RemoteAiTrainingServiceJsonLd() {
+  const url = 'https://aboelmakarem.pro/remote-ai-training'
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name: 'Remote Corporate AI Training for US, UK, Canadian & Australian Teams',
+    serviceType: 'Corporate AI Training',
+    url,
+    description:
+      'Live, instructor-led online training on ChatGPT and Claude for employees and executive teams in the United States, United Kingdom, Canada and Australia. Exercises built on the client team real work, scheduled in the client time zone, with a written guide and prompt library for every participant.',
+    provider: { '@id': 'https://aboelmakarem.pro/#person' },
+    areaServed: WESTERN_MARKETS,
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      name: 'Live online (Zoom, Microsoft Teams, Google Meet)',
+      serviceUrl: url,
+    },
+    availableLanguage: [{ '@type': 'Language', name: 'English', alternateName: 'en' }],
+    audience: {
+      '@type': 'BusinessAudience',
+      name: 'Companies and remote teams in the United States, United Kingdom, Canada and Australia',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Remote AI training formats',
+      itemListElement: [
+        priced('Half-day AI workshop (3-4 hours)', 500, 'per workshop', 'Live online workshop for up to 15 participants.'),
+        priced('Full-day AI workshop (up to 7 hours)', 800, 'per day', 'Live online, optionally split into two sessions.'),
+        priced('Executive one-to-one AI coaching', 100, 'per hour', 'Booked in blocks of three hours.'),
+      ],
+    },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
 export function AiTrainingServiceJsonLd({ ar = false }: { ar?: boolean }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -488,6 +563,7 @@ export function AiTrainingServiceJsonLd({ ar = false }: { ar?: boolean }) {
       { '@type': 'Country', name: 'Egypt' },
       { '@type': 'Country', name: 'United Arab Emirates' },
       { '@type': 'Country', name: 'Saudi Arabia' },
+      ...WESTERN_MARKETS,
     ],
     availableLanguage: [
       { '@type': 'Language', name: 'Arabic', alternateName: 'ar' },
@@ -495,7 +571,7 @@ export function AiTrainingServiceJsonLd({ ar = false }: { ar?: boolean }) {
     ],
     audience: {
       '@type': 'BusinessAudience',
-      name: 'Companies and teams (SMEs to enterprises) in Egypt and the Gulf',
+      name: 'Companies and teams (SMEs to enterprises) in Egypt, the Gulf, and remote teams in the US, UK, Canada and Australia',
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -619,7 +695,8 @@ export function AiTrainingCourseJsonLd({ ar = false }: { ar?: boolean }) {
       {
         '@type': 'CourseInstance',
         name: 'Live Online Corporate AI Workshop',
-        description: 'Live online AI training for distributed and remote teams.',
+        description:
+          'Live online AI training for distributed and remote teams, including teams in the United States, United Kingdom, Canada and Australia.',
         courseMode: 'Online',
         courseWorkload: 'PT4H',
         inLanguage: ['en', 'ar'],

@@ -18,6 +18,8 @@ export default function Footer() {
     { label: t('about', 'نبذة'), href: '/#about' },
     { label: t('Digital Transformation', 'التحول الرقمي'), href: arVariant('/digital-transformation') },
     { label: t('AI Training', 'تدريب الذكاء الاصطناعي'), href: arVariant('/ai-training') },
+    // English-only page for remote teams in the US, UK, Canada and Australia.
+    ...(ar ? [] : [{ label: 'Remote AI Training', href: '/remote-ai-training' }]),
     { label: t('projects', 'المشاريع'), href: '/#projects' },
     { label: t('Apps', 'التطبيقات'), href: arVariant('/apps') },
     { label: t('contact', 'تواصل'), href: '/#contact' },

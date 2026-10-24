@@ -120,7 +120,11 @@ export default function FAQ() {
               <a href="/digital-transformation" className={linkClass}>
                 digital transformation consulting
               </a>{' '}
-              where I both design and build the systems: process automation, AI workflow redesign, ERP and legacy modernization. On-site in Egypt, the UAE and Saudi Arabia or online, in Arabic or English.
+              where I both design and build the systems: process automation, AI workflow redesign, ERP and legacy modernization. On-site in Egypt, the UAE and Saudi Arabia or online, in Arabic or English. Teams in the US, UK, Canada and Australia can book{' '}
+              <a href="/remote-ai-training" className={linkClass}>
+                remote AI training
+              </a>{' '}
+              scheduled in their own time zone.
             </>
           ),
         },
